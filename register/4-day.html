@@ -261,6 +261,7 @@
 
             <div class="register-form-card">
                 <form id="registrationForm" class="registration-form">
+                    <input type="text" name="hp_field_a3x" class="hp-field" aria-hidden="true" tabindex="-1" autocomplete="off">
                     <input type="hidden" id="campType" name="campType" value="4-day">
                     <input type="hidden" name="camp" value="4-day">
 
@@ -393,6 +394,7 @@
             if (form) {
                 form.addEventListener('submit', function(e) {
                     e.preventDefault();
+                    if (isBotSubmission(this)) return;
 
                     const goals = document.querySelectorAll('input[name="goals"]:checked');
                     if (goals.length === 0) {

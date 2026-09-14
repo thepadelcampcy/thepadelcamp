@@ -6,6 +6,21 @@
 // Google Apps Script URL для отправки данных
 const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyRFc1LgrjR1okUiCvZRepdiKKhM0u_BcIfJz0pfpJhnqDvkXpHCeUUQYiEVpt18CvLOA/exec';
 
+// Anti-spam: page load timestamp, used to reject submissions that arrive
+// too fast to be a human (bots that auto-fill + submit instantly)
+const PAGE_LOAD_TIME = Date.now();
+const MIN_SUBMIT_DELAY_MS = 3000;
+
+// Anti-spam check for form submit handlers: honeypot field must stay empty
+// (bots that auto-fill every input trip it) and submission must not be
+// suspiciously instant. Returns true if the submission looks like a bot.
+function isBotSubmission(form) {
+    const honeypot = form.querySelector('.hp-field');
+    if (honeypot && honeypot.value) return true;
+    if (Date.now() - PAGE_LOAD_TIME < MIN_SUBMIT_DELAY_MS) return true;
+    return false;
+}
+
 // Current page language (en / ru / el), used to pick the right text for
 // modals that are shared between index.html, ru/index.html and el/index.html.
 function getPageLang() {
@@ -689,6 +704,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (registrationForm && registrationModal) {
         registrationForm.addEventListener('submit', function(e) {
             e.preventDefault();
+            if (isBotSubmission(this)) return;
 
             // Validate at least one goal is selected
             const goals = document.querySelectorAll('input[name="goals"]:checked');
@@ -842,6 +858,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (serviceBookingForm) {
         serviceBookingForm.addEventListener('submit', function(e) {
             e.preventDefault();
+            if (isBotSubmission(this)) return;
 
             // Collect form data
             const formData = new FormData(this);
@@ -929,6 +946,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (massageBookingForm) {
         massageBookingForm.addEventListener('submit', function(e) {
             e.preventDefault();
+            if (isBotSubmission(this)) return;
 
             // Collect form data
             const formData = new FormData(this);
@@ -1046,6 +1064,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (mediaPackageForm) {
         mediaPackageForm.addEventListener('submit', function(e) {
             e.preventDefault();
+            if (isBotSubmission(this)) return;
 
             // Collect form data
             const formData = new FormData(this);

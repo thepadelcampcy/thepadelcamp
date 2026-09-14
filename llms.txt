@@ -61,13 +61,13 @@ Registration and payment available directly on the website.
 
 ## Key Pages
 
-- Homepage (EN): https://thepadelcamp.com.cy/
-- Homepage (RU): https://thepadelcamp.com.cy/ru/
-- Homepage (EL): https://thepadelcamp.com.cy/el/
-- Register — 2-Day Camp: https://thepadelcamp.com.cy/register/2-day (also /ru/register/2-day, /el/register/2-day)
-- Register — 4-Day Camp: https://thepadelcamp.com.cy/register/4-day (also /ru/register/4-day, /el/register/4-day)
-- Register — 6-Day Camp: https://thepadelcamp.com.cy/register/6-day (also /ru/register/6-day, /el/register/6-day)
-- Partners & Sponsors: https://thepadelcamp.com.cy/partners.html (also /ru/partners.html, /el/partners.html)
+- [Homepage (EN)](https://thepadelcamp.com.cy/): Camp overview, program, pricing, and registration
+- [Homepage (RU)](https://thepadelcamp.com.cy/ru/): Russian version of the homepage
+- [Homepage (EL)](https://thepadelcamp.com.cy/el/): Greek version of the homepage
+- [Register — 2-Day Camp](https://thepadelcamp.com.cy/register/2-day): also at /ru/register/2-day, /el/register/2-day
+- [Register — 4-Day Camp](https://thepadelcamp.com.cy/register/4-day): also at /ru/register/4-day, /el/register/4-day
+- [Register — 6-Day Camp](https://thepadelcamp.com.cy/register/6-day): also at /ru/register/6-day, /el/register/6-day
+- [Partners & Sponsors](https://thepadelcamp.com.cy/partners.html): also at /ru/partners.html, /el/partners.html
 
 ## How to Cite
 

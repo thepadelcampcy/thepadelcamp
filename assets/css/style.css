@@ -3487,6 +3487,15 @@ img {
     gap: 8px;
 }
 
+/* Honeypot field: invisible to real users, catches bots that auto-fill every input */
+.hp-field {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
 .form-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
