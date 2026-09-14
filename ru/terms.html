@@ -10,7 +10,9 @@
     <link rel="alternate" hreflang="ru" href="https://thepadelcamp.com.cy/ru/terms.html">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@400;500;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"></noscript>
     <link rel="stylesheet" href="../assets/css/style.css?v=3">
     <style>
         .policy-page {
@@ -58,7 +60,7 @@
     <!-- Header -->
     <header class="header scrolled" id="header">
         <div class="container">
-            <a href="/ru/" class="logo"><img src="../assets/images/logo.png" alt="Padel Camp Кипр"></a>
+            <a href="/ru/" class="logo"><picture><source srcset="../assets/images/logo.webp" type="image/webp"><img src="../assets/images/logo.png" alt="Padel Camp Кипр" width="612" height="408" fetchpriority="high"></picture></a>
             <div class="header-actions">
                 <div class="lang-switch">
                     <a href="/terms.html">EN</a>
