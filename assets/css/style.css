@@ -94,7 +94,7 @@ img {
 
 .section-subtitle {
     font-size: 18px;
-    color: var(--gray-500);
+    color: var(--gray-600);
     margin-top: 16px;
 }
 
@@ -149,7 +149,7 @@ img {
 
 .btn-whatsapp {
     background: #25D366;
-    color: var(--white);
+    color: var(--black);
 }
 
 .btn-whatsapp:hover {
@@ -266,8 +266,8 @@ img {
 .lang-switch a {
     font-size: 13px;
     font-weight: 500;
-    color: var(--gray-400);
-    padding: 4px 8px;
+    color: var(--gray-500);
+    padding: 6px 8px;
     border-radius: 4px;
     transition: var(--transition);
 }
@@ -540,7 +540,7 @@ img {
 .feature-number {
     font-size: 14px;
     font-weight: 600;
-    color: var(--gray-400);
+    color: var(--gray-500);
 }
 
 .feature-content h3 {
@@ -2891,6 +2891,7 @@ img {
 }
 
 .contact-section .btn-ghost {
+    background: rgba(255, 255, 255, 0.08);
     color: var(--white);
     border-color: var(--gray-600);
 }
@@ -2944,7 +2945,8 @@ img {
 
 .footer-lang a {
     font-size: 14px;
-    color: var(--gray-400);
+    color: var(--gray-500);
+    padding: 6px 0;
     transition: var(--transition);
 }
 
@@ -2990,7 +2992,7 @@ img {
 .footer-social {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 8px;
 }
 
 .footer-social a {
@@ -2998,6 +3000,8 @@ img {
     transition: color 0.2s;
     display: flex;
     align-items: center;
+    justify-content: center;
+    padding: 4px;
 }
 
 .footer-social a:hover {
@@ -3976,7 +3980,7 @@ img {
 /* WhatsApp Button */
 .btn-whatsapp {
     background: #25D366;
-    color: white;
+    color: var(--black);
     border: none;
     padding: 16px 32px;
     border-radius: 12px;
@@ -4527,6 +4531,7 @@ img {
 }
 
 .partners-cta-section .btn-ghost {
+    background: rgba(255, 255, 255, 0.08);
     color: var(--white);
     border-color: var(--gray-600);
 }
