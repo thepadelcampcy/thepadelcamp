@@ -1,18 +1,20 @@
 /**
  * Tracking Pixels & Cookie Consent
  * =================================
- * Meta Pixel + Google Analytics 4 + Google Ads
+ * Meta Pixel + Google Analytics 4 + Google Ads + Microsoft Clarity
  * GDPR-compliant: pixels only load after user consent
  *
  * SETUP: Replace these placeholder IDs with your real ones:
  * 1. META_PIXEL_ID  → your Meta Pixel ID (e.g. '123456789012345')
  * 2. GA4_ID         → your GA4 Measurement ID (e.g. 'G-XXXXXXXXXX')
  * 3. GADS_ID        → your Google Ads ID (e.g. 'AW-XXXXXXXXX')
+ * 4. CLARITY_ID     → your Microsoft Clarity Project ID (from clarity.microsoft.com)
  */
 
 const META_PIXEL_ID = '838994425860514';
 const GA4_ID = 'G-DDFNKFDZHR';
 const GADS_ID = 'YOUR_GOOGLE_ADS_ID';
+const CLARITY_ID = 'yisjvh4uxg';
 
 const CONSENT_KEY = 'cookie_consent';
 
@@ -88,6 +90,7 @@ function loadAllPixels() {
     loadMetaPixel();
     loadGA4();
     loadGoogleAds();
+    loadClarity();
 }
 
 function loadMetaPixel() {
@@ -129,6 +132,16 @@ function loadGoogleAds() {
     function gtag(){dataLayer.push(arguments);}
     if (!window.gtag) window.gtag = gtag;
     gtag('config', GADS_ID);
+}
+
+function loadClarity() {
+    if (CLARITY_ID === 'YOUR_CLARITY_PROJECT_ID') return;
+
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", CLARITY_ID);
 }
 
 // ─── Event Tracking Helpers ──────────────────────────────────────
