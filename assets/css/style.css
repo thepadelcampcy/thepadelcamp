@@ -3359,6 +3359,12 @@ img {
         justify-content: center;
     }
 
+    .footer-simple {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+    }
+
     .whatsapp-float {
         bottom: 24px;
         right: 24px;
