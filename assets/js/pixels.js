@@ -275,6 +275,52 @@ function trackConfirmedPurchase(data) {
     }
 }
 
+// ─── Stripe Attribution Passthrough ──────────────────────────────
+
+/**
+ * Read a cookie value by name.
+ */
+function getCookie(name) {
+    const match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
+    return match ? decodeURIComponent(match[1]) : '';
+}
+
+/**
+ * GA4's client_id lives inside the _ga cookie as GA1.2.XXXXXXXXXX.YYYYYYYYYY —
+ * the client_id itself is the last two dot-separated segments.
+ */
+function getGA4ClientId() {
+    const ga = getCookie('_ga');
+    if (!ga) return '';
+    const parts = ga.split('.');
+    return parts.length >= 4 ? parts[2] + '.' + parts[3] : '';
+}
+
+/**
+ * Packs GA4's client_id and Meta's _fbc/_fbp cookies into one string for
+ * Stripe's client_reference_id field, so the Apps Script webhook can forward
+ * real session/ad-click attribution to GA4 Measurement Protocol and Meta
+ * CAPI. Without this, server-side purchase events can't be tied back to the
+ * visitor's original session/ad click.
+ */
+function buildStripeAttributionParam() {
+    if (localStorage.getItem(CONSENT_KEY) !== 'accepted') return '';
+    const gcid = getGA4ClientId();
+    const fbc = getCookie('_fbc');
+    const fbp = getCookie('_fbp');
+    if (!gcid && !fbc && !fbp) return '';
+    return encodeURIComponent([gcid, fbc, fbp].join('||'));
+}
+
+/**
+ * Appends the packed attribution string to a Stripe link as client_reference_id.
+ */
+function appendStripeAttribution(url) {
+    const param = buildStripeAttributionParam();
+    if (!param) return url;
+    return url + (url.indexOf('?') > -1 ? '&' : '?') + 'client_reference_id=' + param;
+}
+
 // ─── Social & WhatsApp Click Tracking ────────────────────────────
 
 function initSocialClickTracking() {

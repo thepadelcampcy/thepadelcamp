@@ -798,7 +798,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <div class="payment-option">
                                 <h4>${T.option1}</h4>
                                 <p class="payment-option-desc">${T.secure}</p>
-                                <a href="${stripeLink}" target="_blank" class="btn btn-primary btn-block" data-purchase-value="${priceNum}" data-purchase-item="${campName}">
+                                <a href="${typeof appendStripeAttribution === 'function' ? appendStripeAttribution(stripeLink) : stripeLink}" target="_blank" class="btn btn-primary btn-block" data-purchase-value="${priceNum}" data-purchase-item="${campName}">
                                     💳 ${T.pay}
                                 </a>
                             </div>
@@ -1028,7 +1028,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <div class="payment-option">
                                 <h4>${T.option1}</h4>
                                 <p class="payment-option-desc">${T.secure}</p>
-                                <a href="${stripeLink}" target="_blank" class="btn btn-primary btn-block" data-purchase-value="${data.price}" data-purchase-item="massage_${data.duration}min">
+                                <a href="${typeof appendStripeAttribution === 'function' ? appendStripeAttribution(stripeLink) : stripeLink}" target="_blank" class="btn btn-primary btn-block" data-purchase-value="${data.price}" data-purchase-item="massage_${data.duration}min">
                                     💳 ${T.pay}
                                 </a>
                             </div>
@@ -1089,6 +1089,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Determine language
             const lang = getPageLang();
+            const stripeLink = 'https://buy.stripe.com/9B65kF8d9bRpbOFclScEw0a';
 
             const T = {
                 en: {
@@ -1130,7 +1131,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <div class="payment-option">
                                 <h4>${T.option1}</h4>
                                 <p class="payment-option-desc">${T.secure}</p>
-                                <a href="https://buy.stripe.com/9B65kF8d9bRpbOFclScEw0a" target="_blank" class="btn btn-primary btn-block" data-purchase-value="130" data-purchase-item="media_package">
+                                <a href="${typeof appendStripeAttribution === 'function' ? appendStripeAttribution(stripeLink) : stripeLink}" target="_blank" class="btn btn-primary btn-block" data-purchase-value="130" data-purchase-item="media_package">
                                     💳 ${T.pay}
                                 </a>
                             </div>
