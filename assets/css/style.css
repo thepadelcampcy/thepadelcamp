@@ -3318,20 +3318,20 @@ img {
 
     /* Scrolled state */
     .header.scrolled .container {
-        height: 144px;
+        height: 130px;
     }
 
     .header.scrolled .logo img {
         height: 120px;
     }
 
-    /* Keep logo centered in the compact scrolled header too
+    /* Vertically centered, pinned to the left so it clears EN/RU/EL + menu
        (overrides the higher-specificity desktop left-align rule above) */
     .header.scrolled .logo.logo-center {
         position: absolute;
-        left: 50%;
+        left: 16px;
         top: 50%;
-        transform: translate(-50%, -50%);
+        transform: translateY(-50%);
     }
 
     /* Language switch moves right (closer to menu) on scroll */
