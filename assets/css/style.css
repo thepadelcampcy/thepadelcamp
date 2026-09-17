@@ -3253,7 +3253,7 @@ img {
 
     /* Mobile header - liquid glass intro that shrinks on scroll */
     .header .container {
-        height: 22vh;
+        height: 24vh;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -3303,7 +3303,7 @@ img {
     }
 
     .logo img {
-        height: 16vh;
+        height: 20vh;
         transition: height 0.4s ease;
     }
 
@@ -3388,7 +3388,7 @@ img {
     }
 
     .hero {
-        padding: calc(22vh + 40px) 24px 64px;
+        padding: calc(24vh + 40px) 24px 64px;
     }
 
     .hero-cta {
