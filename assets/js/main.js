@@ -51,6 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initHeaderScroll();
     initContactForm();
     initAnimations();
+    initPricingViewTracking();
 });
 
 /**
@@ -452,6 +453,30 @@ function initAnimations() {
             observer.observe(el);
         });
     }
+}
+
+/**
+ * Fires a ViewContent/view_item event once when the visitor actually scrolls
+ * the pricing section into view — signals "looked at prices but didn't act"
+ * for retargeting, separate from Lead/InitiateCheckout which only fire once
+ * someone starts the registration/payment flow.
+ */
+function initPricingViewTracking() {
+    const pricingSection = document.getElementById('pricing');
+    if (!pricingSection || !('IntersectionObserver' in window)) return;
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                if (typeof trackViewContent === 'function') {
+                    trackViewContent({ name: 'pricing' });
+                }
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.3 });
+
+    observer.observe(pricingSection);
 }
 
 /**

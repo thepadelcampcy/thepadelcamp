@@ -199,6 +199,29 @@ function trackPurchase(data) {
 }
 
 /**
+ * Track viewing a section of interest (e.g. pricing) — signals intent
+ * without requiring the visitor to start a form, useful for retargeting
+ * "looked but didn't convert" audiences.
+ */
+function trackViewContent(data) {
+    if (localStorage.getItem(CONSENT_KEY) !== 'accepted') return;
+
+    if (typeof fbq === 'function') {
+        fbq('track', 'ViewContent', {
+            content_name: data.name || 'padel_camp',
+            content_category: 'padel_camp'
+        });
+    }
+
+    if (typeof gtag === 'function') {
+        gtag('event', 'view_item', {
+            event_category: 'engagement',
+            event_label: data.name || 'padel_camp'
+        });
+    }
+}
+
+/**
  * Track a contact form submission
  */
 function trackContact() {
