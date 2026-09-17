@@ -200,13 +200,14 @@ img {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
+    transition: none;
 }
 
 .logo img {
     height: 22vh;
     width: auto;
     object-fit: contain;
-    transition: all 0.3s ease;
+    transition: none;
 }
 
 /* Large logo before scroll, small logo once the header is compact */
@@ -3299,12 +3300,12 @@ img {
         left: 50%;
         top: 50%;
         transform: translate(-50%, -50%);
-        transition: left 0.4s ease, transform 0.4s ease, top 0.4s ease;
+        transition: none;
     }
 
     .logo img {
         height: 20vh;
-        transition: height 0.4s ease;
+        transition: none;
     }
 
     /* Menu button on the RIGHT */
