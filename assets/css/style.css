@@ -3318,11 +3318,11 @@ img {
 
     /* Scrolled state */
     .header.scrolled .container {
-        height: 60px;
+        height: 72px;
     }
 
     .header.scrolled .logo img {
-        height: 50px;
+        height: 60px;
     }
 
     /* Keep logo centered in the compact scrolled header too */
