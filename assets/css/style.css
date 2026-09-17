@@ -2600,6 +2600,10 @@ img {
 /* ========================================
    GALLERY SECTION
    ======================================== */
+.gallery-section {
+    padding: var(--section-spacing) 0;
+}
+
 .gallery-header {
     text-align: center;
     margin-bottom: 48px;
