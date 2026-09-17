@@ -178,6 +178,21 @@ function initProgramTabs() {
             }
         });
     });
+
+    // Program details accordion (View details)
+    const detailsButtons = document.querySelectorAll('.btn-view-details');
+
+    detailsButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const block = this.closest('.program-details-block');
+            if (!block) return;
+
+            const isActive = block.classList.contains('active');
+            block.classList.toggle('active', !isActive);
+            this.setAttribute('aria-expanded', String(!isActive));
+            this.textContent = isActive ? this.dataset.labelView : this.dataset.labelHide;
+        });
+    });
 }
 
 /**
