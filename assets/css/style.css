@@ -2830,7 +2830,7 @@ img {
 }
 
 .approach-item.active .approach-answer {
-    max-height: 600px;
+    max-height: 2000px;
 }
 
 .approach-list {
