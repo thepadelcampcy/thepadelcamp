@@ -371,6 +371,7 @@ img {
     letter-spacing: -0.03em;
     text-transform: uppercase;
     margin-bottom: 32px;
+    overflow-wrap: break-word;
     opacity: 0;
     transform: translateY(20px);
     -webkit-animation: fadeInUp 0.8s ease forwards;
@@ -3495,7 +3496,7 @@ img {
     }
 
     .hero-title {
-        font-size: 40px;
+        font-size: clamp(32px, 10vw, 40px);
     }
 
     .meta-value {
