@@ -439,7 +439,7 @@
                                     <div class="payment-option">
                                         <h4>Επιλογή 1: Online Πληρωμή</h4>
                                         <p class="payment-option-desc">Ασφαλής πληρωμή με κάρτα</p>
-                                        <a href="https://book.stripe.com/14A9AV1OL4oXg4Vfy4cEw0f" target="_blank" class="btn btn-primary btn-block" data-purchase-value="900" data-purchase-item="6-Day Camp">
+                                        <a href="${typeof appendStripeAttribution === 'function' ? appendStripeAttribution('https://book.stripe.com/14A9AV1OL4oXg4Vfy4cEw0f') : 'https://book.stripe.com/14A9AV1OL4oXg4Vfy4cEw0f'}" target="_blank" class="btn btn-primary btn-block" data-purchase-value="900" data-purchase-item="6-Day Camp">
                                             💳 Πληρωμή με Stripe
                                         </a>
                                     </div>

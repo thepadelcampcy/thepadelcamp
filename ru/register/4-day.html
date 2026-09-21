@@ -439,7 +439,7 @@
                                     <div class="payment-option">
                                         <h4>Вариант 1: Оплата онлайн</h4>
                                         <p class="payment-option-desc">Безопасная оплата картой</p>
-                                        <a href="https://book.stripe.com/14A28t651f3B5qhclScEw0g" target="_blank" class="btn btn-primary btn-block" data-purchase-value="650" data-purchase-item="4-Day Camp">
+                                        <a href="${typeof appendStripeAttribution === 'function' ? appendStripeAttribution('https://book.stripe.com/14A28t651f3B5qhclScEw0g') : 'https://book.stripe.com/14A28t651f3B5qhclScEw0g'}" target="_blank" class="btn btn-primary btn-block" data-purchase-value="650" data-purchase-item="4-Day Camp">
                                             💳 Оплатить через Stripe
                                         </a>
                                     </div>
