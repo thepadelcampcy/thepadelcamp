@@ -181,6 +181,10 @@ function trackRegistration(data) {
             currency: 'EUR'
         });
     }
+
+    if (typeof clarity === 'function') {
+        clarity('event', 'registration_submit');
+    }
 }
 
 /**
@@ -204,6 +208,13 @@ function trackPurchase(data) {
             value: data.value || 0,
             currency: 'EUR'
         });
+    }
+
+    // Explicit Clarity event for the Stripe click — Clarity's own auto-detected
+    // "Smart Events" were misfiring on the WhatsApp confirmation link instead
+    // of this one, so we mark the real moment ourselves.
+    if (typeof clarity === 'function') {
+        clarity('event', 'initiate_checkout');
     }
 }
 
@@ -280,6 +291,10 @@ function trackContact() {
             event_label: 'contact_form'
         });
     }
+
+    if (typeof clarity === 'function') {
+        clarity('event', 'contact_submit');
+    }
 }
 
 /**
@@ -297,12 +312,20 @@ function trackBooking(serviceName, value) {
     }
 
     if (typeof gtag === 'function') {
-        gtag('event', 'begin_checkout', {
+        // Own event name (not begin_checkout) — trackPurchase() below already
+        // uses begin_checkout for the camp Stripe-click step; reusing it here
+        // for service bookings was collapsing two different funnels into one
+        // GA4 event.
+        gtag('event', 'book_service', {
             event_category: 'booking',
             event_label: serviceName,
             value: value || 0,
             currency: 'EUR'
         });
+    }
+
+    if (typeof clarity === 'function') {
+        clarity('event', 'booking_submit');
     }
 }
 
@@ -338,6 +361,12 @@ function trackConfirmedPurchase(data) {
             transaction_id: data.eventId || ('T_' + Date.now()),
             items: [{ item_name: data.item || 'padel_camp', price: data.value || 0 }]
         });
+    }
+
+    // Clarity's own auto-detected "Order success" Smart Event was empty/
+    // unconfigured — this is the real, code-driven equivalent.
+    if (typeof clarity === 'function') {
+        clarity('event', 'purchase_confirmed');
     }
 }
 
@@ -394,18 +423,24 @@ function initSocialClickTracking() {
     document.addEventListener('click', function(e) {
         if (localStorage.getItem(CONSENT_KEY) !== 'accepted') return;
 
-        // WhatsApp click → standard Contact event (FB Pixel + GA4)
+        // WhatsApp click → back to Meta's standard Contact event (not a custom
+        // event) so it stays selectable as an ad optimization goal in Ads
+        // Manager. GA4 keeps its own distinct name (whatsapp_click) since GA4
+        // has no such restriction on custom event names.
         var waLink = e.target.closest('a[href*="wa.me"], .whatsapp-float, .btn-whatsapp');
         if (waLink) {
             if (typeof fbq === 'function') {
                 fbq('track', 'Contact', { content_name: 'whatsapp' });
             }
             if (typeof gtag === 'function') {
-                gtag('event', 'contact', {
+                gtag('event', 'whatsapp_click', {
                     method: 'whatsapp',
                     event_category: 'engagement',
                     transport_type: 'beacon'
                 });
+            }
+            if (typeof clarity === 'function') {
+                clarity('event', 'whatsapp_click');
             }
         }
 
