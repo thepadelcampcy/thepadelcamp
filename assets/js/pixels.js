@@ -18,6 +18,15 @@ const CLARITY_ID = 'yisjvh4uxg';
 
 const CONSENT_KEY = 'cookie_consent';
 
+// Cloudflare Worker that relays browser-side events to the "Padel Camp —
+// Stripe Webhook" Apps Script (which holds the real Meta CAPI credentials).
+// Public URL, same trust level as GOOGLE_SCRIPT_URL below — protected by
+// VIEWCONTENT_RELAY_TOKEN, a low-privilege token separate from the
+// Stripe webhook's own token, since this one is necessarily public (visible
+// in page source).
+const CAPI_RELAY_URL = 'https://padelcamp-stripe-webhook-proxy.thepadelcampcy.workers.dev';
+const VIEWCONTENT_RELAY_TOKEN = '5f254d8934df40c8e51f3c52f91c43956485ba57277587c6';
+
 // ─── Cookie Consent Banner ───────────────────────────────────────
 
 function createConsentBanner() {
@@ -206,19 +215,53 @@ function trackPurchase(data) {
 function trackViewContent(data) {
     if (localStorage.getItem(CONSENT_KEY) !== 'accepted') return;
 
+    const contentName = data.name || 'padel_camp';
+    const eventId = 'vc_' + Date.now() + '_' + Math.random().toString(36).slice(2, 10);
+
     if (typeof fbq === 'function') {
         fbq('track', 'ViewContent', {
-            content_name: data.name || 'padel_camp',
+            content_name: contentName,
             content_category: 'padel_camp'
-        });
+        }, { eventID: eventId });
     }
 
     if (typeof gtag === 'function') {
         gtag('event', 'view_item', {
             event_category: 'engagement',
-            event_label: data.name || 'padel_camp'
+            event_label: contentName
         });
     }
+
+    sendViewContentToServer(eventId, contentName);
+}
+
+/**
+ * Relays ViewContent to Meta CAPI server-side (via the Cloudflare Worker →
+ * Apps Script), using the same event_id as the browser pixel call above so
+ * Meta dedupes them. Improves CAPI event coverage for ad-blocked/iOS
+ * visitors, same rationale as the Purchase CAPI backstop.
+ */
+function sendViewContentToServer(eventId, contentName) {
+    const fbc = getCookie('_fbc');
+    const fbp = getCookie('_fbp');
+    if (!fbc && !fbp) return; // nothing for Meta to match this visitor on
+
+    fetch(CAPI_RELAY_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            token: VIEWCONTENT_RELAY_TOKEN,
+            type: 'view_content',
+            event_id: eventId,
+            content_name: contentName,
+            fbc: fbc,
+            fbp: fbp,
+            url: location.href
+        })
+    }).catch(function() {});
 }
 
 /**
