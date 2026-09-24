@@ -151,6 +151,13 @@ function loadClarity() {
         t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", CLARITY_ID);
+
+    // Since 2025-10-31 Clarity requires an explicit consent signal for
+    // visitors from the EEA/UK/CH to get full tracking (session cookies,
+    // custom events included) — this was never being sent, only ever
+    // called here since loadClarity() only runs after our own cookie
+    // banner was accepted (or was already accepted on a return visit).
+    clarity('consent');
 }
 
 // ─── Event Tracking Helpers ──────────────────────────────────────
