@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register — 4-Day Camp | The Padel Camp Cyprus 2026</title>
-    <meta name="description" content="Register for the 4-Day Padel Camp in Limassol, Cyprus. October 5-8, 2026. €650. Spanish professional coaches, small groups, all levels.">
+    <meta name="description" content="Padel training camp in Limassol, Cyprus — moving to November 2026. Spanish professional coaches, small groups, all levels. Leave your contacts to be notified first.">
     <meta name="robots" content="index, follow">
 
     <link rel="canonical" href="https://thepadelcamp.com.cy/register/4-day">
@@ -15,7 +15,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://thepadelcamp.com.cy/register/4-day">
     <meta property="og:title" content="Register — 4-Day Camp | The Padel Camp Cyprus 2026">
-    <meta property="og:description" content="Register for the 4-Day Padel Camp in Limassol, Cyprus. October 5-8, 2026. €650.">
+    <meta property="og:description" content="Padel training camp in Limassol, Cyprus — moving to November 2026. Leave your contacts to be notified first.">
     <meta property="og:image" content="https://thepadelcamp.com.cy/assets/images/og-image.jpg">
 
     <link rel="icon" type="image/png" href="../assets/images/favicon.png">
@@ -248,8 +248,8 @@
             <div class="camp-summary">
                 <div class="camp-summary-label">Registration</div>
                 <h1 class="camp-summary-title">4-Day Camp</h1>
-                <div class="camp-summary-dates">October 5-8, 2026 · Limassol</div>
-                <div class="camp-summary-price">€650</div>
+                <div class="camp-summary-dates">Limassol · Dates &amp; price coming soon</div>
+                <div class="camp-summary-price">November 2026</div>
                 <div class="camp-summary-includes">
                     <span>4 days training</span>
                     <span>Spanish coaches</span>
@@ -349,7 +349,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary btn-block btn-submit">
-                        Proceed to Payment
+                        Submit Application
                     </button>
                 </form>
             </div>
@@ -420,47 +420,25 @@
                     sendToGoogleSheets(data).catch(err => console.log('Send error:', err));
 
                     if (typeof trackRegistration === 'function') {
-                        trackRegistration({ type: 'camp_registration', camp: '4-day', value: 650 });
+                        trackRegistration({ type: 'camp_registration', camp: '4-day', value: 0 });
                     }
 
                     const container = document.querySelector('.register-form-card');
                     container.innerHTML = `
                         <div class="payment-success">
                             <div class="payment-success-icon">✓</div>
-                            <h2>Registration Submitted!</h2>
+                            <h2>Application Received!</h2>
                             <p class="payment-success-subtitle">Thank you, ${data.fullName}!</p>
 
                             <div class="payment-details-box">
-                                <h3>Complete Your Payment</h3>
-                                <p class="payment-amount">Amount: <strong>€650</strong></p>
-                                <p class="payment-camp">4-Day Camp (October 5-8)</p>
+                                <h3>What's Next?</h3>
+                                <p class="payment-camp">4-Day Camp</p>
+                                <p>We're moving the camp to November 2026 — exact dates and prices will be announced soon. We'll contact you as soon as they're confirmed.</p>
 
-                                <div class="payment-options">
-                                    <div class="payment-option">
-                                        <h4>Option 1: Pay Online with Stripe</h4>
-                                        <p class="payment-option-desc">Secure online payment with card</p>
-                                        <a href="${typeof appendStripeAttribution === 'function' ? appendStripeAttribution('https://book.stripe.com/14A28t651f3B5qhclScEw0g') : 'https://book.stripe.com/14A28t651f3B5qhclScEw0g'}" target="_blank" class="btn btn-primary btn-block" data-purchase-value="650" data-purchase-item="4-Day Camp">
-                                            💳 Pay with Stripe
-                                        </a>
-                                    </div>
-
-                                    <div class="payment-divider">OR</div>
-
-                                    <div class="payment-option">
-                                        <h4>Option 2: Bank Transfer</h4>
-                                        <p class="payment-option-desc">Contact us on WhatsApp for bank details</p>
-                                    </div>
+                                <div class="massage-booking-success-info">
+                                    <p><strong>We'll reach out to you at:</strong></p>
+                                    <p>📞 ${data.phone}<br>✉️ ${data.email}</p>
                                 </div>
-
-                                <div class="payment-note">
-                                    <strong>Important:</strong> After payment, please confirm via WhatsApp
-                                </div>
-                            </div>
-
-                            <div class="payment-actions">
-                                <a href="https://wa.me/35797497756?text=${encodeURIComponent('Hi! I have completed the payment for 4-Day Camp (October 5-8). Name: ' + data.fullName)}" target="_blank" class="btn btn-whatsapp btn-block">
-                                    Confirm Payment via WhatsApp
-                                </a>
                             </div>
                         </div>
                     `;

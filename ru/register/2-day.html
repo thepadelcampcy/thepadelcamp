@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Регистрация — 2-дневный лагерь | The Padel Camp Cyprus 2026</title>
-    <meta name="description" content="Регистрация на 2-дневный падел-лагерь в Лимассоле, Кипр. 9-10 октября 2026. €350. Испанские тренеры, малые группы, все уровни.">
+    <meta name="description" content="Падел-лагерь в Лимассоле, Кипр — переносится на ноябрь 2026. Испанские тренеры, малые группы, все уровни. Оставьте контакты, чтобы узнать первыми.">
     <meta name="robots" content="index, follow">
 
     <link rel="canonical" href="https://thepadelcamp.com.cy/ru/register/2-day">
@@ -15,7 +15,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://thepadelcamp.com.cy/ru/register/2-day">
     <meta property="og:title" content="Регистрация — 2-дневный лагерь | The Padel Camp Cyprus 2026">
-    <meta property="og:description" content="Регистрация на 2-дневный падел-лагерь в Лимассоле. 9-10 октября 2026. €350.">
+    <meta property="og:description" content="Падел-лагерь в Лимассоле — переносится на ноябрь 2026. Оставьте контакты, чтобы узнать первыми.">
     <meta property="og:image" content="https://thepadelcamp.com.cy/assets/images/og-image.jpg">
 
     <link rel="icon" type="image/png" href="../../assets/images/favicon.png">
@@ -248,8 +248,8 @@
             <div class="camp-summary">
                 <div class="camp-summary-label">Регистрация</div>
                 <h1 class="camp-summary-title">2-дневный лагерь</h1>
-                <div class="camp-summary-dates">9-10 октября 2026 · Лимассол</div>
-                <div class="camp-summary-price">€350</div>
+                <div class="camp-summary-dates">Лимассол · Даты и цена скоро</div>
+                <div class="camp-summary-price">Ноябрь 2026</div>
                 <div class="camp-summary-includes">
                     <span>2 дня тренировок</span>
                     <span>Испанские тренеры</span>
@@ -349,7 +349,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary btn-block btn-submit">
-                        Перейти к оплате
+                        Отправить заявку
                     </button>
                 </form>
             </div>
@@ -420,47 +420,25 @@
                     sendToGoogleSheets(data).catch(err => console.log('Send error:', err));
 
                     if (typeof trackRegistration === 'function') {
-                        trackRegistration({ type: 'camp_registration', camp: '2-day', value: 350 });
+                        trackRegistration({ type: 'camp_registration', camp: '2-day', value: 0 });
                     }
 
                     const container = document.querySelector('.register-form-card');
                     container.innerHTML = `
                         <div class="payment-success">
                             <div class="payment-success-icon">✓</div>
-                            <h2>Регистрация отправлена!</h2>
+                            <h2>Заявка получена!</h2>
                             <p class="payment-success-subtitle">Спасибо, ${data.fullName}!</p>
 
                             <div class="payment-details-box">
-                                <h3>Завершите оплату</h3>
-                                <p class="payment-amount">Сумма: <strong>€350</strong></p>
-                                <p class="payment-camp">2-дневный лагерь (9-10 октября)</p>
+                                <h3>Что дальше?</h3>
+                                <p class="payment-camp">2-дневный лагерь</p>
+                                <p>Мы переносим кемп на ноябрь 2026 — точные даты и цены объявим совсем скоро. Свяжемся с вами, как только всё будет готово.</p>
 
-                                <div class="payment-options">
-                                    <div class="payment-option">
-                                        <h4>Вариант 1: Оплата онлайн</h4>
-                                        <p class="payment-option-desc">Безопасная оплата картой</p>
-                                        <a href="${typeof appendStripeAttribution === 'function' ? appendStripeAttribution('https://book.stripe.com/eVq6oJalhaNlg4V5XucEw0h') : 'https://book.stripe.com/eVq6oJalhaNlg4V5XucEw0h'}" target="_blank" class="btn btn-primary btn-block" data-purchase-value="350" data-purchase-item="2-Day Camp">
-                                            💳 Оплатить через Stripe
-                                        </a>
-                                    </div>
-
-                                    <div class="payment-divider">ИЛИ</div>
-
-                                    <div class="payment-option">
-                                        <h4>Вариант 2: Банковский перевод</h4>
-                                        <p class="payment-option-desc">Напишите нам в WhatsApp для реквизитов</p>
-                                    </div>
+                                <div class="massage-booking-success-info">
+                                    <p><strong>Мы свяжемся с вами по:</strong></p>
+                                    <p>📞 ${data.phone}<br>✉️ ${data.email}</p>
                                 </div>
-
-                                <div class="payment-note">
-                                    <strong>Важно:</strong> После оплаты подтвердите через WhatsApp
-                                </div>
-                            </div>
-
-                            <div class="payment-actions">
-                                <a href="https://wa.me/35797497756?text=${encodeURIComponent('Привет! Я оплатил(а) 2-дневный лагерь (9-10 октября). Имя: ' + data.fullName)}" target="_blank" class="btn btn-whatsapp btn-block">
-                                    Подтвердить оплату через WhatsApp
-                                </a>
                             </div>
                         </div>
                     `;

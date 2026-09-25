@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Εγγραφή — 6ήμερο Camp | The Padel Camp Cyprus 2026</title>
-    <meta name="description" content="Εγγραφή στο 6ήμερο Padel Camp στη Λεμεσό, Κύπρος. 5-10 Οκτωβρίου 2026. €900. Επαγγελματίες Ισπανοί προπονητές, μικρές ομάδες, όλα τα επίπεδα.">
+    <meta name="description" content="Padel Camp στη Λεμεσό, Κύπρος — μεταφέρεται για Νοέμβριο 2026. Επαγγελματίες Ισπανοί προπονητές, μικρές ομάδες, όλα τα επίπεδα. Άφησε τα στοιχεία σου για να ενημερωθείς πρώτος.">
     <meta name="robots" content="index, follow">
 
     <link rel="canonical" href="https://thepadelcamp.com.cy/el/register/6-day">
@@ -15,7 +15,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://thepadelcamp.com.cy/el/register/6-day">
     <meta property="og:title" content="Εγγραφή — 6ήμερο Camp | The Padel Camp Cyprus 2026">
-    <meta property="og:description" content="Εγγραφή στο 6ήμερο Padel Camp στη Λεμεσό. 5-10 Οκτωβρίου 2026. €900.">
+    <meta property="og:description" content="Padel Camp στη Λεμεσό — μεταφέρεται για Νοέμβριο 2026. Άφησε τα στοιχεία σου για να ενημερωθείς πρώτος.">
     <meta property="og:image" content="https://thepadelcamp.com.cy/assets/images/og-image.jpg">
 
     <link rel="icon" type="image/png" href="../../assets/images/favicon.png">
@@ -248,8 +248,8 @@
             <div class="camp-summary">
                 <div class="camp-summary-label">Εγγραφή</div>
                 <h1 class="camp-summary-title">6ήμερο Camp</h1>
-                <div class="camp-summary-dates">5-10 Οκτωβρίου 2026 · Λεμεσός</div>
-                <div class="camp-summary-price">€900</div>
+                <div class="camp-summary-dates">Λεμεσός · Ημερομηνίες &amp; τιμή σύντομα</div>
+                <div class="camp-summary-price">Νοέμβριος 2026</div>
                 <div class="camp-summary-includes">
                     <span>6 ημέρες προπόνησης</span>
                     <span>Ισπανοί προπονητές</span>
@@ -349,7 +349,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary btn-block btn-submit">
-                        Συνέχεια στην Πληρωμή
+                        Υποβολή Αίτησης
                     </button>
                 </form>
             </div>
@@ -420,47 +420,25 @@
                     sendToGoogleSheets(data).catch(err => console.log('Send error:', err));
 
                     if (typeof trackRegistration === 'function') {
-                        trackRegistration({ type: 'camp_registration', camp: '6-day', value: 900 });
+                        trackRegistration({ type: 'camp_registration', camp: '6-day', value: 0 });
                     }
 
                     const container = document.querySelector('.register-form-card');
                     container.innerHTML = `
                         <div class="payment-success">
                             <div class="payment-success-icon">✓</div>
-                            <h2>Η Εγγραφή Στάλθηκε!</h2>
+                            <h2>Η Αίτηση Ελήφθη!</h2>
                             <p class="payment-success-subtitle">Ευχαριστούμε, ${data.fullName}!</p>
 
                             <div class="payment-details-box">
-                                <h3>Ολοκλήρωσε την Πληρωμή</h3>
-                                <p class="payment-amount">Ποσό: <strong>€900</strong></p>
-                                <p class="payment-camp">6ήμερο Camp (5-10 Οκτωβρίου)</p>
+                                <h3>Τι Ακολουθεί;</h3>
+                                <p class="payment-camp">6ήμερο Camp</p>
+                                <p>Μεταφέρουμε το camp για Νοέμβριο 2026 — οι ακριβείς ημερομηνίες και τιμές θα ανακοινωθούν σύντομα. Θα επικοινωνήσουμε μαζί σας μόλις οριστικοποιηθούν.</p>
 
-                                <div class="payment-options">
-                                    <div class="payment-option">
-                                        <h4>Επιλογή 1: Online Πληρωμή</h4>
-                                        <p class="payment-option-desc">Ασφαλής πληρωμή με κάρτα</p>
-                                        <a href="${typeof appendStripeAttribution === 'function' ? appendStripeAttribution('https://book.stripe.com/14A9AV1OL4oXg4Vfy4cEw0f') : 'https://book.stripe.com/14A9AV1OL4oXg4Vfy4cEw0f'}" target="_blank" class="btn btn-primary btn-block" data-purchase-value="900" data-purchase-item="6-Day Camp">
-                                            💳 Πληρωμή με Stripe
-                                        </a>
-                                    </div>
-
-                                    <div class="payment-divider">Ή</div>
-
-                                    <div class="payment-option">
-                                        <h4>Επιλογή 2: Τραπεζικό Έμβασμα</h4>
-                                        <p class="payment-option-desc">Επικοινώνησε μαζί μας στο WhatsApp για τραπεζικά στοιχεία</p>
-                                    </div>
+                                <div class="massage-booking-success-info">
+                                    <p><strong>Θα επικοινωνήσουμε μαζί σας στο:</strong></p>
+                                    <p>📞 ${data.phone}<br>✉️ ${data.email}</p>
                                 </div>
-
-                                <div class="payment-note">
-                                    <strong>Σημαντικό:</strong> Μετά την πληρωμή, επιβεβαίωσε μέσω WhatsApp
-                                </div>
-                            </div>
-
-                            <div class="payment-actions">
-                                <a href="https://wa.me/35797497756?text=${encodeURIComponent('Γεια! Ολοκλήρωσα την πληρωμή για το 6ήμερο Camp (5-10 Οκτωβρίου). Όνομα: ' + data.fullName)}" target="_blank" class="btn btn-whatsapp btn-block">
-                                    Επιβεβαίωση Πληρωμής μέσω WhatsApp
-                                </a>
                             </div>
                         </div>
                     `;

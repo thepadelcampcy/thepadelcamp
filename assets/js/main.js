@@ -709,11 +709,11 @@ function updateCampSelection() {
 
     if (selectedCamp && infoEl) {
         if (selectedCamp.value === '6-day') {
-            infoEl.textContent = '6-Day Camp — €900';
+            infoEl.textContent = '6-Day Camp';
         } else if (selectedCamp.value === '4-day') {
-            infoEl.textContent = '4-Day Camp — €650';
+            infoEl.textContent = '4-Day Camp';
         } else {
-            infoEl.textContent = '2-Day Camp — €350';
+            infoEl.textContent = '2-Day Camp';
         }
     }
 }
@@ -776,51 +776,36 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Track registration event
             const lang = getPageLang();
-            const priceMap = { '6-day': 900, '4-day': 650, '2-day': 350 };
             const nameMap = {
-                en: { '6-day': '6-Day Camp (October 5-10)', '4-day': '4-Day Camp (October 5-8)', '2-day': '2-Day Camp (October 9-10)' },
-                ru: { '6-day': '6-дневный лагерь (5-10 октября)', '4-day': '4-дневный лагерь (5-8 октября)', '2-day': '2-дневный лагерь (9-10 октября)' },
-                el: { '6-day': '6ήμερο Camp (5-10 Οκτωβρίου)', '4-day': '4ήμερο Camp (5-8 Οκτωβρίου)', '2-day': '2ήμερο Camp (9-10 Οκτωβρίου)' }
+                en: { '6-day': '6-Day Camp', '4-day': '4-Day Camp', '2-day': '2-Day Camp' },
+                ru: { '6-day': '6-дневный лагерь', '4-day': '4-дневный лагерь', '2-day': '2-дневный лагерь' },
+                el: { '6-day': '6ήμερο Camp', '4-day': '4ήμερο Camp', '2-day': '2ήμερο Camp' }
             };
-            const stripeMap = {
-                '6-day': 'https://book.stripe.com/14A9AV1OL4oXg4Vfy4cEw0f',
-                '4-day': 'https://book.stripe.com/14A28t651f3B5qhclScEw0g',
-                '2-day': 'https://book.stripe.com/eVq6oJalhaNlg4V5XucEw0h'
-            };
-            const priceNum = priceMap[data.camp] || 0;
             if (typeof trackRegistration === 'function') {
-                trackRegistration({ type: 'camp_registration', camp: data.camp, value: priceNum });
+                trackRegistration({ type: 'camp_registration', camp: data.camp, value: 0 });
             }
 
-            // Create payment details
             const campName = nameMap[lang][data.camp] || '';
-            const stripeLink = stripeMap[data.camp] || '';
 
             const T = {
                 en: {
-                    heading: 'Registration Submitted!', thanks: 'Thank you', complete: 'Complete Your Payment',
-                    amount: 'Amount:', option1: 'Option 1: Pay Online with Stripe', secure: 'Secure online payment with card',
-                    pay: 'Pay with Stripe', or: 'OR', option2: 'Option 2: Bank Transfer', bank: 'Contact us on WhatsApp for bank details',
-                    important: 'Important:', confirm: 'After payment, please confirm via WhatsApp', whatsappBtn: 'Confirm Payment via WhatsApp',
-                    whatsappMsg: (camp, name) => `Hi! I have completed the payment for ${camp}. Name: ${name}`
+                    heading: 'Application Received!', thanks: 'Thank you', next: 'What\'s Next?',
+                    body: 'We\'re moving the camp to November 2026 — exact dates and prices will be announced soon. We\'ll contact you as soon as they\'re confirmed.',
+                    contactAt: 'We\'ll reach out to you at:', close: 'Close'
                 },
                 ru: {
-                    heading: 'Регистрация отправлена!', thanks: 'Спасибо', complete: 'Завершите оплату',
-                    amount: 'Сумма:', option1: 'Вариант 1: Оплата онлайн через Stripe', secure: 'Безопасная онлайн-оплата картой',
-                    pay: 'Оплатить через Stripe', or: 'ИЛИ', option2: 'Вариант 2: Банковский перевод', bank: 'Свяжитесь с нами в WhatsApp для банковских реквизитов',
-                    important: 'Важно:', confirm: 'После оплаты подтвердите через WhatsApp', whatsappBtn: 'Подтвердить оплату через WhatsApp',
-                    whatsappMsg: (camp, name) => `Привет! Я завершил(а) оплату за ${camp}. Имя: ${name}`
+                    heading: 'Заявка получена!', thanks: 'Спасибо', next: 'Что дальше?',
+                    body: 'Мы переносим кемп на ноябрь 2026 — точные даты и цены объявим совсем скоро. Свяжемся с вами, как только всё будет готово.',
+                    contactAt: 'Мы свяжемся с вами по:', close: 'Закрыть'
                 },
                 el: {
-                    heading: 'Η Εγγραφή Στάλθηκε!', thanks: 'Ευχαριστούμε', complete: 'Ολοκληρώστε την Πληρωμή',
-                    amount: 'Ποσό:', option1: 'Επιλογή 1: Online Πληρωμή με Stripe', secure: 'Ασφαλής online πληρωμή με κάρτα',
-                    pay: 'Πληρωμή με Stripe', or: 'Ή', option2: 'Επιλογή 2: Τραπεζικό Έμβασμα', bank: 'Επικοινωνήστε μαζί μας στο WhatsApp για τραπεζικά στοιχεία',
-                    important: 'Σημαντικό:', confirm: 'Μετά την πληρωμή, επιβεβαιώστε μέσω WhatsApp', whatsappBtn: 'Επιβεβαίωση Πληρωμής μέσω WhatsApp',
-                    whatsappMsg: (camp, name) => `Γεια! Ολοκλήρωσα την πληρωμή για ${camp}. Όνομα: ${name}`
+                    heading: 'Η Αίτηση Ελήφθη!', thanks: 'Ευχαριστούμε', next: 'Τι Ακολουθεί;',
+                    body: 'Μεταφέρουμε το camp για Νοέμβριο 2026 — οι ακριβείς ημερομηνίες και τιμές θα ανακοινωθούν σύντομα. Θα επικοινωνήσουμε μαζί σας μόλις οριστικοποιηθούν.',
+                    contactAt: 'Θα επικοινωνήσουμε μαζί σας στο:', close: 'Κλείσιμο'
                 }
             }[lang];
 
-            // Show payment details screen
+            // Show lead-capture confirmation screen
             const modalContent = document.querySelector('.registration-modal-content');
             modalContent.innerHTML = `
                 <button class="registration-modal-close" onclick="closeRegistrationModal()">&times;</button>
@@ -830,37 +815,19 @@ document.addEventListener('DOMContentLoaded', function() {
                     <p class="payment-success-subtitle">${T.thanks}, ${data.fullName}!</p>
 
                     <div class="payment-details-box">
-                        <h3>${T.complete}</h3>
-                        <p class="payment-amount">${T.amount} <strong>€${priceNum}</strong></p>
+                        <h3>${T.next}</h3>
                         <p class="payment-camp">${campName}</p>
+                        <p>${T.body}</p>
 
-                        <div class="payment-options">
-                            <div class="payment-option">
-                                <h4>${T.option1}</h4>
-                                <p class="payment-option-desc">${T.secure}</p>
-                                <a href="${typeof appendStripeAttribution === 'function' ? appendStripeAttribution(stripeLink) : stripeLink}" target="_blank" class="btn btn-primary btn-block" data-purchase-value="${priceNum}" data-purchase-item="${campName}">
-                                    💳 ${T.pay}
-                                </a>
-                            </div>
-
-                            <div class="payment-divider">${T.or}</div>
-
-                            <div class="payment-option">
-                                <h4>${T.option2}</h4>
-                                <p class="payment-option-desc">${T.bank}</p>
-                            </div>
-                        </div>
-
-                        <div class="payment-note">
-                            <strong>${T.important}</strong> ${T.confirm}
+                        <div class="massage-booking-success-info">
+                            <p><strong>${T.contactAt}</strong></p>
+                            <p>📞 ${data.phone}<br>✉️ ${data.email}</p>
                         </div>
                     </div>
 
-                    <div class="payment-actions">
-                        <a href="https://wa.me/35797497756?text=${encodeURIComponent(T.whatsappMsg(campName, data.fullName))}" target="_blank" class="btn btn-whatsapp btn-block">
-                            ${T.whatsappBtn}
-                        </a>
-                    </div>
+                    <button onclick="closeRegistrationModal()" class="btn btn-primary btn-block">
+                        ${T.close}
+                    </button>
                 </div>
             `;
         });
@@ -1014,86 +981,46 @@ document.addEventListener('DOMContentLoaded', function() {
             // Determine language
             const lang = getPageLang();
 
-            // Select Stripe link and QR based on price
-            let stripeLink, qrImage;
-            if (data.price === '75') {
-                stripeLink = 'https://buy.stripe.com/14AeVfeBx2gPaKBclScEw07';
-                qrImage = 'assets/qr/massage-75-qr.jpeg';
-            } else if (data.price === '60') {
-                stripeLink = 'https://buy.stripe.com/4gMcN79hdaNlaKB1HecEw08';
-                qrImage = 'assets/qr/massage-60-qr.jpeg';
-            } else {
-                // Default to €45 link for 30 min
-                stripeLink = 'https://buy.stripe.com/6oU5kF2SP08H05X71ycEw09';
-                qrImage = 'assets/qr/massage-qr.jpeg';
-            }
-
             const T = {
                 en: {
-                    thanks: 'Thank you', massage: 'Massage', min: 'min', choose: 'Choose Payment Method',
-                    option1: 'Option 1: Pay Online', secure: 'Secure card payment', pay: 'Pay with Stripe', or: 'OR',
-                    option2: 'Option 2: Bank Transfer', scan: 'Scan QR code for details', important: 'Important:',
-                    confirm: 'After payment, please confirm via WhatsApp', whatsappBtn: 'Confirm Payment via WhatsApp',
-                    whatsappMsg: (d, p, n) => `Hi! I have paid for massage (${d} min, €${p}). Name: ${n}`
+                    thanks: 'Thank you', massage: 'Massage', min: 'min', next: 'What\'s Next?',
+                    body: 'The camp is moving to November 2026 — exact dates will be announced soon. We\'ll confirm your massage booking once they\'re set.',
+                    contactAt: 'We\'ll reach out to you at:', close: 'Close'
                 },
                 ru: {
-                    thanks: 'Спасибо', massage: 'Массаж', min: 'мин', choose: 'Выберите способ оплаты',
-                    option1: 'Вариант 1: Оплата онлайн', secure: 'Безопасная оплата картой', pay: 'Оплатить через Stripe', or: 'ИЛИ',
-                    option2: 'Вариант 2: Банковский перевод', scan: 'Отсканируйте QR-код', important: 'Важно:',
-                    confirm: 'После оплаты подтвердите через WhatsApp', whatsappBtn: 'Подтвердить оплату через WhatsApp',
-                    whatsappMsg: (d, p, n) => `Привет! Я оплатил(а) массаж (${d} мин, €${p}). Имя: ${n}`
+                    thanks: 'Спасибо', massage: 'Массаж', min: 'мин', next: 'Что дальше?',
+                    body: 'Кемп переносится на ноябрь 2026 — точные даты объявим скоро. Подтвердим вашу запись на массаж, как только всё будет готово.',
+                    contactAt: 'Мы свяжемся с вами по:', close: 'Закрыть'
                 },
                 el: {
-                    thanks: 'Ευχαριστούμε', massage: 'Μασάζ', min: 'λεπτά', choose: 'Επιλέξτε Τρόπο Πληρωμής',
-                    option1: 'Επιλογή 1: Online Πληρωμή', secure: 'Ασφαλής πληρωμή με κάρτα', pay: 'Πληρωμή με Stripe', or: 'Ή',
-                    option2: 'Επιλογή 2: Τραπεζικό Έμβασμα', scan: 'Σαρώστε τον κωδικό QR για λεπτομέρειες', important: 'Σημαντικό:',
-                    confirm: 'Μετά την πληρωμή, επιβεβαιώστε μέσω WhatsApp', whatsappBtn: 'Επιβεβαίωση Πληρωμής μέσω WhatsApp',
-                    whatsappMsg: (d, p, n) => `Γεια! Πλήρωσα για μασάζ (${d} λεπτά, €${p}). Όνομα: ${n}`
+                    thanks: 'Ευχαριστούμε', massage: 'Μασάζ', min: 'λεπτά', next: 'Τι Ακολουθεί;',
+                    body: 'Το camp μεταφέρεται για Νοέμβριο 2026 — οι ακριβείς ημερομηνίες θα ανακοινωθούν σύντομα. Θα επιβεβαιώσουμε την κράτησή σας για μασάζ μόλις οριστικοποιηθούν.',
+                    contactAt: 'Θα επικοινωνήσουμε μαζί σας στο:', close: 'Κλείσιμο'
                 }
             }[lang];
 
-            // Show payment options
+            // Show lead-capture confirmation screen
             const modalContent = document.querySelector('#massageBookingModal .massage-booking-modal-content');
             modalContent.innerHTML = `
                 <button class="massage-modal-close" onclick="closeMassageBookingModal()">&times;</button>
                 <div class="payment-success">
                     <div class="payment-success-icon">✓</div>
                     <h2>${T.thanks}, ${data.name}!</h2>
-                    <p class="payment-success-subtitle">${T.massage} ${data.duration} ${T.min} — €${data.price}</p>
+                    <p class="payment-success-subtitle">${T.massage} ${data.duration} ${T.min}</p>
 
                     <div class="payment-details-box">
-                        <h3>${T.choose}</h3>
+                        <h3>${T.next}</h3>
+                        <p>${T.body}</p>
 
-                        <div class="payment-options">
-                            <div class="payment-option">
-                                <h4>${T.option1}</h4>
-                                <p class="payment-option-desc">${T.secure}</p>
-                                <a href="${typeof appendStripeAttribution === 'function' ? appendStripeAttribution(stripeLink) : stripeLink}" target="_blank" class="btn btn-primary btn-block" data-purchase-value="${data.price}" data-purchase-item="massage_${data.duration}min">
-                                    💳 ${T.pay}
-                                </a>
-                            </div>
-
-                            <div class="payment-divider">${T.or}</div>
-
-                            <div class="payment-option">
-                                <h4>${T.option2}</h4>
-                                <p class="payment-option-desc">${T.scan}</p>
-                                <div class="qr-code-container">
-                                    <img src="${qrImage}" alt="Payment QR Code" class="qr-code">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="payment-note">
-                            <strong>${T.important}</strong> ${T.confirm}
+                        <div class="massage-booking-success-info">
+                            <p><strong>${T.contactAt}</strong></p>
+                            <p>📞 ${data.phone}<br>✉️ ${data.email}</p>
                         </div>
                     </div>
 
-                    <div class="payment-actions" style="margin-top: 20px;">
-                        <a href="https://wa.me/35797497756?text=${encodeURIComponent(T.whatsappMsg(data.duration, data.price, data.name))}" target="_blank" class="btn btn-whatsapp btn-block">
-                            ${T.whatsappBtn}
-                        </a>
-                    </div>
+                    <button onclick="closeMassageBookingModal()" class="btn btn-primary btn-block">
+                        ${T.close}
+                    </button>
                 </div>
             `;
         });
@@ -1129,33 +1056,26 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Determine language
             const lang = getPageLang();
-            const stripeLink = 'https://buy.stripe.com/9B65kF8d9bRpbOFclScEw0a';
 
             const T = {
                 en: {
-                    thanks: 'Thank you', subtitle: 'Media Package — €130', choose: 'Choose Payment Method',
-                    option1: 'Option 1: Pay Online', secure: 'Secure card payment', pay: 'Pay with Stripe', or: 'OR',
-                    option2: 'Option 2: Bank Transfer', scan: 'Scan QR code for details', important: 'Important:',
-                    confirm: 'After payment, please confirm via WhatsApp', whatsappBtn: 'Confirm Payment via WhatsApp',
-                    whatsappMsg: (n) => `Hi! I have paid for Media Package (€130). Name: ${n}`
+                    thanks: 'Thank you', subtitle: 'Media Package', next: 'What\'s Next?',
+                    body: 'The camp is moving to November 2026 — exact dates will be announced soon. We\'ll confirm your media package booking once they\'re set.',
+                    contactAt: 'We\'ll reach out to you at:', close: 'Close'
                 },
                 ru: {
-                    thanks: 'Спасибо', subtitle: 'Медиапакет «На память» — €130', choose: 'Выберите способ оплаты',
-                    option1: 'Вариант 1: Оплата онлайн', secure: 'Безопасная оплата картой', pay: 'Оплатить через Stripe', or: 'ИЛИ',
-                    option2: 'Вариант 2: Банковский перевод', scan: 'Отсканируйте QR-код', important: 'Важно:',
-                    confirm: 'После оплаты подтвердите через WhatsApp', whatsappBtn: 'Подтвердить оплату через WhatsApp',
-                    whatsappMsg: (n) => `Привет! Я оплатил(а) медиапакет (€130). Имя: ${n}`
+                    thanks: 'Спасибо', subtitle: 'Медиапакет «На память»', next: 'Что дальше?',
+                    body: 'Кемп переносится на ноябрь 2026 — точные даты объявим скоро. Подтвердим ваш медиапакет, как только всё будет готово.',
+                    contactAt: 'Мы свяжемся с вами по:', close: 'Закрыть'
                 },
                 el: {
-                    thanks: 'Ευχαριστούμε', subtitle: 'Πακέτο Media — €130', choose: 'Επιλέξτε Τρόπο Πληρωμής',
-                    option1: 'Επιλογή 1: Online Πληρωμή', secure: 'Ασφαλής πληρωμή με κάρτα', pay: 'Πληρωμή με Stripe', or: 'Ή',
-                    option2: 'Επιλογή 2: Τραπεζικό Έμβασμα', scan: 'Σαρώστε τον κωδικό QR για λεπτομέρειες', important: 'Σημαντικό:',
-                    confirm: 'Μετά την πληρωμή, επιβεβαιώστε μέσω WhatsApp', whatsappBtn: 'Επιβεβαίωση Πληρωμής μέσω WhatsApp',
-                    whatsappMsg: (n) => `Γεια! Πλήρωσα για το Πακέτο Media (€130). Όνομα: ${n}`
+                    thanks: 'Ευχαριστούμε', subtitle: 'Πακέτο Media', next: 'Τι Ακολουθεί;',
+                    body: 'Το camp μεταφέρεται για Νοέμβριο 2026 — οι ακριβείς ημερομηνίες θα ανακοινωθούν σύντομα. Θα επιβεβαιώσουμε το πακέτο media σας μόλις οριστικοποιηθούν.',
+                    contactAt: 'Θα επικοινωνήσουμε μαζί σας στο:', close: 'Κλείσιμο'
                 }
             }[lang];
 
-            // Show payment options
+            // Show lead-capture confirmation screen
             const modalContent = document.querySelector('#mediaPackageModal .massage-booking-modal-content');
             modalContent.innerHTML = `
                 <button class="massage-modal-close" onclick="closeMediaPackageModal()">&times;</button>
@@ -1165,38 +1085,18 @@ document.addEventListener('DOMContentLoaded', function() {
                     <p class="payment-success-subtitle">${T.subtitle}</p>
 
                     <div class="payment-details-box">
-                        <h3>${T.choose}</h3>
+                        <h3>${T.next}</h3>
+                        <p>${T.body}</p>
 
-                        <div class="payment-options">
-                            <div class="payment-option">
-                                <h4>${T.option1}</h4>
-                                <p class="payment-option-desc">${T.secure}</p>
-                                <a href="${typeof appendStripeAttribution === 'function' ? appendStripeAttribution(stripeLink) : stripeLink}" target="_blank" class="btn btn-primary btn-block" data-purchase-value="130" data-purchase-item="media_package">
-                                    💳 ${T.pay}
-                                </a>
-                            </div>
-
-                            <div class="payment-divider">${T.or}</div>
-
-                            <div class="payment-option">
-                                <h4>${T.option2}</h4>
-                                <p class="payment-option-desc">${T.scan}</p>
-                                <div class="qr-code-container">
-                                    <img src="assets/qr/media-package-qr.jpeg" alt="Payment QR Code" class="qr-code">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="payment-note">
-                            <strong>${T.important}</strong> ${T.confirm}
+                        <div class="massage-booking-success-info">
+                            <p><strong>${T.contactAt}</strong></p>
+                            <p>📞 ${data.phone}<br>✉️ ${data.email}</p>
                         </div>
                     </div>
 
-                    <div class="payment-actions" style="margin-top: 20px;">
-                        <a href="https://wa.me/35797497756?text=${encodeURIComponent(T.whatsappMsg(data.name))}" target="_blank" class="btn btn-whatsapp btn-block">
-                            ${T.whatsappBtn}
-                        </a>
-                    </div>
+                    <button onclick="closeMediaPackageModal()" class="btn btn-primary btn-block">
+                        ${T.close}
+                    </button>
                 </div>
             `;
         });
