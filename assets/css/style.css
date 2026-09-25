@@ -900,6 +900,55 @@ section[id],
     line-height: 1.6;
 }
 
+.coaches-intro {
+    max-width: 680px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.coaches-intro p {
+    font-size: 16px;
+    color: var(--gray-600);
+    line-height: 1.7;
+    margin-bottom: 16px;
+}
+
+.coaches-intro-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 32px;
+    display: inline-flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: left;
+}
+
+.coaches-intro-list li {
+    font-size: 16px;
+    color: var(--gray-600);
+    padding-left: 24px;
+    position: relative;
+}
+
+.coaches-intro-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.coaches-intro-heading {
+    font-size: 22px;
+    margin: 32px 0 16px;
+}
+
+.coaches-intro-tagline {
+    font-weight: 600;
+    color: var(--black) !important;
+    margin-top: 24px !important;
+}
+
 .coaches-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
