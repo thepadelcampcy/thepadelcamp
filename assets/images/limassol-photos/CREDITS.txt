@@ -1,0 +1,54 @@
+Limassol photo candidates — sourced from Wikimedia Commons.
+If any of these ship to production, keep the attribution line
+(CC BY-SA 4.0 requires it; CC0 doesn't but it's nice to keep anyway).
+
+marina-sunny-promenade.jpg  (currently used as the live hero photo)
+  Source: https://commons.wikimedia.org/wiki/File:Lemesos-marina.jpg
+  Author: Mboesch
+  License: CC BY-SA 4.0
+  Attribution: "Lemesos-marina" by Mboesch, CC BY-SA 4.0, via Wikimedia Commons
+
+molos-pier-skyline.jpg  (previously used as the hero photo)
+  Source: https://commons.wikimedia.org/wiki/File:LIMASSOL_MOLOS_01.jpg
+  Author: Lomaine
+  License: CC BY-SA 4.0
+  Attribution: "LIMASSOL MOLOS 01" by Lomaine, CC BY-SA 4.0, via Wikimedia Commons
+
+skyscrapers-daytime.jpg
+  Source: https://commons.wikimedia.org/wiki/File:Skyscrapers_in_Limassol.jpg
+  Author: Στέφανος Νικολάου
+  License: CC BY-SA 4.0
+  Attribution: "Skyscrapers in Limassol" by Στέφανος Νικολάου, CC BY-SA 4.0, via Wikimedia Commons
+
+the-oval.jpg
+  Source: https://commons.wikimedia.org/wiki/File:The_Oval.jpg
+  Author: Cybarco
+  License: CC BY-SA 4.0
+  Attribution: "The Oval" by Cybarco, CC BY-SA 4.0, via Wikimedia Commons
+  Note: tallest commercial building in Cyprus, designed by Atkins / WKK Architects
+
+old-port-yachts-clouds.jpg
+  Source: https://commons.wikimedia.org/wiki/File:Limassol_01-2017_img18_Marina.jpg
+  Author: A.Savin
+  License: Free Art License (FAL)
+  Note: an "Exness" office building sign is visible in the background — crop
+  or pick a different photo if that matters for production use.
+
+breakwater-sparkling-sea.jpg
+  Source: https://commons.wikimedia.org/wiki/File:Limassol-_Marina_-Cyprus.jpg
+  Author: Salwa Farwaneh Dameh
+  License: CC0 (public domain, no attribution required)
+  Note: rocky breakwater + palm-lined Molos promenade in bright midday sun —
+  very "sunny" but not a marina/yacht shot like the filename on Commons claims.
+
+--------------------------------------------------------------------------
+Rejected / not archived:
+  - "Limassol Marina (Unsplash).jpg" and "Limassol, Cyprus (Unsplash Dv2n1Tv WcI).jpg"
+    (both CC0, by Mike Yukhtenko) — turned out to be close-up building/hotel
+    facade shots (a pink building, a blue-shuttered building), not
+    identifiable Limassol landmarks or marina/coast scenes.
+  - Two earlier candidates in the session scratchpad (a night panorama of the
+    Molos promenade and a hazy skyline-from-the-beach shot) were not carried
+    over here — their original Commons source was lost before this folder
+    was set up, so there's no verified license/attribution for them. Don't
+    reuse them without re-finding the source first.

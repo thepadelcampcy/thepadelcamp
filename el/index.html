@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Padel Camp Κύπρος 2026 | Προπόνηση με Ισπανούς Επαγγελματίες στη Λεμεσό</title>
-    <meta name="description" content="Εντατικό camp προπόνησης πάντελ στη Λεμεσό, Κύπρος με επαγγελματίες Ισπανούς προπονητές, 9&ndash;15 Νοεμβρίου 2026. Μικρές ομάδες (1:4), όλα τα επίπεδα. Πρωινό, βραδινό και σαββατοκύριακο πρόγραμμα.">
+    <meta name="description" content="Εντατικό camp προπόνησης πάντελ στη Λεμεσό, Κύπρος με επαγγελματίες Ισπανούς προπονητές, 9&ndash;15 Νοεμβρίου 2026. Μικρές ομάδες (1:4), όλα τα επίπεδα.">
     <meta name="keywords" content="padel camp, προπόνηση πάντελ, πάντελ Κύπρος, πάντελ Λεμεσός, Ισπανοί προπονητές πάντελ, μαθήματα πάντελ, εντατικό πάντελ, πρόγραμμα πάντελ">
     <meta name="author" content="The Padel Camp Cyprus">
     <meta name="robots" content="index, follow">
@@ -21,7 +21,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://thepadelcamp.com.cy/el/">
     <meta property="og:title" content="The Padel Camp Κύπρος 2026 | Προπόνηση με Ισπανούς Επαγγελματίες">
-    <meta property="og:description" content="Εντατικό camp προπόνησης πάντελ στη Λεμεσό με επαγγελματίες Ισπανούς προπονητές, 9&ndash;15 Νοεμβρίου 2026. Μικρές ομάδες, όλα τα επίπεδα.">
+    <meta property="og:description" content="Εντατικό camp προπόνησης πάντελ στη Λεμεσό με επαγγελματίες Ισπανούς προπονητές, 9&ndash;15 Νοεμβρίου 2026.">
     <meta property="og:image" content="https://thepadelcamp.com.cy/assets/images/og-image.jpg">
     <meta property="og:locale" content="el_CY">
     <meta property="og:locale:alternate" content="en_US">
@@ -45,7 +45,43 @@
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=optional">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=optional" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=optional"></noscript>
-    <link rel="stylesheet" href="../assets/css/style.css?v=28">
+    <link rel="stylesheet" href="../assets/css/style.css?v=25">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300&display=swap">
+    <link rel="stylesheet" href="../assets/css/experiment-theme.css?v=36">
+
+    <!-- Rotate the hero photo — picked once per page load. Preloaded here,
+         as early as possible, then faded in (see .hero-bg-photo below)
+         instead of popping in abruptly once it finishes downloading.
+         Not persisted: a refresh can show the same photo again, fine for
+         a demo. -->
+    <script>
+        (function () {
+            // Attribution required by CC BY-SA (kept for the CC0 photo too,
+            // for consistency) — see assets/images/limassol-photos/CREDITS.txt
+            var credits = {
+                '/assets/images/limassol-photos/marina-sunny-promenade.jpg':
+                    { text: '"Lemesos-marina" by Mboesch, CC BY-SA 4.0', href: 'https://commons.wikimedia.org/wiki/File:Lemesos-marina.jpg' },
+                '/assets/images/limassol-photos/molos-pier-skyline.jpg':
+                    { text: '"LIMASSOL MOLOS 01" by Lomaine, CC BY-SA 4.0', href: 'https://commons.wikimedia.org/wiki/File:LIMASSOL_MOLOS_01.jpg' },
+                '/assets/images/limassol-photos/old-port-yachts-clouds.jpg':
+                    { text: 'Photo by A.Savin, Free Art License', href: 'https://commons.wikimedia.org/wiki/File:Limassol_01-2017_img18_Marina.jpg' },
+                '/assets/images/limassol-photos/breakwater-sparkling-sea.jpg':
+                    { text: 'Photo by Salwa Farwaneh Dameh, CC0', href: 'https://commons.wikimedia.org/wiki/File:Limassol-_Marina_-Cyprus.jpg' },
+                '/assets/images/limassol-photos/the-oval.jpg':
+                    { text: '"The Oval" by Cybarco, CC BY-SA 4.0', href: 'https://commons.wikimedia.org/wiki/File:The_Oval.jpg' }
+            };
+            var photos = Object.keys(credits);
+            var pick = photos[Math.floor(Math.random() * photos.length)];
+            window.__heroPhoto = pick;
+            window.__heroPhotoCredit = credits[pick];
+            var preload = document.createElement('link');
+            preload.rel = 'preload';
+            preload.as = 'image';
+            preload.href = pick;
+            document.head.appendChild(preload);
+        })();
+    </script>
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -63,7 +99,7 @@
             "name": "MyQPadel",
             "address": {
                 "@type": "PostalAddress",
-                "addressLocality": "Λεμεσός",
+                "addressLocality": "Μόνη, Λεμεσός",
                 "addressCountry": "CY"
             }
         },
@@ -74,7 +110,7 @@
                 "price": "750",
                 "priceCurrency": "EUR",
                 "availability": "https://schema.org/InStock",
-                "url": "https://thepadelcamp.com.cy/el/#pricing"
+                "url": "https://thepadelcamp.com.cy/el/#program-cards"
             },
             {
                 "@type": "Offer",
@@ -82,7 +118,7 @@
                 "price": "870",
                 "priceCurrency": "EUR",
                 "availability": "https://schema.org/InStock",
-                "url": "https://thepadelcamp.com.cy/el/#pricing"
+                "url": "https://thepadelcamp.com.cy/el/#program-cards"
             },
             {
                 "@type": "Offer",
@@ -90,7 +126,7 @@
                 "price": "360",
                 "priceCurrency": "EUR",
                 "availability": "https://schema.org/InStock",
-                "url": "https://thepadelcamp.com.cy/el/#pricing"
+                "url": "https://thepadelcamp.com.cy/el/#program-cards"
             }
         ],
         "organizer": {
@@ -135,15 +171,14 @@
             <a href="/el/" class="logo logo-center"><picture class="logo-img logo-img-large"><source srcset="../assets/images/logo-large.webp" type="image/webp"><img src="../assets/images/logo-large.png" alt="The Padel Camp Cyprus" width="1200" height="762" fetchpriority="high"></picture><picture class="logo-img logo-img-small"><source srcset="../assets/images/logo.webp" type="image/webp"><img src="../assets/images/logo.png" alt="The Padel Camp Cyprus" width="500" height="317"></picture></a>
             <nav class="nav" id="nav">
                 <ul class="nav-list">
-                    <li><a href="#program">Πρόγραμμα</a></li>
+                    <li><a href="#program-cards">Πρόγραμμα</a></li>
                     <li><a href="#coaches">Προπονητές</a></li>
                     <li><a href="#venue">Χώρος</a></li>
                     <li><a href="#services">Υπηρεσίες</a></li>
-                    <li><a href="#pricing">Τιμές</a></li>
                     <li><a href="#gallery">Γκαλερί</a></li>
-                    <li><a href="#approach">Η Προσέγγισή μας</a></li>
+                    <li><a href="#approach">Η Προσέγγισή Μας</a></li>
                     <li><a href="#faq">FAQ</a></li>
-                    <li><a href="/el/partners.html">Συνεργάτες</a></li>
+                    <li><a href="partners.html">Συνεργάτες</a></li>
                 </ul>
             </nav>
             <div class="header-actions">
@@ -152,7 +187,8 @@
                     <a href="/ru/">RU</a>
                     <a href="/el/" class="active">EL</a>
                 </div>
-                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Μενού">
+                <a href="#program-cards" class="btn btn-primary header-book-btn">Κράτηση<span class="header-book-btn-full">&nbsp;Τώρα</span></a>
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
                     <span></span>
                     <span></span>
                 </button>
@@ -164,52 +200,32 @@
 
     <!-- Hero Section -->
     <section class="hero">
+        <img class="hero-bg-photo" id="heroBgPhoto" alt="" fetchpriority="high">
+        <a class="hero-photo-credit" id="heroPhotoCredit" target="_blank" rel="noopener nofollow"></a>
+        <script>
+            (function () {
+                var img = document.getElementById('heroBgPhoto');
+                var src = window.__heroPhoto || '/assets/images/limassol-photos/marina-sunny-promenade.jpg';
+                img.onload = function () { img.classList.add('is-loaded'); };
+                img.src = src;
+                if (img.complete) { img.classList.add('is-loaded'); }
+
+                var credit = window.__heroPhotoCredit;
+                var creditEl = document.getElementById('heroPhotoCredit');
+                if (credit && creditEl) {
+                    creditEl.textContent = 'Photo: ' + credit.text;
+                    creditEl.href = credit.href;
+                }
+            })();
+        </script>
+        <div class="hero-overlay"></div>
         <div class="hero-content">
             <div class="hero-text">
-                <p class="hero-eyebrow">ΠΡΟΠΟΝΗΣΟΥ. ΠΑΙΞΕ. ΜΑΘΕ.</p>
-                <h1 class="hero-title">ΠΡΟΠΟΝΗΣΟΥ<br>ΣΑΝ ΠΡΟ</h1>
-                <p class="hero-subtitle">Εντατικό camp πάντελ στη Λεμεσό, Κύπρος με επαγγελματίες προπονητές από την Ισπανία. Οι έμπειροι προπονητές μας θα σε καθοδηγήσουν στο επόμενο επίπεδο του παιχνιδιού σου.</p>
+                <p class="hero-eyebrow">ΠΡΟΠΟΝΗΣΟΥ · ΠΑΙΞΕ · ΜΑΘΕ</p>
+                <h1 class="hero-title">Προπονήσου<br><em class="accent">Σαν Επαγγελματίας</em></h1>
+                <p class="hero-subtitle">Εντατικό camp πάντελ στη Λεμεσό, Κύπρος, με επαγγελματίες προπονητές από την Ισπανία. Οι έμπειροι προπονητές μας θα σε καθοδηγήσουν στο επόμενο επίπεδο του παιχνιδιού σου.</p>
                 <div class="hero-cta">
-                    <a href="#pricing" class="btn btn-primary btn-lg">Εγγραφή Τώρα</a>
-                    <a href="#program" class="btn btn-ghost btn-lg">Δες το Πρόγραμμα</a>
-                </div>
-            </div>
-            <div class="hero-meta">
-                <div class="meta-item">
-                    <span class="meta-value">1:4</span>
-                    <span class="meta-label">Προπονητής ανά Παίκτες</span>
-                </div>
-                <div class="meta-item">
-                    <span class="meta-value">15</span>
-                    <span class="meta-label">Ώρες &mdash; Πρωινό Camp</span>
-                </div>
-                <div class="meta-item">
-                    <span class="meta-value">15</span>
-                    <span class="meta-label">Ώρες &mdash; Βραδινό Camp</span>
-                </div>
-                <div class="meta-item">
-                    <span class="meta-value">6</span>
-                    <span class="meta-label">Ώρες &mdash; Σαββατοκύριακο Camp</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Dates Banner -->
-    <section class="dates-banner">
-        <div class="container">
-            <div class="dates-grid">
-                <div class="date-block">
-                    <span class="date-city">Πρωινό Camp</span>
-                    <span class="date-range">9&ndash;13 Νοεμβρίου</span>
-                </div>
-                <div class="date-block">
-                    <span class="date-city">Βραδινό Camp</span>
-                    <span class="date-range">9&ndash;13 Νοεμβρίου</span>
-                </div>
-                <div class="date-block">
-                    <span class="date-city">Σαββατοκύριακο Camp</span>
-                    <span class="date-range">14&ndash;15 Νοεμβρίου</span>
+                    <a href="#program-cards" class="btn btn-primary btn-lg">Δες το Πρόγραμμα</a>
                 </div>
             </div>
         </div>
@@ -219,37 +235,42 @@
     <section class="about-section" id="about">
         <div class="container">
             <div class="about-grid">
-                <div class="about-content">
-                    <h2 class="section-title">ΓΙΑΤΙ ΑΥΤΟ ΤΟ CAMP</h2>
-                    <p class="about-text">Η Ισπανία είναι η Νο.1 χώρα του κόσμου στο πάντελ. Φέρνουμε επαγγελματίες Ισπανούς προπονητές στην Κύπρο για μια εντατική εμπειρία προπόνησης.</p>
+                <div class="about-image">
+                    <img src="../assets/images/gallery/photo-3.jpg" alt="Αγώνας διπλού στο club The Padel K στη Λεμεσό" width="1600" height="2134" loading="lazy">
                 </div>
-                <div class="about-features">
-                    <div class="feature">
-                        <span class="feature-number">01</span>
-                        <div class="feature-content">
-                            <h3>Επαγγελματίες Ισπανοί Προπονητές</h3>
-                            <p>Επαγγελματίες προπονητές από την παγκόσμια πρωτεύουσα του πάντελ</p>
-                        </div>
+                <div class="about-text-col">
+                    <div class="about-content">
+                        <h2 class="section-title">ΓΙΑΤΙ ΑΥΤΟ ΤΟ CAMP</h2>
+                        <p class="about-text">Η Ισπανία είναι η Νο.1 χώρα του κόσμου στο πάντελ. Φέρνουμε επαγγελματίες Ισπανούς προπονητές στην Κύπρο για μια εντατική εμπειρία προπόνησης.</p>
                     </div>
-                    <div class="feature">
-                        <span class="feature-number">02</span>
-                        <div class="feature-content">
-                            <h3>Μικρές Ομάδες</h3>
-                            <p>Έως 4 παίκτες ανά γήπεδο για εξατομικευμένη προσοχή</p>
+                    <div class="about-features">
+                        <div class="feature">
+                            <span class="feature-number">01</span>
+                            <div class="feature-content">
+                                <h3>Επαγγελματίες Ισπανοί Προπονητές</h3>
+                                <p>Επαγγελματίες προπονητές από την παγκόσμια πρωτεύουσα του πάντελ</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="feature">
-                        <span class="feature-number">03</span>
-                        <div class="feature-content">
-                            <h3>Όλα τα Επίπεδα</h3>
-                            <p>Ομάδες χωρισμένες ανά επίπεδο, από αρχάριους έως προχωρημένους</p>
+                        <div class="feature">
+                            <span class="feature-number">02</span>
+                            <div class="feature-content">
+                                <h3>Μικρές Ομάδες</h3>
+                                <p>Έως 4 παίκτες ανά γήπεδο για εξατομικευμένη προσοχή</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="feature">
-                        <span class="feature-number">04</span>
-                        <div class="feature-content">
-                            <h3>Ολοκληρωμένη Προπόνηση</h3>
-                            <p>Τεχνική, τακτική, θεωρία και εντατική πρακτική αγώνων</p>
+                        <div class="feature">
+                            <span class="feature-number">03</span>
+                            <div class="feature-content">
+                                <h3>Όλα τα Επίπεδα</h3>
+                                <p>Ομάδες χωρισμένες ανά επίπεδο, από αρχάριους έως προχωρημένους</p>
+                            </div>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-number">04</span>
+                            <div class="feature-content">
+                                <h3>Ολοκληρωμένη Προπόνηση</h3>
+                                <p>Τεχνική, τακτική, θεωρία και εντατική πρακτική αγώνων</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -300,100 +321,153 @@
                 <p class="section-subtitle">Εντατική προπόνηση στη Λεμεσό σχεδιασμένη για μέγιστη βελτίωση. Κάθε συμμετέχων λαμβάνει πιστοποιητικό ολοκλήρωσης.</p>
             </div>
 
-            <!-- Program Tabs -->
-            <div class="program-tabs">
-                <button class="tab-btn active" data-tab="campMorning">Πρωινό Camp</button>
-                <button class="tab-btn" data-tab="campEvening">Βραδινό Camp</button>
-                <button class="tab-btn" data-tab="campWeekend">Σαββατοκύριακο Camp</button>
+            <div class="early-bird-banner">
+                <span class="early-bird-tag">Πρώιμη Κράτηση &mdash; Περιορισμένες Θέσεις</span>
+                <p>Μόνο οι πρώτες 5 θέσεις σε αυτές τις τιμές. Μόλις κλείσουν, η τιμή ανεβαίνει.</p>
             </div>
 
-            <!-- Morning Program -->
-            <div class="program-content active" id="campMorning">
-                <p class="program-dates">&#128197; 9&ndash;13 Νοεμβρίου</p>
-                <div class="price-early" style="margin-bottom:20px;">&euro;750 πρώτες 5 θέσεις &middot; &euro;770 κανονική τιμή</div>
+            <div class="program-cards-grid" id="program-cards">
 
-                <div class="schedule">
-                    <div class="schedule-day">
-                        <div class="day-label">
-                            <span class="day-num">Δευτέρα&ndash;Παρασκευή</span>
-                        </div>
-                        <div class="day-content">
-                            <div class="session">
-                                <span class="time">09:00-12:00</span>
-                                <span class="activity">Προπόνηση</span>
-                            </div>
-                        </div>
+            <!-- Morning Camp -->
+            <div class="program-content featured" id="camp-morning">
+                <p class="program-dates">&#128197; 9&ndash;13 Νοεμβρίου</p>
+                <div class="early-bird-badge">
+                    <div class="early-bird-badge-col">
+                        <span class="early-bird-badge-label">Πρώιμη Κράτηση</span>
+                        <span class="early-bird-badge-price">&euro;750</span>
+                    </div>
+                    <div class="early-bird-badge-divider"></div>
+                    <div class="early-bird-badge-col">
+                        <span class="early-bird-badge-label">Κανονική Τιμή</span>
+                        <span class="early-bird-badge-price early-bird-badge-was">&euro;770</span>
                     </div>
                 </div>
 
-                <p class="program-details-subtitle">09:00&ndash;12:00 &middot; Δευτέρα&ndash;Παρασκευή &middot; 15 ώρες προπόνησης &middot; μέχρι 4 παίκτες ανά γήπεδο</p>
+                <ul class="price-includes">
+                    <li>5 ημέρες προπόνησης (Δευ&ndash;Παρ)</li>
+                    <li>09:00&ndash;12:00 &middot; 15 ώρες προπόνησης</li>
+                    <li>Επαγγελματίες Ισπανοί προπονητές</li>
+                    <li>Έως 4 παίκτες ανά γήπεδο</li>
+                </ul>
+
+                <div class="program-details-block">
+                    <div class="program-meta">
+                        <span class="program-hours">5 ΗΜΕΡΕΣ &middot; 15 ΩΡΕΣ</span>
+                        <button type="button" class="btn-view-details" aria-expanded="false" data-label-view="Λεπτομέρειες" data-label-hide="Απόκρυψη">Λεπτομέρειες</button>
+                    </div>
+                    <div class="program-details">
+                        <h3 class="program-details-title">ΠΡΩΪΝΟ CAMP &mdash; 09:00&ndash;12:00</h3>
+                        <p class="program-details-subtitle">5 ημέρες &middot; Δευτέρα&ndash;Παρασκευή &middot; 15 ώρες δομημένης επαγγελματικής προπόνησης</p>
+
+                        <p>Ξεκίνα τη μέρα σου με εστιασμένη προπόνηση πάντελ &mdash; πέντε συνεχόμενα πρωινά που πραγματικά θα αλλάξουν το παιχνίδι σου.</p>
+                        <p>Το Πρωινό Camp είναι σχεδιασμένο για παίκτες που θέλουν μια δομημένη και εντατική εμπειρία προπόνησης χωρίς να καταλαμβάνει όλη τους τη μέρα. Θα προπονηθείς σε μικρή ομάδα με επαγγελματίες προπονητές, με έως <strong>4 παίκτες ανά γήπεδο</strong>, επιτρέποντας ατομική προσοχή, τεχνικές διορθώσεις και τακτική καθοδήγηση σε όλες τις συνεδρίες.</p>
+                        <p>Κατά τη διάρκεια της εβδομάδας, η προπόνηση συνδυάζει τεχνική ανάπτυξη με πραγματικές καταστάσεις παιχνιδιού. Θα δουλέψεις στην άμυνα, τη μετάβαση στο δίχτυ, επιθετικά σχήματα, overheads, τοποθέτηση, συντονισμό με τον συμπαίκτη και τακτική λήψη αποφάσεων.</p>
+                        <p>Η βασική διαφορά είναι ότι δεν επαναλαμβάνεις απλώς χτυπήματα. Μαθαίνεις <strong>πότε να τα χρησιμοποιείς, γιατί να τα χρησιμοποιείς και πώς να χτίζεις τον πόντο γύρω τους</strong>.</p>
+                        <p>Με <strong>15 ώρες ποιοτικής προπόνησης σε πέντε ημέρες</strong>, το Πρωινό Camp σου δίνει αρκετή συνέχεια για να κατανοήσεις το παιχνίδι σου, να δουλέψεις σε συγκεκριμένες αδυναμίες και να μετατρέψεις νέες τεχνικές σε καλύτερες αποφάσεις στο γήπεδο.</p>
+                        <p><strong>Ιδανικό για:</strong> παίκτες που θέλουν μέγιστη εστίαση στην προπόνηση διατηρώντας τα απογεύματα και τα βράδια τους ελεύθερα.</p>
+                    </div>
+                </div>
+
                 <a id="morningStripeLink" href="https://buy.stripe.com/3cI14p795g7F3i999GcEw0i?prefilled_promo_code=MORNING5" target="_blank" rel="noopener" class="btn btn-primary btn-block schedule-cta" data-purchase-value="770" data-purchase-item="morning_camp">Πληρωμή για Πρωινό Camp</a>
             </div>
 
-            <!-- Evening Program -->
-            <div class="program-content" id="campEvening">
+            <!-- Evening Camp -->
+            <div class="program-content" id="camp-evening">
                 <p class="program-dates">&#128197; 9&ndash;13 Νοεμβρίου</p>
-                <div class="price-early" style="margin-bottom:20px;">&euro;870 πρώτες 5 θέσεις &middot; &euro;890 κανονική τιμή</div>
-
-                <div class="schedule">
-                    <div class="schedule-day">
-                        <div class="day-label">
-                            <span class="day-num">Δευτέρα&ndash;Παρασκευή</span>
-                        </div>
-                        <div class="day-content">
-                            <div class="session">
-                                <span class="time">17:30-20:30</span>
-                                <span class="activity">Προπόνηση</span>
-                            </div>
-                        </div>
+                <div class="early-bird-badge">
+                    <div class="early-bird-badge-col">
+                        <span class="early-bird-badge-label">Πρώιμη Κράτηση</span>
+                        <span class="early-bird-badge-price">&euro;870</span>
+                    </div>
+                    <div class="early-bird-badge-divider"></div>
+                    <div class="early-bird-badge-col">
+                        <span class="early-bird-badge-label">Κανονική Τιμή</span>
+                        <span class="early-bird-badge-price early-bird-badge-was">&euro;890</span>
                     </div>
                 </div>
 
-                <p class="program-details-subtitle">17:30&ndash;20:30 &middot; Δευτέρα&ndash;Παρασκευή &middot; 15 ώρες προπόνησης &middot; μέχρι 4 παίκτες ανά γήπεδο</p>
+                <ul class="price-includes">
+                    <li>5 ημέρες προπόνησης (Δευ&ndash;Παρ)</li>
+                    <li>17:30&ndash;20:30 &middot; 15 ώρες προπόνησης</li>
+                    <li>Επαγγελματίες Ισπανοί προπονητές</li>
+                    <li>Έως 4 παίκτες ανά γήπεδο</li>
+                </ul>
+
+                <div class="program-details-block">
+                    <div class="program-meta">
+                        <span class="program-hours">5 ΗΜΕΡΕΣ &middot; 15 ΩΡΕΣ</span>
+                        <button type="button" class="btn-view-details" aria-expanded="false" data-label-view="Λεπτομέρειες" data-label-hide="Απόκρυψη">Λεπτομέρειες</button>
+                    </div>
+                    <div class="program-details">
+                        <h3 class="program-details-title">ΒΡΑΔΙΝΟ CAMP &mdash; 17:30&ndash;20:30</h3>
+                        <p class="program-details-subtitle">5 ημέρες &middot; Δευτέρα&ndash;Παρασκευή &middot; 15 ώρες δομημένης επαγγελματικής προπόνησης</p>
+
+                        <p>Θέλεις να προπονηθείς σοβαρά χωρίς να αλλάξεις το πρόγραμμα της ημέρας σου; Το Βραδινό Camp σου δίνει πέντε συνεχόμενες ημέρες εστιασμένης προπόνησης πάντελ με επαγγελματίες προπονητές &mdash; κρατώντας τα πρωινά και τα απογεύματά σου εντελώς ελεύθερα.</p>
+                        <p>Από Δευτέρα έως Παρασκευή, θα προπονείσαι <strong>3 ώρες την ημέρα</strong> &mdash; συνολικά <strong>15 ώρες ποιοτικής προπόνησης</strong> σε όλο το camp.</p>
+                        <p>Οι προπονήσεις γίνονται σε μικρές ομάδες, έως <strong>4 παίκτες ανά γήπεδο</strong> &mdash; οι προπονητές προλαβαίνουν να δώσουν προσοχή σε κάθε παίκτη, ατομικές τεχνικές διορθώσεις, τακτική καθοδήγηση και πρακτική ανατροφοδότηση.</p>
+                        <p>Το πρόγραμμα συνδυάζει τεχνική ανάπτυξη με πραγματικές καταστάσεις παιχνιδιού. Θα δουλέψεις τοποθέτηση, άμυνα, μετάβαση, παιχνίδι στο δίχτυ, επιθετικά σχήματα, overheads και τακτική λήψη αποφάσεων. Αντί να χτυπάς απλώς περισσότερες μπάλες, θα μάθεις <strong>πότε να χρησιμοποιείς κάθε χτύπημα, γιατί να το χρησιμοποιείς και πώς να χτίζεις τον πόντο μαζί με τον συμπαίκτη σου</strong>.</p>
+                        <p>Το βραδινό format είναι ιδανικό αν εργάζεσαι, έχεις πρωινές/απογευματινές υποχρεώσεις ή απλά προτιμάς να προπονείσαι αργότερα. Παίρνεις την πλήρη εμπειρία The Padel Camp χωρίς να αφιερώσεις τις ώρες της ημέρας σου.</p>
+                        <p><strong>Ιδανικό για:</strong> παίκτες που θέλουν σοβαρή ανάπτυξη στο πάντελ χωρίς να αλλάξουν το πρόγραμμα της ημέρας τους.</p>
+                    </div>
+                </div>
+
                 <a id="eveningStripeLink" href="https://buy.stripe.com/bJe9AV3WTbRp6uladKcEw0j?prefilled_promo_code=EVENING5" target="_blank" rel="noopener" class="btn btn-primary btn-block schedule-cta" data-purchase-value="890" data-purchase-item="evening_camp">Πληρωμή για Βραδινό Camp</a>
             </div>
 
-            <!-- Weekend Program -->
-            <div class="program-content" id="campWeekend">
+            <!-- Weekend Camp -->
+            <div class="program-content" id="camp-weekend">
                 <p class="program-dates">&#128197; 14&ndash;15 Νοεμβρίου</p>
-                <div class="price-early" style="margin-bottom:20px;">&euro;360 πρώτες 5 θέσεις &middot; &euro;380 κανονική τιμή</div>
-                <div class="schedule">
-                    <div class="schedule-day">
-                        <div class="day-label">
-                            <span class="day-num">Ομάδα A</span>
-                            <span class="day-name">Σάβ + Κυρ</span>
-                        </div>
-                        <div class="day-content">
-                            <div class="session">
-                                <span class="time">Πρωί 09:00-10:30</span>
-                                <span class="activity">Προπόνηση</span>
-                            </div>
-                            <div class="session">
-                                <span class="time">Απόγευμα 15:00-16:30</span>
-                                <span class="activity">Προπόνηση</span>
-                            </div>
-                        </div>
+                <div class="early-bird-badge">
+                    <div class="early-bird-badge-col">
+                        <span class="early-bird-badge-label">Πρώιμη Κράτηση</span>
+                        <span class="early-bird-badge-price">&euro;360</span>
                     </div>
-
-                    <div class="schedule-day">
-                        <div class="day-label">
-                            <span class="day-num">Ομάδα B</span>
-                            <span class="day-name">Σάβ + Κυρ</span>
-                        </div>
-                        <div class="day-content">
-                            <div class="session">
-                                <span class="time">Πρωί 10:30-12:00</span>
-                                <span class="activity">Προπόνηση</span>
-                            </div>
-                            <div class="session">
-                                <span class="time">Απόγευμα 16:30-18:00</span>
-                                <span class="activity">Προπόνηση</span>
-                            </div>
-                        </div>
+                    <div class="early-bird-badge-divider"></div>
+                    <div class="early-bird-badge-col">
+                        <span class="early-bird-badge-label">Κανονική Τιμή</span>
+                        <span class="early-bird-badge-price early-bird-badge-was">&euro;380</span>
                     </div>
                 </div>
-                <p class="program-details-subtitle">Και οι δύο ομάδες ακολουθούν το ίδιο πρόγραμμα &mdash; ίδιες ώρες, ίδιοι προπονητές, ίδια ποιότητα. Η μόνη διαφορά είναι το ωράριο.</p>
+
+                <ul class="price-includes">
+                    <li>Σάββατο + Κυριακή</li>
+                    <li>6 ώρες προπόνησης συνολικά</li>
+                    <li>Επαγγελματίες Ισπανοί προπονητές</li>
+                    <li>Έως 4 παίκτες ανά γήπεδο</li>
+                </ul>
+
+                <div class="program-details-block">
+                    <div class="program-meta">
+                        <span class="program-hours">2 ΗΜΕΡΕΣ &middot; 6 ΩΡΕΣ</span>
+                        <button type="button" class="btn-view-details" aria-expanded="false" data-label-view="Λεπτομέρειες" data-label-hide="Απόκρυψη">Λεπτομέρειες</button>
+                    </div>
+                    <div class="program-details">
+                        <h3 class="program-details-title">ΣΑΒΒΑΤΟΚΥΡΙΑΚΟ CAMP &mdash; 6 ΩΡΕΣ</h3>
+                        <p class="program-details-subtitle">Σάββατο + Κυριακή &middot; 6 ώρες δομημένης επαγγελματικής προπόνησης</p>
+
+                        <p>Δεν έχεις χρόνο για ολόκληρη εβδομάδα; Το Σαββατοκύριακο Camp σου δίνει δύο εστιασμένες ημέρες επαγγελματικής προπόνησης πάντελ &mdash; ιδανικό για παίκτες που θέλουν μια σοβαρή εμπειρία προπόνησης κρατώντας τις καθημερινές τους ελεύθερες.</p>
+                        <p>Κάθε ομάδα λαμβάνει <strong>6 ώρες ποιοτικής προπόνησης σε δύο ημέρες</strong>, με δύο συνεδρίες 90 λεπτών την ημέρα. Οι προπονήσεις γίνονται σε μικρές ομάδες, έως <strong>4 παίκτες ανά γήπεδο</strong>, δίνοντάς σου πολλή ατομική προσοχή, τεχνικές διορθώσεις και τακτική καθοδήγηση από τους επαγγελματίες προπονητές μας.</p>
+
+                        <table class="weekend-groups-table">
+                            <thead>
+                                <tr><th></th><th>Πρωί</th><th>Απόγευμα</th><th>Σύνολο</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Ομάδα A</td><td>09:00&ndash;10:30</td><td>15:00&ndash;16:30</td><td>3 ώ/ημέρα</td></tr>
+                                <tr><td>Ομάδα B</td><td>10:30&ndash;12:00</td><td>16:30&ndash;18:00</td><td>3 ώ/ημέρα</td></tr>
+                            </tbody>
+                        </table>
+                        <p class="weekend-groups-note">Σάββατο + Κυριακή &rarr; 6 ώρες συνολικά ανά παίκτη. Και οι δύο ομάδες ακολουθούν ακριβώς το ίδιο πρόγραμμα &mdash; ίδιες ώρες, ίδιοι προπονητές, ίδια ποιότητα. Η μόνη διαφορά είναι το πρόγραμμα προπόνησης.</p>
+
+                        <p>Οι δύο συνεδρίες κάθε ημέρας είναι σχεδιασμένες να λειτουργούν μαζί: πρώτα αναπτύσσεις και εξασκείς τις βασικές έννοιες, μετά επιστρέφεις στο γήπεδο αργότερα την ίδια ημέρα για να τις εφαρμόσεις σε ρεαλιστικές καταστάσεις παιχνιδιού.</p>
+                        <p>Θα δουλέψεις τοποθέτηση, άμυνα, μετάβαση, παιχνίδι στο δίχτυ, επιθετικά σχήματα, overheads και τακτική λήψη αποφάσεων &mdash; με έμφαση στο πώς αυτές οι δεξιότητες μεταφράζονται σε πραγματικούς αγώνες.</p>
+                        <p><strong>Ιδανικό για:</strong> παίκτες που θέλουν ένα εντατικό σαββατοκύριακο επαγγελματικής προπόνησης, 6 ώρες ποιοτικής εκπαίδευσης και μια εστιασμένη ώθηση στο παιχνίδι τους χωρίς δέσμευση για ολόκληρη εβδομάδα.</p>
+                    </div>
+                </div>
+
                 <a id="weekendStripeLink" href="https://book.stripe.com/4gMcN7bplf3B2e5clScEw0k?prefilled_promo_code=WEEKEND5" target="_blank" rel="noopener" class="btn btn-primary btn-block schedule-cta" data-purchase-value="380" data-purchase-item="weekend_camp">Πληρωμή για Σαββατοκύριακο Camp</a>
+            </div>
+
             </div>
         </div>
     </section>
@@ -403,7 +477,7 @@
         <div class="container">
             <div class="coaches-header">
                 <h2 class="section-title">ΟΙ ΠΡΟΠΟΝΗΤΕΣ</h2>
-                <p class="coaches-subtitle">Η Barbara επιστρέφει για να ηγηθεί της προπόνησης στο γήπεδο — και οριστικοποιούμε δύο ακόμα προπονητές για να ολοκληρώσουμε την ομάδα. Ανακοίνωση σύντομα.</p>
+                <p class="coaches-subtitle">Η Barbara και ο Pablo θα ηγηθούν της προπόνησης στο γήπεδο τον Νοέμβριο — δύο επαγγελματίες Ισπανοί προπονητές έτοιμοι να ανεβάσουν το παιχνίδι σου στο επόμενο επίπεδο.</p>
             </div>
             <div class="coaches-grid">
                 <!-- Coach: Barbara Sala -->
@@ -426,33 +500,23 @@
                     </div>
                 </div>
 
-                <!-- Coach: TBA #1 -->
-                <div class="coach-card coach-card--mystery">
+                <!-- Coach: Pablo Castañeda -->
+                <div class="coach-card">
                     <div class="coach-image">
-                        <div class="mystery-coach-visual">
-                            <span class="mystery-icon">?</span>
-                            <span class="mystery-label">Σύντομα</span>
-                        </div>
+                        <img src="../assets/images/coaches/Pablo.jpeg" alt="Pablo Castañeda — Επαγγελματίας Προπονητής Πάντελ" width="880" height="1197" loading="lazy">
                     </div>
                     <div class="coach-info">
-                        <span class="coach-flag">Προπονητής · Σύντομα</span>
-                        <h3 class="coach-name">Νέος Προπονητής</h3>
-                        <p class="coach-bio">Οριστικοποιούμε τον επόμενο προπονητή μας. Κάποιος σπουδαίος θα προστεθεί στην ομάδα — η ανακοίνωση έρχεται σύντομα.</p>
-                    </div>
-                </div>
-
-                <!-- Coach: TBA #2 -->
-                <div class="coach-card coach-card--mystery">
-                    <div class="coach-image">
-                        <div class="mystery-coach-visual">
-                            <span class="mystery-icon">?</span>
-                            <span class="mystery-label">Σύντομα</span>
-                        </div>
-                    </div>
-                    <div class="coach-info">
-                        <span class="coach-flag">Προπονητής · Σύντομα</span>
-                        <h3 class="coach-name">Νέος Προπονητής</h3>
-                        <p class="coach-bio">Ο τρίτος προπονητής μας επιβεβαιώνεται. Μείνετε συντονισμένοι — σύντομα θα αποκαλύψουμε ποιος θα ενωθεί με τη Barbara στο γήπεδο.</p>
+                        <span class="coach-flag">🇪🇸 Ισπανία</span>
+                        <h3 class="coach-name">Pablo Castañeda</h3>
+                        <p class="coach-bio">Ο Pablo φέρνει ισχυρό ανταγωνιστικό υπόβαθρο, σύγχρονη προπονητική εμπειρία και πάθος να βοηθά τους παίκτες να βελτιωθούν στο The Padel Camp. Παίκτης Πρώτης Κατηγορίας στα Κανάρια Νησιά και δεύτερος στο Πρωτάθλημα Ομάδων Ισπανίας, συνδυάζει εμπειρία υψηλού επιπέδου με μια δομημένη, προσανατολισμένη στον παίκτη προπονητική προσέγγιση. Από αρχάριους έως αγωνιστικούς παίκτες, ο Pablo δουλεύει στην τεχνική, την τακτική και την ατομική ανάπτυξη για να βοηθήσει κάθε παίκτη να ανεβάσει το παιχνίδι του στο επόμενο επίπεδο.</p>
+                        <ul class="coach-credentials">
+                            <li>Παίκτης Πρώτης Κατηγορίας στα Κανάρια Νησιά</li>
+                            <li>Δεύτερος στο Πρωτάθλημα Ομάδων Ισπανίας (Primera Categoría)</li>
+                            <li>Πρωταθλητής Καναρίων Νήσων σε ομαδικό επίπεδο</li>
+                            <li>Καλύτερη κατάταξη FEP: 119ος στη χώρα</li>
+                            <li>3 σεζόν προπονητικής εμπειρίας — από αρχάριους έως αγωνιστικό επίπεδο</li>
+                            <li>Εθνικός Προπονητής Πάντελ, επίπεδο 1 — πιστοποίηση 2026</li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -465,7 +529,7 @@
             <div class="cta-banner-content">
                 <h2 class="cta-banner-title">Έτοιμος να προπονηθείς με τους καλύτερους;</h2>
                 <p class="cta-banner-text">Κλείσε τη θέση σου — περιορισμένες θέσεις</p>
-                <a href="#pricing" class="btn btn-primary btn-lg">Εγγραφή Τώρα</a>
+                <a href="#program-cards" class="btn btn-primary btn-lg">Κράτηση Τώρα</a>
             </div>
         </div>
     </section>
@@ -479,23 +543,32 @@
             <div class="venue-simple">
                 <div class="venue-simple-content">
                     <h3>MyQPadel</h3>
-                    <p class="venue-address">Λεμεσός, Κύπρος</p>
+                    <p class="venue-address">Μόνη, Λεμεσός, Κύπρος</p>
+                    <p class="venue-highlight">☀️ Πλήρως καλυμμένο &amp; με κλιματισμό — προπονήσου με άνεση, ό,τι καιρό κι αν έχει.</p>
                     <div class="venue-features-grid">
                         <div class="venue-feature-item">
-                            <strong>Επαγγελματικά Γήπεδα</strong>
-                            <span>6 premium πανοραμικά γήπεδα με επαγγελματικό φωτισμό</span>
+                            <strong>Πλήρως Καλυμμένα Γήπεδα</strong>
+                            <span>Προστασία από ήλιο και βροχή όλο τον χρόνο</span>
                         </div>
                         <div class="venue-feature-item">
-                            <strong>Σύγχρονες Εγκαταστάσεις</strong>
-                            <span>Αθλητικός εξοπλισμός, ποδήλατα γυμναστικής, ντουζιέρες</span>
+                            <strong>Κλιματισμός</strong>
+                            <span>Κυκλοφορία αέρα παντού, VIP γήπεδα πλήρως κλιματιζόμενα</span>
                         </div>
                         <div class="venue-feature-item">
-                            <strong>Δωρεάν Πάρκινγκ</strong>
-                            <span>Βολικό πάρκινγκ επί τόπου</span>
+                            <strong>Πρόσβαση 24/7</strong>
+                            <span>Αυτοματοποιημένο σύστημα εισόδου</span>
                         </div>
                         <div class="venue-feature-item">
-                            <strong>Clubhouse & Bar</strong>
-                            <span>Διαθέσιμα αναψυκτικά και σνακ</span>
+                            <strong>Κέντρο Αποκατάστασης</strong>
+                            <span>Σάουνα, κρυοθεραπεία &amp; κρεβάτι HydroJet επί τόπου</span>
+                        </div>
+                        <div class="venue-feature-item">
+                            <strong>Pro Shop &amp; Café</strong>
+                            <span>Casa de Padel Boutique — εξοπλισμός και καφές</span>
+                        </div>
+                        <div class="venue-feature-item">
+                            <strong>Γυμναστήριο Επί Τόπου</strong>
+                            <span>My Q EnerGym — λειτουργική προπόνηση &amp; καρδιο</span>
                         </div>
                     </div>
                     <a href="https://maps.app.goo.gl/HotvWfiUzGRR3DLk7" target="_blank" rel="noopener nofollow" class="btn btn-ghost">
@@ -515,25 +588,21 @@
             <div class="services-grid">
                 <div class="service-card">
                     <h3>Πακέτο Media</h3>
-                    <p>Απαθανάτισε κάθε επική στιγμή! Απόκτησε το Οπτικοακουστικό μας Πακέτο με 15-20 επαγγελματικές φωτογραφίες και ένα δυναμικό Reel (1,5-2 λεπτά), συν 2-3 σύντομα βίντεο - ιδανικό για να ζηλέψουν οι φίλοι σου. Περιορισμένες θέσεις.</p>
-                    <span class="service-price">€130</span>
+                    <p>15-20 επαγγελματικές φωτογραφίες συν ένα δυναμικό βίντεο (1.5-2 λεπτά) από τις στιγμές του camp σου.</p>
+                    <span class="service-price"><span class="price-mini-currency">&euro;</span>130</span>
                     <a id="mediaPackageStripeLink" href="https://buy.stripe.com/9B65kF8d9bRpbOFclScEw0a" target="_blank" rel="noopener" class="btn btn-primary btn-sm service-btn" data-purchase-value="130" data-purchase-item="media_package">Πληρωμή &euro;130</a>
                 </div>
-                <div class="service-card">
-                    <h3>Ιδιωτικό Μάθημα</h3>
-                    <p>1-προς-1 ή 2-προς-1 με Ισπανούς προπονητές. Εξατομικευμένη προσοχή.</p>
-                    <div class="private-lesson-prices">
-                        <div>
-                            <span class="private-lesson-price-label">1-προς-1</span>
-                            <span class="service-price">€80</span>
-                        </div>
-                        <div>
-                            <span class="private-lesson-price-label">2-προς-1</span>
-                            <span class="service-price">€110</span>
-                        </div>
-                    </div>
-                    <button class="btn btn-primary btn-sm service-btn" onclick="openServiceBookingForm('Ιδιωτικό Μάθημα (1-προς-1)', 80)">Κράτηση 1-προς-1 — €80</button>
-                    <button class="btn btn-ghost btn-sm service-btn" style="margin-top: 8px;" onclick="openServiceBookingForm('Ιδιωτικό Μάθημα (2-προς-1)', 110)">Κράτηση 2-προς-1 — €110</button>
+                <div class="service-card" onclick="openServiceBookingForm('Ιδιωτικό Μάθημα (1-προς-1)', 80)">
+                    <h3>Ιδιωτικό 1-προς-1</h3>
+                    <p>Εξατομικευμένη προπόνηση με Ισπανό προπονητή, εστιασμένη αποκλειστικά στο παιχνίδι σου.</p>
+                    <span class="service-price"><span class="price-mini-currency">&euro;</span>80</span>
+                    <button class="btn btn-primary btn-sm service-btn" onclick="openServiceBookingForm('Ιδιωτικό Μάθημα (1-προς-1)', 80)">Κράτηση 1-προς-1</button>
+                </div>
+                <div class="service-card" onclick="openServiceBookingForm('Ιδιωτικό Μάθημα (2-προς-1)', 110)">
+                    <h3>Ιδιωτικό 2-προς-1</h3>
+                    <p>Εξατομικευμένη προπόνηση με Ισπανό προπονητή, μοιρασμένη ανάμεσα σε σένα και έναν συμπαίκτη.</p>
+                    <span class="service-price"><span class="price-mini-currency">&euro;</span>110</span>
+                    <button class="btn btn-primary btn-sm service-btn" onclick="openServiceBookingForm('Ιδιωτικό Μάθημα (2-προς-1)', 110)">Κράτηση 2-προς-1</button>
                 </div>
             </div>
         </div>
@@ -574,7 +643,7 @@
                 <div class="form-group">
                     <label class="consent-option">
                         <input type="checkbox" name="serviceBookingConsent" required>
-                        <span>Συμφωνώ με την επεξεργασία των προσωπικών μου δεδομένων σύμφωνα με την <a href="/privacy-policy.html" target="_blank">Πολιτική Απορρήτου</a> *</span>
+                        <span>Συμφωνώ με την επεξεργασία των προσωπικών μου δεδομένων σύμφωνα με την <a href="privacy-policy.html" target="_blank">Πολιτική Απορρήτου</a> *</span>
                     </label>
                 </div>
 
@@ -615,77 +684,6 @@
         </div>
     </section>
 
-    <!-- Pricing Section -->
-    <section class="pricing-section" id="pricing">
-        <div class="container">
-            <div class="pricing-header">
-                <h2 class="section-title">ΤΙΜΕΣ</h2>
-                <p class="section-subtitle">Κλείσε τη θέση σου σήμερα</p>
-            </div>
-            <div class="pricing-grid">
-                <div class="price-card featured">
-                    <div class="price-header">
-                        <span class="price-location">Πρωινό Camp</span>
-                        <span class="price-duration">09:00&ndash;12:00</span>
-                    </div>
-                    <div class="price-dates">Λεμεσός &middot; 9&ndash;13 Νοεμβρίου</div>
-                    <div class="price-amount">
-                        <span class="price-currency">&euro;</span><span class="price-value">750</span>
-                    </div>
-                    <p class="price-early">Πρώτες 5 θέσεις &middot; &euro;770 κανονική τιμή</p>
-                    <ul class="price-includes">
-                        <li>5 ημέρες εντατικής προπόνησης (Δευ&ndash;Παρ)</li>
-                        <li>15 ώρες προπόνησης</li>
-                        <li>Επαγγελματίες Ισπανοί προπονητές</li>
-                        <li>Έως 4 παίκτες ανά γήπεδο</li>
-                        <li>Ατομική αναφορά αξιολόγησης</li>
-                    </ul>
-                    <a href="https://buy.stripe.com/3cI14p795g7F3i999GcEw0i?prefilled_promo_code=MORNING5" target="_blank" rel="noopener" class="btn btn-primary btn-block" data-purchase-value="770" data-purchase-item="morning_camp">Πληρωμή για Πρωινό Camp</a>
-                </div>
-
-                <div class="price-card">
-                    <div class="price-header">
-                        <span class="price-location">Βραδινό Camp</span>
-                        <span class="price-duration">17:30&ndash;20:30</span>
-                    </div>
-                    <div class="price-dates">Λεμεσός &middot; 9&ndash;13 Νοεμβρίου</div>
-                    <div class="price-amount">
-                        <span class="price-currency">&euro;</span><span class="price-value">870</span>
-                    </div>
-                    <p class="price-early">Πρώτες 5 θέσεις &middot; &euro;890 κανονική τιμή</p>
-                    <ul class="price-includes">
-                        <li>5 ημέρες εντατικής προπόνησης (Δευ&ndash;Παρ)</li>
-                        <li>15 ώρες προπόνησης</li>
-                        <li>Επαγγελματίες Ισπανοί προπονητές</li>
-                        <li>Έως 4 παίκτες ανά γήπεδο</li>
-                        <li>Ατομική αναφορά αξιολόγησης</li>
-                    </ul>
-                    <a href="https://buy.stripe.com/bJe9AV3WTbRp6uladKcEw0j?prefilled_promo_code=EVENING5" target="_blank" rel="noopener" class="btn btn-primary btn-block" data-purchase-value="890" data-purchase-item="evening_camp">Πληρωμή για Βραδινό Camp</a>
-                </div>
-
-                <div class="price-card">
-                    <div class="price-header">
-                        <span class="price-location">Σαββατοκύριακο Camp</span>
-                        <span class="price-duration">Σάβ + Κυρ</span>
-                    </div>
-                    <div class="price-dates">Λεμεσός &middot; 14&ndash;15 Νοεμβρίου</div>
-                    <div class="price-amount">
-                        <span class="price-currency">&euro;</span><span class="price-value">360</span>
-                    </div>
-                    <p class="price-early">Πρώτες 5 θέσεις &middot; &euro;380 κανονική τιμή</p>
-                    <ul class="price-includes">
-                        <li>2 ημέρες εντατικής προπόνησης</li>
-                        <li>6 ώρες προπόνησης</li>
-                        <li>Επαγγελματίες Ισπανοί προπονητές</li>
-                        <li>Έως 4 παίκτες ανά γήπεδο</li>
-                        <li>Ατομική αναφορά αξιολόγησης</li>
-                    </ul>
-                    <a href="https://book.stripe.com/4gMcN7bplf3B2e5clScEw0k?prefilled_promo_code=WEEKEND5" target="_blank" rel="noopener" class="btn btn-primary btn-block" data-purchase-value="380" data-purchase-item="weekend_camp">Πληρωμή για Σαββατοκύριακο Camp</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Gallery Section -->
     <section class="gallery-section" id="gallery">
         <div class="container">
@@ -693,71 +691,72 @@
                 <h2 class="section-title">ΓΚΑΛΕΡΙ</h2>
                 <p class="section-subtitle">Αληθινοί παίκτες, αληθινή προπόνηση, αληθινές στιγμές του Padel Camp</p>
             </div>
-            <div class="gallery-grid collapsed">
-                <div class="gallery-item gallery-video" role="button" tabindex="0" data-video-src="../assets/videos/gallery/video-4.mp4" aria-label="Αναπαραγωγή βίντεο: η προπονήτρια Barbara Sala σε δράση">
-                    <img src="../assets/images/gallery/video-4-poster.jpg" alt="Η προπονήτρια Barbara Sala σε δράση στο γήπεδο — προεπισκόπηση βίντεο" width="720" height="1280" loading="lazy">
-                    <span class="gallery-play-btn"></span>
+            <div class="gallery-carousel">
+                <div class="gallery-track" id="galleryTrack">
+                    <div class="gallery-slide">
+                        <img src="../assets/images/gallery/photo-1.jpg" alt="Δύο παίκτριες του The Padel Camp Cyprus φεύγουν από το γήπεδο με τις ρακέτες τους στη Λεμεσό" width="1600" height="2134" loading="lazy">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="../assets/images/gallery/photo-9.jpg" alt="Συμμετέχοντες και προπονητές του The Padel Camp Cyprus γιορτάζουν μαζί στο γήπεδο" width="1600" height="2134" loading="lazy">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="../assets/images/gallery/photo-3.jpg" alt="Αγώνας διπλού στο club The Padel K στη Λεμεσό" width="1600" height="2134" loading="lazy">
+                    </div>
+                    <div class="gallery-slide gallery-video" role="button" tabindex="0" data-video-src="../assets/videos/gallery/video-3.mp4" aria-label="Αναπαραγωγή βίντεο: άσκηση προπόνησης ποδιών">
+                        <img src="../assets/images/gallery/video-3-poster.jpg" alt="Άσκηση προπόνησης ποδιών στο γήπεδο — προεπισκόπηση βίντεο" width="720" height="1280" loading="lazy">
+                        <span class="gallery-play-btn"></span>
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="../assets/images/gallery/photo-6.jpg" alt="Συμμετέχοντες του The Padel Camp Cyprus με πιστοποιητικό ολοκλήρωσης στο The Padel K" width="1600" height="2134" loading="lazy">
+                    </div>
+                    <div class="gallery-slide gallery-video" role="button" tabindex="0" data-video-src="../assets/videos/gallery/video-4.mp4" aria-label="Αναπαραγωγή βίντεο: η προπονήτρια Barbara Sala σε δράση">
+                        <img src="../assets/images/gallery/video-4-poster.jpg" alt="Η προπονήτρια Barbara Sala σε δράση στο γήπεδο — προεπισκόπηση βίντεο" width="720" height="1280" loading="lazy">
+                        <span class="gallery-play-btn"></span>
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="../assets/images/gallery/photo-4.jpg" alt="Ομάδα του The Padel Camp Cyprus χαλαρώνει δίπλα στο γήπεδο με έναν σκύλο μετά την προπόνηση" width="1600" height="2134" loading="lazy">
+                    </div>
+                    <div class="gallery-slide gallery-video" role="button" tabindex="0" data-video-src="../assets/videos/gallery/video-2.mp4" aria-label="Αναπαραγωγή βίντεο: η ομάδα συναντιέται στο γήπεδο">
+                        <img src="../assets/images/gallery/video-2-poster.jpg" alt="Συμμετέχοντες του Padel Camp συναντιούνται στο γήπεδο — προεπισκόπηση βίντεο" width="720" height="1280" loading="lazy">
+                        <span class="gallery-play-btn"></span>
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="../assets/images/gallery/photo-7.jpg" alt="Συμμετέχοντες και προπονητής του The Padel Camp Cyprus μαζί μετά το camp" width="1600" height="2134" loading="lazy">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="../assets/images/gallery/photo-2.jpg" alt="Παίκτες και προπονητής του The Padel Camp Cyprus σε θέση ετοιμότητας κατά τη διάρκεια προπόνησης" width="1600" height="2134" loading="lazy">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="../assets/images/gallery/photo-10.jpg" alt="Ομάδα του The Padel Camp Cyprus γιορτάζει με σηκωμένες ρακέτες μετά το camp" width="1600" height="2134" loading="lazy">
+                    </div>
+                    <div class="gallery-slide gallery-video" role="button" tabindex="0" data-video-src="../assets/videos/gallery/video-1.mp4" aria-label="Αναπαραγωγή βίντεο: στιγμιότυπα από το camp">
+                        <img src="../assets/images/gallery/video-1-poster.jpg" alt="Στιγμιότυπα από το Padel Camp — προεπισκόπηση βίντεο" width="720" height="1280" loading="lazy">
+                        <span class="gallery-play-btn"></span>
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="../assets/images/gallery/photo-5.jpg" alt="Φυσιοθεραπευτής της Right Track φροντίζει έναν παίκτη δίπλα στο γήπεδο στο Padel Camp Cyprus" width="1600" height="2134" loading="lazy">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="../assets/images/gallery/photo-8.jpg" alt="Ομάδα του The Padel Camp Cyprus γιορτάζει με πιστοποιητικό ολοκλήρωσης" width="1600" height="2134" loading="lazy">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="../assets/images/gallery/photo-11.jpg" alt="Μεγάλη ομάδα συμμετεχόντων και προπονητών του The Padel Camp Cyprus στο γήπεδο" width="1600" height="2134" loading="lazy">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="../assets/images/gallery/photo-12.jpg" alt="Ομαδική φωτογραφία του The Padel Camp Cyprus με προπονητές και συμμετέχοντες στο The Padel K" width="1600" height="2134" loading="lazy">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="../assets/images/gallery/photo-13.jpg" alt="Ομαδική φωτογραφία του The Padel Camp Cyprus το βράδυ κάτω από προβολείς" width="1600" height="2134" loading="lazy">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="../assets/images/gallery/photo-14.jpg" alt="Συμμετέχοντες του The Padel Camp Cyprus γιορτάζουν μαζί το βράδυ στο γήπεδο" width="1600" height="2134" loading="lazy">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="../assets/images/gallery/photo-15.jpg" alt="Προπονητές και ομάδα του The Padel Camp Cyprus μαζί μετά από βραδινή προπόνηση" width="1600" height="2134" loading="lazy">
+                    </div>
                 </div>
-                <div class="gallery-item">
-                    <img src="../assets/images/gallery/photo-1.jpg" alt="Δύο παίκτριες του The Padel Camp Cyprus φεύγουν από το γήπεδο με τις ρακέτες τους στη Λεμεσό" width="1600" height="2134" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="../assets/images/gallery/photo-2.jpg" alt="Παίκτες και προπονητής του The Padel Camp Cyprus σε θέση ετοιμότητας κατά τη διάρκεια προπόνησης" width="1600" height="2134" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="../assets/images/gallery/photo-3.jpg" alt="Αγώνας διπλού στο club The Padel K στη Λεμεσό" width="1600" height="2134" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="../assets/images/gallery/photo-4.jpg" alt="Ομάδα του The Padel Camp Cyprus χαλαρώνει δίπλα στο γήπεδο με έναν σκύλο μετά την προπόνηση" width="1600" height="2134" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="../assets/images/gallery/photo-5.jpg" alt="Φυσιοθεραπευτής της Right Track φροντίζει έναν παίκτη δίπλα στο γήπεδο στο Padel Camp Cyprus" width="1600" height="2134" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="../assets/images/gallery/photo-6.jpg" alt="Συμμετέχοντες του The Padel Camp Cyprus με πιστοποιητικό ολοκλήρωσης στο The Padel K" width="1600" height="2134" loading="lazy">
-                </div>
-                <div class="gallery-item gallery-video" role="button" tabindex="0" data-video-src="../assets/videos/gallery/video-3.mp4" aria-label="Αναπαραγωγή βίντεο: άσκηση προπόνησης ποδιών">
-                    <img src="../assets/images/gallery/video-3-poster.jpg" alt="Άσκηση προπόνησης ποδιών στο γήπεδο — προεπισκόπηση βίντεο" width="720" height="1280" loading="lazy">
-                    <span class="gallery-play-btn"></span>
-                </div>
-                <div class="gallery-item">
-                    <img src="../assets/images/gallery/photo-7.jpg" alt="Συμμετέχοντες και προπονητής του The Padel Camp Cyprus μαζί μετά το camp" width="1600" height="2134" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="../assets/images/gallery/photo-8.jpg" alt="Ομάδα του The Padel Camp Cyprus γιορτάζει με πιστοποιητικό ολοκλήρωσης" width="1600" height="2134" loading="lazy">
-                </div>
-                <div class="gallery-item gallery-video" role="button" tabindex="0" data-video-src="../assets/videos/gallery/video-2.mp4" aria-label="Αναπαραγωγή βίντεο: η ομάδα συναντιέται στο γήπεδο">
-                    <img src="../assets/images/gallery/video-2-poster.jpg" alt="Συμμετέχοντες του Padel Camp συναντιούνται στο γήπεδο — προεπισκόπηση βίντεο" width="720" height="1280" loading="lazy">
-                    <span class="gallery-play-btn"></span>
-                </div>
-                <div class="gallery-item">
-                    <img src="../assets/images/gallery/photo-9.jpg" alt="Συμμετέχοντες και προπονητές του The Padel Camp Cyprus γιορτάζουν μαζί στο γήπεδο" width="1600" height="2134" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="../assets/images/gallery/photo-10.jpg" alt="Ομάδα του The Padel Camp Cyprus γιορτάζει με σηκωμένες ρακέτες μετά το camp" width="1600" height="2134" loading="lazy">
-                </div>
-                <div class="gallery-item gallery-video" role="button" tabindex="0" data-video-src="../assets/videos/gallery/video-1.mp4" aria-label="Αναπαραγωγή βίντεο: στιγμιότυπα από το camp">
-                    <img src="../assets/images/gallery/video-1-poster.jpg" alt="Στιγμιότυπα από το Padel Camp — προεπισκόπηση βίντεο" width="720" height="1280" loading="lazy">
-                    <span class="gallery-play-btn"></span>
-                </div>
-                <div class="gallery-item">
-                    <img src="../assets/images/gallery/photo-11.jpg" alt="Μεγάλη ομάδα συμμετεχόντων και προπονητών του The Padel Camp Cyprus στο γήπεδο" width="1600" height="2134" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="../assets/images/gallery/photo-12.jpg" alt="Ομαδική φωτογραφία του The Padel Camp Cyprus με προπονητές και συμμετέχοντες στο The Padel K" width="1600" height="2134" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="../assets/images/gallery/photo-13.jpg" alt="Ομαδική φωτογραφία του The Padel Camp Cyprus το βράδυ κάτω από προβολείς" width="1600" height="2134" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="../assets/images/gallery/photo-14.jpg" alt="Συμμετέχοντες του The Padel Camp Cyprus γιορτάζουν μαζί το βράδυ στο γήπεδο" width="1600" height="2134" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="../assets/images/gallery/photo-15.jpg" alt="Προπονητές και ομάδα του The Padel Camp Cyprus μαζί μετά από βραδινή προπόνηση" width="1600" height="2134" loading="lazy">
-                </div>
-            </div>
-            <div class="gallery-toggle">
-                <button class="btn btn-ghost" id="galleryToggleBtn" onclick="toggleGallery()" data-label-more="Δείτε Περισσότερες Φωτογραφίες & Βίντεο" data-label-less="Λιγότερα">Δείτε Περισσότερες Φωτογραφίες & Βίντεο</button>
+                <button type="button" class="gallery-nav gallery-nav-prev" aria-label="Προηγούμενη φωτογραφία" onclick="document.getElementById('galleryTrack').scrollBy({left: -document.querySelector('.gallery-slide').offsetWidth - 20, behavior: 'smooth'})">&#8249;</button>
+                <button type="button" class="gallery-nav gallery-nav-next" aria-label="Επόμενη φωτογραφία" onclick="document.getElementById('galleryTrack').scrollBy({left: document.querySelector('.gallery-slide').offsetWidth + 20, behavior: 'smooth'})">&#8250;</button>
             </div>
         </div>
     </section>
@@ -897,7 +896,7 @@
             </div>
             <div class="partners-cta">
                 <p class="partners-cta-text">Ενδιαφέρεσαι να γίνεις συνεργάτης μας; Έχουμε ευέλικτα πακέτα χορηγίας για κάθε στόχο.</p>
-                <a href="/el/partners.html" class="btn btn-primary">Δες Ευκαιρίες Συνεργασίας</a>
+                <a href="partners.html" class="btn btn-primary">Δες Ευκαιρίες Συνεργασίας</a>
             </div>
         </div>
     </section>
@@ -921,7 +920,7 @@
     <footer class="footer">
         <div class="container">
             <div class="footer-simple">
-                <span>© 2026 Padel Camp Cyprus · Λεμεσός · <a href="/terms.html">Όροι</a> · <a href="/privacy-policy.html">Πολιτική Απορρήτου</a></span>
+                <span>© 2026 Padel Camp Cyprus · Λεμεσός · <a href="terms.html">Όροι</a> · <a href="privacy-policy.html">Πολιτική Απορρήτου</a></span>
                 <div class="footer-social">
                     <a href="https://www.instagram.com/thepadelcampcy?igsh=ZnlweTMwNXU3bXM=" target="_blank" rel="noopener noreferrer nofollow" aria-label="Instagram">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
@@ -946,73 +945,7 @@
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
     </a>
 
-    <!-- Guess Vote Modal -->
-    <div class="vote-modal-overlay" id="voteModal">
-        <div class="vote-modal">
-            <div class="vote-modal-icon">🎯</div>
-            <h3 class="vote-modal-title">Η ψήφος καταγράφηκε!</h3>
-            <p class="vote-modal-text">Επέλεξες <strong id="modalCountry"></strong>. Θα αποκαλύψουμε την απάντηση πολύ σύντομα — μείνε συντονισμένος!</p>
-            <button class="vote-modal-btn" onclick="closeVoteModal()">Κατάλαβα</button>
-        </div>
-    </div>
-
-    <script>
-        function castVote(btn) {
-            if (localStorage.getItem('padelCampVote')) return;
-            var country = btn.dataset.country;
-            localStorage.setItem('padelCampVote', country);
-
-            document.querySelectorAll('.guess-btn').forEach(function(b) {
-                b.disabled = true;
-                b.classList.add('guess-btn--disabled');
-            });
-            btn.classList.remove('guess-btn--disabled');
-            btn.classList.add('guess-btn--selected');
-
-            document.getElementById('votedCountry').textContent = country;
-            document.getElementById('guessVoted').style.display = 'block';
-            document.querySelector('.guess-buttons').style.display = 'none';
-            document.querySelector('.guess-label').style.display = 'none';
-
-            document.getElementById('modalCountry').textContent = country;
-            document.getElementById('voteModal').classList.add('active');
-        }
-
-        function closeVoteModal() {
-            document.getElementById('voteModal').classList.remove('active');
-        }
-
-        document.getElementById('voteModal').addEventListener('click', function(e) {
-            if (e.target === this) closeVoteModal();
-        });
-
-        (function() {
-            var saved = localStorage.getItem('padelCampVote');
-            if (saved) {
-                document.querySelectorAll('.guess-btn').forEach(function(b) {
-                    b.disabled = true;
-                    b.classList.add('guess-btn--disabled');
-                });
-                document.getElementById('votedCountry').textContent = saved;
-                document.getElementById('guessVoted').style.display = 'block';
-                var btns = document.querySelector('.guess-buttons');
-                var label = document.querySelector('.guess-label');
-                if (btns) btns.style.display = 'none';
-                if (label) label.style.display = 'none';
-            }
-        })();
-    </script>
-
-    <script src="../assets/js/pixels.js?v=10"></script>
-    <script src="../assets/js/main.js?v=10"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            document.querySelectorAll('a[href*="buy.stripe.com"], a[href*="book.stripe.com"]').forEach(function (link) {
-                if (typeof appendStripeAttribution === 'function') {
-                    link.href = appendStripeAttribution(link.href);
-                }
-            });
-        });
-    </script>
+    <script src="../assets/js/pixels.js?v=11"></script>
+    <script src="../assets/js/main.js?v=8"></script>
 </body>
 </html>

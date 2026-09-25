@@ -95,7 +95,22 @@ function hideBanner() {
 
 // ─── Pixel Loaders ───────────────────────────────────────────────
 
+// Dev/preview safety: these IDs are the real production Meta Pixel/GA4/
+// Clarity accounts. While reachable via localhost or a temporary tunnel
+// (not the real thepadelcamp.com.cy domain), skip loading the actual SDKs
+// so test clicks don't pollute production analytics — every trackX() call
+// below already no-ops safely when fbq/gtag/clarity aren't defined, it just
+// logs to the console instead so wiring can still be verified locally.
+var IS_PRODUCTION_HOST = location.hostname === 'thepadelcamp.com.cy' || location.hostname === 'www.thepadelcamp.com.cy';
+
 function loadAllPixels() {
+    if (!IS_PRODUCTION_HOST) {
+        console.log('[pixels.js] Non-production host (' + location.hostname + ') — using console-only stub pixels instead of real Meta/GA4/Clarity.');
+        window.fbq = function() { console.log('[stub fbq]', Array.prototype.slice.call(arguments)); };
+        window.gtag = function() { console.log('[stub gtag]', Array.prototype.slice.call(arguments)); };
+        window.clarity = function() { console.log('[stub clarity]', Array.prototype.slice.call(arguments)); };
+        return;
+    }
     loadMetaPixel();
     loadGA4();
     loadGoogleAds();

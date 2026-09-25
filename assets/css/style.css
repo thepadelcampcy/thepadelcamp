@@ -182,6 +182,14 @@ img {
     transition: all 0.3s ease;
 }
 
+/* Anchor targets scroll to sit below the (scrolled, 70px) sticky header,
+   regardless of the header's much taller pre-scroll height — see
+   initSmoothScroll() in main.js, which now just uses scrollIntoView(). */
+section[id],
+#program-cards {
+    scroll-margin-top: 100px;
+}
+
 .header .container {
     display: flex;
     align-items: center;
@@ -438,9 +446,13 @@ img {
 .meta-item {
     display: flex;
     flex-direction: column;
-    padding: 16px 0 0;
-    border-top: 1px solid var(--glass-border);
-    cursor: default;
+    padding: 24px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    box-shadow: var(--glass-shadow);
 }
 
 .meta-value {
@@ -784,35 +796,6 @@ img {
 
 .schedule-cta {
     margin-top: 24px;
-}
-
-.program-dates {
-    font-size: 14px;
-    color: var(--gray-500);
-    margin: 4px 0 16px;
-}
-
-/* Anchor-scroll target offset. Sections carry their own 120px top padding
-   (--section-spacing) before the heading, so landing at the section's true
-   top left a large dead gap under the header. A negative scroll-margin-top
-   here scrolls past that built-in padding so the heading sits right under
-   the header instead; the value accounts for the scrolled header height
-   (~70px) minus the section's own top padding, tuned per breakpoint since
-   --section-spacing itself changes at 1024px/768px. */
-section[id] {
-    scroll-margin-top: -25px;
-}
-
-@media (max-width: 1024px) {
-    section[id] {
-        scroll-margin-top: 10px;
-    }
-}
-
-@media (max-width: 768px) {
-    section[id] {
-        scroll-margin-top: 20px;
-    }
 }
 
 .program-details-block {
@@ -1233,7 +1216,7 @@ section[id] {
 
 /* Simple Venue Layout */
 .venue-simple {
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
 }
 
@@ -3355,6 +3338,25 @@ section[id] {
         top: 50%;
         transform: translateY(-50%);
         transition: all 0.4s ease;
+        gap: 10px;
+        z-index: 1001;
+    }
+
+    /* Shrunk so "Book Now" + hamburger both fit without colliding with
+       the large centered mobile logo (was invisible/overlapped before) */
+    .header-book-btn {
+        padding: 8px 14px;
+        font-size: 13px;
+    }
+
+    .header-book-btn-full {
+        display: none;
+    }
+
+    /* Redundant with the hero's own "View Program" button before scroll —
+       only show once scrolled past the hero, where that CTA is out of view. */
+    .header:not(.scrolled) .header-book-btn {
+        display: none;
     }
 
     /* Scrolled state */
@@ -3375,10 +3377,12 @@ section[id] {
         transform: translateY(-50%);
     }
 
-    /* Language switch moves right (closer to menu) on scroll */
+    /* Language switch moves left of the Book button on scroll (offset
+       widened now that there's no hamburger to make room for — Book Now
+       is wider than the old hamburger icon was) */
     .header.scrolled .lang-switch-mobile {
         left: auto;
-        right: 58px;
+        right: 110px;
         flex-direction: row;
         gap: 4px;
     }
@@ -3418,9 +3422,10 @@ section[id] {
         font-size: 24px;
     }
 
+    /* Removed on mobile — one-page sales site, priority is the pitch/CTA,
+       not section navigation; visitors scroll, they don't need a menu. */
     .mobile-menu-btn {
-        display: flex;
-        z-index: 1003;
+        display: none;
     }
 
     .mobile-menu-btn.active span:first-child {
@@ -3433,6 +3438,11 @@ section[id] {
 
     .header .btn {
         display: none;
+    }
+
+    /* ...except our header CTA, which should stay visible on mobile too */
+    .header .header-book-btn {
+        display: inline-flex;
     }
 
     .hero {
@@ -3449,7 +3459,7 @@ section[id] {
     }
 
     .meta-item {
-        padding: 12px 0 0;
+        padding: 20px 16px;
     }
 
     .meta-value {

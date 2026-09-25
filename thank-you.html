@@ -14,7 +14,8 @@
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=optional">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=optional" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=optional"></noscript>
-    <link rel="stylesheet" href="assets/css/style.css?v=28">
+    <link rel="stylesheet" href="assets/css/style.css?v=25">
+    <link rel="stylesheet" href="assets/css/experiment-theme.css?v=36">
 
     <style>
         .header { background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); }
@@ -60,8 +61,9 @@
         .back-link:hover { color: var(--black); }
 
         /* Post-payment follow-up form — collects what Stripe Checkout
-           doesn't (phone required; name/email are editable, empty fields
-           until a webhook-based prefill exists). */
+           doesn't (phone required; name/email would be prefilled from the
+           Stripe webhook via session_id once that backend piece exists —
+           for now they're just editable, empty fields). */
         .ty-followup {
             margin-top: 28px;
             padding-top: 28px;
@@ -95,14 +97,14 @@
             font-family: var(--font-primary);
             background: var(--white);
         }
-        .ty-followup .form-input:focus {
-            outline: none;
-            border-color: var(--black);
-        }
         .ty-followup textarea.form-input {
             resize: vertical;
             min-height: 44px;
             max-height: 200px;
+        }
+        .ty-followup .form-input:focus {
+            outline: none;
+            border-color: var(--black);
         }
         .ty-goals-list {
             display: grid;
@@ -128,20 +130,13 @@
             <a href="/" class="logo logo-center"><picture class="logo-img logo-img-large"><source srcset="assets/images/logo-large.webp" type="image/webp"><img src="assets/images/logo-large.png" alt="The Padel Camp Cyprus" width="1200" height="762" fetchpriority="high"></picture><picture class="logo-img logo-img-small"><source srcset="assets/images/logo.webp" type="image/webp"><img src="assets/images/logo.png" alt="The Padel Camp Cyprus" width="500" height="317"></picture></a>
             <nav class="nav" id="nav">
                 <ul class="nav-list">
-                    <li><a href="/#program">Program</a></li>
+                    <li><a href="/#program-cards">Program</a></li>
                     <li><a href="/#coaches">Coaches</a></li>
                     <li><a href="/#venue">Venue</a></li>
                     <li><a href="/#services">Services</a></li>
-                    <li><a href="/#pricing">Pricing</a></li>
                     <li><a href="/#faq">FAQ</a></li>
                 </ul>
             </nav>
-            <div class="header-actions">
-                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
-                    <span></span>
-                    <span></span>
-                </button>
-            </div>
         </div>
     </header>
 
@@ -152,7 +147,7 @@
             <div class="ty-card payment-success">
                 <div class="payment-success-icon">✓</div>
                 <h2 id="tyHeading">You're in!</h2>
-                <p class="payment-success-subtitle" id="tySubtitle">Welcome to The Padel Camp Cyprus family.</p>
+                <p class="payment-success-subtitle" id="tySubtitle">Thank you for your payment.</p>
 
                 <div class="payment-details-box">
                     <p class="payment-camp" id="tyItemLine">&nbsp;</p>
@@ -237,8 +232,8 @@
         </div>
     </div>
 
-    <script src="assets/js/pixels.js?v=10"></script>
-    <script src="assets/js/main.js?v=10"></script>
+    <script src="assets/js/pixels.js?v=11"></script>
+    <script src="assets/js/main.js?v=8"></script>
     <script>
         (function () {
             var params = new URLSearchParams(window.location.search);
@@ -253,7 +248,6 @@
                 'morning_camp': { en: 'Morning Camp',      ru: 'Morning Camp' },
                 'evening_camp': { en: 'Evening Camp',      ru: 'Evening Camp' },
                 'weekend_camp': { en: 'Weekend Camp',      ru: 'Weekend Camp' },
-                'media_package':{ en: 'Media Package',     ru: 'Медиапакет «На память»' },
                 'media-package':{ en: 'Media Package',     ru: 'Медиапакет «На память»' }
             };
             var label = itemLabels[item] ? (isRu ? itemLabels[item].ru : itemLabels[item].en) : (isRu ? 'Оплата' : 'Your booking');

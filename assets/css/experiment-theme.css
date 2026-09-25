@@ -1,0 +1,830 @@
+/* ========================================
+   EXPERIMENT: Tenerife Padel Escape-inspired theme
+   Loaded AFTER style.css — overrides only, base file untouched.
+   Photo: Lemesos Marina, sunny (Wikimedia Commons, Mboesch,
+   CC BY-SA 4.0 — needs a credit line if this ever ships)
+   ======================================== */
+
+:root {
+    /* orange accent -> a noble deep green, everywhere --accent is used.
+       TEMP: Variant B — Lacoste's official green (#004526), for comparison */
+    --accent: #004526;
+    --accent-hover: #0a6b47;
+    --accent-soft: rgba(0, 69, 38, 0.3);
+    --accent-glow: rgba(0, 69, 38, 0.35);
+}
+
+/* style.css never sets a base font-family on <button> — every button
+   class sets its own, so any button that doesn't get one falls back
+   to the browser's default UI font instead of Inter. One reset fixes
+   it everywhere instead of chasing individual button classes. */
+button {
+    font-family: inherit;
+}
+
+/* Same "small € + big serif number" price style as the Program cards,
+   scaled to whatever size each price already is (service cards,
+   massage session prices) instead of a fixed size */
+.service-price,
+.session-price {
+    font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+    font-weight: 600;
+}
+
+.price-mini-currency {
+    font-size: 0.55em;
+    font-weight: 500;
+    vertical-align: top;
+    margin-right: 1px;
+}
+
+/* Serif display font on every heading, sans stays on body text —
+   same pairing the reference site uses (Cormorant Garamond + Inter).
+   Targeted by naming convention (every heading class in this codebase
+   ends in "-title") + !important, so it wins over the more specific
+   per-component selectors in style.css instead of losing to them by
+   specificity — one rule instead of chasing each class individually. */
+h1,
+h2,
+h3,
+[class$="-title"],
+.date-range,
+.price-value,
+.price-location,
+.approach-question,
+.faq-question {
+    font-family: 'Cormorant Garamond', 'Times New Roman', serif !important;
+    font-weight: 500 !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+}
+
+/* Same convention for body-copy captions: every "-subtitle" class
+   gets the airier light-weight Inter treatment */
+[class$="-subtitle"] {
+    font-weight: 300 !important;
+}
+
+/* Program cards' "X hours per day · Y hours total" line is meant to read
+   as a bold stat line (matches the source copy doc), not the airy light
+   caption style every other "-subtitle" class gets */
+.program-content .program-details-subtitle {
+    font-weight: 700 !important;
+}
+
+/* Nav links pick up the gold accent on hover/active instead of grey->black */
+.nav-list a:hover,
+.lang-switch a:hover,
+.lang-switch a.active {
+    color: var(--accent);
+}
+
+/* Pure black sections -> navy, matching the new palette */
+.dates-banner,
+.cta-banner,
+.contact-section {
+    background: #001e2d;
+}
+
+.price-card.featured {
+    background: linear-gradient(135deg, #001e2d 0%, #0d3626 100%);
+    border-color: var(--accent-glow);
+}
+
+/* Checkmarks on every plan's inclusion list, like the reference's pricing card */
+.price-includes li {
+    position: relative;
+    padding-left: 26px;
+}
+
+.price-includes li::before {
+    content: '\2713';
+    position: absolute;
+    left: 0;
+    top: 12px;
+    color: var(--accent);
+    font-weight: 700;
+}
+
+.price-card.featured .price-includes li::before {
+    color: var(--accent-hover);
+}
+
+.price-card .btn-primary.btn-block::after {
+    content: ' \2192';
+}
+
+/* Program section: 3 simultaneous cards instead of tabs + one panel,
+   styled like the pricing cards (one dark "featured" + two light) */
+.program-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    align-items: start;
+}
+
+.program-content {
+    display: block !important;
+    background: #fff;
+    border: 1px solid var(--accent-soft);
+    border-radius: 24px;
+    padding: 32px;
+    box-shadow: 0 8px 24px rgba(0, 30, 45, 0.08);
+}
+
+.program-content.featured {
+    background: linear-gradient(135deg, #001e2d 0%, #0d3626 100%);
+    border-color: var(--accent-glow);
+    color: #fcfaf6;
+}
+
+.program-content.featured .schedule {
+    background: rgba(252, 250, 246, 0.06);
+    border-color: rgba(252, 250, 246, 0.15);
+}
+
+.program-content.featured .schedule-day {
+    border-bottom-color: rgba(252, 250, 246, 0.12);
+}
+
+/* Cards are narrower than the old full-width panel — stack the day
+   label above its sessions instead of a cramped two-column grid */
+.program-content .schedule-day {
+    grid-template-columns: 1fr;
+    gap: 10px;
+}
+
+.program-content.featured .day-num,
+.program-content.featured .program-details-title {
+    color: #fcfaf6;
+}
+
+.program-content.featured .day-name,
+.program-content.featured .session .activity,
+.program-content.featured .program-details,
+.program-content.featured .program-details p,
+.program-content.featured .program-details-subtitle {
+    color: rgba(252, 250, 246, 0.7);
+}
+
+/* style.css bolds inline <strong> to near-black (--black) for contrast on
+   the light cards — on this dark gradient card that reads as invisible,
+   so it needs its own light-on-dark contrast color instead */
+.program-content.featured .program-details p strong {
+    color: #fcfaf6;
+}
+
+.program-content.featured .btn-view-details {
+    color: #fcfaf6;
+    border-color: rgba(252, 250, 246, 0.5);
+}
+
+.program-content.featured .btn-view-details:hover,
+.program-content.featured .program-details-block.active .btn-view-details {
+    background: #fcfaf6;
+    color: #001e2d;
+}
+
+.program-content .btn-primary.btn-block::after {
+    content: ' \2192';
+}
+
+.program-price {
+    margin: 20px 0 4px;
+}
+
+.program-price-note {
+    font-family: 'Inter', -apple-system, sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--gray-500);
+    margin-left: 8px;
+}
+
+.program-content.featured .program-price-note {
+    color: rgba(252, 250, 246, 0.6);
+}
+
+/* The schedule's date/stat labels were plain bold sans — felt flat
+   next to the serif headings, so give them the same refined treatment */
+.day-num {
+    font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+    font-size: 22px;
+}
+
+.program-hours {
+    color: var(--accent);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+}
+
+.program-content.featured .program-hours {
+    color: var(--accent-hover);
+}
+
+.program-dates {
+    font-size: 14px;
+    color: var(--gray-500);
+    margin: 4px 0 16px;
+}
+
+.program-content.featured .program-dates {
+    color: rgba(252, 250, 246, 0.65);
+}
+
+/* Early-bird price badge — two columns like the Instagram promo graphics
+   (Early Bird / Regular Price side by side with a divider) */
+.early-bird-banner {
+    max-width: 640px;
+    margin: 0 auto 40px;
+    text-align: center;
+    padding: 16px 24px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+}
+
+.early-bird-tag {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 4px;
+}
+
+.early-bird-banner p {
+    font-size: 14px;
+    color: var(--gray-600);
+    margin: 0;
+}
+
+.early-bird-badge {
+    display: flex;
+    align-items: stretch;
+    background: var(--accent);
+    border-radius: 12px;
+    padding: 14px 20px;
+    margin: 4px 0 20px;
+}
+
+.early-bird-badge-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.early-bird-badge-divider {
+    width: 1px;
+    background: rgba(252, 250, 246, 0.3);
+    margin: 2px 16px;
+}
+
+.early-bird-badge-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: rgba(252, 250, 246, 0.75);
+    margin-bottom: 4px;
+}
+
+.early-bird-badge-price {
+    font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: #fcfaf6;
+}
+
+.early-bird-badge-was {
+    font-size: 20px;
+    font-weight: 500;
+    color: rgba(252, 250, 246, 0.6);
+    text-decoration: line-through;
+}
+
+.weekend-groups-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 14px;
+}
+
+.weekend-groups-table th,
+.weekend-groups-table td {
+    padding: 8px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.weekend-groups-table th {
+    color: var(--gray-500);
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+.weekend-groups-note {
+    font-size: 13px;
+    color: var(--gray-500);
+    font-style: italic;
+}
+
+/* Bold black time stamps next to light editorial copy read as cheap —
+   soften the weight and colour them like a label instead of a stamp */
+.session .time {
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 0.01em;
+}
+
+.program-content.featured .session .time {
+    color: var(--accent-hover);
+}
+
+.session .activity {
+    font-weight: 300;
+}
+
+.coach-bio {
+    font-weight: 300;
+}
+
+/* Credentials list was rendering at the browser's default weight (400)
+   and a slightly smaller size than the bio paragraph right above it —
+   same Inter typeface, but the mismatch reads as a different font */
+.coach-credentials li {
+    font-weight: 300;
+    font-size: 14px;
+}
+
+/* Coach photos were too bright/saturated next to the muted editorial palette
+   elsewhere — mute them slightly and add a soft vignette toward the edges,
+   like the reference site's club photography */
+.coach-image {
+    position: relative;
+}
+
+.coach-image img {
+    filter: saturate(0.92) brightness(0.98) contrast(1.02);
+}
+
+.coach-image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, transparent 45%, rgba(0, 10, 8, 0.35) 100%);
+    pointer-events: none;
+}
+
+/* Only 2 coaches exist — the desktop default (3 columns, >1024px)
+   leaves an empty slot. Scoped to desktop only: style.css already
+   handles tablet (2 columns) and mobile (1 column, stacked) correctly
+   below 1024px — an unscoped rule here would override those too and
+   squeeze 2 columns onto phone width. */
+@media (min-width: 1025px) {
+    .coaches-grid {
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 900px;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 1000px) {
+    .program-cards-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* About section gets a photo alongside the text, like the reference's
+   image-left/text-right pattern (their "padel" section) */
+.about-image img {
+    width: 100%;
+    height: 100%;
+    min-height: 420px;
+    object-fit: cover;
+    border-radius: 28px;
+    box-shadow: 0 20px 50px rgba(0, 30, 45, 0.18);
+    display: block;
+}
+
+.about-text-col {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+}
+
+@media (max-width: 900px) {
+    .about-image img {
+        min-height: 280px;
+    }
+}
+
+/* Cold grey section backgrounds -> warm cream/sand, sitewide */
+.learn-section {
+    background: linear-gradient(180deg, #fcfaf6 0%, #f4eee4 100%);
+}
+
+.coaches-section {
+    background: linear-gradient(180deg, #f4eee4 0%, #efe3d3 100%);
+}
+
+.venue-section {
+    background: linear-gradient(180deg, #efe3d3 0%, #f4eee4 100%);
+}
+
+.included-section {
+    background: linear-gradient(180deg, #f4eee4 0%, #efe3d3 100%);
+}
+
+.approach-section {
+    background: linear-gradient(135deg, #f4eee4 0%, #fcfaf6 100%);
+}
+
+.partners-preview {
+    background: #f4eee4;
+}
+
+.pricing-section {
+    background: linear-gradient(180deg, #fcfaf6 0%, #f4eee4 100%);
+}
+
+body {
+    background: #fcfaf6;
+}
+
+/* Frosted cards sitewide: same component, gold-tinted border instead of plain white */
+.learn-item,
+.coach-card,
+.service-card,
+.approach-item,
+.partner-logo-card,
+.meta-item,
+.price-card,
+.venue-info-card {
+    border-color: var(--accent-soft);
+}
+
+.faq-item {
+    border-bottom-color: var(--accent-soft);
+}
+
+.schedule-day {
+    border-bottom-color: var(--accent-soft);
+}
+
+.feature {
+    border-bottom-color: var(--accent-soft);
+}
+
+/* Body copy that doesn't follow the "-subtitle" naming convention
+   still gets the same light-weight treatment */
+.about-text,
+.learn-item p,
+.service-card p,
+.approach-item p,
+.faq-answer {
+    font-weight: 300;
+}
+
+.hero {
+    /* solid fallback close to the gradient's darkest tone — no color jump
+       once the photo underneath finishes fading in */
+    background: #001019;
+    color: #fcfaf6;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Photo loads via JS (random pick, see the inline script in the hero
+   markup) and fades in once decoded instead of popping in abruptly —
+   the solid background color above covers the wait. */
+.hero-bg-photo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 55%;
+    opacity: 0;
+    transition: opacity 1s ease;
+    z-index: 0;
+}
+
+.hero-bg-photo.is-loaded {
+    opacity: 1;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0, 15, 24, 0.18) 0%, rgba(0, 15, 24, 0.38) 45%, rgba(0, 15, 24, 0.82) 100%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+/* Attribution for the rotating Wikimedia Commons hero photo — CC BY-SA
+   requires it, kept for the CC0 one too for consistency. */
+.hero-photo-credit {
+    position: absolute;
+    right: 16px;
+    bottom: 12px;
+    z-index: 2;
+    font-size: 11px;
+    color: rgba(252, 250, 246, 0.55);
+    text-shadow: 0 1px 4px rgba(0, 10, 15, 0.6);
+}
+
+.hero-photo-credit a {
+    color: inherit;
+    text-decoration: underline;
+}
+
+.hero-eyebrow,
+.hero-title,
+.hero-subtitle {
+    text-shadow: 0 2px 16px rgba(0, 10, 15, 0.45);
+}
+
+.hero::before {
+    /* the light radial glow from style.css reads wrong on a dark photo */
+    display: none;
+}
+
+.header:not(.scrolled) .logo img {
+    filter: drop-shadow(0 0 20px rgba(252, 250, 246, 0.85)) drop-shadow(0 0 42px rgba(252, 250, 246, 0.55));
+}
+
+/* Camp slogan, centered above the headline instead of a small left-aligned
+   eyebrow tag — cream on the dark photo overlay for readability
+   (the previous dark-green accent color had too little contrast here) */
+.hero-eyebrow {
+    color: #fcfaf6;
+    text-align: center;
+    font-size: 15px;
+    letter-spacing: 0.18em;
+}
+
+.hero-title {
+    color: #fcfaf6;
+}
+
+.hero-title em,
+.hero-title .accent {
+    font-style: italic;
+    color: #fcfaf6;
+}
+
+.hero-subtitle {
+    color: rgba(252, 250, 246, 0.85);
+}
+
+/* Gold primary CTA everywhere, not just the hero — pricing cards,
+   header, contact all use .btn-primary too */
+.btn-primary {
+    background: var(--accent);
+    color: #fcfaf6;
+    border: 1px solid var(--accent);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+.btn-primary:hover {
+    background: var(--accent-hover);
+    border-color: var(--accent-hover);
+    color: #fcfaf6;
+}
+
+.hero-cta .btn-ghost {
+    background: rgba(252, 250, 246, 0.08);
+    color: #fcfaf6;
+    border: 1.5px solid rgba(252, 250, 246, 0.45);
+    box-shadow: none;
+}
+
+.hero-cta .btn-ghost:hover {
+    background: rgba(252, 250, 246, 0.18);
+    color: #fcfaf6;
+    border-color: rgba(252, 250, 246, 0.7);
+}
+
+.hero-meta .meta-item {
+    background: rgba(252, 250, 246, 0.08);
+    border: 1px solid rgba(252, 250, 246, 0.2);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.hero-meta .meta-value {
+    color: #fcfaf6;
+}
+
+.hero-meta .meta-label {
+    color: rgba(252, 250, 246, 0.65);
+}
+
+/* Header CTA button — always visible, not tied to the scroll-triggered
+   nav reveal (the reference keeps its "Reserve Your Spot" button visible
+   from the first frame) */
+.header-book-btn {
+    white-space: nowrap;
+}
+
+/* Gallery reorganized as one large swipeable photo at a time,
+   like the reference's lifestyle carousel, instead of a small-tile grid */
+.gallery-carousel {
+    position: relative;
+}
+
+.gallery-track {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding: 4px 4px 12px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
+
+.gallery-track::-webkit-scrollbar {
+    display: none;
+}
+
+.gallery-slide {
+    position: relative;
+    flex: 0 0 min(640px, 86vw);
+    height: min(60vh, 520px);
+    border-radius: 28px;
+    overflow: hidden;
+    scroll-snap-align: center;
+    background: #f4eee4;
+    box-shadow: 0 20px 50px rgba(0, 30, 45, 0.18);
+}
+
+.gallery-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.gallery-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid var(--accent-soft);
+    background: rgba(252, 250, 246, 0.95);
+    color: #001e2d;
+    font-size: 22px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    transition: background 0.2s ease, transform 0.2s ease;
+    z-index: 2;
+}
+
+.gallery-nav:hover {
+    background: #fff;
+    transform: translateY(-50%) scale(1.06);
+}
+
+.gallery-nav-prev {
+    left: 4px;
+}
+
+.gallery-nav-next {
+    right: 4px;
+}
+
+@media (max-width: 900px) {
+    .gallery-nav {
+        display: none;
+    }
+}
+
+/* Extra Services: 4 equal compact tiles (Media Package, Private 1-on-1,
+   Private 2-on-1, Massage & Recovery) instead of 3 uneven cards where
+   Private Lesson alone carried two prices and two buttons — same compact
+   size as the "What You'll Learn" tiles instead of the taller pricing-card
+   treatment these used to borrow. */
+.services-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.service-card {
+    padding: 28px;
+    cursor: pointer;
+}
+
+.service-card h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.service-card p {
+    font-size: 14px;
+    margin-bottom: 18px;
+}
+
+.service-price {
+    font-size: 20px;
+}
+
+@media (max-width: 1024px) {
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 560px) {
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* What's Included: one bordered card with a divider between the two
+   columns instead of two separate floating cards of mismatched height
+   (the shorter "Included" list left visible empty space at the bottom) */
+.included-grid {
+    background: var(--glass-bg);
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    box-shadow: var(--glass-shadow);
+    overflow: hidden;
+    gap: 0;
+}
+
+.included-column {
+    background: none;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+    padding: 28px 32px;
+}
+
+.included-title {
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+}
+
+/* Each row had 10px top+bottom padding plus a border — reasonable on its
+   own, but stacked over only 5-7 short lines it left the card feeling
+   mostly empty on desktop. Tighter rows read as a denser, more
+   confident list instead of a handful of items spread thin. */
+.included-list li {
+    padding: 4px 0 4px 28px;
+}
+
+.included-column:first-child {
+    border-right: 1px solid var(--accent-soft);
+}
+
+@media (max-width: 1024px) {
+    .included-column:first-child {
+        border-right: none;
+        border-bottom: 1px solid var(--accent-soft);
+    }
+}
+
+/* FAQ and Partners headers/lists have a max-width in the base stylesheet
+   but were never actually centered (no text-align, no auto margins) —
+   every other section header on the page is centered, so on wide
+   viewports these two sit pinned to the left with a large empty gap on
+   the right. */
+.faq-header,
+.partners-preview-header {
+    text-align: center;
+}
+
+.faq-list {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.partners-preview-header .section-subtitle {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.partners-logos {
+    margin-left: auto;
+    margin-right: auto;
+}

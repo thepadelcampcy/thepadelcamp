@@ -52,6 +52,16 @@ document.addEventListener('DOMContentLoaded', function() {
     initContactForm();
     initAnimations();
     initPricingViewTracking();
+
+    // Static Stripe links (no form in front of them) need attribution
+    // applied on load, since there's no JS-generated innerHTML step to
+    // hook into like the camp/massage flows.
+    ['mediaPackageStripeLink', 'morningStripeLink', 'eveningStripeLink', 'weekendStripeLink'].forEach(function(id) {
+        var link = document.getElementById(id);
+        if (link && typeof appendStripeAttribution === 'function') {
+            link.href = appendStripeAttribution(link.href);
+        }
+    });
 });
 
 /**
@@ -103,10 +113,10 @@ function initSmoothScroll() {
             const target = document.querySelector(targetId);
             if (target) {
                 // scroll-margin-top (see CSS) handles the header offset —
-                // reading .header's live offsetHeight here was wrong: the
-                // header shrinks from 25vh to 70px once .scrolled kicks in,
-                // so a click from the very top used the large unscrolled
-                // height and landed short of the target.
+                // reading .header's live offsetHeight here was wrong: on
+                // this design the header shrinks from 25vh to 70px once
+                // .scrolled kicks in, so a click from the very top used the
+                // large pre-scroll height and landed short of the target.
                 target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         });

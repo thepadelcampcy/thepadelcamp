@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Padel Camp Кипр 2026 | Тренировки с испанскими профессионалами в Лимассоле</title>
-    <meta name="description" content="Интенсивный тренировочный лагерь по паддлу в Лимассоле, Кипр с профессиональными испанскими тренерами, 9&ndash;15 ноября 2026. Мини-группы (1:4), все уровни. Утренний, вечерний и уик-энд форматы.">
+    <meta name="description" content="Интенсивный тренировочный лагерь по паддлу в Лимассоле, Кипр с профессиональными испанскими тренерами, 9&ndash;15 ноября 2026. Мини-группы (1:4), все уровни.">
     <meta name="keywords" content="падель лагерь, падель тренировки, падель Кипр, падель Лимассол, испанские тренеры падель, уроки падель, падель интенсив, падель курс, padel camp">
     <meta name="author" content="The Padel Camp Cyprus">
     <meta name="robots" content="index, follow">
@@ -21,7 +21,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://thepadelcamp.com.cy/ru/">
     <meta property="og:title" content="Padel Camp Кипр 2026 | Тренировки с испанскими профессионалами">
-    <meta property="og:description" content="Интенсивный тренировочный лагерь по паддлу в Лимассоле с профессиональными испанскими тренерами, 9&ndash;15 ноября 2026. Мини-группы, все уровни.">
+    <meta property="og:description" content="Интенсивный тренировочный лагерь по паддлу в Лимассоле с профессиональными испанскими тренерами, 9&ndash;15 ноября 2026.">
     <meta property="og:image" content="https://thepadelcamp.com.cy/assets/images/og-image.jpg">
     <meta property="og:locale" content="ru_RU">
     <meta property="og:locale:alternate" content="en_US">
@@ -45,7 +45,43 @@
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=optional">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=optional" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=optional"></noscript>
-    <link rel="stylesheet" href="../assets/css/style.css?v=28">
+    <link rel="stylesheet" href="../assets/css/style.css?v=25">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300&display=swap">
+    <link rel="stylesheet" href="../assets/css/experiment-theme.css?v=36">
+
+    <!-- Rotate the hero photo — picked once per page load. Preloaded here,
+         as early as possible, then faded in (see .hero-bg-photo below)
+         instead of popping in abruptly once it finishes downloading.
+         Not persisted: a refresh can show the same photo again, fine for
+         a demo. -->
+    <script>
+        (function () {
+            // Attribution required by CC BY-SA (kept for the CC0 photo too,
+            // for consistency) — see assets/images/limassol-photos/CREDITS.txt
+            var credits = {
+                '/assets/images/limassol-photos/marina-sunny-promenade.jpg':
+                    { text: '"Lemesos-marina" by Mboesch, CC BY-SA 4.0', href: 'https://commons.wikimedia.org/wiki/File:Lemesos-marina.jpg' },
+                '/assets/images/limassol-photos/molos-pier-skyline.jpg':
+                    { text: '"LIMASSOL MOLOS 01" by Lomaine, CC BY-SA 4.0', href: 'https://commons.wikimedia.org/wiki/File:LIMASSOL_MOLOS_01.jpg' },
+                '/assets/images/limassol-photos/old-port-yachts-clouds.jpg':
+                    { text: 'Photo by A.Savin, Free Art License', href: 'https://commons.wikimedia.org/wiki/File:Limassol_01-2017_img18_Marina.jpg' },
+                '/assets/images/limassol-photos/breakwater-sparkling-sea.jpg':
+                    { text: 'Photo by Salwa Farwaneh Dameh, CC0', href: 'https://commons.wikimedia.org/wiki/File:Limassol-_Marina_-Cyprus.jpg' },
+                '/assets/images/limassol-photos/the-oval.jpg':
+                    { text: '"The Oval" by Cybarco, CC BY-SA 4.0', href: 'https://commons.wikimedia.org/wiki/File:The_Oval.jpg' }
+            };
+            var photos = Object.keys(credits);
+            var pick = photos[Math.floor(Math.random() * photos.length)];
+            window.__heroPhoto = pick;
+            window.__heroPhotoCredit = credits[pick];
+            var preload = document.createElement('link');
+            preload.rel = 'preload';
+            preload.as = 'image';
+            preload.href = pick;
+            document.head.appendChild(preload);
+        })();
+    </script>
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -63,7 +99,7 @@
             "name": "MyQPadel",
             "address": {
                 "@type": "PostalAddress",
-                "addressLocality": "Лимассол",
+                "addressLocality": "Мони, Лимассол",
                 "addressCountry": "CY"
             }
         },
@@ -74,7 +110,7 @@
                 "price": "750",
                 "priceCurrency": "EUR",
                 "availability": "https://schema.org/InStock",
-                "url": "https://thepadelcamp.com.cy/ru/#pricing"
+                "url": "https://thepadelcamp.com.cy/ru/#program-cards"
             },
             {
                 "@type": "Offer",
@@ -82,7 +118,7 @@
                 "price": "870",
                 "priceCurrency": "EUR",
                 "availability": "https://schema.org/InStock",
-                "url": "https://thepadelcamp.com.cy/ru/#pricing"
+                "url": "https://thepadelcamp.com.cy/ru/#program-cards"
             },
             {
                 "@type": "Offer",
@@ -90,7 +126,7 @@
                 "price": "360",
                 "priceCurrency": "EUR",
                 "availability": "https://schema.org/InStock",
-                "url": "https://thepadelcamp.com.cy/ru/#pricing"
+                "url": "https://thepadelcamp.com.cy/ru/#program-cards"
             }
         ],
         "organizer": {
@@ -135,15 +171,14 @@
             <a href="/ru/" class="logo logo-center"><picture class="logo-img logo-img-large"><source srcset="../assets/images/logo-large.webp" type="image/webp"><img src="../assets/images/logo-large.png" alt="The Padel Camp Cyprus" width="1200" height="762" fetchpriority="high"></picture><picture class="logo-img logo-img-small"><source srcset="../assets/images/logo.webp" type="image/webp"><img src="../assets/images/logo.png" alt="The Padel Camp Cyprus" width="500" height="317"></picture></a>
             <nav class="nav" id="nav">
                 <ul class="nav-list">
-                    <li><a href="#program">Программа</a></li>
+                    <li><a href="#program-cards">Программа</a></li>
                     <li><a href="#coaches">Тренеры</a></li>
                     <li><a href="#venue">Место</a></li>
                     <li><a href="#services">Услуги</a></li>
-                    <li><a href="#pricing">Цены</a></li>
                     <li><a href="#gallery">Галерея</a></li>
                     <li><a href="#approach">Наш подход</a></li>
                     <li><a href="#faq">FAQ</a></li>
-                    <li><a href="/ru/partners.html">Партнёры</a></li>
+                    <li><a href="partners.html">Партнёры</a></li>
                 </ul>
             </nav>
             <div class="header-actions">
@@ -152,7 +187,8 @@
                     <a href="/ru/" class="active">RU</a>
                     <a href="/el/">EL</a>
                 </div>
-                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Меню">
+                <a href="#program-cards" class="btn btn-primary header-book-btn">Бронь<span class="header-book-btn-full">&nbsp;сейчас</span></a>
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
                     <span></span>
                     <span></span>
                 </button>
@@ -164,52 +200,32 @@
 
     <!-- Hero Section -->
     <section class="hero">
+        <img class="hero-bg-photo" id="heroBgPhoto" alt="" fetchpriority="high">
+        <a class="hero-photo-credit" id="heroPhotoCredit" target="_blank" rel="noopener nofollow"></a>
+        <script>
+            (function () {
+                var img = document.getElementById('heroBgPhoto');
+                var src = window.__heroPhoto || '/assets/images/limassol-photos/marina-sunny-promenade.jpg';
+                img.onload = function () { img.classList.add('is-loaded'); };
+                img.src = src;
+                if (img.complete) { img.classList.add('is-loaded'); }
+
+                var credit = window.__heroPhotoCredit;
+                var creditEl = document.getElementById('heroPhotoCredit');
+                if (credit && creditEl) {
+                    creditEl.textContent = 'Photo: ' + credit.text;
+                    creditEl.href = credit.href;
+                }
+            })();
+        </script>
+        <div class="hero-overlay"></div>
         <div class="hero-content">
             <div class="hero-text">
-                <p class="hero-eyebrow">ТРЕНИРУЙСЯ. ИГРАЙ. СОВЕРШЕНСТВУЙСЯ.</p>
-                <h1 class="hero-title">ТРЕНИРУЙСЯ<br>КАК ПРОФИ</h1>
-                <p class="hero-subtitle">Интенсивный тренировочный лагерь по паддлу на Кипре, в Лимассоле. Поднимите свою игру на новый уровень с профессиональными тренерами из Испании — мировой столицы этого спорта.</p>
+                <p class="hero-eyebrow">ТРЕНИРУЙСЯ · ИГРАЙ · УЧИСЬ</p>
+                <h1 class="hero-title">Тренируйся<br><em class="accent">Как профи</em></h1>
+                <p class="hero-subtitle">Интенсивный лагерь по паделю в Лимассоле, Кипр, с профессиональными тренерами из Испании. Наши опытные тренеры выведут вашу игру на новый уровень под экспертным руководством.</p>
                 <div class="hero-cta">
-                    <a href="#pricing" class="btn btn-primary btn-lg">Зарегистрироваться</a>
-                    <a href="#program" class="btn btn-ghost btn-lg">Смотреть программу</a>
-                </div>
-            </div>
-            <div class="hero-meta">
-                <div class="meta-item">
-                    <span class="meta-value">1:4</span>
-                    <span class="meta-label">Тренер на игроков</span>
-                </div>
-                <div class="meta-item">
-                    <span class="meta-value">15</span>
-                    <span class="meta-label">Часов &mdash; утренний лагерь</span>
-                </div>
-                <div class="meta-item">
-                    <span class="meta-value">15</span>
-                    <span class="meta-label">Часов &mdash; вечерний лагерь</span>
-                </div>
-                <div class="meta-item">
-                    <span class="meta-value">6</span>
-                    <span class="meta-label">Часов &mdash; лагерь на выходные</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Dates Banner -->
-    <section class="dates-banner">
-        <div class="container">
-            <div class="dates-grid">
-                <div class="date-block">
-                    <span class="date-city">Утренний лагерь</span>
-                    <span class="date-range">9&ndash;13 ноября</span>
-                </div>
-                <div class="date-block">
-                    <span class="date-city">Вечерний лагерь</span>
-                    <span class="date-range">9&ndash;13 ноября</span>
-                </div>
-                <div class="date-block">
-                    <span class="date-city">Лагерь на выходные</span>
-                    <span class="date-range">14&ndash;15 ноября</span>
+                    <a href="#program-cards" class="btn btn-primary btn-lg">Смотреть программу</a>
                 </div>
             </div>
         </div>
@@ -219,37 +235,42 @@
     <section class="about-section" id="about">
         <div class="container">
             <div class="about-grid">
-                <div class="about-content">
-                    <h2 class="section-title">ПОЧЕМУ ЭТОТ ЛАГЕРЬ</h2>
-                    <p class="about-text">Испания — страна №1 в мире по паддлу. Мы привозим профессиональных испанских тренеров на Кипр для интенсивного тренировочного опыта.</p>
+                <div class="about-image">
+                    <img src="../assets/images/gallery/photo-3.jpg" alt="Парная игра в клубе The Padel K в Лимассоле" width="1600" height="2134" loading="lazy">
                 </div>
-                <div class="about-features">
-                    <div class="feature">
-                        <span class="feature-number">01</span>
-                        <div class="feature-content">
-                            <h3>Тренеры-профессионалы из Испании</h3>
-                            <p>Наши тренеры приехали из страны, где паддл — часть культуры. Они знают игру изнутри.</p>
-                        </div>
+                <div class="about-text-col">
+                    <div class="about-content">
+                        <h2 class="section-title">ПОЧЕМУ ЭТОТ ЛАГЕРЬ</h2>
+                        <p class="about-text">Испания — страна №1 в мире по паддлу. Мы привозим профессиональных испанских тренеров на Кипр для интенсивного тренировочного опыта.</p>
                     </div>
-                    <div class="feature">
-                        <span class="feature-number">02</span>
-                        <div class="feature-content">
-                            <h3>Мини-группы до 4 человек</h3>
-                            <p>Максимум внимания тренера каждому игроку.</p>
+                    <div class="about-features">
+                        <div class="feature">
+                            <span class="feature-number">01</span>
+                            <div class="feature-content">
+                                <h3>Тренеры-профессионалы из Испании</h3>
+                                <p>Профессиональные тренеры из мировой столицы паддла</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="feature">
-                        <span class="feature-number">03</span>
-                        <div class="feature-content">
-                            <h3>Группы для любого уровня</h3>
-                            <p>От новичков до продвинутых. Мы оценим ваш уровень и подберем группу.</p>
+                        <div class="feature">
+                            <span class="feature-number">02</span>
+                            <div class="feature-content">
+                                <h3>Мини-группы</h3>
+                                <p>Максимум 4 игрока на корте для индивидуального внимания</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="feature">
-                        <span class="feature-number">04</span>
-                        <div class="feature-content">
-                            <h3>Комплексный подход</h3>
-                            <p>Техника, тактика, игровая практика и физическая подготовка.</p>
+                        <div class="feature">
+                            <span class="feature-number">03</span>
+                            <div class="feature-content">
+                                <h3>Все уровни</h3>
+                                <p>Группы делятся по уровню — от новичков до продвинутых</p>
+                            </div>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-number">04</span>
+                            <div class="feature-content">
+                                <h3>Комплексная подготовка</h3>
+                                <p>Техника, тактика, теория и интенсивная игровая практика</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -265,24 +286,24 @@
             </div>
             <div class="learn-grid">
                 <div class="learn-item">
-                    <h3>Техника ключевых ударов</h3>
-                    <p>Освоите смэш, вибору, бандеху и оборонительные удары.</p>
+                    <h3>Техника ударов</h3>
+                    <p>Бандеха, вибора, бахада, смэш, оборонительные удары</p>
                 </div>
                 <div class="learn-item">
-                    <h3>Психология игры</h3>
-                    <p>Научитесь сохранять концентрацию и уверенность в решающие моменты.</p>
+                    <h3>Позиционирование на корте</h3>
+                    <p>Оптимальная позиция для атаки и защиты</p>
                 </div>
                 <div class="learn-item">
                     <h3>Тактика пары</h3>
-                    <p>Общение и координация с вашим партнером</p>
+                    <p>Общение и координация с вашим партнёром</p>
                 </div>
                 <div class="learn-item">
                     <h3>Стратегическое мышление</h3>
-                    <p>Чтение соперников и адаптация вашей игры</p>
+                    <p>Чтение соперников и адаптация своей игры</p>
                 </div>
                 <div class="learn-item">
                     <h3>Ментальная игра</h3>
-                    <p>Фокус, уверенность, управление давлением</p>
+                    <p>Концентрация, уверенность, управление давлением</p>
                 </div>
                 <div class="learn-item">
                     <h3>Физическая подготовка</h3>
@@ -300,31 +321,34 @@
                 <p class="section-subtitle">Интенсивные тренировки в Лимассоле для максимального прогресса. Каждый участник получает сертификат о прохождении лагеря.</p>
             </div>
 
-            <!-- Program Tabs -->
-            <div class="program-tabs">
-                <button class="tab-btn active" data-tab="campMorning">Утренний лагерь</button>
-                <button class="tab-btn" data-tab="campEvening">Вечерний лагерь</button>
-                <button class="tab-btn" data-tab="campWeekend">Лагерь на выходные</button>
+            <div class="early-bird-banner">
+                <span class="early-bird-tag">Ранняя цена &mdash; ограниченное количество мест</span>
+                <p>Только первые 5 мест по этим ценам. Как только их выкупят, цена вырастет.</p>
             </div>
 
-            <!-- Morning Program -->
-            <div class="program-content active" id="campMorning">
-                <p class="program-dates">&#128197; 9&ndash;13 ноября</p>
-                <div class="price-early" style="margin-bottom:20px;">&euro;750 первые 5 мест &middot; &euro;770 обычная цена</div>
+            <div class="program-cards-grid" id="program-cards">
 
-                <div class="schedule">
-                    <div class="schedule-day">
-                        <div class="day-label">
-                            <span class="day-num">Пн&ndash;Пт</span>
-                        </div>
-                        <div class="day-content">
-                            <div class="session">
-                                <span class="time">09:00-12:00</span>
-                                <span class="activity">Тренировка</span>
-                            </div>
-                        </div>
+            <!-- Morning Camp -->
+            <div class="program-content featured" id="camp-morning">
+                <p class="program-dates">&#128197; 9&ndash;13 ноября</p>
+                <div class="early-bird-badge">
+                    <div class="early-bird-badge-col">
+                        <span class="early-bird-badge-label">Ранняя цена</span>
+                        <span class="early-bird-badge-price">&euro;750</span>
+                    </div>
+                    <div class="early-bird-badge-divider"></div>
+                    <div class="early-bird-badge-col">
+                        <span class="early-bird-badge-label">Обычная цена</span>
+                        <span class="early-bird-badge-price early-bird-badge-was">&euro;770</span>
                     </div>
                 </div>
+
+                <ul class="price-includes">
+                    <li>5 дней тренировок (Пн&ndash;Пт)</li>
+                    <li>09:00&ndash;12:00 &middot; 15 часов тренировок</li>
+                    <li>Испанские профессиональные тренеры</li>
+                    <li>Максимум 4 игрока на корте</li>
+                </ul>
 
                 <div class="program-details-block">
                     <div class="program-meta">
@@ -334,11 +358,12 @@
                     <div class="program-details">
                         <h3 class="program-details-title">УТРЕННИЙ ЛАГЕРЬ &mdash; 09:00&ndash;12:00</h3>
                         <p class="program-details-subtitle">5 дней &middot; понедельник&ndash;пятница &middot; 15 часов структурированных тренировок</p>
+
                         <p>Начните день с сфокусированной тренировки по паделу — пять последовательных утр, которые реально изменят вашу игру.</p>
                         <p>Утренний лагерь создан для тех, кто хочет получить структурированный и интенсивный тренировочный опыт, не отдавая тренировкам весь день. Вы будете заниматься в небольшой группе с профессиональными тренерами &mdash; максимум <strong>4 игрока на корте</strong>, что позволяет уделить внимание каждому, дать технические поправки и тактические рекомендации на протяжении всех сессий.</p>
                         <p>В течение недели тренировки сочетают техническое развитие с реальными игровыми ситуациями. Вы проработаете защиту, выход к сетке, атакующие комбинации, смэши, позиционирование, взаимодействие с партнёром и тактическое мышление.</p>
                         <p>Ключевое отличие в том, что вы не просто повторяете удары. Вы учитесь, <strong>когда их применять, зачем их применять и как строить розыгрыш вокруг них</strong>.</p>
-                        <p><strong>15 часов качественных тренировок</strong> за пять дней дают достаточно непрерывности, чтобы разобраться в своей игре, поработать над конкретными слабыми местами и превратить новые техники в более верные решения на корте.</p>
+                        <p>С <strong>15 часами качественных тренировок</strong> за пять дней вы получите достаточно непрерывности, чтобы разобраться в своей игре, поработать над конкретными слабыми местами и превратить новые техники в более верные решения на корте.</p>
                         <p><strong>Идеально подходит:</strong> тем, кто хочет максимальную фокусировку на тренировках, сохранив свободными вторую половину дня и вечера.</p>
                     </div>
                 </div>
@@ -346,24 +371,27 @@
                 <a id="morningStripeLink" href="https://buy.stripe.com/3cI14p795g7F3i999GcEw0i?prefilled_promo_code=MORNING5" target="_blank" rel="noopener" class="btn btn-primary btn-block schedule-cta" data-purchase-value="770" data-purchase-item="morning_camp">Оплатить утренний лагерь</a>
             </div>
 
-            <!-- Evening Program -->
-            <div class="program-content" id="campEvening">
+            <!-- Evening Camp -->
+            <div class="program-content" id="camp-evening">
                 <p class="program-dates">&#128197; 9&ndash;13 ноября</p>
-                <div class="price-early" style="margin-bottom:20px;">&euro;870 первые 5 мест &middot; &euro;890 обычная цена</div>
-
-                <div class="schedule">
-                    <div class="schedule-day">
-                        <div class="day-label">
-                            <span class="day-num">Пн&ndash;Пт</span>
-                        </div>
-                        <div class="day-content">
-                            <div class="session">
-                                <span class="time">17:30-20:30</span>
-                                <span class="activity">Тренировка</span>
-                            </div>
-                        </div>
+                <div class="early-bird-badge">
+                    <div class="early-bird-badge-col">
+                        <span class="early-bird-badge-label">Ранняя цена</span>
+                        <span class="early-bird-badge-price">&euro;870</span>
+                    </div>
+                    <div class="early-bird-badge-divider"></div>
+                    <div class="early-bird-badge-col">
+                        <span class="early-bird-badge-label">Обычная цена</span>
+                        <span class="early-bird-badge-price early-bird-badge-was">&euro;890</span>
                     </div>
                 </div>
+
+                <ul class="price-includes">
+                    <li>5 дней тренировок (Пн&ndash;Пт)</li>
+                    <li>17:30&ndash;20:30 &middot; 15 часов тренировок</li>
+                    <li>Испанские профессиональные тренеры</li>
+                    <li>Максимум 4 игрока на корте</li>
+                </ul>
 
                 <div class="program-details-block">
                     <div class="program-meta">
@@ -373,6 +401,7 @@
                     <div class="program-details">
                         <h3 class="program-details-title">ВЕЧЕРНИЙ ЛАГЕРЬ &mdash; 17:30&ndash;20:30</h3>
                         <p class="program-details-subtitle">5 дней &middot; понедельник&ndash;пятница &middot; 15 часов структурированных тренировок</p>
+
                         <p>Хотите тренироваться серьёзно, не меняя дневной график? Вечерний лагерь даёт пять последовательных дней сфокусированных тренировок по паделу с профессиональными тренерами &mdash; утро и день остаются полностью свободными.</p>
                         <p>С понедельника по пятницу вы тренируетесь по <strong>3 часа в день</strong> &mdash; итого <strong>15 часов качественных тренировок</strong> за весь лагерь.</p>
                         <p>Тренировки проходят в небольших группах, максимум <strong>4 игрока на корте</strong> &mdash; тренеры успевают уделить внимание каждому, дать индивидуальные технические поправки, тактические рекомендации и практическую обратную связь.</p>
@@ -385,46 +414,27 @@
                 <a id="eveningStripeLink" href="https://buy.stripe.com/bJe9AV3WTbRp6uladKcEw0j?prefilled_promo_code=EVENING5" target="_blank" rel="noopener" class="btn btn-primary btn-block schedule-cta" data-purchase-value="890" data-purchase-item="evening_camp">Оплатить вечерний лагерь</a>
             </div>
 
-            <!-- Weekend Program -->
-            <div class="program-content" id="campWeekend">
+            <!-- Weekend Camp -->
+            <div class="program-content" id="camp-weekend">
                 <p class="program-dates">&#128197; 14&ndash;15 ноября</p>
-                <div class="price-early" style="margin-bottom:20px;">&euro;360 первые 5 мест &middot; &euro;380 обычная цена</div>
-
-                <div class="schedule">
-                    <div class="schedule-day">
-                        <div class="day-label">
-                            <span class="day-num">Группа A</span>
-                            <span class="day-name">Сб + Вс</span>
-                        </div>
-                        <div class="day-content">
-                            <div class="session">
-                                <span class="time">Утро 09:00-10:30</span>
-                                <span class="activity">Тренировка</span>
-                            </div>
-                            <div class="session">
-                                <span class="time">День 15:00-16:30</span>
-                                <span class="activity">Тренировка</span>
-                            </div>
-                        </div>
+                <div class="early-bird-badge">
+                    <div class="early-bird-badge-col">
+                        <span class="early-bird-badge-label">Ранняя цена</span>
+                        <span class="early-bird-badge-price">&euro;360</span>
                     </div>
-
-                    <div class="schedule-day">
-                        <div class="day-label">
-                            <span class="day-num">Группа B</span>
-                            <span class="day-name">Сб + Вс</span>
-                        </div>
-                        <div class="day-content">
-                            <div class="session">
-                                <span class="time">Утро 10:30-12:00</span>
-                                <span class="activity">Тренировка</span>
-                            </div>
-                            <div class="session">
-                                <span class="time">День 16:30-18:00</span>
-                                <span class="activity">Тренировка</span>
-                            </div>
-                        </div>
+                    <div class="early-bird-badge-divider"></div>
+                    <div class="early-bird-badge-col">
+                        <span class="early-bird-badge-label">Обычная цена</span>
+                        <span class="early-bird-badge-price early-bird-badge-was">&euro;380</span>
                     </div>
                 </div>
+
+                <ul class="price-includes">
+                    <li>Суббота + Воскресенье</li>
+                    <li>6 часов тренировок всего</li>
+                    <li>Испанские профессиональные тренеры</li>
+                    <li>Максимум 4 игрока на корте</li>
+                </ul>
 
                 <div class="program-details-block">
                     <div class="program-meta">
@@ -432,11 +442,23 @@
                         <button type="button" class="btn-view-details" aria-expanded="false" data-label-view="Подробнее" data-label-hide="Скрыть">Подробнее</button>
                     </div>
                     <div class="program-details">
-                        <h3 class="program-details-title">ЛАГЕРЬ НА ВЫХОДНЫЕ &mdash; СУББОТА + ВОСКРЕСЕНЬЕ</h3>
-                        <p class="program-details-subtitle">6 часов структурированных тренировок за два дня</p>
+                        <h3 class="program-details-title">ЛАГЕРЬ НА ВЫХОДНЫЕ &mdash; 6 ЧАСОВ</h3>
+                        <p class="program-details-subtitle">Суббота + Воскресенье &middot; 6 часов структурированных тренировок</p>
+
                         <p>Нет времени на полную неделю? Лагерь на выходные даёт два насыщенных дня профессиональных тренировок &mdash; идеально для тех, кто хочет серьёзный тренировочный опыт, сохранив будни свободными.</p>
                         <p>Каждая группа получает <strong>6 часов качественных тренировок за два дня</strong> &mdash; по две сессии по 90 минут в день. Тренировки проходят в небольших группах, максимум <strong>4 игрока на корте</strong>, с большим вниманием к каждому, техническими поправками и тактическими рекомендациями от профессиональных тренеров.</p>
-                        <p>Обе группы занимаются по абсолютно одинаковой программе &mdash; те же часы, те же тренеры, то же качество. Разница только в расписании.</p>
+
+                        <table class="weekend-groups-table">
+                            <thead>
+                                <tr><th></th><th>Утро</th><th>День</th><th>Итого</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Группа A</td><td>09:00&ndash;10:30</td><td>15:00&ndash;16:30</td><td>3 ч/день</td></tr>
+                                <tr><td>Группа B</td><td>10:30&ndash;12:00</td><td>16:30&ndash;18:00</td><td>3 ч/день</td></tr>
+                            </tbody>
+                        </table>
+                        <p class="weekend-groups-note">Суббота + Воскресенье &rarr; 6 часов всего на игрока. Обе группы занимаются по абсолютно одинаковой программе &mdash; те же часы, те же тренеры, то же качество. Разница только в расписании.</p>
+
                         <p>Две сессии каждого дня работают в связке: сначала вы разбираете и отрабатываете ключевые концепции, затем возвращаетесь на корт позже в тот же день, чтобы применить их в реалистичных игровых ситуациях.</p>
                         <p>Вы проработаете позиционирование, защиту, переход, игру у сетки, атакующие комбинации, смэши и тактическое мышление &mdash; с акцентом на то, как эти навыки применяются в реальных матчах.</p>
                         <p><strong>Идеально подходит:</strong> тем, кто хочет интенсивные выходные с профессиональными тренировками, 6 часов качественной подготовки и ощутимый прогресс в игре без обязательств на целую неделю.</p>
@@ -444,6 +466,8 @@
                 </div>
 
                 <a id="weekendStripeLink" href="https://book.stripe.com/4gMcN7bplf3B2e5clScEw0k?prefilled_promo_code=WEEKEND5" target="_blank" rel="noopener" class="btn btn-primary btn-block schedule-cta" data-purchase-value="380" data-purchase-item="weekend_camp">Оплатить лагерь на выходные</a>
+            </div>
+
             </div>
         </div>
     </section>
@@ -456,7 +480,7 @@
                 <p class="coaches-subtitle">Барбара и Пабло возглавят тренировки на корте в ноябре — два профессиональных тренера из Испании, готовых вывести вашу игру на новый уровень.</p>
             </div>
             <div class="coaches-grid">
-                <!-- Тренер: Barbara Sala -->
+                <!-- Coach: Barbara Sala -->
                 <div class="coach-card">
                     <div class="coach-image">
                         <img src="../assets/images/coaches/Barbara.jpeg" alt="Барбара Сала — Профессиональный тренер по паделю" width="880" height="1173" loading="lazy">
@@ -476,7 +500,7 @@
                     </div>
                 </div>
 
-                <!-- Тренер: Pablo Castañeda -->
+                <!-- Coach: Pablo Castañeda -->
                 <div class="coach-card">
                     <div class="coach-image">
                         <img src="../assets/images/coaches/Pablo.jpeg" alt="Пабло Кастаньеда — Профессиональный тренер по паделю" width="880" height="1197" loading="lazy">
@@ -505,7 +529,7 @@
             <div class="cta-banner-content">
                 <h2 class="cta-banner-title">Готовы тренироваться с лучшими?</h2>
                 <p class="cta-banner-text">Забронируйте место — количество мест ограничено</p>
-                <a href="#pricing" class="btn btn-primary btn-lg">Зарегистрироваться</a>
+                <a href="#program-cards" class="btn btn-primary btn-lg">Забронировать</a>
             </div>
         </div>
     </section>
@@ -519,23 +543,32 @@
             <div class="venue-simple">
                 <div class="venue-simple-content">
                     <h3>MyQPadel</h3>
-                    <p class="venue-address">Лимассол, Кипр</p>
+                    <p class="venue-address">Мони, Лимассол, Кипр</p>
+                    <p class="venue-highlight">☀️ Полностью крытые корты с климат-контролем — тренируйтесь с комфортом в любую погоду.</p>
                     <div class="venue-features-grid">
                         <div class="venue-feature-item">
-                            <strong>Профессиональные корты</strong>
-                            <span>6 премиальных панорамных кортов с профессиональным освещением</span>
+                            <strong>Крытые корты</strong>
+                            <span>Защита от солнца и дождя круглый год</span>
                         </div>
                         <div class="venue-feature-item">
-                            <strong>Современные удобства</strong>
-                            <span>Спортивное оборудование, велотренажеры, душевые</span>
+                            <strong>Климат-контроль</strong>
+                            <span>Циркуляция воздуха повсюду, VIP-корты с кондиционированием</span>
                         </div>
                         <div class="venue-feature-item">
-                            <strong>Бесплатная парковка</strong>
-                            <span>Удобная парковка на территории</span>
+                            <strong>Доступ 24/7</strong>
+                            <span>Автоматизированная система входа</span>
                         </div>
                         <div class="venue-feature-item">
-                            <strong>Клубный дом и бар</strong>
-                            <span>Напитки и закуски в наличии</span>
+                            <strong>Центр восстановления</strong>
+                            <span>Сауна, криотерапия и HydroJet-кровать на месте</span>
+                        </div>
+                        <div class="venue-feature-item">
+                            <strong>Про-шоп и кафе</strong>
+                            <span>Casa de Padel Boutique — экипировка и кофе</span>
+                        </div>
+                        <div class="venue-feature-item">
+                            <strong>Тренажёрный зал</strong>
+                            <span>My Q EnerGym — функциональные тренировки и кардио</span>
                         </div>
                     </div>
                     <a href="https://maps.app.goo.gl/HotvWfiUzGRR3DLk7" target="_blank" rel="noopener nofollow" class="btn btn-ghost">
@@ -554,26 +587,22 @@
             </div>
             <div class="services-grid">
                 <div class="service-card">
-                    <h3>Медиапакет «На память»</h3>
-                    <p>Запечатлите лучшие моменты! 15-20 профессиональных фото + динамичный видео-рил (2-3 шт) для соцсетей. Количество пакетов ограничено.</p>
-                    <span class="service-price">€130</span>
+                    <h3>Медиапакет</h3>
+                    <p>15-20 профессиональных фото плюс динамичный видеоролик (1.5-2 мин) моментов вашего лагеря.</p>
+                    <span class="service-price"><span class="price-mini-currency">&euro;</span>130</span>
                     <a id="mediaPackageStripeLink" href="https://buy.stripe.com/9B65kF8d9bRpbOFclScEw0a" target="_blank" rel="noopener" class="btn btn-primary btn-sm service-btn" data-purchase-value="130" data-purchase-item="media_package">Оплатить &euro;130</a>
                 </div>
-                <div class="service-card">
-                    <h3>Индивидуальный урок</h3>
-                    <p>1-на-1 или 2-на-1 с испанскими тренерами. Персональный фокус.</p>
-                    <div class="private-lesson-prices">
-                        <div>
-                            <span class="private-lesson-price-label">1-на-1</span>
-                            <span class="service-price">€80</span>
-                        </div>
-                        <div>
-                            <span class="private-lesson-price-label">2-на-1</span>
-                            <span class="service-price">€110</span>
-                        </div>
-                    </div>
-                    <button class="btn btn-primary btn-sm service-btn" onclick="openServiceBookingForm('Индивидуальный урок (1-на-1)', 80)">Забронировать 1-на-1 — €80</button>
-                    <button class="btn btn-ghost btn-sm service-btn" style="margin-top: 8px;" onclick="openServiceBookingForm('Индивидуальный урок (2-на-1)', 110)">Забронировать 2-на-1 — €110</button>
+                <div class="service-card" onclick="openServiceBookingForm('Индивидуальный урок (1-на-1)', 80)">
+                    <h3>Индивидуальный 1-на-1</h3>
+                    <p>Персональная тренировка с испанским тренером, полностью сфокусированная на вашей игре.</p>
+                    <span class="service-price"><span class="price-mini-currency">&euro;</span>80</span>
+                    <button class="btn btn-primary btn-sm service-btn" onclick="openServiceBookingForm('Индивидуальный урок (1-на-1)', 80)">Записаться 1-на-1</button>
+                </div>
+                <div class="service-card" onclick="openServiceBookingForm('Индивидуальный урок (2-на-1)', 110)">
+                    <h3>Индивидуальный 2-на-1</h3>
+                    <p>Персональная тренировка с испанским тренером на двоих с партнёром.</p>
+                    <span class="service-price"><span class="price-mini-currency">&euro;</span>110</span>
+                    <button class="btn btn-primary btn-sm service-btn" onclick="openServiceBookingForm('Индивидуальный урок (2-на-1)', 110)">Записаться 2-на-1</button>
                 </div>
             </div>
         </div>
@@ -614,7 +643,7 @@
                 <div class="form-group">
                     <label class="consent-option">
                         <input type="checkbox" name="serviceBookingConsent" required>
-                        <span>Я согласен(на) на обработку моих персональных данных в соответствии с <a href="/ru/privacy-policy.html" target="_blank">Политикой конфиденциальности</a> *</span>
+                        <span>Я согласен(на) на обработку моих персональных данных в соответствии с <a href="privacy-policy.html" target="_blank">Политикой конфиденциальности</a> *</span>
                     </label>
                 </div>
 
@@ -655,77 +684,6 @@
         </div>
     </section>
 
-    <!-- Pricing Section -->
-    <section class="pricing-section" id="pricing">
-        <div class="container">
-            <div class="pricing-header">
-                <h2 class="section-title">ЦЕНЫ</h2>
-                <p class="section-subtitle">Забронируйте место сегодня</p>
-            </div>
-            <div class="pricing-grid">
-                <div class="price-card featured">
-                    <div class="price-header">
-                        <span class="price-location">Утренний лагерь</span>
-                        <span class="price-duration">09:00&ndash;12:00</span>
-                    </div>
-                    <div class="price-dates">Лимассол &middot; 9&ndash;13 ноября</div>
-                    <div class="price-amount">
-                        <span class="price-currency">&euro;</span><span class="price-value">750</span>
-                    </div>
-                    <p class="price-early">Первые 5 мест &middot; &euro;770 обычная цена</p>
-                    <ul class="price-includes">
-                        <li>5 дней интенсивных тренировок (Пн&ndash;Пт)</li>
-                        <li>15 часов тренировок</li>
-                        <li>Испанские профессиональные тренеры</li>
-                        <li>Максимум 4 игрока на корте</li>
-                        <li>Индивидуальный отчет с оценкой</li>
-                    </ul>
-                    <a href="https://buy.stripe.com/3cI14p795g7F3i999GcEw0i?prefilled_promo_code=MORNING5" target="_blank" rel="noopener" class="btn btn-primary btn-block" data-purchase-value="770" data-purchase-item="morning_camp">Оплатить утренний лагерь</a>
-                </div>
-
-                <div class="price-card">
-                    <div class="price-header">
-                        <span class="price-location">Вечерний лагерь</span>
-                        <span class="price-duration">17:30&ndash;20:30</span>
-                    </div>
-                    <div class="price-dates">Лимассол &middot; 9&ndash;13 ноября</div>
-                    <div class="price-amount">
-                        <span class="price-currency">&euro;</span><span class="price-value">870</span>
-                    </div>
-                    <p class="price-early">Первые 5 мест &middot; &euro;890 обычная цена</p>
-                    <ul class="price-includes">
-                        <li>5 дней интенсивных тренировок (Пн&ndash;Пт)</li>
-                        <li>15 часов тренировок</li>
-                        <li>Испанские профессиональные тренеры</li>
-                        <li>Максимум 4 игрока на корте</li>
-                        <li>Индивидуальный отчет с оценкой</li>
-                    </ul>
-                    <a href="https://buy.stripe.com/bJe9AV3WTbRp6uladKcEw0j?prefilled_promo_code=EVENING5" target="_blank" rel="noopener" class="btn btn-primary btn-block" data-purchase-value="890" data-purchase-item="evening_camp">Оплатить вечерний лагерь</a>
-                </div>
-
-                <div class="price-card">
-                    <div class="price-header">
-                        <span class="price-location">Лагерь на выходные</span>
-                        <span class="price-duration">Сб + Вс</span>
-                    </div>
-                    <div class="price-dates">Лимассол &middot; 14&ndash;15 ноября</div>
-                    <div class="price-amount">
-                        <span class="price-currency">&euro;</span><span class="price-value">360</span>
-                    </div>
-                    <p class="price-early">Первые 5 мест &middot; &euro;380 обычная цена</p>
-                    <ul class="price-includes">
-                        <li>2 дня интенсивных тренировок</li>
-                        <li>6 часов тренировок</li>
-                        <li>Испанские профессиональные тренеры</li>
-                        <li>Максимум 4 игрока на корте</li>
-                        <li>Индивидуальный отчет с оценкой</li>
-                    </ul>
-                    <a href="https://book.stripe.com/4gMcN7bplf3B2e5clScEw0k?prefilled_promo_code=WEEKEND5" target="_blank" rel="noopener" class="btn btn-primary btn-block" data-purchase-value="380" data-purchase-item="weekend_camp">Оплатить лагерь на выходные</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Gallery Section -->
     <section class="gallery-section" id="gallery">
         <div class="container">
@@ -733,71 +691,72 @@
                 <h2 class="section-title">ГАЛЕРЕЯ</h2>
                 <p class="section-subtitle">Реальные игроки, реальные тренировки, реальные моменты Padel Camp</p>
             </div>
-            <div class="gallery-grid collapsed">
-                <div class="gallery-item gallery-video" role="button" tabindex="0" data-video-src="../assets/videos/gallery/video-4.mp4" aria-label="Воспроизвести видео: тренер Барбара Сала в игре">
-                    <img src="../assets/images/gallery/video-4-poster.jpg" alt="Тренер Барбара Сала в игре на корте — превью видео" width="720" height="1280" loading="lazy">
-                    <span class="gallery-play-btn"></span>
+            <div class="gallery-carousel">
+                <div class="gallery-track" id="galleryTrack">
+                    <div class="gallery-slide">
+                        <img src="../assets/images/gallery/photo-1.jpg" alt="Две участницы The Padel Camp Cyprus уходят с корта с ракетками после игры в Лимассоле" width="1600" height="2134" loading="lazy">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="../assets/images/gallery/photo-9.jpg" alt="Участники и тренеры The Padel Camp Cyprus празднуют вместе на корте" width="1600" height="2134" loading="lazy">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="../assets/images/gallery/photo-3.jpg" alt="Парная игра в клубе The Padel K в Лимассоле" width="1600" height="2134" loading="lazy">
+                    </div>
+                    <div class="gallery-slide gallery-video" role="button" tabindex="0" data-video-src="../assets/videos/gallery/video-3.mp4" aria-label="Воспроизвести видео: тренировка ног на корте">
+                        <img src="../assets/images/gallery/video-3-poster.jpg" alt="Тренировка ног на корте — превью видео" width="720" height="1280" loading="lazy">
+                        <span class="gallery-play-btn"></span>
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="../assets/images/gallery/photo-6.jpg" alt="Участники The Padel Camp Cyprus с сертификатом об окончании в The Padel K" width="1600" height="2134" loading="lazy">
+                    </div>
+                    <div class="gallery-slide gallery-video" role="button" tabindex="0" data-video-src="../assets/videos/gallery/video-4.mp4" aria-label="Воспроизвести видео: тренер Барбара Сала в игре">
+                        <img src="../assets/images/gallery/video-4-poster.jpg" alt="Тренер Барбара Сала в игре на корте — превью видео" width="720" height="1280" loading="lazy">
+                        <span class="gallery-play-btn"></span>
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="../assets/images/gallery/photo-4.jpg" alt="Группа участников The Padel Camp Cyprus отдыхает у корта с собакой после тренировки" width="1600" height="2134" loading="lazy">
+                    </div>
+                    <div class="gallery-slide gallery-video" role="button" tabindex="0" data-video-src="../assets/videos/gallery/video-2.mp4" aria-label="Воспроизвести видео: встреча группы на корте">
+                        <img src="../assets/images/gallery/video-2-poster.jpg" alt="Участники Padel Camp встречаются на корте — превью видео" width="720" height="1280" loading="lazy">
+                        <span class="gallery-play-btn"></span>
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="../assets/images/gallery/photo-7.jpg" alt="Участники и тренер The Padel Camp Cyprus вместе после лагеря" width="1600" height="2134" loading="lazy">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="../assets/images/gallery/photo-2.jpg" alt="Игроки и тренер The Padel Camp Cyprus в стойке готовности во время тренировки" width="1600" height="2134" loading="lazy">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="../assets/images/gallery/photo-10.jpg" alt="Группа The Padel Camp Cyprus празднует с поднятыми ракетками после лагеря" width="1600" height="2134" loading="lazy">
+                    </div>
+                    <div class="gallery-slide gallery-video" role="button" tabindex="0" data-video-src="../assets/videos/gallery/video-1.mp4" aria-label="Воспроизвести видео: лучшие моменты лагеря">
+                        <img src="../assets/images/gallery/video-1-poster.jpg" alt="Лучшие моменты Padel Camp — превью видео" width="720" height="1280" loading="lazy">
+                        <span class="gallery-play-btn"></span>
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="../assets/images/gallery/photo-5.jpg" alt="Физиотерапевт Right Track работает с игроком у корта на The Padel Camp Cyprus" width="1600" height="2134" loading="lazy">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="../assets/images/gallery/photo-8.jpg" alt="Группа The Padel Camp Cyprus празднует с сертификатом об окончании" width="1600" height="2134" loading="lazy">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="../assets/images/gallery/photo-11.jpg" alt="Большая группа участников и тренеров The Padel Camp Cyprus на корте" width="1600" height="2134" loading="lazy">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="../assets/images/gallery/photo-12.jpg" alt="Групповое фото The Padel Camp Cyprus с тренерами и участниками в The Padel K" width="1600" height="2134" loading="lazy">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="../assets/images/gallery/photo-13.jpg" alt="Групповое фото вечерней сессии The Padel Camp Cyprus под прожекторами" width="1600" height="2134" loading="lazy">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="../assets/images/gallery/photo-14.jpg" alt="Участники The Padel Camp Cyprus празднуют вместе ночью на корте" width="1600" height="2134" loading="lazy">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="../assets/images/gallery/photo-15.jpg" alt="Тренеры и персонал The Padel Camp Cyprus вместе после вечерней сессии" width="1600" height="2134" loading="lazy">
+                    </div>
                 </div>
-                <div class="gallery-item">
-                    <img src="../assets/images/gallery/photo-1.jpg" alt="Две участницы The Padel Camp Cyprus уходят с корта с ракетками после игры в Лимассоле" width="1600" height="2134" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="../assets/images/gallery/photo-2.jpg" alt="Игроки и тренер The Padel Camp Cyprus в стойке готовности во время тренировки" width="1600" height="2134" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="../assets/images/gallery/photo-3.jpg" alt="Парная игра в клубе The Padel K в Лимассоле" width="1600" height="2134" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="../assets/images/gallery/photo-4.jpg" alt="Группа участников The Padel Camp Cyprus отдыхает у корта с собакой после тренировки" width="1600" height="2134" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="../assets/images/gallery/photo-5.jpg" alt="Физиотерапевт Right Track работает с игроком у корта на The Padel Camp Cyprus" width="1600" height="2134" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="../assets/images/gallery/photo-6.jpg" alt="Участники The Padel Camp Cyprus с сертификатом об окончании в The Padel K" width="1600" height="2134" loading="lazy">
-                </div>
-                <div class="gallery-item gallery-video" role="button" tabindex="0" data-video-src="../assets/videos/gallery/video-3.mp4" aria-label="Воспроизвести видео: тренировка ног на корте">
-                    <img src="../assets/images/gallery/video-3-poster.jpg" alt="Тренировка ног на корте — превью видео" width="720" height="1280" loading="lazy">
-                    <span class="gallery-play-btn"></span>
-                </div>
-                <div class="gallery-item">
-                    <img src="../assets/images/gallery/photo-7.jpg" alt="Участники и тренер The Padel Camp Cyprus вместе после лагеря" width="1600" height="2134" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="../assets/images/gallery/photo-8.jpg" alt="Группа The Padel Camp Cyprus празднует получение сертификата об окончании" width="1600" height="2134" loading="lazy">
-                </div>
-                <div class="gallery-item gallery-video" role="button" tabindex="0" data-video-src="../assets/videos/gallery/video-2.mp4" aria-label="Воспроизвести видео: группа встречается на корте">
-                    <img src="../assets/images/gallery/video-2-poster.jpg" alt="Участники Padel Camp встречаются на корте — превью видео" width="720" height="1280" loading="lazy">
-                    <span class="gallery-play-btn"></span>
-                </div>
-                <div class="gallery-item">
-                    <img src="../assets/images/gallery/photo-9.jpg" alt="Участники и тренеры The Padel Camp Cyprus празднуют вместе на корте" width="1600" height="2134" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="../assets/images/gallery/photo-10.jpg" alt="Группа The Padel Camp Cyprus празднует с поднятыми ракетками после лагеря" width="1600" height="2134" loading="lazy">
-                </div>
-                <div class="gallery-item gallery-video" role="button" tabindex="0" data-video-src="../assets/videos/gallery/video-1.mp4" aria-label="Воспроизвести видео: лучшие моменты лагеря">
-                    <img src="../assets/images/gallery/video-1-poster.jpg" alt="Лучшие моменты Padel Camp — превью видео" width="720" height="1280" loading="lazy">
-                    <span class="gallery-play-btn"></span>
-                </div>
-                <div class="gallery-item">
-                    <img src="../assets/images/gallery/photo-11.jpg" alt="Большая группа участников и тренеров The Padel Camp Cyprus на корте" width="1600" height="2134" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="../assets/images/gallery/photo-12.jpg" alt="Групповое фото The Padel Camp Cyprus с тренерами и участниками в The Padel K" width="1600" height="2134" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="../assets/images/gallery/photo-13.jpg" alt="Групповое фото The Padel Camp Cyprus вечером под прожекторами" width="1600" height="2134" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="../assets/images/gallery/photo-14.jpg" alt="Участники The Padel Camp Cyprus празднуют вместе вечером на корте" width="1600" height="2134" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="../assets/images/gallery/photo-15.jpg" alt="Тренеры и команда The Padel Camp Cyprus вместе после вечерней сессии" width="1600" height="2134" loading="lazy">
-                </div>
-            </div>
-            <div class="gallery-toggle">
-                <button class="btn btn-ghost" id="galleryToggleBtn" onclick="toggleGallery()" data-label-more="Показать больше фото и видео" data-label-less="Свернуть">Показать больше фото и видео</button>
+                <button type="button" class="gallery-nav gallery-nav-prev" aria-label="Предыдущее фото" onclick="document.getElementById('galleryTrack').scrollBy({left: -document.querySelector('.gallery-slide').offsetWidth - 20, behavior: 'smooth'})">&#8249;</button>
+                <button type="button" class="gallery-nav gallery-nav-next" aria-label="Следующее фото" onclick="document.getElementById('galleryTrack').scrollBy({left: document.querySelector('.gallery-slide').offsetWidth + 20, behavior: 'smooth'})">&#8250;</button>
             </div>
         </div>
     </section>
@@ -937,7 +896,7 @@
             </div>
             <div class="partners-cta">
                 <p class="partners-cta-text">Хотите стать нашим партнёром? У нас есть гибкие спонсорские пакеты для любых целей.</p>
-                <a href="/ru/partners.html" class="btn btn-primary">Варианты сотрудничества</a>
+                <a href="partners.html" class="btn btn-primary">Варианты сотрудничества</a>
             </div>
         </div>
     </section>
@@ -961,7 +920,7 @@
     <footer class="footer">
         <div class="container">
             <div class="footer-simple">
-                <span>© 2026 Padel Camp Cyprus · Лимассол · <a href="/ru/terms.html">Условия</a> · <a href="/ru/privacy-policy.html">Политика конфиденциальности</a></span>
+                <span>© 2026 Padel Camp Cyprus · Лимассол · <a href="terms.html">Условия</a> · <a href="privacy-policy.html">Политика конфиденциальности</a></span>
                 <div class="footer-social">
                     <a href="https://www.instagram.com/thepadelcampcy?igsh=ZnlweTMwNXU3bXM=" target="_blank" rel="noopener noreferrer nofollow" aria-label="Instagram">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
@@ -986,73 +945,7 @@
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
     </a>
 
-    <!-- Guess Vote Modal -->
-    <div class="vote-modal-overlay" id="voteModal">
-        <div class="vote-modal">
-            <div class="vote-modal-icon">🎯</div>
-            <h3 class="vote-modal-title">Голос принят!</h3>
-            <p class="vote-modal-text">Ваш выбор — <strong id="modalCountry"></strong>. Совсем скоро раскроем, кто присоединится к команде!</p>
-            <button class="vote-modal-btn" onclick="closeVoteModal()">Понятно</button>
-        </div>
-    </div>
-
-    <script>
-        function castVote(btn) {
-            if (localStorage.getItem('padelCampVote')) return;
-            var country = btn.dataset.country;
-            localStorage.setItem('padelCampVote', country);
-
-            document.querySelectorAll('.guess-btn').forEach(function(b) {
-                b.disabled = true;
-                b.classList.add('guess-btn--disabled');
-            });
-            btn.classList.remove('guess-btn--disabled');
-            btn.classList.add('guess-btn--selected');
-
-            document.getElementById('votedCountry').textContent = country;
-            document.getElementById('guessVoted').style.display = 'block';
-            document.querySelector('.guess-buttons').style.display = 'none';
-            document.querySelector('.guess-label').style.display = 'none';
-
-            document.getElementById('modalCountry').textContent = country;
-            document.getElementById('voteModal').classList.add('active');
-        }
-
-        function closeVoteModal() {
-            document.getElementById('voteModal').classList.remove('active');
-        }
-
-        document.getElementById('voteModal').addEventListener('click', function(e) {
-            if (e.target === this) closeVoteModal();
-        });
-
-        (function() {
-            var saved = localStorage.getItem('padelCampVote');
-            if (saved) {
-                document.querySelectorAll('.guess-btn').forEach(function(b) {
-                    b.disabled = true;
-                    b.classList.add('guess-btn--disabled');
-                });
-                document.getElementById('votedCountry').textContent = saved;
-                document.getElementById('guessVoted').style.display = 'block';
-                var btns = document.querySelector('.guess-buttons');
-                var label = document.querySelector('.guess-label');
-                if (btns) btns.style.display = 'none';
-                if (label) label.style.display = 'none';
-            }
-        })();
-    </script>
-
-    <script src="../assets/js/pixels.js?v=10"></script>
-    <script src="../assets/js/main.js?v=10"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            document.querySelectorAll('a[href*="buy.stripe.com"], a[href*="book.stripe.com"]').forEach(function (link) {
-                if (typeof appendStripeAttribution === 'function') {
-                    link.href = appendStripeAttribution(link.href);
-                }
-            });
-        });
-    </script>
+    <script src="../assets/js/pixels.js?v=11"></script>
+    <script src="../assets/js/main.js?v=8"></script>
 </body>
 </html>
