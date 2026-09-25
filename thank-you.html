@@ -14,7 +14,7 @@
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=optional">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=optional" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=optional"></noscript>
-    <link rel="stylesheet" href="assets/css/style.css?v=24">
+    <link rel="stylesheet" href="assets/css/style.css?v=28">
 
     <style>
         .header { background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); }
@@ -58,6 +58,68 @@
             margin-bottom: 24px;
         }
         .back-link:hover { color: var(--black); }
+
+        /* Post-payment follow-up form — collects what Stripe Checkout
+           doesn't (phone required; name/email are editable, empty fields
+           until a webhook-based prefill exists). */
+        .ty-followup {
+            margin-top: 28px;
+            padding-top: 28px;
+            border-top: 1px solid var(--gray-200);
+            text-align: left;
+        }
+        .ty-followup h3 {
+            font-size: 18px;
+            margin-bottom: 6px;
+        }
+        .ty-followup-note {
+            font-size: 14px;
+            color: var(--gray-500);
+            margin-bottom: 20px;
+        }
+        .ty-followup .form-group {
+            margin-bottom: 16px;
+        }
+        .ty-followup .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        .ty-followup .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: var(--font-primary);
+            background: var(--white);
+        }
+        .ty-followup .form-input:focus {
+            outline: none;
+            border-color: var(--black);
+        }
+        .ty-followup textarea.form-input {
+            resize: vertical;
+            min-height: 44px;
+            max-height: 200px;
+        }
+        .ty-goals-list {
+            display: grid;
+            gap: 8px;
+        }
+        .ty-goal-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .ty-goal-option input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -94,11 +156,80 @@
 
                 <div class="payment-details-box">
                     <p class="payment-camp" id="tyItemLine">&nbsp;</p>
-                    <p id="tyBody">Get ready for an unforgettable week of padel, sun, and serious game-level upgrades. Our coaches can't wait to have you on court. We'll be in touch on WhatsApp shortly with everything you need — just relax, you've got this covered.</p>
+                    <p id="tyBody">We've received your payment.</p>
+                </div>
+
+                <div class="ty-followup" id="tyFollowup">
+                    <h3 id="tyFollowupTitle">Just a couple more details</h3>
+                    <p class="ty-followup-note" id="tyFollowupNote">So we can get everything ready for you. Name/email will auto-fill here once linked to your payment — for now, please fill them in.</p>
+
+                    <form id="tyFollowupForm">
+                        <input type="text" name="hp_field_a3x" class="hp-field" aria-hidden="true" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;">
+                        <div class="form-group">
+                            <label class="form-label" id="tyLabelName" for="tyName">Full Name</label>
+                            <input type="text" id="tyName" name="tyName" class="form-input" placeholder="Your full name">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" id="tyLabelEmail" for="tyEmail">Email</label>
+                            <input type="email" id="tyEmail" name="tyEmail" class="form-input" placeholder="your@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" id="tyLabelPhone" for="tyPhone">Phone *</label>
+                            <input type="tel" id="tyPhone" name="tyPhone" class="form-input" required placeholder="+357 99 123 456">
+                        </div>
+
+                        <div id="tyCampFields" style="display:none;">
+                            <div class="form-group">
+                                <label class="form-label" id="tyLabelLevel" for="tyLevel">Padel level *</label>
+                                <select id="tyLevel" name="tyLevel" class="form-input">
+                                    <option value="">Select an option</option>
+                                    <option value="beginner">Beginner &mdash; Just starting out</option>
+                                    <option value="beginner-intermediate">Beginner-Intermediate &mdash; Know the basics</option>
+                                    <option value="intermediate">Intermediate &mdash; Play regularly</option>
+                                    <option value="intermediate-advanced">Intermediate-Advanced &mdash; Strong player</option>
+                                    <option value="advanced">Advanced &mdash; Compete in tournaments</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" id="tyLabelGoals">Goals for this camp *</label>
+                                <div class="ty-goals-list">
+                                    <label class="ty-goal-option"><input type="checkbox" name="tyGoals" value="Learn the basics"> <span>Learn the basics</span></label>
+                                    <label class="ty-goal-option"><input type="checkbox" name="tyGoals" value="Improve technique"> <span>Improve technique</span></label>
+                                    <label class="ty-goal-option"><input type="checkbox" name="tyGoals" value="Learn tactics"> <span>Learn tactics</span></label>
+                                    <label class="ty-goal-option"><input type="checkbox" name="tyGoals" value="Learn communication between partners during a match"> <span>Learn communication between partners during a match</span></label>
+                                    <label class="ty-goal-option"><input type="checkbox" name="tyGoals" value="Meet new people"> <span>Meet new people</span></label>
+                                    <label class="ty-goal-option"><input type="checkbox" name="tyGoals" value="Enjoy the environment"> <span>Enjoy the environment</span></label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" id="tyLabelSkills" for="tySkills">Skills you want to improve (optional)</label>
+                                <input type="text" id="tySkills" name="tySkills" class="form-input" placeholder="E.g. bandeja, volley, positioning...">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" id="tyLabelTshirt" for="tyTshirt">T-shirt size *</label>
+                                <select id="tyTshirt" name="tyTshirt" class="form-input">
+                                    <option value="">Select an option</option>
+                                    <option value="XS">XS</option>
+                                    <option value="S">S</option>
+                                    <option value="M">M</option>
+                                    <option value="L">L</option>
+                                    <option value="XL">XL</option>
+                                    <option value="XXL">XXL</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" id="tyLabelNotes" for="tyNotes">Notes (optional)</label>
+                            <textarea id="tyNotes" name="tyNotes" class="form-input" rows="2" placeholder="Any preferences..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block" id="tyFollowupSubmit">Submit</button>
+                    </form>
                 </div>
 
                 <div class="payment-actions" style="margin-top: 20px;">
-                    <a id="tyWhatsapp" href="https://wa.me/35797497756" target="_blank" class="btn btn-whatsapp btn-block">
+                    <p class="ty-followup-note" id="tyWhatsappNote">Prefer WhatsApp? Message us directly instead:</p>
+                    <a id="tyWhatsapp" href="https://wa.me/35797497756" target="_blank" class="btn btn-ghost btn-block">
                         <span id="tyWhatsappText">Message us on WhatsApp</span>
                     </a>
                 </div>
@@ -107,7 +238,7 @@
     </div>
 
     <script src="assets/js/pixels.js?v=10"></script>
-    <script src="assets/js/main.js?v=6"></script>
+    <script src="assets/js/main.js?v=10"></script>
     <script>
         (function () {
             var params = new URLSearchParams(window.location.search);
@@ -119,12 +250,10 @@
             var isRu = (navigator.language || '').toLowerCase().indexOf('ru') === 0;
 
             var itemLabels = {
-                '6-day':        { en: '6-Day Camp',        ru: '6-дневный кэмп' },
-                '4-day':        { en: '4-Day Camp',        ru: '4-дневный кэмп' },
-                '2-day':        { en: '2-Day Camp',        ru: '2-дневный кэмп' },
-                'massage-75':   { en: '75-min Massage',    ru: 'Массаж 75 мин' },
-                'massage-60':   { en: '60-min Massage',    ru: 'Массаж 60 мин' },
-                'massage-30':   { en: '30-min Massage',    ru: 'Массаж 30 мин' },
+                'morning_camp': { en: 'Morning Camp',      ru: 'Morning Camp' },
+                'evening_camp': { en: 'Evening Camp',      ru: 'Evening Camp' },
+                'weekend_camp': { en: 'Weekend Camp',      ru: 'Weekend Camp' },
+                'media_package':{ en: 'Media Package',     ru: 'Медиапакет «На память»' },
                 'media-package':{ en: 'Media Package',     ru: 'Медиапакет «На память»' }
             };
             var label = itemLabels[item] ? (isRu ? itemLabels[item].ru : itemLabels[item].en) : (isRu ? 'Оплата' : 'Your booking');
@@ -133,14 +262,32 @@
 
             if (isRu) {
                 document.getElementById('backLinkText').textContent = 'На главную';
-                document.getElementById('tyHeading').textContent = type === 'camp' ? '🎾 Вы с нами!' : '🎾 Готово!';
-                document.getElementById('tySubtitle').textContent = type === 'camp'
-                    ? 'Добро пожаловать в семью The Padel Camp Cyprus.'
-                    : 'Спасибо за оплату.';
-                document.getElementById('tyBody').textContent = type === 'camp'
-                    ? 'Впереди незабываемая неделя падела, солнца и серьёзного прогресса в игре. Наши тренеры уже ждут вас на корте. Мы свяжемся с вами в WhatsApp с деталями — просто расслабьтесь, всё под контролем.'
-                    : 'Мы получили вашу оплату и скоро свяжемся с вами в WhatsApp, чтобы подтвердить детали.';
+                document.getElementById('tyHeading').textContent = '🎾 Готово!';
+                document.getElementById('tySubtitle').textContent = 'Спасибо за оплату.';
+                document.getElementById('tyBody').textContent = 'Мы получили вашу оплату.';
+                document.getElementById('tyWhatsappNote').textContent = 'Удобнее в WhatsApp? Напишите нам напрямую:';
                 document.getElementById('tyWhatsappText').textContent = 'Написать нам в WhatsApp';
+                document.getElementById('tyFollowupTitle').textContent = 'Ещё пара деталей';
+                document.getElementById('tyFollowupNote').textContent = 'Чтобы мы всё подготовили. Имя/email подставятся автоматически, когда привяжем к оплате — пока впишите сами.';
+                document.getElementById('tyLabelName').textContent = 'Полное имя';
+                document.getElementById('tyLabelEmail').textContent = 'Email';
+                document.getElementById('tyLabelPhone').textContent = 'Телефон *';
+                document.getElementById('tyLabelNotes').textContent = 'Комментарий (необязательно)';
+                document.getElementById('tyFollowupSubmit').textContent = 'Отправить';
+            }
+
+            // Camp bookings need level/goals/t-shirt; Media Package doesn't.
+            if (type === 'camp') {
+                document.getElementById('tyCampFields').style.display = 'block';
+                document.getElementById('tyLevel').required = true;
+                document.getElementById('tyTshirt').required = true;
+            }
+
+            if (isRu) {
+                document.getElementById('tyLabelLevel').textContent = 'Уровень игры *';
+                document.getElementById('tyLabelGoals').textContent = 'Цели на этот кемп *';
+                document.getElementById('tyLabelSkills').textContent = 'Какие навыки хотите улучшить (необязательно)';
+                document.getElementById('tyLabelTshirt').textContent = 'Размер футболки *';
             }
 
             var itemLine = document.getElementById('tyItemLine');
@@ -163,6 +310,50 @@
                     }
                 });
             }
+
+            // Follow-up details form — ties to the payment via session_id so
+            // the backend can merge it with the Stripe webhook row. Backend
+            // matching isn't built yet; this wires the frontend shape.
+            document.addEventListener('DOMContentLoaded', function () {
+                var form = document.getElementById('tyFollowupForm');
+                if (!form) return;
+                form.addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    if (typeof isBotSubmission === 'function' && isBotSubmission(form)) return;
+
+                    var goals = Array.from(document.querySelectorAll('input[name="tyGoals"]:checked')).map(function (g) { return g.value; });
+                    if (type === 'camp' && goals.length === 0) {
+                        alert(isRu ? 'Пожалуйста, выберите хотя бы одну цель.' : 'Please select at least one goal for the camp.');
+                        return;
+                    }
+
+                    var data = {
+                        type: 'post_payment_details',
+                        bookingType: type,
+                        item: item,
+                        value: value,
+                        sessionId: sessionId,
+                        fullName: document.getElementById('tyName').value,
+                        email: document.getElementById('tyEmail').value,
+                        phone: document.getElementById('tyPhone').value,
+                        level: document.getElementById('tyLevel').value,
+                        goals: goals,
+                        skills: document.getElementById('tySkills').value,
+                        tshirt: document.getElementById('tyTshirt').value,
+                        notes: document.getElementById('tyNotes').value,
+                        lang: isRu ? 'ru' : 'en'
+                    };
+
+                    if (typeof sendToGoogleSheets === 'function') {
+                        sendToGoogleSheets(data).catch(function (err) { console.log('Send error:', err); });
+                    }
+
+                    var followup = document.getElementById('tyFollowup');
+                    followup.innerHTML = isRu
+                        ? '<p style="text-align:center;color:var(--gray-600);">Спасибо! Мы всё получили.</p>'
+                        : '<p style="text-align:center;color:var(--gray-600);">Thank you! We\'ve got everything we need.</p>';
+                });
+            });
         })();
     </script>
 </body>

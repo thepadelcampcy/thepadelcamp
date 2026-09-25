@@ -102,13 +102,12 @@ function initSmoothScroll() {
 
             const target = document.querySelector(targetId);
             if (target) {
-                const headerHeight = document.querySelector('.header').offsetHeight;
-                const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                });
+                // scroll-margin-top (see CSS) handles the header offset —
+                // reading .header's live offsetHeight here was wrong: the
+                // header shrinks from 25vh to 70px once .scrolled kicks in,
+                // so a click from the very top used the large unscrolled
+                // height and landed short of the target.
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         });
     });
@@ -249,86 +248,6 @@ function closeServiceBookingModal() {
         if (form) {
             form.reset();
         }
-    }
-}
-
-/**
- * Massage Booking Form Modal
- */
-function openMassageBookingForm(duration, price) {
-    const modal = document.getElementById('massageBookingModal');
-    const infoEl = document.getElementById('selectedMassageInfo');
-    const durationInput = document.getElementById('massageDuration');
-    const priceInput = document.getElementById('massagePrice');
-
-    if (modal && infoEl && durationInput && priceInput) {
-        // Update the displayed info
-        const lang = getPageLang();
-        const minText = { en: 'min', ru: 'мин', el: 'λεπτά' };
-        infoEl.textContent = `${duration} ${minText[lang]} — €${price}`;
-
-        // Set hidden form values
-        durationInput.value = duration;
-        priceInput.value = price;
-
-        // Close main massage modal if open
-        closeMassageModal();
-
-        // Open booking form modal
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-}
-
-function closeMassageBookingModal() {
-    const modal = document.getElementById('massageBookingModal');
-    if (modal) {
-        modal.classList.remove('active');
-        document.body.style.overflow = '';
-
-        // Reset form
-        const form = document.getElementById('massageBookingForm');
-        if (form) {
-            form.reset();
-        }
-    }
-}
-
-/**
- * Massage Modal
- */
-function openMassageModal() {
-    const modal = document.getElementById('massageModal');
-    if (modal) {
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-}
-
-function closeMassageModal() {
-    const modal = document.getElementById('massageModal');
-    if (modal) {
-        modal.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-}
-
-/**
- * Media Package Modal
- */
-function openMediaPackageModal() {
-    const modal = document.getElementById('mediaPackageModal');
-    if (modal) {
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-}
-
-function closeMediaPackageModal() {
-    const modal = document.getElementById('mediaPackageModal');
-    if (modal) {
-        modal.classList.remove('active');
-        document.body.style.overflow = '';
     }
 }
 
@@ -553,10 +472,7 @@ function changeVenueSlide(direction) {
 document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
         closeVenueModal();
-        closeMassageModal();
-        closeMassageBookingModal();
         closeServiceBookingModal();
-        closeMediaPackageModal();
     }
     if (e.key === 'ArrowRight') {
         changeVenueSlide(1);
@@ -569,24 +485,12 @@ document.addEventListener('keydown', function(e) {
 // Close modal on backdrop click
 document.addEventListener('click', function(e) {
     const venueModal = document.getElementById('venueModal');
-    const massageModal = document.getElementById('massageModal');
-    const massageBookingModal = document.getElementById('massageBookingModal');
     const serviceBookingModal = document.getElementById('serviceBookingModal');
-    const mediaPackageModal = document.getElementById('mediaPackageModal');
     if (e.target === venueModal) {
         closeVenueModal();
     }
-    if (e.target === massageModal) {
-        closeMassageModal();
-    }
-    if (e.target === massageBookingModal) {
-        closeMassageBookingModal();
-    }
     if (e.target === serviceBookingModal) {
         closeServiceBookingModal();
-    }
-    if (e.target === mediaPackageModal) {
-        closeMediaPackageModal();
     }
 });
 
@@ -678,188 +582,10 @@ function initActiveNavHighlight() {
 // Initialize active nav highlight
 initActiveNavHighlight();
 
-/**
- * Registration Modal
- */
-function openRegistrationModal(campType) {
-    const modal = document.getElementById('registrationModal');
-    if (modal) {
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-
-        // Pre-select camp type if specified
-        if (campType === '6-day' || campType === '4-day' || campType === '2-day') {
-            document.querySelector('input[name="camp"][value="' + campType + '"]').checked = true;
-        }
-        updateCampSelection();
-    }
-}
-
-function closeRegistrationModal() {
-    const modal = document.getElementById('registrationModal');
-    if (modal) {
-        modal.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-}
-
-function updateCampSelection() {
-    const selectedCamp = document.querySelector('input[name="camp"]:checked');
-    const infoEl = document.getElementById('selectedCampInfo');
-
-    if (selectedCamp && infoEl) {
-        if (selectedCamp.value === '6-day') {
-            infoEl.textContent = '6-Day Camp';
-        } else if (selectedCamp.value === '4-day') {
-            infoEl.textContent = '4-Day Camp';
-        } else {
-            infoEl.textContent = '2-Day Camp';
-        }
-    }
-}
-
-// Close registration modal on escape key
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-        closeRegistrationModal();
-    }
-});
-
-// Close registration modal on backdrop click
-document.addEventListener('click', function(e) {
-    const modal = document.getElementById('registrationModal');
-    if (e.target === modal) {
-        closeRegistrationModal();
-    }
-});
-
-// Registration form submission
+// Registration now goes straight through direct Stripe Payment Links (see
+// index.html) instead of this custom lead-capture modal — the modal, its
+// open/close helpers and its submit handler were removed along with it.
 document.addEventListener('DOMContentLoaded', function() {
-    const registrationForm = document.getElementById('registrationForm');
-    const registrationModal = document.getElementById('registrationModal');
-
-    // Only attach handler when the modal exists (main page) to avoid
-    // duplicate submissions on standalone registration pages which have
-    // their own inline handlers.
-    if (registrationForm && registrationModal) {
-        registrationForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            if (isBotSubmission(this)) return;
-
-            // Validate at least one goal is selected
-            const goals = document.querySelectorAll('input[name="goals"]:checked');
-            if (goals.length === 0) {
-                alert('Please select at least one goal for the camp.');
-                return;
-            }
-
-            // Collect form data
-            const formData = new FormData(this);
-            const data = {
-                type: 'camp',
-                camp: formData.get('camp'),
-                fullName: formData.get('fullName'),
-                phone: formData.get('phone'),
-                email: formData.get('email'),
-                level: formData.get('level'),
-                goals: Array.from(goals).map(g => g.value),
-                skills: formData.get('skills'),
-                tshirt: formData.get('tshirt'),
-                consent: formData.get('consent') ? true : false,
-                lang: document.documentElement.lang || 'en'
-            };
-
-            console.log('Registration data:', data);
-
-            // Отправляем данные в Google Sheets + Telegram
-            sendToGoogleSheets(data).catch(err => console.log('Send error:', err));
-
-            // Track registration event
-            const lang = getPageLang();
-            const nameMap = {
-                en: { '6-day': '6-Day Camp', '4-day': '4-Day Camp', '2-day': '2-Day Camp' },
-                ru: { '6-day': '6-дневный лагерь', '4-day': '4-дневный лагерь', '2-day': '2-дневный лагерь' },
-                el: { '6-day': '6ήμερο Camp', '4-day': '4ήμερο Camp', '2-day': '2ήμερο Camp' }
-            };
-            if (typeof trackRegistration === 'function') {
-                trackRegistration({ type: 'camp_registration', camp: data.camp, value: 0 });
-            }
-
-            const campName = nameMap[lang][data.camp] || '';
-
-            const T = {
-                en: {
-                    heading: 'Application Received!', thanks: 'Thank you', next: 'What\'s Next?',
-                    body: 'We\'re moving the camp to November 2026 — exact dates and prices will be announced soon. We\'ll contact you as soon as they\'re confirmed.',
-                    contactAt: 'We\'ll reach out to you at:', close: 'Close'
-                },
-                ru: {
-                    heading: 'Заявка получена!', thanks: 'Спасибо', next: 'Что дальше?',
-                    body: 'Мы переносим кемп на ноябрь 2026 — точные даты и цены объявим совсем скоро. Свяжемся с вами, как только всё будет готово.',
-                    contactAt: 'Мы свяжемся с вами по:', close: 'Закрыть'
-                },
-                el: {
-                    heading: 'Η Αίτηση Ελήφθη!', thanks: 'Ευχαριστούμε', next: 'Τι Ακολουθεί;',
-                    body: 'Μεταφέρουμε το camp για Νοέμβριο 2026 — οι ακριβείς ημερομηνίες και τιμές θα ανακοινωθούν σύντομα. Θα επικοινωνήσουμε μαζί σας μόλις οριστικοποιηθούν.',
-                    contactAt: 'Θα επικοινωνήσουμε μαζί σας στο:', close: 'Κλείσιμο'
-                }
-            }[lang];
-
-            // Show lead-capture confirmation screen
-            const modalContent = document.querySelector('.registration-modal-content');
-            modalContent.innerHTML = `
-                <button class="registration-modal-close" onclick="closeRegistrationModal()">&times;</button>
-                <div class="payment-success">
-                    <div class="payment-success-icon">✓</div>
-                    <h2>${T.heading}</h2>
-                    <p class="payment-success-subtitle">${T.thanks}, ${data.fullName}!</p>
-
-                    <div class="payment-details-box">
-                        <h3>${T.next}</h3>
-                        <p class="payment-camp">${campName}</p>
-                        <p>${T.body}</p>
-
-                        <div class="massage-booking-success-info">
-                            <p><strong>${T.contactAt}</strong></p>
-                            <p>📞 ${data.phone}<br>✉️ ${data.email}</p>
-                        </div>
-                    </div>
-
-                    <button onclick="closeRegistrationModal()" class="btn btn-primary btn-block">
-                        ${T.close}
-                    </button>
-                </div>
-            `;
-        });
-    }
-
-    // Update booking buttons to open modal
-    const bookLimassol = document.getElementById('bookLimassol');
-    const bookLarnaca = document.getElementById('bookLarnaca');
-
-    if (bookLimassol) {
-        bookLimassol.addEventListener('click', function(e) {
-            e.preventDefault();
-            openRegistrationModal('6-day');
-        });
-    }
-
-    if (bookLarnaca) {
-        bookLarnaca.addEventListener('click', function(e) {
-            e.preventDefault();
-            openRegistrationModal('2-day');
-        });
-    }
-
-    // Hero CTA buttons — scroll to pricing section
-    const heroCta = document.querySelector('.hero-cta a[href="#pricing"]');
-    if (heroCta) {
-        heroCta.addEventListener('click', function(e) {
-            e.preventDefault();
-            document.getElementById('pricing').scrollIntoView({ behavior: 'smooth' });
-        });
-    }
-
     // Service Booking Form Submission
     const serviceBookingForm = document.getElementById('serviceBookingForm');
     if (serviceBookingForm) {
@@ -948,159 +674,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Massage Booking Form Submission
-    const massageBookingForm = document.getElementById('massageBookingForm');
-    if (massageBookingForm) {
-        massageBookingForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            if (isBotSubmission(this)) return;
-
-            // Collect form data
-            const formData = new FormData(this);
-            const data = {
-                type: 'massage',
-                duration: formData.get('massageDuration'),
-                price: formData.get('massagePrice'),
-                name: formData.get('massageName'),
-                phone: formData.get('massagePhone'),
-                email: formData.get('massageEmail'),
-                notes: formData.get('massageNotes'),
-                lang: document.documentElement.lang || 'en'
-            };
-
-            console.log('Massage booking data:', data);
-
-            // Отправляем данные в Google Sheets + Telegram
-            sendToGoogleSheets(data).catch(err => console.log('Send error:', err));
-
-            // Track massage booking event
-            if (typeof trackBooking === 'function') {
-                trackBooking('massage_' + data.duration, parseFloat(data.price) || 0);
-            }
-
-            // Determine language
-            const lang = getPageLang();
-
-            const T = {
-                en: {
-                    thanks: 'Thank you', massage: 'Massage', min: 'min', next: 'What\'s Next?',
-                    body: 'The camp is moving to November 2026 — exact dates will be announced soon. We\'ll confirm your massage booking once they\'re set.',
-                    contactAt: 'We\'ll reach out to you at:', close: 'Close'
-                },
-                ru: {
-                    thanks: 'Спасибо', massage: 'Массаж', min: 'мин', next: 'Что дальше?',
-                    body: 'Кемп переносится на ноябрь 2026 — точные даты объявим скоро. Подтвердим вашу запись на массаж, как только всё будет готово.',
-                    contactAt: 'Мы свяжемся с вами по:', close: 'Закрыть'
-                },
-                el: {
-                    thanks: 'Ευχαριστούμε', massage: 'Μασάζ', min: 'λεπτά', next: 'Τι Ακολουθεί;',
-                    body: 'Το camp μεταφέρεται για Νοέμβριο 2026 — οι ακριβείς ημερομηνίες θα ανακοινωθούν σύντομα. Θα επιβεβαιώσουμε την κράτησή σας για μασάζ μόλις οριστικοποιηθούν.',
-                    contactAt: 'Θα επικοινωνήσουμε μαζί σας στο:', close: 'Κλείσιμο'
-                }
-            }[lang];
-
-            // Show lead-capture confirmation screen
-            const modalContent = document.querySelector('#massageBookingModal .massage-booking-modal-content');
-            modalContent.innerHTML = `
-                <button class="massage-modal-close" onclick="closeMassageBookingModal()">&times;</button>
-                <div class="payment-success">
-                    <div class="payment-success-icon">✓</div>
-                    <h2>${T.thanks}, ${data.name}!</h2>
-                    <p class="payment-success-subtitle">${T.massage} ${data.duration} ${T.min}</p>
-
-                    <div class="payment-details-box">
-                        <h3>${T.next}</h3>
-                        <p>${T.body}</p>
-
-                        <div class="massage-booking-success-info">
-                            <p><strong>${T.contactAt}</strong></p>
-                            <p>📞 ${data.phone}<br>✉️ ${data.email}</p>
-                        </div>
-                    </div>
-
-                    <button onclick="closeMassageBookingModal()" class="btn btn-primary btn-block">
-                        ${T.close}
-                    </button>
-                </div>
-            `;
-        });
-    }
-
-    // Media Package Form Submission
-    const mediaPackageForm = document.getElementById('mediaPackageForm');
-    if (mediaPackageForm) {
-        mediaPackageForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            if (isBotSubmission(this)) return;
-
-            // Collect form data
-            const formData = new FormData(this);
-            const data = {
-                type: 'media',
-                name: formData.get('mediaPackageName'),
-                phone: formData.get('mediaPackagePhone'),
-                email: formData.get('mediaPackageEmail'),
-                notes: formData.get('mediaPackageNotes'),
-                lang: document.documentElement.lang || 'en'
-            };
-
-            console.log('Media Package booking data:', data);
-
-            // Отправляем данные в Google Sheets + Telegram
-            sendToGoogleSheets(data).catch(err => console.log('Send error:', err));
-
-            // Track media package booking event
-            if (typeof trackBooking === 'function') {
-                trackBooking('media_package', 150);
-            }
-
-            // Determine language
-            const lang = getPageLang();
-
-            const T = {
-                en: {
-                    thanks: 'Thank you', subtitle: 'Media Package', next: 'What\'s Next?',
-                    body: 'The camp is moving to November 2026 — exact dates will be announced soon. We\'ll confirm your media package booking once they\'re set.',
-                    contactAt: 'We\'ll reach out to you at:', close: 'Close'
-                },
-                ru: {
-                    thanks: 'Спасибо', subtitle: 'Медиапакет «На память»', next: 'Что дальше?',
-                    body: 'Кемп переносится на ноябрь 2026 — точные даты объявим скоро. Подтвердим ваш медиапакет, как только всё будет готово.',
-                    contactAt: 'Мы свяжемся с вами по:', close: 'Закрыть'
-                },
-                el: {
-                    thanks: 'Ευχαριστούμε', subtitle: 'Πακέτο Media', next: 'Τι Ακολουθεί;',
-                    body: 'Το camp μεταφέρεται για Νοέμβριο 2026 — οι ακριβείς ημερομηνίες θα ανακοινωθούν σύντομα. Θα επιβεβαιώσουμε το πακέτο media σας μόλις οριστικοποιηθούν.',
-                    contactAt: 'Θα επικοινωνήσουμε μαζί σας στο:', close: 'Κλείσιμο'
-                }
-            }[lang];
-
-            // Show lead-capture confirmation screen
-            const modalContent = document.querySelector('#mediaPackageModal .massage-booking-modal-content');
-            modalContent.innerHTML = `
-                <button class="massage-modal-close" onclick="closeMediaPackageModal()">&times;</button>
-                <div class="payment-success">
-                    <div class="payment-success-icon">✓</div>
-                    <h2>${T.thanks}, ${data.name}!</h2>
-                    <p class="payment-success-subtitle">${T.subtitle}</p>
-
-                    <div class="payment-details-box">
-                        <h3>${T.next}</h3>
-                        <p>${T.body}</p>
-
-                        <div class="massage-booking-success-info">
-                            <p><strong>${T.contactAt}</strong></p>
-                            <p>📞 ${data.phone}<br>✉️ ${data.email}</p>
-                        </div>
-                    </div>
-
-                    <button onclick="closeMediaPackageModal()" class="btn btn-primary btn-block">
-                        ${T.close}
-                    </button>
-                </div>
-            `;
-        });
-    }
 });
 
 /**
