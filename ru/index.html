@@ -236,7 +236,21 @@
         <div class="container">
             <div class="about-grid">
                 <div class="about-image">
-                    <img src="../assets/images/gallery/photo-16.jpg" alt="Игроки и тренеры The Padel Camp Cyprus во время групповой тренировки" width="1536" height="2048" loading="lazy">
+                    <img id="aboutCampPhoto" width="1536" height="2048" loading="lazy" alt="">
+                    <script>
+                        (function () {
+                            var photos = [
+                                { src: '../assets/images/gallery/photo-16.jpg', alt: 'Игроки и тренеры The Padel Camp Cyprus во время групповой тренировки' },
+                                { src: '../assets/images/gallery/photo-17.jpg', alt: 'Игроки The Padel Camp Cyprus тренируются вместе на корте' },
+                                { src: '../assets/images/gallery/photo-18.jpg', alt: 'Игроки The Padel Camp Cyprus разминаются на корте' },
+                                { src: '../assets/images/gallery/photo-19.jpg', alt: 'Игроки и тренеры The Padel Camp Cyprus у сетки' }
+                            ];
+                            var pick = photos[Math.floor(Math.random() * photos.length)];
+                            var img = document.getElementById('aboutCampPhoto');
+                            img.src = pick.src;
+                            img.alt = pick.alt;
+                        })();
+                    </script>
                 </div>
                 <div class="about-text-col">
                     <div class="about-content">
