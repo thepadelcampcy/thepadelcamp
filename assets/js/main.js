@@ -406,7 +406,7 @@ function initAnimations() {
  * someone starts the registration/payment flow.
  */
 function initPricingViewTracking() {
-    const pricingSection = document.getElementById('pricing');
+    const pricingSection = document.getElementById('program');
     if (!pricingSection || !('IntersectionObserver' in window)) return;
 
     const observer = new IntersectionObserver((entries) => {
