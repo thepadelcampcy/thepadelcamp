@@ -229,11 +229,15 @@
                     </a>
                 </div>
             </div>
+
+            <p style="text-align: center; font-size: 12px; color: var(--gray-500); margin-top: 16px;">
+                <a href="/privacy-policy.html" id="tyPrivacyLink">Privacy Policy</a>
+            </p>
         </div>
     </div>
 
     <script src="assets/js/pixels.js?v=11"></script>
-    <script src="assets/js/main.js?v=8"></script>
+    <script src="assets/js/main.js?v=9"></script>
     <script>
         (function () {
             var params = new URLSearchParams(window.location.search);
@@ -243,6 +247,16 @@
             var sessionId = params.get('session_id') || '';
 
             var isRu = (navigator.language || '').toLowerCase().indexOf('ru') === 0;
+
+            // No el/privacy-policy.html exists (see CLAUDE.md), so Greek-language
+            // visitors fall through to the EN policy same as everyone else.
+            if (isRu) {
+                var privacyLink = document.getElementById('tyPrivacyLink');
+                if (privacyLink) {
+                    privacyLink.href = '/ru/privacy-policy.html';
+                    privacyLink.textContent = 'Политика конфиденциальности';
+                }
+            }
 
             var itemLabels = {
                 'morning_camp': { en: 'Morning Camp',      ru: 'Morning Camp' },
