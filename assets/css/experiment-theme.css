@@ -125,6 +125,12 @@ h3,
 
 .program-content {
     display: block !important;
+    /* Without this, the collapsed weekend-groups-table's unbreakable cell
+       text (e.g. "09:00–10:30") sets the min-content width CSS Grid uses
+       for this 1fr column — even while overflow:hidden while collapsed —
+       forcing every card in the shared column wider than narrow phone
+       screens. min-width: 0 lets the grid track shrink to the viewport. */
+    min-width: 0;
     background: #fff;
     border: 1px solid var(--accent-soft);
     border-radius: 24px;
@@ -310,6 +316,11 @@ h3,
     border-collapse: collapse;
     margin: 16px 0;
     font-size: 14px;
+    /* On narrow phones the card is now allowed to shrink below this
+       table's content width (see .program-content min-width: 0) — scroll
+       the table itself instead of letting columns get clipped. */
+    display: block;
+    overflow-x: auto;
 }
 
 .weekend-groups-table th,
