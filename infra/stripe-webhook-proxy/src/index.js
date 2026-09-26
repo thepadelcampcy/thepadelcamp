@@ -6,6 +6,19 @@ export default {
 
     const body = await request.text();
 
+    let payload;
+    try {
+      payload = JSON.parse(body);
+    } catch {
+      payload = null;
+    }
+
+    if (payload && payload.type === 'view_content') {
+      if (!env.VIEWCONTENT_RELAY_TOKEN || payload.token !== env.VIEWCONTENT_RELAY_TOKEN) {
+        return new Response('Forbidden', { status: 403 });
+      }
+    }
+
     let upstream;
     try {
       upstream = await fetch(env.APPS_SCRIPT_URL, {
