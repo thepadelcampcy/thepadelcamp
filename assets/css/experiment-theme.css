@@ -601,15 +601,8 @@ body {
     }
 }
 
-/* Cyrillic caps with wide tracking read heavy — RU slogan is typed in
-   sentence case instead, and the RU headline is scaled down since
-   "Тренируйся" is much longer than "Train Like" */
-html[lang="ru"] .hero-eyebrow {
-    text-transform: none;
-    letter-spacing: 0.06em;
-    font-size: 17px;
-}
-
+/* RU headline is scaled down since "Тренируйся" is much longer
+   than "Train Like" */
 @media (min-width: 769px) {
     html[lang="ru"] .hero-title {
         font-size: clamp(41px, 8.5vw, 102px);
