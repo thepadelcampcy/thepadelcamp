@@ -993,4 +993,16 @@ html[lang="ru"] .hero-title em {
     .footer span {
         font-size: 16px !important;
     }
+
+    /* Tariff landing pages justify their copy; at 17px in a phone-width
+       column that opens wide gaps between words, so left-align there */
+    .lp-card p {
+        text-align: left !important;
+    }
+
+    /* landing pages aren't wrapped in <section>, so their checklist
+       misses the rule above */
+    .lp-card li {
+        font-size: 17px !important;
+    }
 }
