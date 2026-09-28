@@ -156,7 +156,7 @@
 
                 <div class="ty-followup" id="tyFollowup">
                     <h3 id="tyFollowupTitle">Just a couple more details</h3>
-                    <p class="ty-followup-note" id="tyFollowupNote">So we can get everything ready for you. Name/email will auto-fill here once linked to your payment — for now, please fill them in.</p>
+                    <p class="ty-followup-note" id="tyFollowupNote">So we can get everything ready for you. Name/email will auto-fill here once linked to your payment. For now, please fill them in.</p>
 
                     <form id="tyFollowupForm">
                         <input type="text" name="hp_field_a3x" class="hp-field" aria-hidden="true" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;">
@@ -178,11 +178,11 @@
                                 <label class="form-label" id="tyLabelLevel" for="tyLevel">Padel level *</label>
                                 <select id="tyLevel" name="tyLevel" class="form-input">
                                     <option value="">Select an option</option>
-                                    <option value="beginner">Beginner &mdash; Just starting out</option>
-                                    <option value="beginner-intermediate">Beginner-Intermediate &mdash; Know the basics</option>
-                                    <option value="intermediate">Intermediate &mdash; Play regularly</option>
-                                    <option value="intermediate-advanced">Intermediate-Advanced &mdash; Strong player</option>
-                                    <option value="advanced">Advanced &mdash; Compete in tournaments</option>
+                                    <option value="beginner">Beginner: just starting out</option>
+                                    <option value="beginner-intermediate">Beginner-Intermediate: know the basics</option>
+                                    <option value="intermediate">Intermediate: play regularly</option>
+                                    <option value="intermediate-advanced">Intermediate-Advanced: strong player</option>
+                                    <option value="advanced">Advanced: compete in tournaments</option>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -300,7 +300,7 @@
 
             var itemLine = document.getElementById('tyItemLine');
             if (label && value) {
-                itemLine.innerHTML = '<strong>' + label + '</strong> — €' + value;
+                itemLine.innerHTML = '<strong>' + label + '</strong>: €' + value;
             } else {
                 itemLine.style.display = 'none';
             }
