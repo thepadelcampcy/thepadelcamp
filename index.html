@@ -50,37 +50,14 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300&display=swap">
     <link rel="stylesheet" href="assets/css/experiment-theme.css?v=39">
 
-    <!-- Rotate the hero photo — picked once per page load. Preloaded here,
-         as early as possible, then faded in (see .hero-bg-photo below)
-         instead of popping in abruptly once it finishes downloading.
-         Not persisted: a refresh can show the same photo again, fine for
-         a demo. -->
+    <!-- Hero photo: fixed to "The Oval" (owner's pick, 2026-09-28).
+         Preloaded here, as early as possible, then faded in (see
+         .hero-bg-photo) instead of popping in once it downloads. -->
+    <link rel="preload" as="image" href="/assets/images/limassol-photos/the-oval.jpg" fetchpriority="high">
     <script>
-        (function () {
-            // Attribution required by CC BY-SA (kept for the CC0 photo too,
-            // for consistency) — see assets/images/limassol-photos/CREDITS.txt
-            var credits = {
-                '/assets/images/limassol-photos/marina-sunny-promenade.jpg':
-                    { text: '"Lemesos-marina" by Mboesch, CC BY-SA 4.0', href: 'https://commons.wikimedia.org/wiki/File:Lemesos-marina.jpg' },
-                '/assets/images/limassol-photos/molos-pier-skyline.jpg':
-                    { text: '"LIMASSOL MOLOS 01" by Lomaine, CC BY-SA 4.0', href: 'https://commons.wikimedia.org/wiki/File:LIMASSOL_MOLOS_01.jpg' },
-                '/assets/images/limassol-photos/old-port-yachts-clouds.jpg':
-                    { text: 'Photo by A.Savin, Free Art License', href: 'https://commons.wikimedia.org/wiki/File:Limassol_01-2017_img18_Marina.jpg' },
-                '/assets/images/limassol-photos/breakwater-sparkling-sea.jpg':
-                    { text: 'Photo by Salwa Farwaneh Dameh, CC0', href: 'https://commons.wikimedia.org/wiki/File:Limassol-_Marina_-Cyprus.jpg' },
-                '/assets/images/limassol-photos/the-oval.jpg':
-                    { text: '"The Oval" by Cybarco, CC BY-SA 4.0', href: 'https://commons.wikimedia.org/wiki/File:The_Oval.jpg' }
-            };
-            var photos = Object.keys(credits);
-            var pick = photos[Math.floor(Math.random() * photos.length)];
-            window.__heroPhoto = pick;
-            window.__heroPhotoCredit = credits[pick];
-            var preload = document.createElement('link');
-            preload.rel = 'preload';
-            preload.as = 'image';
-            preload.href = pick;
-            document.head.appendChild(preload);
-        })();
+        // Attribution required by CC BY-SA, see assets/images/limassol-photos/CREDITS.txt
+        window.__heroPhoto = '/assets/images/limassol-photos/the-oval.jpg';
+        window.__heroPhotoCredit = { text: '"The Oval" by Cybarco, CC BY-SA 4.0', href: 'https://commons.wikimedia.org/wiki/File:The_Oval.jpg' };
     </script>
 
     <!-- Structured Data -->
@@ -223,7 +200,7 @@
             <div class="hero-text">
                 <p class="hero-eyebrow">TRAIN PLAY LEARN</p>
                 <h1 class="hero-title">Train Like<br><em class="accent">A Pro</em></h1>
-                <p class="hero-dates">9&ndash;15 November 2026 &middot; MyQPadel, Limassol</p>
+                <p class="hero-dates"><span>9&ndash;15 November 2026</span><span class="hero-dates-sep"> &middot; </span><span>MyQPadel, Limassol</span></p>
                 <p class="hero-subtitle">Intensive padel camp in Limassol, Cyprus with professional coaches from Spain. Our highly experienced trainers will guide you to the next level of your game under expert supervision.</p>
                 <div class="hero-cta">
                     <a href="#program-cards" class="btn btn-primary btn-lg">View Program</a>

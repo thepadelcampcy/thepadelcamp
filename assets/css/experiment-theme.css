@@ -594,10 +594,34 @@ body {
     animation: fadeInUp 0.8s ease 0.3s forwards;
 }
 
+/* Larger hero type on phones (owner's request) */
 @media (max-width: 768px) {
+    .hero-eyebrow {
+        font-size: 16px;
+    }
+
+    .hero-title {
+        font-size: clamp(44px, 12.5vw, 56px);
+        line-height: 1;
+    }
+
     .hero-dates {
-        margin: -16px 0 16px;
-        font-size: 17px;
+        margin: -14px 0 18px;
+        font-size: 19px;
+        line-height: 1.35;
+    }
+
+    /* Dates on one line, venue on the next, instead of an arbitrary wrap */
+    .hero-dates span {
+        display: block;
+    }
+
+    .hero-dates .hero-dates-sep {
+        display: none;
+    }
+
+    .hero-subtitle {
+        font-size: 19px;
     }
 }
 
@@ -617,6 +641,12 @@ body {
 .hero-title .accent {
     font-style: italic;
     color: #fcfaf6;
+}
+
+/* Cyrillic italic in this face has ornate "к"/"ф" swashes — RU keeps
+   the second headline line upright (owner's pick) */
+html[lang="ru"] .hero-title em {
+    font-style: normal;
 }
 
 .hero-subtitle {
