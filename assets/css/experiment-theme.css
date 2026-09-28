@@ -931,3 +931,66 @@ html[lang="ru"] .hero-title em {
     background: var(--accent);
     color: #fcfaf6;
 }
+
+/* Larger reading type on phones, to match the enlarged hero (owner's
+   request). Body copy below the hero was 14–15px and labels 11–13px,
+   set per component across style.css at many specificities — so this
+   block uses !important to lift them in one place instead of chasing
+   each selector. Prices and the hero are left alone. */
+@media (max-width: 768px) {
+    section:not(.hero) p,
+    section:not(.hero) li,
+    section:not(.hero) li strong,
+    .venue-feature-item strong {
+        font-size: 17px !important;
+        line-height: 1.6 !important;
+    }
+
+    section:not(.hero) h3 {
+        font-size: 21px !important;
+    }
+
+    .venue-simple-content h3 {
+        font-size: 30px !important;
+    }
+
+    .section-title {
+        font-size: 32px !important;
+    }
+
+    .about-text {
+        font-size: 21px !important;
+    }
+
+    .section-subtitle,
+    .coaches-subtitle,
+    .contact-text,
+    .partners-cta-text {
+        font-size: 19px !important;
+    }
+
+    .venue-feature-item span,
+    .program-dates,
+    .partner-tagline,
+    section:not(.hero) td {
+        font-size: 16px !important;
+    }
+
+    section:not(.hero) th,
+    .early-bird-tag,
+    .program-hours,
+    .btn-view-details {
+        font-size: 14px !important;
+    }
+
+    /* kept small: a bigger label wraps "РАННЯЯ ЦЕНА" onto two lines */
+    .early-bird-badge-label {
+        font-size: 12px !important;
+    }
+
+    .footer,
+    .footer a,
+    .footer span {
+        font-size: 16px !important;
+    }
+}
