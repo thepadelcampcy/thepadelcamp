@@ -528,10 +528,16 @@ body {
     opacity: 1;
 }
 
+/* Extra left-side darkening sits under the headline/subtitle — the
+   aerial city photo behind the text is busy (owner asked for more
+   contrast). On phones the text spans the full width, so it's a
+   uniform darker wash instead. */
 .hero-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(0, 15, 24, 0.18) 0%, rgba(0, 15, 24, 0.38) 45%, rgba(0, 15, 24, 0.82) 100%);
+    background:
+        linear-gradient(90deg, rgba(0, 15, 24, 0.62) 0%, rgba(0, 15, 24, 0.38) 45%, rgba(0, 15, 24, 0) 72%),
+        linear-gradient(180deg, rgba(0, 15, 24, 0.18) 0%, rgba(0, 15, 24, 0.38) 45%, rgba(0, 15, 24, 0.82) 100%);
     z-index: 1;
     pointer-events: none;
 }
@@ -596,6 +602,10 @@ body {
 
 /* Larger hero type on phones (owner's request) */
 @media (max-width: 768px) {
+    .hero-overlay {
+        background: linear-gradient(180deg, rgba(0, 15, 24, 0.48) 0%, rgba(0, 15, 24, 0.58) 45%, rgba(0, 15, 24, 0.86) 100%);
+    }
+
     .hero-eyebrow {
         font-size: 16px;
     }
