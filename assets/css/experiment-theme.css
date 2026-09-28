@@ -663,6 +663,13 @@ html[lang="ru"] .hero-title em {
     color: rgba(252, 250, 246, 0.85);
 }
 
+/* .btn is inline-flex with justify-content:center, which only centers
+   single-line labels — a label that wraps (long RU/EL camp CTAs on
+   phones) fell back to left-aligned lines */
+.btn {
+    text-align: center;
+}
+
 /* Gold primary CTA everywhere, not just the hero — pricing cards,
    header, contact all use .btn-primary too */
 .btn-primary {
