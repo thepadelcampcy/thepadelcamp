@@ -6,6 +6,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Static marketing/booking site for **The Padel Camp Cyprus** (thepadelcamp.com.cy), a padel training camp event. Plain HTML/CSS/JS — no framework, no build step, no package.json. Deployed via GitHub Pages (see `CNAME`).
 
+`infra/forms-apps-script/` is **not** part of the deployed site: it's the repo copy of the Google Apps Script behind `GOOGLE_SCRIPT_URL` in `main.js` (service bookings + thank-you.html post-payment questionnaire → Google Sheet + Telegram). The live code runs in Apps Script; see that folder's README for how to deploy and keep the copy in sync.
+
 ## Working locally
 
 There is no build/lint/test tooling in this repo. Just edit the HTML/CSS/JS files directly and preview with any static file server, e.g.:
