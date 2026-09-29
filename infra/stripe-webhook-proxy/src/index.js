@@ -66,7 +66,7 @@ export default {
     }
 
     const text = await upstream.text();
-    console.log('upstream', upstream.status, text.slice(0, 200));
+    console.log('upstream', upstream.status, upstream.headers.get('content-type'), text.slice(0, 200));
 
     if (text === 'OK' || text === 'Ignored' || text === 'Not paid') {
       return new Response(text, { status: 200 });
