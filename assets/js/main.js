@@ -309,7 +309,10 @@ function initFAQ() {
 function initHeaderScroll() {
     const header = document.querySelector('.header');
 
-    if (!header) return;
+    // Tier landing pages ship a permanently compact header (.scrolled in
+    // the markup) — toggling it off at the top dropped the logo below the
+    // header bar on phones.
+    if (!header || header.hasAttribute('data-static-header')) return;
 
     let lastScroll = 0;
 

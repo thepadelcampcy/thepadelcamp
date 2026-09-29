@@ -48,39 +48,16 @@
     <link rel="stylesheet" href="../assets/css/style.css?v=26">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300&display=swap">
-    <link rel="stylesheet" href="../assets/css/experiment-theme.css?v=38">
+    <link rel="stylesheet" href="../assets/css/experiment-theme.css?v=42">
 
-    <!-- Rotate the hero photo — picked once per page load. Preloaded here,
-         as early as possible, then faded in (see .hero-bg-photo below)
-         instead of popping in abruptly once it finishes downloading.
-         Not persisted: a refresh can show the same photo again, fine for
-         a demo. -->
+    <!-- Hero photo: fixed to "The Oval" (owner's pick, 2026-09-28).
+         Preloaded here, as early as possible, then faded in (see
+         .hero-bg-photo) instead of popping in once it downloads. -->
+    <link rel="preload" as="image" href="/assets/images/limassol-photos/the-oval.jpg" fetchpriority="high">
     <script>
-        (function () {
-            // Attribution required by CC BY-SA (kept for the CC0 photo too,
-            // for consistency) — see assets/images/limassol-photos/CREDITS.txt
-            var credits = {
-                '/assets/images/limassol-photos/marina-sunny-promenade.jpg':
-                    { text: '"Lemesos-marina" by Mboesch, CC BY-SA 4.0', href: 'https://commons.wikimedia.org/wiki/File:Lemesos-marina.jpg' },
-                '/assets/images/limassol-photos/molos-pier-skyline.jpg':
-                    { text: '"LIMASSOL MOLOS 01" by Lomaine, CC BY-SA 4.0', href: 'https://commons.wikimedia.org/wiki/File:LIMASSOL_MOLOS_01.jpg' },
-                '/assets/images/limassol-photos/old-port-yachts-clouds.jpg':
-                    { text: 'Photo by A.Savin, Free Art License', href: 'https://commons.wikimedia.org/wiki/File:Limassol_01-2017_img18_Marina.jpg' },
-                '/assets/images/limassol-photos/breakwater-sparkling-sea.jpg':
-                    { text: 'Photo by Salwa Farwaneh Dameh, CC0', href: 'https://commons.wikimedia.org/wiki/File:Limassol-_Marina_-Cyprus.jpg' },
-                '/assets/images/limassol-photos/the-oval.jpg':
-                    { text: '"The Oval" by Cybarco, CC BY-SA 4.0', href: 'https://commons.wikimedia.org/wiki/File:The_Oval.jpg' }
-            };
-            var photos = Object.keys(credits);
-            var pick = photos[Math.floor(Math.random() * photos.length)];
-            window.__heroPhoto = pick;
-            window.__heroPhotoCredit = credits[pick];
-            var preload = document.createElement('link');
-            preload.rel = 'preload';
-            preload.as = 'image';
-            preload.href = pick;
-            document.head.appendChild(preload);
-        })();
+        // Attribution required by CC BY-SA, see assets/images/limassol-photos/CREDITS.txt
+        window.__heroPhoto = '/assets/images/limassol-photos/the-oval.jpg';
+        window.__heroPhotoCredit = { text: '"The Oval" by Cybarco, CC BY-SA 4.0', href: 'https://commons.wikimedia.org/wiki/File:The_Oval.jpg' };
     </script>
 
     <!-- Structured Data -->
@@ -143,7 +120,8 @@
             },
             "sameAs": [
                 "https://www.instagram.com/thepadelcampcy",
-                "https://www.facebook.com/share/1CSAbUWKJw/"
+                "https://www.facebook.com/share/1CSAbUWKJw/",
+                "https://www.youtube.com/@thepadelcamp"
             ]
         },
         "performer": [
@@ -222,7 +200,8 @@
         <div class="hero-content">
             <div class="hero-text">
                 <p class="hero-eyebrow">ΠΡΟΠΟΝΗΣΟΥ · ΠΑΙΞΕ · ΜΑΘΕ</p>
-                <h1 class="hero-title">Προπονήσου<br><em class="accent">Σαν Επαγγελματίας</em></h1>
+                <h1 class="hero-title">Προπονήσου<br><em class="accent">σαν επαγγελματίας</em></h1>
+                <p class="hero-dates"><span>9&ndash;15 Νοεμβρίου 2026</span><span class="hero-dates-sep"> &middot; </span><span>MyQPadel, Λεμεσός</span></p>
                 <p class="hero-subtitle">Εντατικό camp πάντελ στη Λεμεσό, Κύπρος, με επαγγελματίες προπονητές από την Ισπανία. Οι έμπειροι προπονητές μας θα σε καθοδηγήσουν στο επόμενο επίπεδο του παιχνιδιού σου.</p>
                 <div class="hero-cta">
                     <a href="#program-cards" class="btn btn-primary btn-lg">Δες το Πρόγραμμα</a>
@@ -336,7 +315,7 @@
             </div>
 
             <div class="early-bird-banner">
-                <span class="early-bird-tag">Πρώιμη Κράτηση &mdash; Περιορισμένες Θέσεις</span>
+                <span class="early-bird-tag">Πρώιμη Κράτηση &middot; Περιορισμένες Θέσεις</span>
                 <p>Μόνο οι πρώτες 5 θέσεις σε αυτές τις τιμές. Μόλις κλείσουν, η τιμή ανεβαίνει.</p>
             </div>
 
@@ -370,10 +349,10 @@
                         <button type="button" class="btn-view-details" aria-expanded="false" data-label-view="Λεπτομέρειες" data-label-hide="Απόκρυψη">Λεπτομέρειες</button>
                     </div>
                     <div class="program-details">
-                        <h3 class="program-details-title">ΠΡΩΪΝΟ CAMP &mdash; 09:00&ndash;12:00</h3>
+                        <h3 class="program-details-title">ΠΡΩΪΝΟ CAMP &middot; 09:00&ndash;12:00</h3>
                         <p class="program-details-subtitle">5 ημέρες &middot; Δευτέρα&ndash;Παρασκευή &middot; 15 ώρες δομημένης επαγγελματικής προπόνησης</p>
 
-                        <p>Ξεκίνα τη μέρα σου με εστιασμένη προπόνηση πάντελ &mdash; πέντε συνεχόμενα πρωινά που πραγματικά θα αλλάξουν το παιχνίδι σου.</p>
+                        <p>Ξεκίνα τη μέρα σου με εστιασμένη προπόνηση πάντελ: πέντε συνεχόμενα πρωινά που πραγματικά θα αλλάξουν το παιχνίδι σου.</p>
                         <p>Το Πρωινό Camp είναι σχεδιασμένο για παίκτες που θέλουν μια δομημένη και εντατική εμπειρία προπόνησης χωρίς να καταλαμβάνει όλη τους τη μέρα. Θα προπονηθείς σε μικρή ομάδα με επαγγελματίες προπονητές, με έως <strong>4 παίκτες ανά γήπεδο</strong>, επιτρέποντας ατομική προσοχή, τεχνικές διορθώσεις και τακτική καθοδήγηση σε όλες τις συνεδρίες.</p>
                         <p>Κατά τη διάρκεια της εβδομάδας, η προπόνηση συνδυάζει τεχνική ανάπτυξη με πραγματικές καταστάσεις παιχνιδιού. Θα δουλέψεις στην άμυνα, τη μετάβαση στο δίχτυ, επιθετικά σχήματα, overheads, τοποθέτηση, συντονισμό με τον συμπαίκτη και τακτική λήψη αποφάσεων.</p>
                         <p>Η βασική διαφορά είναι ότι δεν επαναλαμβάνεις απλώς χτυπήματα. Μαθαίνεις <strong>πότε να τα χρησιμοποιείς, γιατί να τα χρησιμοποιείς και πώς να χτίζεις τον πόντο γύρω τους</strong>.</p>
@@ -413,12 +392,12 @@
                         <button type="button" class="btn-view-details" aria-expanded="false" data-label-view="Λεπτομέρειες" data-label-hide="Απόκρυψη">Λεπτομέρειες</button>
                     </div>
                     <div class="program-details">
-                        <h3 class="program-details-title">ΒΡΑΔΙΝΟ CAMP &mdash; 17:30&ndash;20:30</h3>
+                        <h3 class="program-details-title">ΒΡΑΔΙΝΟ CAMP &middot; 17:30&ndash;20:30</h3>
                         <p class="program-details-subtitle">5 ημέρες &middot; Δευτέρα&ndash;Παρασκευή &middot; 15 ώρες δομημένης επαγγελματικής προπόνησης</p>
 
-                        <p>Θέλεις να προπονηθείς σοβαρά χωρίς να αλλάξεις το πρόγραμμα της ημέρας σου; Το Βραδινό Camp σου δίνει πέντε συνεχόμενες ημέρες εστιασμένης προπόνησης πάντελ με επαγγελματίες προπονητές &mdash; κρατώντας τα πρωινά και τα απογεύματά σου εντελώς ελεύθερα.</p>
-                        <p>Από Δευτέρα έως Παρασκευή, θα προπονείσαι <strong>3 ώρες την ημέρα</strong> &mdash; συνολικά <strong>15 ώρες ποιοτικής προπόνησης</strong> σε όλο το camp.</p>
-                        <p>Οι προπονήσεις γίνονται σε μικρές ομάδες, έως <strong>4 παίκτες ανά γήπεδο</strong> &mdash; οι προπονητές προλαβαίνουν να δώσουν προσοχή σε κάθε παίκτη, ατομικές τεχνικές διορθώσεις, τακτική καθοδήγηση και πρακτική ανατροφοδότηση.</p>
+                        <p>Θέλεις να προπονηθείς σοβαρά χωρίς να αλλάξεις το πρόγραμμα της ημέρας σου; Το Βραδινό Camp σου δίνει πέντε συνεχόμενες ημέρες εστιασμένης προπόνησης πάντελ με επαγγελματίες προπονητές, κρατώντας τα πρωινά και τα απογεύματά σου εντελώς ελεύθερα.</p>
+                        <p>Από Δευτέρα έως Παρασκευή, θα προπονείσαι <strong>3 ώρες την ημέρα</strong>, συνολικά <strong>15 ώρες ποιοτικής προπόνησης</strong> σε όλο το camp.</p>
+                        <p>Οι προπονήσεις γίνονται σε μικρές ομάδες, έως <strong>4 παίκτες ανά γήπεδο</strong>: οι προπονητές προλαβαίνουν να δώσουν προσοχή σε κάθε παίκτη, ατομικές τεχνικές διορθώσεις, τακτική καθοδήγηση και πρακτική ανατροφοδότηση.</p>
                         <p>Το πρόγραμμα συνδυάζει τεχνική ανάπτυξη με πραγματικές καταστάσεις παιχνιδιού. Θα δουλέψεις τοποθέτηση, άμυνα, μετάβαση, παιχνίδι στο δίχτυ, επιθετικά σχήματα, overheads και τακτική λήψη αποφάσεων. Αντί να χτυπάς απλώς περισσότερες μπάλες, θα μάθεις <strong>πότε να χρησιμοποιείς κάθε χτύπημα, γιατί να το χρησιμοποιείς και πώς να χτίζεις τον πόντο μαζί με τον συμπαίκτη σου</strong>.</p>
                         <p>Το βραδινό format είναι ιδανικό αν εργάζεσαι, έχεις πρωινές/απογευματινές υποχρεώσεις ή απλά προτιμάς να προπονείσαι αργότερα. Παίρνεις την πλήρη εμπειρία The Padel Camp χωρίς να αφιερώσεις τις ώρες της ημέρας σου.</p>
                         <p><strong>Ιδανικό για:</strong> παίκτες που θέλουν σοβαρή ανάπτυξη στο πάντελ χωρίς να αλλάξουν το πρόγραμμα της ημέρας τους.</p>
@@ -456,10 +435,10 @@
                         <button type="button" class="btn-view-details" aria-expanded="false" data-label-view="Λεπτομέρειες" data-label-hide="Απόκρυψη">Λεπτομέρειες</button>
                     </div>
                     <div class="program-details">
-                        <h3 class="program-details-title">ΣΑΒΒΑΤΟΚΥΡΙΑΚΟ CAMP &mdash; 6 ΩΡΕΣ</h3>
+                        <h3 class="program-details-title">ΣΑΒΒΑΤΟΚΥΡΙΑΚΟ CAMP &middot; 6 ΩΡΕΣ</h3>
                         <p class="program-details-subtitle">Σάββατο + Κυριακή &middot; 6 ώρες δομημένης επαγγελματικής προπόνησης</p>
 
-                        <p>Δεν έχεις χρόνο για ολόκληρη εβδομάδα; Το Σαββατοκύριακο Camp σου δίνει δύο εστιασμένες ημέρες επαγγελματικής προπόνησης πάντελ &mdash; ιδανικό για παίκτες που θέλουν μια σοβαρή εμπειρία προπόνησης κρατώντας τις καθημερινές τους ελεύθερες.</p>
+                        <p>Δεν έχεις χρόνο για ολόκληρη εβδομάδα; Το Σαββατοκύριακο Camp σου δίνει δύο εστιασμένες ημέρες επαγγελματικής προπόνησης πάντελ, ιδανικό για παίκτες που θέλουν μια σοβαρή εμπειρία προπόνησης κρατώντας τις καθημερινές τους ελεύθερες.</p>
                         <p>Κάθε ομάδα λαμβάνει <strong>6 ώρες ποιοτικής προπόνησης σε δύο ημέρες</strong>, με δύο συνεδρίες 90 λεπτών την ημέρα. Οι προπονήσεις γίνονται σε μικρές ομάδες, έως <strong>4 παίκτες ανά γήπεδο</strong>, δίνοντάς σου πολλή ατομική προσοχή, τεχνικές διορθώσεις και τακτική καθοδήγηση από τους επαγγελματίες προπονητές μας.</p>
 
                         <table class="weekend-groups-table">
@@ -471,10 +450,10 @@
                                 <tr><td>Ομάδα B</td><td>10:30&ndash;12:00</td><td>16:30&ndash;18:00</td><td>3 ώ/ημέρα</td></tr>
                             </tbody>
                         </table>
-                        <p class="weekend-groups-note">Σάββατο + Κυριακή &rarr; 6 ώρες συνολικά ανά παίκτη. Και οι δύο ομάδες ακολουθούν ακριβώς το ίδιο πρόγραμμα &mdash; ίδιες ώρες, ίδιοι προπονητές, ίδια ποιότητα. Η μόνη διαφορά είναι το πρόγραμμα προπόνησης.</p>
+                        <p class="weekend-groups-note">Σάββατο + Κυριακή &rarr; 6 ώρες συνολικά ανά παίκτη. Και οι δύο ομάδες ακολουθούν ακριβώς το ίδιο πρόγραμμα: ίδιες ώρες, ίδιοι προπονητές, ίδια ποιότητα. Η μόνη διαφορά είναι το πρόγραμμα προπόνησης.</p>
 
                         <p>Οι δύο συνεδρίες κάθε ημέρας είναι σχεδιασμένες να λειτουργούν μαζί: πρώτα αναπτύσσεις και εξασκείς τις βασικές έννοιες, μετά επιστρέφεις στο γήπεδο αργότερα την ίδια ημέρα για να τις εφαρμόσεις σε ρεαλιστικές καταστάσεις παιχνιδιού.</p>
-                        <p>Θα δουλέψεις τοποθέτηση, άμυνα, μετάβαση, παιχνίδι στο δίχτυ, επιθετικά σχήματα, overheads και τακτική λήψη αποφάσεων &mdash; με έμφαση στο πώς αυτές οι δεξιότητες μεταφράζονται σε πραγματικούς αγώνες.</p>
+                        <p>Θα δουλέψεις τοποθέτηση, άμυνα, μετάβαση, παιχνίδι στο δίχτυ, επιθετικά σχήματα, overheads και τακτική λήψη αποφάσεων, με έμφαση στο πώς αυτές οι δεξιότητες μεταφράζονται σε πραγματικούς αγώνες.</p>
                         <p><strong>Ιδανικό για:</strong> παίκτες που θέλουν ένα εντατικό σαββατοκύριακο επαγγελματικής προπόνησης, 6 ώρες ποιοτικής εκπαίδευσης και μια εστιασμένη ώθηση στο παιχνίδι τους χωρίς δέσμευση για ολόκληρη εβδομάδα.</p>
                     </div>
                 </div>
@@ -517,7 +496,7 @@
         <div class="container">
             <div class="cta-banner-content">
                 <h2 class="cta-banner-title">Έτοιμος να προπονηθείς με τους καλύτερους;</h2>
-                <p class="cta-banner-text">Κλείσε τη θέση σου — περιορισμένες θέσεις</p>
+                <p class="cta-banner-text">Κλείσε τη θέση σου. Περιορισμένες θέσεις</p>
                 <a href="#program-cards" class="btn btn-primary btn-lg">Κράτηση Τώρα</a>
             </div>
         </div>
@@ -533,7 +512,7 @@
                 <div class="venue-simple-content">
                     <h3>MyQPadel</h3>
                     <p class="venue-address">Μόνη, Λεμεσός, Κύπρος</p>
-                    <p class="venue-highlight">☀️ Πλήρως καλυμμένα γήπεδα — προπονήσου με άνεση, ό,τι καιρό κι αν έχει.</p>
+                    <p class="venue-highlight">☀️ Πλήρως καλυμμένα γήπεδα: προπονήσου με άνεση, ό,τι καιρό κι αν έχει.</p>
                     <div class="venue-features-grid">
                         <div class="venue-feature-item">
                             <strong>Πλήρως Καλυμμένα Γήπεδα</strong>
@@ -549,11 +528,11 @@
                         </div>
                         <div class="venue-feature-item">
                             <strong>Pro Shop &amp; Café</strong>
-                            <span>Casa de Padel Boutique — εξοπλισμός και καφές</span>
+                            <span>Casa de Padel Boutique: εξοπλισμός και καφές</span>
                         </div>
                         <div class="venue-feature-item">
                             <strong>Γυμναστήριο Επί Τόπου</strong>
-                            <span>My Q EnerGym — λειτουργική προπόνηση &amp; καρδιο</span>
+                            <span>My Q EnerGym: λειτουργική προπόνηση &amp; καρδιο</span>
                         </div>
                     </div>
                     <a href="https://maps.app.goo.gl/HotvWfiUzGRR3DLk7" target="_blank" rel="noopener nofollow" class="btn btn-ghost">
@@ -598,7 +577,7 @@
         <div class="massage-booking-modal-content">
             <button class="massage-modal-close" onclick="closeServiceBookingModal()">&times;</button>
             <h2 class="massage-modal-title" id="serviceBookingTitle">Κράτηση Υπηρεσίας</h2>
-            <p class="massage-booking-subtitle" id="selectedServiceInfo">Υπηρεσία — €0</p>
+            <p class="massage-booking-subtitle" id="selectedServiceInfo">Υπηρεσία: €0</p>
 
             <form id="serviceBookingForm" class="massage-booking-form">
                     <input type="text" name="hp_field_a3x" class="hp-field" aria-hidden="true" tabindex="-1" autocomplete="off">
@@ -755,6 +734,10 @@
                 <button type="button" class="gallery-nav gallery-nav-prev" aria-label="Προηγούμενη φωτογραφία" onclick="document.getElementById('galleryTrack').scrollBy({left: -document.querySelector('.gallery-slide').offsetWidth - 20, behavior: 'smooth'})">&#8249;</button>
                 <button type="button" class="gallery-nav gallery-nav-next" aria-label="Επόμενη φωτογραφία" onclick="document.getElementById('galleryTrack').scrollBy({left: document.querySelector('.gallery-slide').offsetWidth + 20, behavior: 'smooth'})">&#8250;</button>
             </div>
+            <a class="gallery-more" href="https://www.youtube.com/@thepadelcamp" target="_blank" rel="noopener noreferrer">
+                <svg width="22" height="22" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                <span>Περισσότερα βίντεο στο YouTube</span>
+            </a>
         </div>
     </section>
 
@@ -779,10 +762,10 @@
                     </button>
                     <div class="approach-answer">
                         <ul class="approach-list">
-                            <li><strong>Εξατομικευμένη Ανάπτυξη</strong> — Κάθε παίκτης λαμβάνει ατομική προσοχή. Αξιολογούμε το τρέχον επίπεδό σου και δημιουργούμε ένα εξατομικευμένο πλάνο βελτίωσης που στοχεύει στις αδυναμίες σου ενώ χτίζει πάνω στα δυνατά σου σημεία.</li>
-                            <li><strong>Μάθε από τους Καλύτερους</strong> — Προπονήσου με επαγγελματίες προπονητές από την Ισπανία, το παγκόσμιο επίκεντρο του πάντελ. Απορρόφησε τεχνικές και στρατηγικές που χρησιμοποιούνται στο υψηλότερο ανταγωνιστικό επίπεδο.</li>
-                            <li><strong>Πραγματική Εμπειρία Αγώνα</strong> — Η θεωρία δεν σημαίνει τίποτα χωρίς πρακτική. Καθημερινοί ανταγωνιστικοί αγώνες σου επιτρέπουν να εφαρμόσεις νέες δεξιότητες υπό πίεση, χτίζοντας αυτοπεποίθηση και αγωνιστική νοημοσύνη.</li>
-                            <li><strong>Ολοκληρωμένη Ανάπτυξη Παίκτη</strong> — Αναπτύσσουμε όλες τις πτυχές του παιχνιδιού σου: τεχνικές δεξιότητες, τακτική αντίληψη, σωματική κατάσταση και ψυχική ανθεκτικότητα. Φεύγεις ως πιο ολοκληρωμένος παίκτης.</li>
+                            <li><strong>Εξατομικευμένη Ανάπτυξη.</strong> Κάθε παίκτης λαμβάνει ατομική προσοχή. Αξιολογούμε το τρέχον επίπεδό σου και δημιουργούμε ένα εξατομικευμένο πλάνο βελτίωσης που στοχεύει στις αδυναμίες σου ενώ χτίζει πάνω στα δυνατά σου σημεία.</li>
+                            <li><strong>Μάθε από τους Καλύτερους.</strong> Προπονήσου με επαγγελματίες προπονητές από την Ισπανία, το παγκόσμιο επίκεντρο του πάντελ. Απορρόφησε τεχνικές και στρατηγικές που χρησιμοποιούνται στο υψηλότερο ανταγωνιστικό επίπεδο.</li>
+                            <li><strong>Πραγματική Εμπειρία Αγώνα.</strong> Η θεωρία δεν σημαίνει τίποτα χωρίς πρακτική. Καθημερινοί ανταγωνιστικοί αγώνες σου επιτρέπουν να εφαρμόσεις νέες δεξιότητες υπό πίεση, χτίζοντας αυτοπεποίθηση και αγωνιστική νοημοσύνη.</li>
+                            <li><strong>Ολοκληρωμένη Ανάπτυξη Παίκτη.</strong> Αναπτύσσουμε όλες τις πτυχές του παιχνιδιού σου: τεχνικές δεξιότητες, τακτική αντίληψη, σωματική κατάσταση και ψυχική ανθεκτικότητα. Φεύγεις ως πιο ολοκληρωμένος παίκτης.</li>
                         </ul>
                     </div>
                 </div>
@@ -793,10 +776,10 @@
                     </button>
                     <div class="approach-answer">
                         <ul class="approach-list">
-                            <li><strong>Φιλοσοφία Επίθεσης</strong> — Το σύγχρονο πάντελ ανταμείβει το ενεργητικό παιχνίδι. Σε διδάσκουμε να ελέγχεις το δίχτυ, να καθορίζεις τις φάσεις και να βάζεις τους αντιπάλους υπό συνεχή πίεση με επιθετική τοποθέτηση.</li>
-                            <li><strong>Ακρίβεια & Κινητικότητα</strong> — Κατάκτησε την τέχνη της κάλυψης γηπέδου. Γρήγορα πόδια, έξυπνη τοποθέτηση και ακριβής τοποθέτηση χτυπημάτων είναι τα θεμέλια του νικηφόρου πάντελ.</li>
-                            <li><strong>Νοοτροπία Πρωταθλητή</strong> — Η τεχνική δεξιότητα από μόνη της δεν κερδίζει αγώνες. Εκπαιδεύουμε την ψυχική σκληρότητα: να παραμένεις ήρεμος υπό πίεση, να ανακάμπτεις από λάθη και να διατηρείς τη συγκέντρωση σε μεγάλες φάσεις.</li>
-                            <li><strong>Εντατική Εμβάπτιση</strong> — Πολλαπλές καθημερινές συνεδρίες συνδυάζουν ασκήσεις, παιχνίδι πόντων, ανάλυση βίντεο και θεωρία. Αυτή η εμβαπτιστική προσέγγιση επιταχύνει τη μάθηση πολύ πέρα από τα εβδομαδιαία μαθήματα.</li>
+                            <li><strong>Φιλοσοφία Επίθεσης.</strong> Το σύγχρονο πάντελ ανταμείβει το ενεργητικό παιχνίδι. Σε διδάσκουμε να ελέγχεις το δίχτυ, να καθορίζεις τις φάσεις και να βάζεις τους αντιπάλους υπό συνεχή πίεση με επιθετική τοποθέτηση.</li>
+                            <li><strong>Ακρίβεια & Κινητικότητα.</strong> Κατάκτησε την τέχνη της κάλυψης γηπέδου. Γρήγορα πόδια, έξυπνη τοποθέτηση και ακριβής τοποθέτηση χτυπημάτων είναι τα θεμέλια του νικηφόρου πάντελ.</li>
+                            <li><strong>Νοοτροπία Πρωταθλητή.</strong> Η τεχνική δεξιότητα από μόνη της δεν κερδίζει αγώνες. Εκπαιδεύουμε την ψυχική σκληρότητα: να παραμένεις ήρεμος υπό πίεση, να ανακάμπτεις από λάθη και να διατηρείς τη συγκέντρωση σε μεγάλες φάσεις.</li>
+                            <li><strong>Εντατική Εμβάπτιση.</strong> Πολλαπλές καθημερινές συνεδρίες συνδυάζουν ασκήσεις, παιχνίδι πόντων, ανάλυση βίντεο και θεωρία. Αυτή η εμβαπτιστική προσέγγιση επιταχύνει τη μάθηση πολύ πέρα από τα εβδομαδιαία μαθήματα.</li>
                         </ul>
                     </div>
                 </div>
@@ -807,10 +790,10 @@
                     </button>
                     <div class="approach-answer">
                         <ul class="approach-list">
-                            <li><strong>30+ ημέρες πριν το camp</strong> — Πλήρης επιστροφή χρημάτων. Ακύρωσε για οποιονδήποτε λόγο και έλαβε πίσω το 100% της πληρωμής σου.</li>
-                            <li><strong>15-29 ημέρες πριν το camp</strong> — Επιστροφή 50%. Καταλαβαίνουμε ότι τα σχέδια αλλάζουν, οπότε θα λάβεις πίσω το μισό της πληρωμής σου.</li>
-                            <li><strong>Λιγότερο από 15 ημέρες</strong> — Δεν διατίθεται επιστροφή χρημάτων. Ωστόσο, μπορείς να μεταβιβάσεις τη θέση σου σε άλλον συμμετέχοντα ανά πάσα στιγμή.</li>
-                            <li><strong>Μεταβίβαση θέσης</strong> — Μπορείς να μεταβιβάσεις την κράτησή σου σε άλλο άτομο ανά πάσα στιγμή πριν την έναρξη του camp, χωρίς χρέωση. Απλά ενημέρωσέ μας για τα στοιχεία του νέου συμμετέχοντα.</li>
+                            <li><strong>30+ ημέρες πριν το camp.</strong> Πλήρης επιστροφή χρημάτων. Ακύρωσε για οποιονδήποτε λόγο και έλαβε πίσω το 100% της πληρωμής σου.</li>
+                            <li><strong>15-29 ημέρες πριν το camp.</strong> Επιστροφή 50%. Καταλαβαίνουμε ότι τα σχέδια αλλάζουν, οπότε θα λάβεις πίσω το μισό της πληρωμής σου.</li>
+                            <li><strong>Λιγότερο από 15 ημέρες.</strong> Δεν διατίθεται επιστροφή χρημάτων. Ωστόσο, μπορείς να μεταβιβάσεις τη θέση σου σε άλλον συμμετέχοντα ανά πάσα στιγμή.</li>
+                            <li><strong>Μεταβίβαση θέσης.</strong> Μπορείς να μεταβιβάσεις την κράτησή σου σε άλλο άτομο ανά πάσα στιγμή πριν την έναρξη του camp, χωρίς χρέωση. Απλά ενημέρωσέ μας για τα στοιχεία του νέου συμμετέχοντα.</li>
                         </ul>
                     </div>
                 </div>
@@ -925,6 +908,9 @@
                     <a href="https://www.facebook.com/share/1CSAbUWKJw/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer nofollow" aria-label="Facebook">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385h-3.047v-3.47h3.047v-2.642c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953h-1.514c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385c5.738-.9 10.126-5.864 10.126-11.854z"/></svg>
                     </a>
+                    <a href="https://www.youtube.com/@thepadelcamp" target="_blank" rel="noopener noreferrer nofollow" aria-label="YouTube">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                    </a>
                 </div>
                 <div class="footer-lang">
                     <a href="/">English</a>
@@ -943,6 +929,6 @@
     </a>
 
     <script src="../assets/js/pixels.js?v=12"></script>
-    <script src="../assets/js/main.js?v=9"></script>
+    <script src="../assets/js/main.js?v=10"></script>
 </body>
 </html>

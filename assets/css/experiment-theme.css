@@ -528,10 +528,16 @@ body {
     opacity: 1;
 }
 
+/* Extra left-side darkening sits under the headline/subtitle — the
+   aerial city photo behind the text is busy (owner asked for more
+   contrast). On phones the text spans the full width, so it's a
+   uniform darker wash instead. */
 .hero-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(0, 15, 24, 0.18) 0%, rgba(0, 15, 24, 0.38) 45%, rgba(0, 15, 24, 0.82) 100%);
+    background:
+        linear-gradient(90deg, rgba(0, 15, 24, 0.62) 0%, rgba(0, 15, 24, 0.38) 45%, rgba(0, 15, 24, 0) 72%),
+        linear-gradient(180deg, rgba(0, 15, 24, 0.18) 0%, rgba(0, 15, 24, 0.38) 45%, rgba(0, 15, 24, 0.82) 100%);
     z-index: 1;
     pointer-events: none;
 }
@@ -583,6 +589,60 @@ body {
     letter-spacing: 0.18em;
 }
 
+/* Camp dates + venue under the headline, visible without scrolling */
+.hero-dates {
+    margin: -12px 0 20px;
+    color: #fcfaf6;
+    font-size: 21px;
+    font-weight: 500;
+    text-shadow: 0 2px 16px rgba(0, 10, 15, 0.45);
+    opacity: 0;
+    animation: fadeInUp 0.8s ease 0.3s forwards;
+}
+
+/* Larger hero type on phones (owner's request) */
+@media (max-width: 768px) {
+    .hero-overlay {
+        background: linear-gradient(180deg, rgba(0, 15, 24, 0.48) 0%, rgba(0, 15, 24, 0.58) 45%, rgba(0, 15, 24, 0.86) 100%);
+    }
+
+    .hero-eyebrow {
+        font-size: 16px;
+    }
+
+    .hero-title {
+        font-size: clamp(44px, 12.5vw, 56px);
+        line-height: 1;
+    }
+
+    .hero-dates {
+        margin: -14px 0 18px;
+        font-size: 19px;
+        line-height: 1.35;
+    }
+
+    /* Dates on one line, venue on the next, instead of an arbitrary wrap */
+    .hero-dates span {
+        display: block;
+    }
+
+    .hero-dates .hero-dates-sep {
+        display: none;
+    }
+
+    .hero-subtitle {
+        font-size: 19px;
+    }
+}
+
+/* RU headline is scaled down since "Тренируйся" is much longer
+   than "Train Like" */
+@media (min-width: 769px) {
+    html[lang="ru"] .hero-title {
+        font-size: clamp(41px, 8.5vw, 102px);
+    }
+}
+
 .hero-title {
     color: #fcfaf6;
 }
@@ -593,8 +653,21 @@ body {
     color: #fcfaf6;
 }
 
+/* Cyrillic italic in this face has ornate "к"/"ф" swashes — RU keeps
+   the second headline line upright (owner's pick) */
+html[lang="ru"] .hero-title em {
+    font-style: normal;
+}
+
 .hero-subtitle {
     color: rgba(252, 250, 246, 0.85);
+}
+
+/* .btn is inline-flex with justify-content:center, which only centers
+   single-line labels — a label that wraps (long RU/EL camp CTAs on
+   phones) fell back to left-aligned lines */
+.btn {
+    text-align: center;
 }
 
 /* Gold primary CTA everywhere, not just the hero — pricing cards,
@@ -840,4 +913,103 @@ body {
 .partners-logos {
     margin-left: auto;
     margin-right: auto;
+}
+
+/* "More videos on YouTube" link under the gallery carousel */
+.gallery-more {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: fit-content;
+    margin: 32px auto 0;
+    padding: 12px 24px;
+    border: 1.5px solid var(--accent);
+    border-radius: 999px;
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 16px;
+    text-decoration: none;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.gallery-more:hover,
+.gallery-more:focus-visible {
+    background: var(--accent);
+    color: #fcfaf6;
+}
+
+/* Larger reading type on phones, to match the enlarged hero (owner's
+   request). Body copy below the hero was 14–15px and labels 11–13px,
+   set per component across style.css at many specificities — so this
+   block uses !important to lift them in one place instead of chasing
+   each selector. Prices and the hero are left alone. */
+@media (max-width: 768px) {
+    section:not(.hero) p,
+    section:not(.hero) li,
+    section:not(.hero) li strong,
+    .venue-feature-item strong {
+        font-size: 17px !important;
+        line-height: 1.6 !important;
+    }
+
+    section:not(.hero) h3 {
+        font-size: 21px !important;
+    }
+
+    .venue-simple-content h3 {
+        font-size: 30px !important;
+    }
+
+    .section-title {
+        font-size: 32px !important;
+    }
+
+    .about-text {
+        font-size: 21px !important;
+    }
+
+    .section-subtitle,
+    .coaches-subtitle,
+    .contact-text,
+    .partners-cta-text {
+        font-size: 19px !important;
+    }
+
+    .venue-feature-item span,
+    .program-dates,
+    .partner-tagline,
+    section:not(.hero) td {
+        font-size: 16px !important;
+    }
+
+    section:not(.hero) th,
+    .early-bird-tag,
+    .program-hours,
+    .btn-view-details {
+        font-size: 14px !important;
+    }
+
+    /* kept small: a bigger label wraps "РАННЯЯ ЦЕНА" onto two lines */
+    .early-bird-badge-label {
+        font-size: 12px !important;
+    }
+
+    .footer,
+    .footer a,
+    .footer span {
+        font-size: 16px !important;
+    }
+
+    /* Tariff landing pages justify their copy; at 17px in a phone-width
+       column that opens wide gaps between words, so left-align there */
+    .lp-card p {
+        text-align: left !important;
+    }
+
+    /* landing pages aren't wrapped in <section>, so their checklist
+       misses the rule above */
+    .lp-card li {
+        font-size: 17px !important;
+    }
 }

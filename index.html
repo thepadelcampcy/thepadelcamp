@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Padel Camp Cyprus 2026 | Train with Spanish Pros in Limassol</title>
-    <meta name="description" content="Intensive padel training camp in Limassol, Cyprus with professional Spanish coaches — moving to November 2026. Small groups (1:4 ratio), all skill levels.">
+    <meta name="description" content="Intensive padel training camp in Limassol, Cyprus with professional Spanish coaches, 9&ndash;15 November 2026. Small groups (1:4 ratio), all skill levels.">
     <meta name="keywords" content="padel camp, padel training, Cyprus padel, Limassol padel, Spanish padel coaches, padel lessons, padel clinic, padel intensive, padel course">
     <meta name="author" content="The Padel Camp Cyprus">
     <meta name="robots" content="index, follow">
@@ -21,7 +21,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://thepadelcamp.com.cy/">
     <meta property="og:title" content="The Padel Camp Cyprus 2026 | Train with Spanish Pros">
-    <meta property="og:description" content="Intensive padel training camp in Limassol, Cyprus with professional Spanish coaches — moving to November 2026. Small groups, all skill levels.">
+    <meta property="og:description" content="Intensive padel training camp in Limassol, Cyprus with professional Spanish coaches, 9&ndash;15 November 2026. Small groups, all skill levels.">
     <meta property="og:image" content="https://thepadelcamp.com.cy/assets/images/og-image.jpg">
     <meta property="og:locale" content="en_US">
     <meta property="og:locale:alternate" content="ru_RU">
@@ -32,7 +32,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://thepadelcamp.com.cy/">
     <meta name="twitter:title" content="The Padel Camp Cyprus 2026 | Train with Spanish Pros">
-    <meta name="twitter:description" content="Intensive padel training camp in Limassol, Cyprus with professional Spanish coaches — moving to November 2026.">
+    <meta name="twitter:description" content="Intensive padel training camp in Limassol, Cyprus with professional Spanish coaches, 9&ndash;15 November 2026.">
     <meta name="twitter:image" content="https://thepadelcamp.com.cy/assets/images/og-image.jpg">
 
     <!-- Favicon -->
@@ -48,39 +48,16 @@
     <link rel="stylesheet" href="assets/css/style.css?v=26">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300&display=swap">
-    <link rel="stylesheet" href="assets/css/experiment-theme.css?v=38">
+    <link rel="stylesheet" href="assets/css/experiment-theme.css?v=42">
 
-    <!-- Rotate the hero photo — picked once per page load. Preloaded here,
-         as early as possible, then faded in (see .hero-bg-photo below)
-         instead of popping in abruptly once it finishes downloading.
-         Not persisted: a refresh can show the same photo again, fine for
-         a demo. -->
+    <!-- Hero photo: fixed to "The Oval" (owner's pick, 2026-09-28).
+         Preloaded here, as early as possible, then faded in (see
+         .hero-bg-photo) instead of popping in once it downloads. -->
+    <link rel="preload" as="image" href="/assets/images/limassol-photos/the-oval.jpg" fetchpriority="high">
     <script>
-        (function () {
-            // Attribution required by CC BY-SA (kept for the CC0 photo too,
-            // for consistency) — see assets/images/limassol-photos/CREDITS.txt
-            var credits = {
-                '/assets/images/limassol-photos/marina-sunny-promenade.jpg':
-                    { text: '"Lemesos-marina" by Mboesch, CC BY-SA 4.0', href: 'https://commons.wikimedia.org/wiki/File:Lemesos-marina.jpg' },
-                '/assets/images/limassol-photos/molos-pier-skyline.jpg':
-                    { text: '"LIMASSOL MOLOS 01" by Lomaine, CC BY-SA 4.0', href: 'https://commons.wikimedia.org/wiki/File:LIMASSOL_MOLOS_01.jpg' },
-                '/assets/images/limassol-photos/old-port-yachts-clouds.jpg':
-                    { text: 'Photo by A.Savin, Free Art License', href: 'https://commons.wikimedia.org/wiki/File:Limassol_01-2017_img18_Marina.jpg' },
-                '/assets/images/limassol-photos/breakwater-sparkling-sea.jpg':
-                    { text: 'Photo by Salwa Farwaneh Dameh, CC0', href: 'https://commons.wikimedia.org/wiki/File:Limassol-_Marina_-Cyprus.jpg' },
-                '/assets/images/limassol-photos/the-oval.jpg':
-                    { text: '"The Oval" by Cybarco, CC BY-SA 4.0', href: 'https://commons.wikimedia.org/wiki/File:The_Oval.jpg' }
-            };
-            var photos = Object.keys(credits);
-            var pick = photos[Math.floor(Math.random() * photos.length)];
-            window.__heroPhoto = pick;
-            window.__heroPhotoCredit = credits[pick];
-            var preload = document.createElement('link');
-            preload.rel = 'preload';
-            preload.as = 'image';
-            preload.href = pick;
-            document.head.appendChild(preload);
-        })();
+        // Attribution required by CC BY-SA, see assets/images/limassol-photos/CREDITS.txt
+        window.__heroPhoto = '/assets/images/limassol-photos/the-oval.jpg';
+        window.__heroPhotoCredit = { text: '"The Oval" by Cybarco, CC BY-SA 4.0', href: 'https://commons.wikimedia.org/wiki/File:The_Oval.jpg' };
     </script>
 
     <!-- Structured Data -->
@@ -143,7 +120,8 @@
             },
             "sameAs": [
                 "https://www.instagram.com/thepadelcampcy",
-                "https://www.facebook.com/share/1CSAbUWKJw/"
+                "https://www.facebook.com/share/1CSAbUWKJw/",
+                "https://www.youtube.com/@thepadelcamp"
             ]
         },
         "performer": [
@@ -223,6 +201,7 @@
             <div class="hero-text">
                 <p class="hero-eyebrow">TRAIN PLAY LEARN</p>
                 <h1 class="hero-title">Train Like<br><em class="accent">A Pro</em></h1>
+                <p class="hero-dates"><span>9&ndash;15 November 2026</span><span class="hero-dates-sep"> &middot; </span><span>MyQPadel, Limassol</span></p>
                 <p class="hero-subtitle">Intensive padel camp in Limassol, Cyprus with professional coaches from Spain. Our highly experienced trainers will guide you to the next level of your game under expert supervision.</p>
                 <div class="hero-cta">
                     <a href="#program-cards" class="btn btn-primary btn-lg">View Program</a>
@@ -336,7 +315,7 @@
             </div>
 
             <div class="early-bird-banner">
-                <span class="early-bird-tag">Early Bird &mdash; Limited Places</span>
+                <span class="early-bird-tag">Early Bird &middot; Limited Places</span>
                 <p>First 5 places only at these prices. Once they're booked, the price increases.</p>
             </div>
 
@@ -370,7 +349,7 @@
                         <button type="button" class="btn-view-details" aria-expanded="false" data-label-view="View details" data-label-hide="Hide details">View details</button>
                     </div>
                     <div class="program-details">
-                        <h3 class="program-details-title">MORNING CAMP &mdash; 09:00&ndash;12:00</h3>
+                        <h3 class="program-details-title">MORNING CAMP &middot; 09:00&ndash;12:00</h3>
                         <p class="program-details-subtitle">5 days &middot; Monday&ndash;Friday &middot; 15 hours of structured professional coaching</p>
 
                         <p>Start your day with focused padel training and use five consecutive mornings to make a real difference to your game.</p>
@@ -413,10 +392,10 @@
                         <button type="button" class="btn-view-details" aria-expanded="false" data-label-view="View details" data-label-hide="Hide details">View details</button>
                     </div>
                     <div class="program-details">
-                        <h3 class="program-details-title">EVENING CAMP &mdash; 17:30&ndash;20:30</h3>
+                        <h3 class="program-details-title">EVENING CAMP &middot; 17:30&ndash;20:30</h3>
                         <p class="program-details-subtitle">5 days &middot; Monday&ndash;Friday &middot; 15 hours of structured professional coaching</p>
 
-                        <p>Want to train seriously without changing your daytime schedule? The Evening Camp gives you five consecutive days of focused padel training with professional coaches &mdash; while keeping your mornings and afternoons free.</p>
+                        <p>Want to train seriously without changing your daytime schedule? The Evening Camp gives you five consecutive days of focused padel training with professional coaches, while keeping your mornings and afternoons free.</p>
                         <p>From Monday to Friday, you will train for <strong>3 hours per day</strong>, giving you a total of <strong>15 hours of quality coaching</strong> throughout the camp.</p>
                         <p>Training takes place in small groups with a maximum of <strong>4 players per court</strong>, allowing coaches to work closely with every player and provide individual technical corrections, tactical guidance and practical feedback.</p>
                         <p>The program combines technical development with real-game situations. You will work on positioning, defense, transition, net play, attacking patterns, overheads and tactical decision-making. Instead of simply hitting more balls, you will learn <strong>when to use each shot, why to use it and how to build the point together with your partner</strong>.</p>
@@ -456,10 +435,10 @@
                         <button type="button" class="btn-view-details" aria-expanded="false" data-label-view="View details" data-label-hide="Hide details">View details</button>
                     </div>
                     <div class="program-details">
-                        <h3 class="program-details-title">WEEKEND CAMP &mdash; 6 HOURS</h3>
+                        <h3 class="program-details-title">WEEKEND CAMP &middot; 6 HOURS</h3>
                         <p class="program-details-subtitle">Saturday + Sunday &middot; 6 hours of structured professional coaching</p>
 
-                        <p>Don't have time for a full week? The Weekend Camp gives you two focused days of professional padel training &mdash; perfect for players who want a serious training experience while keeping their weekdays free.</p>
+                        <p>Don't have time for a full week? The Weekend Camp gives you two focused days of professional padel training, perfect for players who want a serious training experience while keeping their weekdays free.</p>
                         <p>Each group receives <strong>6 hours of quality coaching over two days</strong>, with two 90-minute sessions per day. Training takes place in small groups with a maximum of <strong>4 players per court</strong>, giving you plenty of individual attention, technical corrections and tactical guidance from our professional coaches.</p>
 
                         <table class="weekend-groups-table">
@@ -471,10 +450,10 @@
                                 <tr><td>Group B</td><td>10:30&ndash;12:00</td><td>16:30&ndash;18:00</td><td>3 h/day</td></tr>
                             </tbody>
                         </table>
-                        <p class="weekend-groups-note">Saturday + Sunday &rarr; 6 hours total per player. Both groups follow exactly the same program &mdash; same hours, same coaches, same quality. The only difference is the training schedule.</p>
+                        <p class="weekend-groups-note">Saturday + Sunday &rarr; 6 hours total per player. Both groups follow exactly the same program: same hours, same coaches, same quality. The only difference is the training schedule.</p>
 
                         <p>The two sessions each day are designed to work together: first you develop and practice the key concepts, then return to the court later in the day to apply them in realistic game situations.</p>
-                        <p>You will work on positioning, defense, transition, net play, attacking patterns, overheads and tactical decision-making &mdash; with a strong focus on how these skills translate into real matches.</p>
+                        <p>You will work on positioning, defense, transition, net play, attacking patterns, overheads and tactical decision-making, with a strong focus on how these skills translate into real matches.</p>
                         <p><strong>Perfect for:</strong> players who want an intensive weekend of professional coaching, 6 hours of quality training, and a focused boost to their game without committing to a full week.</p>
                     </div>
                 </div>
@@ -517,7 +496,7 @@
         <div class="container">
             <div class="cta-banner-content">
                 <h2 class="cta-banner-title">Ready to train with the best?</h2>
-                <p class="cta-banner-text">Secure your spot — limited places available</p>
+                <p class="cta-banner-text">Secure your spot. Limited places available</p>
                 <a href="#program-cards" class="btn btn-primary btn-lg">Book Now</a>
             </div>
         </div>
@@ -533,7 +512,7 @@
                 <div class="venue-simple-content">
                     <h3>MyQPadel</h3>
                     <p class="venue-address">Moni, Limassol, Cyprus</p>
-                    <p class="venue-highlight">☀️ Fully covered courts — train in comfort, whatever the weather.</p>
+                    <p class="venue-highlight">☀️ Fully covered courts, so you can train in comfort whatever the weather.</p>
                     <div class="venue-features-grid">
                         <div class="venue-feature-item">
                             <strong>Fully Covered Courts</strong>
@@ -549,11 +528,11 @@
                         </div>
                         <div class="venue-feature-item">
                             <strong>Pro Shop &amp; Café</strong>
-                            <span>Casa de Padel Boutique — gear plus coffee</span>
+                            <span>Casa de Padel Boutique: gear plus coffee</span>
                         </div>
                         <div class="venue-feature-item">
                             <strong>Fitness Gym On-Site</strong>
-                            <span>My Q EnerGym — functional training &amp; cardio</span>
+                            <span>My Q EnerGym: functional training &amp; cardio</span>
                         </div>
                     </div>
                     <a href="https://maps.app.goo.gl/HotvWfiUzGRR3DLk7" target="_blank" rel="noopener nofollow" class="btn btn-ghost">
@@ -598,7 +577,7 @@
         <div class="massage-booking-modal-content">
             <button class="massage-modal-close" onclick="closeServiceBookingModal()">&times;</button>
             <h2 class="massage-modal-title" id="serviceBookingTitle">Book Service</h2>
-            <p class="massage-booking-subtitle" id="selectedServiceInfo">Service — €0</p>
+            <p class="massage-booking-subtitle" id="selectedServiceInfo">Service: €0</p>
 
             <form id="serviceBookingForm" class="massage-booking-form">
                     <input type="text" name="hp_field_a3x" class="hp-field" aria-hidden="true" tabindex="-1" autocomplete="off">
@@ -755,6 +734,10 @@
                 <button type="button" class="gallery-nav gallery-nav-prev" aria-label="Previous photo" onclick="document.getElementById('galleryTrack').scrollBy({left: -document.querySelector('.gallery-slide').offsetWidth - 20, behavior: 'smooth'})">&#8249;</button>
                 <button type="button" class="gallery-nav gallery-nav-next" aria-label="Next photo" onclick="document.getElementById('galleryTrack').scrollBy({left: document.querySelector('.gallery-slide').offsetWidth + 20, behavior: 'smooth'})">&#8250;</button>
             </div>
+            <a class="gallery-more" href="https://www.youtube.com/@thepadelcamp" target="_blank" rel="noopener noreferrer">
+                <svg width="22" height="22" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                <span>More videos on YouTube</span>
+            </a>
         </div>
     </section>
 
@@ -779,10 +762,10 @@
                     </button>
                     <div class="approach-answer">
                         <ul class="approach-list">
-                            <li><strong>Personalized Development</strong> — Every player receives individual attention. We assess your current level and create a tailored improvement plan that targets your specific weaknesses while building on your strengths.</li>
-                            <li><strong>Learn from the Best</strong> — Train under professional coaches from Spain, the global epicenter of padel. Absorb techniques and strategies used at the highest competitive levels.</li>
-                            <li><strong>Real Match Experience</strong> — Theory means nothing without practice. Daily competitive matches let you apply new skills under pressure, building confidence and match intelligence.</li>
-                            <li><strong>Complete Player Growth</strong> — We develop all aspects of your game: technical skills, tactical awareness, physical conditioning, and mental resilience. You leave as a more complete player.</li>
+                            <li><strong>Personalized Development.</strong> Every player receives individual attention. We assess your current level and create a tailored improvement plan that targets your specific weaknesses while building on your strengths.</li>
+                            <li><strong>Learn from the Best.</strong> Train under professional coaches from Spain, the global epicenter of padel. Absorb techniques and strategies used at the highest competitive levels.</li>
+                            <li><strong>Real Match Experience.</strong> Theory means nothing without practice. Daily competitive matches let you apply new skills under pressure, building confidence and match intelligence.</li>
+                            <li><strong>Complete Player Growth.</strong> We develop all aspects of your game: technical skills, tactical awareness, physical conditioning, and mental resilience. You leave as a more complete player.</li>
                         </ul>
                     </div>
                 </div>
@@ -793,10 +776,10 @@
                     </button>
                     <div class="approach-answer">
                         <ul class="approach-list">
-                            <li><strong>Attack-First Philosophy</strong> — Modern padel rewards proactive play. We teach you to control the net, dictate rallies, and put opponents under constant pressure with aggressive positioning.</li>
-                            <li><strong>Precision & Mobility</strong> — Master the art of court coverage. Quick feet, smart positioning, and precise shot placement are the foundation of winning padel.</li>
-                            <li><strong>Champion Mindset</strong> — Technical skill alone doesn't win matches. We train mental toughness: staying calm under pressure, recovering from mistakes, and maintaining focus throughout long rallies.</li>
-                            <li><strong>Intensive Immersion</strong> — Multiple daily sessions combine drills, point play, video analysis, and theory. This immersive approach accelerates learning far beyond weekly lessons.</li>
+                            <li><strong>Attack-First Philosophy.</strong> Modern padel rewards proactive play. We teach you to control the net, dictate rallies, and put opponents under constant pressure with aggressive positioning.</li>
+                            <li><strong>Precision & Mobility.</strong> Master the art of court coverage. Quick feet, smart positioning, and precise shot placement are the foundation of winning padel.</li>
+                            <li><strong>Champion Mindset.</strong> Technical skill alone doesn't win matches. We train mental toughness: staying calm under pressure, recovering from mistakes, and maintaining focus throughout long rallies.</li>
+                            <li><strong>Intensive Immersion.</strong> Multiple daily sessions combine drills, point play, video analysis, and theory. This immersive approach accelerates learning far beyond weekly lessons.</li>
                         </ul>
                     </div>
                 </div>
@@ -807,10 +790,10 @@
                     </button>
                     <div class="approach-answer">
                         <ul class="approach-list">
-                            <li><strong>30+ days before camp</strong> — Full refund. Cancel for any reason and receive 100% of your payment back.</li>
-                            <li><strong>15-29 days before camp</strong> — 50% refund. We understand plans change, so you'll receive half of your payment back.</li>
-                            <li><strong>Less than 15 days</strong> — No refund available. However, you may transfer your spot to another participant at any time.</li>
-                            <li><strong>Spot transfers</strong> — You can transfer your booking to another person at any time before the camp starts, free of charge. Just let us know the new participant's details.</li>
+                            <li><strong>30+ days before camp.</strong> Full refund. Cancel for any reason and receive 100% of your payment back.</li>
+                            <li><strong>15-29 days before camp.</strong> 50% refund. We understand plans change, so you'll receive half of your payment back.</li>
+                            <li><strong>Less than 15 days.</strong> No refund available. However, you may transfer your spot to another participant at any time.</li>
+                            <li><strong>Spot transfers.</strong> You can transfer your booking to another person at any time before the camp starts, free of charge. Just let us know the new participant's details.</li>
                         </ul>
                     </div>
                 </div>
@@ -925,6 +908,9 @@
                     <a href="https://www.facebook.com/share/1CSAbUWKJw/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer nofollow" aria-label="Facebook">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385h-3.047v-3.47h3.047v-2.642c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953h-1.514c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385c5.738-.9 10.126-5.864 10.126-11.854z"/></svg>
                     </a>
+                    <a href="https://www.youtube.com/@thepadelcamp" target="_blank" rel="noopener noreferrer nofollow" aria-label="YouTube">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                    </a>
                 </div>
                 <div class="footer-lang">
                     <a href="/" class="active">English</a>
@@ -947,7 +933,7 @@
         <div class="vote-modal">
             <div class="vote-modal-icon">🎯</div>
             <h3 class="vote-modal-title">Vote received!</h3>
-            <p class="vote-modal-text">You picked <strong id="modalCountry"></strong>. We'll reveal the answer very soon — stay tuned!</p>
+            <p class="vote-modal-text">You picked <strong id="modalCountry"></strong>. We'll reveal the answer very soon. Stay tuned!</p>
             <button class="vote-modal-btn" onclick="closeVoteModal()">Got it</button>
         </div>
     </div>
@@ -1000,6 +986,6 @@
     </script>
 
     <script src="assets/js/pixels.js?v=12"></script>
-    <script src="assets/js/main.js?v=9"></script>
+    <script src="assets/js/main.js?v=10"></script>
 </body>
 </html>
