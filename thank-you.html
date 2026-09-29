@@ -117,10 +117,114 @@
             font-size: 14px;
             cursor: pointer;
         }
-        .ty-goal-option input[type="checkbox"] {
+        .ty-goal-option input[type="checkbox"],
+        .ty-goal-option input[type="radio"] {
             width: 16px;
             height: 16px;
+            flex-shrink: 0;
             cursor: pointer;
+        }
+        .ty-goal-option input:disabled + span { color: var(--gray-500); }
+        .ty-question-hint {
+            font-size: 13px;
+            font-weight: 400;
+            color: var(--gray-500);
+        }
+        .ty-questionnaire-intro {
+            font-size: 14px;
+            color: var(--gray-600);
+            margin: 8px 0 20px;
+        }
+        .ty-level-option {
+            align-items: flex-start;
+            padding: 12px 14px;
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+        }
+        .ty-level-option input { margin-top: 2px; }
+        .ty-level-option:has(input:checked) { border-color: var(--black); }
+        .ty-level-option strong { display: block; font-size: 14px; }
+        .ty-level-option small {
+            display: block;
+            margin-top: 2px;
+            font-size: 13px;
+            line-height: 1.45;
+            color: var(--gray-500);
+        }
+
+        /* ── Step-by-step questionnaire (camp bookings) ── */
+        .ty-step { display: none; }
+        .ty-step.active { display: block; }
+        .ty-progress {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin: 4px 0 24px;
+        }
+        .ty-progress::before {
+            content: '';
+            position: absolute;
+            top: 13px; left: 14px; right: 14px;
+            height: 2px;
+            background: var(--gray-200);
+        }
+        .ty-progress-step {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            font-size: 11px;
+            color: var(--gray-500);
+        }
+        .ty-progress-circle {
+            width: 28px; height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+            background: var(--gray-200);
+            border: 2px solid var(--white);
+        }
+        .ty-progress-step.active { color: var(--black); font-weight: 600; }
+        .ty-progress-step.active .ty-progress-circle { background: var(--black); color: var(--white); }
+        .ty-progress-step.complete .ty-progress-circle { background: var(--gray-500); color: var(--white); }
+        .ty-step-nav {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+        .ty-step-nav .btn { flex: 1; }
+        .ty-step-nav .btn-primary { flex: 2; }
+        .ty-error {
+            margin-top: 6px;
+            font-size: 13px;
+            color: #c0392b;
+        }
+        .ty-review-list { display: grid; gap: 8px; }
+        .ty-review-item {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 10px 12px;
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+            background: var(--white);
+            font: inherit;
+            cursor: pointer;
+        }
+        .ty-review-item:hover { border-color: var(--black); }
+        .ty-review-label {
+            display: block;
+            font-size: 12px;
+            color: var(--gray-500);
+        }
+        .ty-review-value {
+            display: block;
+            font-size: 14px;
+            margin-top: 2px;
         }
     </style>
 </head>
@@ -158,49 +262,118 @@
                     <h3 id="tyFollowupTitle">Just a couple more details</h3>
                     <p class="ty-followup-note" id="tyFollowupNote">So we can get everything ready for you. Name/email will auto-fill here once linked to your payment. For now, please fill them in.</p>
 
-                    <form id="tyFollowupForm">
+                    <div class="ty-progress" id="tyProgress" style="display:none;"></div>
+
+                    <form id="tyFollowupForm" novalidate>
                         <input type="text" name="hp_field_a3x" class="hp-field" aria-hidden="true" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;">
-                        <div class="form-group">
-                            <label class="form-label" id="tyLabelName" for="tyName">Full Name</label>
-                            <input type="text" id="tyName" name="tyName" class="form-input" placeholder="Your full name">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label" id="tyLabelEmail" for="tyEmail">Email</label>
-                            <input type="email" id="tyEmail" name="tyEmail" class="form-input" placeholder="your@email.com">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label" id="tyLabelPhone" for="tyPhone">Phone *</label>
-                            <input type="tel" id="tyPhone" name="tyPhone" class="form-input" required placeholder="+357 99 123 456">
+
+                        <!-- Step 1: contacts (the only step for non-camp bookings) -->
+                        <div class="ty-step" data-step="1" data-title="Contact">
+                            <p class="ty-questionnaire-intro ty-camp-only" id="tyQuestionnaireIntro">Help us make your camp as effective as possible. There are no right or wrong answers: they simply help our coaches understand your game and build the right training groups.</p>
+                            <div class="form-group">
+                                <label class="form-label" id="tyLabelName" for="tyName">Full Name</label>
+                                <input type="text" id="tyName" name="tyName" class="form-input" placeholder="Your full name" autocomplete="name">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" id="tyLabelEmail" for="tyEmail">Email</label>
+                                <input type="email" id="tyEmail" name="tyEmail" class="form-input" placeholder="your@email.com" autocomplete="email">
+                            </div>
+                            <div class="form-group" data-required>
+                                <label class="form-label" id="tyLabelPhone" for="tyPhone">Phone *</label>
+                                <input type="tel" id="tyPhone" name="tyPhone" class="form-input" placeholder="+357 99 123 456" autocomplete="tel">
+                            </div>
                         </div>
 
-                        <div id="tyCampFields" style="display:none;">
-                            <div class="form-group">
-                                <label class="form-label" id="tyLabelLevel" for="tyLevel">Padel level *</label>
-                                <select id="tyLevel" name="tyLevel" class="form-input">
-                                    <option value="">Select an option</option>
-                                    <option value="beginner">Beginner: just starting out</option>
-                                    <option value="beginner-intermediate">Beginner-Intermediate: know the basics</option>
-                                    <option value="intermediate">Intermediate: play regularly</option>
-                                    <option value="intermediate-advanced">Intermediate-Advanced: strong player</option>
-                                    <option value="advanced">Advanced: compete in tournaments</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label" id="tyLabelGoals">Goals for this camp *</label>
+                        <!-- Step 2: experience -->
+                        <div class="ty-step ty-camp-only" data-step="2" data-title="Experience">
+                            <div class="form-group" data-required>
+                                <div class="form-label" id="tyLabelExperience">How long have you been playing padel? *</div>
                                 <div class="ty-goals-list">
-                                    <label class="ty-goal-option"><input type="checkbox" name="tyGoals" value="Learn the basics"> <span>Learn the basics</span></label>
-                                    <label class="ty-goal-option"><input type="checkbox" name="tyGoals" value="Improve technique"> <span>Improve technique</span></label>
-                                    <label class="ty-goal-option"><input type="checkbox" name="tyGoals" value="Learn tactics"> <span>Learn tactics</span></label>
-                                    <label class="ty-goal-option"><input type="checkbox" name="tyGoals" value="Learn communication between partners during a match"> <span>Learn communication between partners during a match</span></label>
-                                    <label class="ty-goal-option"><input type="checkbox" name="tyGoals" value="Meet new people"> <span>Meet new people</span></label>
-                                    <label class="ty-goal-option"><input type="checkbox" name="tyGoals" value="Enjoy the environment"> <span>Enjoy the environment</span></label>
+                                    <label class="ty-goal-option"><input type="radio" name="tyExperience" value="Haven't played yet"> <span>I haven't played yet</span></label>
+                                    <label class="ty-goal-option"><input type="radio" name="tyExperience" value="Less than 3 months"> <span>Less than 3 months</span></label>
+                                    <label class="ty-goal-option"><input type="radio" name="tyExperience" value="3-6 months"> <span>3&ndash;6 months</span></label>
+                                    <label class="ty-goal-option"><input type="radio" name="tyExperience" value="6-12 months"> <span>6&ndash;12 months</span></label>
+                                    <label class="ty-goal-option"><input type="radio" name="tyExperience" value="1-2 years"> <span>1&ndash;2 years</span></label>
+                                    <label class="ty-goal-option"><input type="radio" name="tyExperience" value="2+ years"> <span>2+ years</span></label>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="form-label" id="tyLabelSkills" for="tySkills">Skills you want to improve (optional)</label>
-                                <input type="text" id="tySkills" name="tySkills" class="form-input" placeholder="E.g. bandeja, volley, positioning...">
+                            <div class="form-group" data-required>
+                                <div class="form-label" id="tyLabelFrequency">How often do you currently play? *</div>
+                                <div class="ty-goals-list">
+                                    <label class="ty-goal-option"><input type="radio" name="tyFrequency" value="Less than once a month"> <span>Less than once a month</span></label>
+                                    <label class="ty-goal-option"><input type="radio" name="tyFrequency" value="1-3 times a month"> <span>1&ndash;3 times a month</span></label>
+                                    <label class="ty-goal-option"><input type="radio" name="tyFrequency" value="Once a week"> <span>Once a week</span></label>
+                                    <label class="ty-goal-option"><input type="radio" name="tyFrequency" value="2-3 times a week"> <span>2&ndash;3 times a week</span></label>
+                                    <label class="ty-goal-option"><input type="radio" name="tyFrequency" value="4+ times a week"> <span>4+ times a week</span></label>
+                                </div>
                             </div>
+                            <div class="form-group" data-playtomic>
+                                <label class="form-label" id="tyLabelPlaytomic" for="tyPlaytomic">What is your Playtomic level? <span class="ty-question-hint">(optional)</span></label>
+                                <input type="text" id="tyPlaytomic" name="tyPlaytomic" class="form-input" inputmode="decimal" maxlength="5" placeholder="e.g. 2.75. Leave blank if you don't have one">
+                            </div>
+                        </div>
+
+                        <!-- Step 3: level -->
+                        <div class="ty-step ty-camp-only" data-step="3" data-title="Level">
+                            <div class="form-group" data-required>
+                                <div class="form-label" id="tyLabelLevel">Which level best describes your current padel game? *</div>
+                                <div class="ty-goals-list">
+                                    <label class="ty-goal-option ty-level-option"><input type="radio" name="tyLevel" value="beginner"> <span><strong>Beginner</strong><small>I am new to padel or have limited experience. I am still learning the basic forehand and backhand and getting used to the rules, movement and court positioning. I am not yet comfortable using the walls.</small></span></label>
+                                    <label class="ty-goal-option ty-level-option"><input type="radio" name="tyLevel" value="high-beginner"> <span><strong>High Beginner</strong><small>I can play basic rallies and a full match. I understand the basic rules and positioning and can use simple wall shots, volleys and lobs. I can keep the ball in play, but I still make quite a lot of unforced errors.</small></span></label>
+                                    <label class="ty-goal-option ty-level-option"><input type="radio" name="tyLevel" value="low-intermediate"> <span><strong>Low Intermediate</strong><small>I can maintain rallies with reasonable consistency and feel comfortable playing from the back of the court. I can use the back and side walls, play basic volleys and lobs, and understand when to move forward to the net. I am starting to use tactics rather than simply returning the ball.</small></span></label>
+                                    <label class="ty-goal-option ty-level-option"><input type="radio" name="tyLevel" value="intermediate"> <span><strong>Intermediate</strong><small>I am comfortable playing both from the back and at the net. I can use the walls effectively, control the direction of my shots and play consistent volleys and overheads. I understand positioning, communication with my partner and basic point construction.</small></span></label>
+                                    <label class="ty-goal-option ty-level-option"><input type="radio" name="tyLevel" value="high-intermediate"> <span><strong>High Intermediate</strong><small>I am confident in most match situations. I can control pace, direction and placement, use the lob and overhead shots effectively, and transition between defence and attack. I understand how to create space, build points and adapt my game to different opponents.</small></span></label>
+                                    <label class="ty-goal-option ty-level-option"><input type="radio" name="tyLevel" value="advanced"> <span><strong>Advanced</strong><small>I have a strong technical and tactical level. I can consistently execute advanced shots such as bandeja, v&iacute;bora, bajada and smash. I understand advanced positioning, transitions and point construction and can adapt my tactics during matches.</small></span></label>
+                                    <label class="ty-goal-option ty-level-option"><input type="radio" name="tyLevel" value="competitive"> <span><strong>Competitive / Advanced</strong><small>I regularly play competitive matches, leagues or tournaments. I have a high level of technical consistency, tactical awareness and match experience. I can maintain a high pace of play and make effective decisions under pressure.</small></span></label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 4: game -->
+                        <div class="ty-step ty-camp-only" data-step="4" data-title="Game">
                             <div class="form-group">
+                                <div class="form-label" id="tyLabelShots">Which shots can you perform confidently during a match? <span class="ty-question-hint">(select all that apply)</span></div>
+                                <div class="ty-goals-list">
+                                    <label class="ty-goal-option"><input type="checkbox" name="tyShots" value="Forehand"> <span>Forehand</span></label>
+                                    <label class="ty-goal-option"><input type="checkbox" name="tyShots" value="Backhand"> <span>Backhand</span></label>
+                                    <label class="ty-goal-option"><input type="checkbox" name="tyShots" value="Volley"> <span>Volley</span></label>
+                                    <label class="ty-goal-option"><input type="checkbox" name="tyShots" value="Lob"> <span>Lob</span></label>
+                                    <label class="ty-goal-option"><input type="checkbox" name="tyShots" value="Wall defence"> <span>Wall defence</span></label>
+                                    <label class="ty-goal-option"><input type="checkbox" name="tyShots" value="Bandeja"> <span>Bandeja</span></label>
+                                    <label class="ty-goal-option"><input type="checkbox" name="tyShots" value="Vibora"> <span>V&iacute;bora</span></label>
+                                    <label class="ty-goal-option"><input type="checkbox" name="tyShots" value="Smash"> <span>Smash</span></label>
+                                    <label class="ty-goal-option"><input type="checkbox" name="tyShots" value="Bajada"> <span>Bajada</span></label>
+                                </div>
+                            </div>
+                            <div class="form-group" data-required>
+                                <div class="form-label" id="tyLabelCompetitive">How would you describe your competitive experience? *</div>
+                                <div class="ty-goals-list">
+                                    <label class="ty-goal-option"><input type="radio" name="tyCompetitive" value="Haven't played matches yet"> <span>I haven't played matches yet</span></label>
+                                    <label class="ty-goal-option"><input type="radio" name="tyCompetitive" value="Friendly matches with friends"> <span>I play friendly matches with friends</span></label>
+                                    <label class="ty-goal-option"><input type="radio" name="tyCompetitive" value="Local leagues"> <span>I play in local leagues</span></label>
+                                    <label class="ty-goal-option"><input type="radio" name="tyCompetitive" value="Tournaments"> <span>I participate in tournaments</span></label>
+                                    <label class="ty-goal-option"><input type="radio" name="tyCompetitive" value="High-level competition"> <span>I regularly compete at a high level</span></label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 5: goals -->
+                        <div class="ty-step" data-step="5" data-title="Goals">
+                            <div class="form-group ty-camp-only" data-required>
+                                <div class="form-label" id="tyLabelImprove">What would you most like to improve during the camp? * <span class="ty-question-hint">(choose up to 3)</span></div>
+                                <div class="ty-goals-list">
+                                    <label class="ty-goal-option"><input type="checkbox" name="tyImprove" value="Technique"> <span>Technique</span></label>
+                                    <label class="ty-goal-option"><input type="checkbox" name="tyImprove" value="Consistency"> <span>Consistency</span></label>
+                                    <label class="ty-goal-option"><input type="checkbox" name="tyImprove" value="Tactics &amp; positioning"> <span>Tactics &amp; positioning</span></label>
+                                    <label class="ty-goal-option"><input type="checkbox" name="tyImprove" value="Attack &amp; finishing points"> <span>Attack &amp; finishing points</span></label>
+                                    <label class="ty-goal-option"><input type="checkbox" name="tyImprove" value="Defence &amp; wall play"> <span>Defence &amp; wall play</span></label>
+                                    <label class="ty-goal-option"><input type="checkbox" name="tyImprove" value="Overhead shots"> <span>Overhead shots</span></label>
+                                    <label class="ty-goal-option"><input type="checkbox" name="tyImprove" value="Match strategy"> <span>Match strategy</span></label>
+                                    <label class="ty-goal-option"><input type="checkbox" name="tyImprove" value="Confidence in matches"> <span>Confidence in matches</span></label>
+                                    <label class="ty-goal-option"><input type="checkbox" name="tyImprove" value="Meet new people &amp; enjoy the camp atmosphere"> <span>Meet new people &amp; enjoy the camp atmosphere</span></label>
+                                </div>
+                            </div>
+                            <div class="form-group ty-camp-only" data-required>
                                 <label class="form-label" id="tyLabelTshirt" for="tyTshirt">T-shirt size *</label>
                                 <select id="tyTshirt" name="tyTshirt" class="form-input">
                                     <option value="">Select an option</option>
@@ -212,13 +385,23 @@
                                     <option value="XXL">XXL</option>
                                 </select>
                             </div>
+                            <div class="form-group" id="tyNotesGroup">
+                                <label class="form-label" id="tyLabelNotes" for="tyNotes">Notes (optional)</label>
+                                <textarea id="tyNotes" name="tyNotes" class="form-input" rows="2" placeholder="Any preferences..."></textarea>
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            <label class="form-label" id="tyLabelNotes" for="tyNotes">Notes (optional)</label>
-                            <textarea id="tyNotes" name="tyNotes" class="form-input" rows="2" placeholder="Any preferences..."></textarea>
+                        <!-- Step 6: review -->
+                        <div class="ty-step ty-camp-only" data-step="6" data-title="Review">
+                            <p class="ty-questionnaire-intro" id="tyReviewIntro">Please check your answers. Tap any answer to change it.</p>
+                            <div class="ty-review-list" id="tyReviewList"></div>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-block" id="tyFollowupSubmit">Submit</button>
+
+                        <div class="ty-step-nav">
+                            <button type="button" class="btn btn-ghost" id="tyBackBtn">Back</button>
+                            <button type="button" class="btn btn-primary" id="tyNextBtn">Next</button>
+                            <button type="submit" class="btn btn-primary" id="tyFollowupSubmit">Submit</button>
+                        </div>
                     </form>
                 </div>
 
@@ -246,7 +429,8 @@
             var value = parseFloat(params.get('value')) || 0;
             var sessionId = params.get('session_id') || '';
 
-            var isRu = (navigator.language || '').toLowerCase().indexOf('ru') === 0;
+            // ?lang=en / ?lang=ru overrides the browser language (handy for previews).
+            var isRu = (params.get('lang') || navigator.language || '').toLowerCase().indexOf('ru') === 0;
 
             // No el/privacy-policy.html exists (see CLAUDE.md), so Greek-language
             // visitors fall through to the EN policy same as everyone else.
@@ -284,17 +468,193 @@
                 document.getElementById('tyFollowupSubmit').textContent = 'Отправить';
             }
 
-            // Camp bookings need level/goals/t-shirt; Media Package doesn't.
-            if (type === 'camp') {
-                document.getElementById('tyCampFields').style.display = 'block';
-                document.getElementById('tyLevel').required = true;
-                document.getElementById('tyTshirt').required = true;
+            // ── Step-by-step questionnaire ──
+            // Camp bookings walk through steps 1–6 (contacts → experience → level →
+            // game → goals → review). Other bookings (Media Package) only get
+            // step 1 with notes and submit straight away.
+            var isCamp = type === 'camp';
+            var form = document.getElementById('tyFollowupForm');
+            var backBtn = document.getElementById('tyBackBtn');
+            var nextBtn = document.getElementById('tyNextBtn');
+            var submitBtn = document.getElementById('tyFollowupSubmit');
+            var progress = document.getElementById('tyProgress');
+            var steps = isCamp ? [1, 2, 3, 4, 5, 6] : [1];
+            var currentStep = 1;
+            var storageKey = 'ty_q_' + (sessionId || item || type);
+
+            function stepEl(n) { return form.querySelector('.ty-step[data-step="' + n + '"]'); }
+            function show(el, visible) { el.style.display = visible ? '' : 'none'; }
+
+            if (!isCamp) {
+                form.querySelectorAll('.ty-camp-only').forEach(function (el) { el.remove(); });
+                stepEl(1).appendChild(document.getElementById('tyNotesGroup'));
+                stepEl(5).remove();
+            } else {
+                show(progress, true);
+                steps.forEach(function (n) {
+                    var p = document.createElement('div');
+                    p.className = 'ty-progress-step';
+                    p.setAttribute('data-step', n);
+                    var circle = document.createElement('span');
+                    circle.className = 'ty-progress-circle';
+                    circle.textContent = n;
+                    var title = document.createElement('span');
+                    title.textContent = stepEl(n).getAttribute('data-title');
+                    p.appendChild(circle);
+                    p.appendChild(title);
+                    progress.appendChild(p);
+                });
             }
 
-            if (isRu) {
-                document.getElementById('tyLabelLevel').textContent = 'Уровень игры *';
-                document.getElementById('tyLabelGoals').textContent = 'Цели на этот кемп *';
-                document.getElementById('tyLabelSkills').textContent = 'Какие навыки хотите улучшить (необязательно)';
+            function showStep(n, scroll) {
+                currentStep = n;
+                form.querySelectorAll('.ty-step').forEach(function (el) {
+                    el.classList.toggle('active', +el.getAttribute('data-step') === n);
+                });
+                progress.querySelectorAll('.ty-progress-step').forEach(function (p) {
+                    var k = +p.getAttribute('data-step');
+                    p.classList.toggle('active', k === n);
+                    p.classList.toggle('complete', k < n);
+                });
+                var last = n === steps[steps.length - 1];
+                show(backBtn, n !== steps[0]);
+                show(nextBtn, !last);
+                show(submitBtn, last);
+                if (n === 6) buildReview();
+                if (scroll) {
+                    var top = document.getElementById('tyFollowup').getBoundingClientRect().top + window.pageYOffset - 90;
+                    window.scrollTo({ top: top, behavior: 'smooth' });
+                }
+                save();
+            }
+
+            // Validation: groups marked data-required must be answered; the
+            // optional Playtomic level, if filled, must look like 0–7 (e.g. 2.75).
+            function groupAnswered(group) {
+                var choices = group.querySelectorAll('input[type="radio"], input[type="checkbox"]');
+                if (choices.length) return Array.from(choices).some(function (c) { return c.checked; });
+                var field = group.querySelector('input, select, textarea');
+                return !!(field && field.value.trim());
+            }
+            function setError(group, msg) {
+                var err = group.querySelector('.ty-error');
+                if (!msg) { if (err) err.remove(); return; }
+                if (!err) {
+                    err = document.createElement('div');
+                    err.className = 'ty-error';
+                    group.appendChild(err);
+                }
+                err.textContent = msg;
+            }
+            function validateStep(n) {
+                var firstBad = null;
+                stepEl(n).querySelectorAll('.form-group').forEach(function (g) {
+                    var msg = null;
+                    if (g.hasAttribute('data-required') && !groupAnswered(g)) {
+                        msg = g.querySelector('#tyPhone') ? 'Please enter your phone number.' : 'Please answer this question.';
+                    } else if (g.hasAttribute('data-playtomic')) {
+                        var v = document.getElementById('tyPlaytomic').value.trim().replace(',', '.');
+                        if (v && !(/^\d(\.\d{1,2})?$/.test(v) && parseFloat(v) <= 7)) msg = 'Please enter a number from 0 to 7, e.g. 2.75.';
+                    }
+                    setError(g, msg);
+                    if (msg && !firstBad) firstBad = g;
+                });
+                if (firstBad) firstBad.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                return !firstBad;
+            }
+
+            // "Improve" is capped at 3: lock the remaining boxes once 3 are ticked.
+            var improveBoxes = document.querySelectorAll('input[name="tyImprove"]');
+            function updateImproveLimit() {
+                var full = document.querySelectorAll('input[name="tyImprove"]:checked').length >= 3;
+                improveBoxes.forEach(function (b) { if (!b.checked) b.disabled = full; });
+            }
+            improveBoxes.forEach(function (box) { box.addEventListener('change', updateImproveLimit); });
+
+            // Review screen: every question with its answer; tap a row to go back to it.
+            function questionText(group) {
+                var label = group.querySelector('.form-label').cloneNode(true);
+                label.querySelectorAll('.ty-question-hint').forEach(function (h) { h.remove(); });
+                return label.textContent.replace(/\s*\*\s*$/, '').trim();
+            }
+            function answerText(group) {
+                if (group.querySelector('input[type="radio"], input[type="checkbox"]')) {
+                    return Array.from(group.querySelectorAll('input:checked')).map(function (c) {
+                        return (c.parentNode.querySelector('strong') || c.nextElementSibling).textContent.trim();
+                    }).join(', ');
+                }
+                var field = group.querySelector('input, select, textarea');
+                if (field.tagName === 'SELECT') return field.value ? field.options[field.selectedIndex].text : '';
+                return field.value.trim();
+            }
+            function buildReview() {
+                var list = document.getElementById('tyReviewList');
+                list.textContent = '';
+                steps.slice(0, -1).forEach(function (n) {
+                    stepEl(n).querySelectorAll('.form-group').forEach(function (g) {
+                        var row = document.createElement('button');
+                        row.type = 'button';
+                        row.className = 'ty-review-item';
+                        var q = document.createElement('span');
+                        q.className = 'ty-review-label';
+                        q.textContent = questionText(g);
+                        var a = document.createElement('span');
+                        a.className = 'ty-review-value';
+                        a.textContent = answerText(g) || '—';
+                        row.appendChild(q);
+                        row.appendChild(a);
+                        row.addEventListener('click', function () { showStep(n, true); });
+                        list.appendChild(row);
+                    });
+                });
+            }
+
+            // Autosave to this browser, so closing the tab doesn't lose answers.
+            function save() {
+                if (!isCamp) return;
+                var state = { step: currentStep, values: {} };
+                Array.from(form.elements).forEach(function (el) {
+                    if (!el.name || el.name === 'hp_field_a3x') return;
+                    if (el.type === 'radio' || el.type === 'checkbox') {
+                        state.values[el.name] = state.values[el.name] || [];
+                        if (el.checked) state.values[el.name].push(el.value);
+                    } else {
+                        state.values[el.name] = el.value;
+                    }
+                });
+                try { localStorage.setItem(storageKey, JSON.stringify(state)); } catch (e) {}
+            }
+            function restore() {
+                var state = null;
+                try { state = JSON.parse(localStorage.getItem(storageKey)); } catch (e) {}
+                if (!isCamp || !state || !state.values) return steps[0];
+                Array.from(form.elements).forEach(function (el) {
+                    var v = state.values[el.name];
+                    if (v === undefined) return;
+                    if (el.type === 'radio' || el.type === 'checkbox') el.checked = v.indexOf(el.value) !== -1;
+                    else el.value = v;
+                });
+                updateImproveLimit();
+                return steps.indexOf(state.step) !== -1 ? state.step : steps[0];
+            }
+
+            form.addEventListener('change', function (e) {
+                var g = e.target.closest('.form-group');
+                if (g && groupAnswered(g)) setError(g, null);
+                save();
+            });
+            form.addEventListener('input', save);
+            nextBtn.addEventListener('click', function () {
+                if (!validateStep(currentStep)) return;
+                showStep(steps[steps.indexOf(currentStep) + 1], true);
+            });
+            backBtn.addEventListener('click', function () {
+                showStep(steps[steps.indexOf(currentStep) - 1], true);
+            });
+
+            showStep(restore(), false);
+
+            if (isRu && isCamp) {
                 document.getElementById('tyLabelTshirt').textContent = 'Размер футболки *';
             }
 
@@ -322,18 +682,22 @@
             // Follow-up details form — ties to the payment via session_id so
             // the backend can merge it with the Stripe webhook row. Backend
             // matching isn't built yet; this wires the frontend shape.
-            document.addEventListener('DOMContentLoaded', function () {
-                var form = document.getElementById('tyFollowupForm');
-                if (!form) return;
-                form.addEventListener('submit', function (e) {
+            form.addEventListener('submit', function (e) {
                     e.preventDefault();
+                    // Enter in a text field before the last step = "Next", not submit.
+                    if (currentStep !== steps[steps.length - 1]) { nextBtn.click(); return; }
+                    for (var i = 0; i < steps.length; i++) {
+                        if (!validateStep(steps[i])) { showStep(steps[i], false); validateStep(steps[i]); return; }
+                    }
                     if (typeof isBotSubmission === 'function' && isBotSubmission(form)) return;
 
-                    var goals = Array.from(document.querySelectorAll('input[name="tyGoals"]:checked')).map(function (g) { return g.value; });
-                    if (type === 'camp' && goals.length === 0) {
-                        alert(isRu ? 'Пожалуйста, выберите хотя бы одну цель.' : 'Please select at least one goal for the camp.');
-                        return;
-                    }
+                    var checked = function (name) {
+                        return Array.from(document.querySelectorAll('input[name="' + name + '"]:checked')).map(function (el) { return el.value; });
+                    };
+                    var fieldValue = function (id) {
+                        var el = document.getElementById(id);
+                        return el ? el.value.trim() : '';
+                    };
 
                     var data = {
                         type: 'post_payment_details',
@@ -341,26 +705,30 @@
                         item: item,
                         value: value,
                         sessionId: sessionId,
-                        fullName: document.getElementById('tyName').value,
-                        email: document.getElementById('tyEmail').value,
-                        phone: document.getElementById('tyPhone').value,
-                        level: document.getElementById('tyLevel').value,
-                        goals: goals,
-                        skills: document.getElementById('tySkills').value,
-                        tshirt: document.getElementById('tyTshirt').value,
-                        notes: document.getElementById('tyNotes').value,
+                        fullName: fieldValue('tyName'),
+                        email: fieldValue('tyEmail'),
+                        phone: fieldValue('tyPhone'),
+                        experience: checked('tyExperience')[0] || '',
+                        frequency: checked('tyFrequency')[0] || '',
+                        playtomic: fieldValue('tyPlaytomic').replace(',', '.'),
+                        level: checked('tyLevel')[0] || '',
+                        shots: checked('tyShots'),
+                        improve: checked('tyImprove'),
+                        competitive: checked('tyCompetitive')[0] || '',
+                        tshirt: fieldValue('tyTshirt'),
+                        notes: fieldValue('tyNotes'),
                         lang: isRu ? 'ru' : 'en'
                     };
 
                     if (typeof sendToGoogleSheets === 'function') {
                         sendToGoogleSheets(data).catch(function (err) { console.log('Send error:', err); });
                     }
+                    try { localStorage.removeItem(storageKey); } catch (err) {}
 
                     var followup = document.getElementById('tyFollowup');
                     followup.innerHTML = isRu
                         ? '<p style="text-align:center;color:var(--gray-600);">Спасибо! Мы всё получили.</p>'
                         : '<p style="text-align:center;color:var(--gray-600);">Thank you! We\'ve got everything we need.</p>';
-                });
             });
         })();
     </script>

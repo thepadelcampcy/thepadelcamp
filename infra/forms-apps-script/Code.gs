@@ -107,8 +107,12 @@ function handlePostPaymentDetails(data, notify) {
       'Timestamp', 'Session ID', 'Booking Type', 'Item', 'Amount',
       'Full Name', 'Phone', 'Email',
       'Experience', 'Frequency', 'Level', 'Shots', 'Improve', 'Competitive',
-      'T-Shirt Size', 'Notes', 'Lang'
+      'T-Shirt Size', 'Notes', 'Lang', 'Playtomic Level'
     ]);
+  }
+  // Колонку Playtomic добавили позже — дописываем заголовок в уже существующий лист
+  if (sheet.getRange(1, 18).getValue() === '') {
+    sheet.getRange(1, 18).setValue('Playtomic Level');
   }
 
   // старая форма (до новой анкеты) шлёт goals/skills, новая — improve/shots
@@ -132,7 +136,8 @@ function handlePostPaymentDetails(data, notify) {
     val(data.competitive),
     val(data.tshirt),
     txt(data.notes),
-    val(data.lang)
+    val(data.lang),
+    txt(data.playtomic)
   ]);
 
   let message = `
@@ -148,6 +153,7 @@ function handlePostPaymentDetails(data, notify) {
     message += `
 ⏳ <b>Playing for:</b> ${esc(val(data.experience))}
 📅 <b>Plays:</b> ${esc(val(data.frequency))}
+🏅 <b>Playtomic:</b> ${esc(val(data.playtomic))}
 🎯 <b>Level:</b> ${esc(val(data.level))}
 🎾 <b>Shots / skills:</b> ${esc(shots)}
 📈 <b>Wants to improve:</b> ${esc(improve)}
