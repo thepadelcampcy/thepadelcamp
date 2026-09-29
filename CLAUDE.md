@@ -6,6 +6,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Static marketing/booking site for **The Padel Camp Cyprus** (thepadelcamp.com.cy), a padel training camp event. Plain HTML/CSS/JS — no framework, no build step, no package.json. Deployed via GitHub Pages (see `CNAME`).
 
+The repo also holds a few things that are **not** part of the deployed site: `infra/stripe-webhook-proxy/` (a small Cloudflare Worker that proxies Stripe webhook POSTs to the Google Apps Script backend, worked around because Apps Script's 302 redirect breaks Stripe's webhook delivery — deployed separately via `wrangler`, not GitHub Pages) and `marketing/` (social media content calendars/briefs, not code).
+
+## Deploy
+
+No CI — GitHub Pages serves directly from the `main` branch (no `.github/workflows`). Pushing to `main` deploys to production (thepadelcamp.com.cy) within a minute or two. There is no staging environment; preview changes locally (e.g. `npx http-server`) or via a temporary tunnel (e.g. `npx cloudflared tunnel --url http://localhost:PORT`) before pushing.
+
+**`style.css` and `main.js` are cache-busted with a `?v=N` query string** on every single HTML page (20+ files). Whenever you change either file, bump `N` in *all* pages that reference it, not just the one you're testing — otherwise returning visitors' browsers keep serving the stale cached copy. Grep for `style.css?v=` / `main.js?v=` to find every reference before bumping.
+
 ## Working locally
 
 There is no build/lint/test tooling in this repo. Just edit the HTML/CSS/JS files directly and preview with any static file server, e.g.:
@@ -18,17 +26,19 @@ or open the HTML files directly in a browser.
 
 ## Architecture
 
-### Bilingual pages via full duplication, not i18n
+### Trilingual pages via full duplication, not i18n
 
-The site is EN/RU with **no templating or i18n framework** — each language is a fully separate set of HTML files:
+The site is EN/RU/EL with **no templating or i18n framework** — each language is a fully separate set of HTML files:
 
 - English pages live at the repo root: `index.html`, `partners.html`, `terms.html`, `privacy-policy.html`, `register/*.html`.
-- Russian pages live under `ru/`, mirroring the same structure: `ru/index.html`, `ru/partners.html`, `ru/register/*.html`, etc.
+- Russian pages live under `ru/`, mirroring the same structure: `ru/index.html`, `ru/partners.html`, `ru/terms.html`, `ru/privacy-policy.html`, `ru/register/*.html`, etc.
+- Greek pages live under `el/`, but with **narrower coverage** than EN/RU — only `el/index.html`, `el/partners.html`, and `el/register/*.html` exist (no `el/terms.html` or `el/privacy-policy.html`).
 - Root-level `*-ru.html` files (`index-ru.html`, `partners-ru.html`, `terms-ru.html`, `privacy-policy-ru.html`) are **legacy redirect stubs** — each is a 12-line meta-refresh page pointing to the corresponding `/ru/...` page. They exist only to preserve old URLs; don't add real content to them.
+- `register/`, `ru/register/`, and `el/register/` each also contain `3-day.html`, `5-day.html`, and `5-day-book.html` — these are **orphaned leftovers from a previous camp-length lineup** (before the current 2/4/6-day structure) and aren't linked from anywhere live. Don't treat them as broken pages to fix; leave them alone unless asked.
 
-Because content is duplicated rather than generated, **any structural change (header, modals, footer, form markup) made to an EN page must be manually mirrored in its RU counterpart**, and vice versa. `index.html` and `ru/index.html` are the largest and most important pair (1163 lines each).
+Because content is duplicated rather than generated, **any structural change (header, modals, footer, form markup) made to an EN page must be manually mirrored in its RU (and, where it exists, EL) counterpart**, and vice versa. `index.html`, `ru/index.html`, and `el/index.html` are the largest and most important set.
 
-All pages share one stylesheet, `assets/css/style.css` (~4400 lines) — there's no per-page or per-language CSS.
+All pages share one stylesheet, `assets/css/style.css` (~4400+ lines) — there's no per-page or per-language CSS.
 
 ### Shared JS, no bundler
 
@@ -41,13 +51,21 @@ All forms (registration, massage booking, service booking, media package) funnel
 
 After submit, the JS swaps the modal's inner HTML in place to show a payment screen: a Stripe Checkout link plus a QR code image (`assets/qr/*.jpeg`) for bank transfer, then a WhatsApp deep link (`wa.me/...`) to confirm payment. Stripe links, QR image paths, and prices are hardcoded per price tier directly in the submit handlers in `main.js` — when a price or Stripe link changes, update it there (and in the mirrored RU copy path if the flow differs per language).
 
+**Secrets never live in this repo.** Stripe/Telegram tokens and the webhook signing secret live in Google Apps Script's Script Properties or Cloudflare Worker secrets (`npx wrangler secret put` in `infra/stripe-webhook-proxy/`) — never hardcoded in a committed file. This repo is public via GitHub Pages, so anything committed here is permanent regardless of later edits or history rewrites.
+
+### Header logo has two swapped images tied to scroll state
+
+The sticky header shows a large logo (`assets/images/logo-large.png`/`.webp`) before scrolling and swaps to a smaller one (`assets/images/logo.png`/`.webp`) once scrolled, via a `.logo-img-large`/`.logo-img-small` pair of `<picture>` elements toggled by CSS off the `.scrolled` class. `main.js` adds `.scrolled` to `.header` once `window.pageYOffset > 50`.
+
+Sizing/position rules for this exist twice — once unscoped (desktop) near the top of `style.css`, once inside the `@media (max-width: 768px)` block (mobile) — and they don't cleanly layer: the unscoped `.header.scrolled .logo.logo-center` rule has *higher specificity* (more chained classes) than a plain mobile-only `.logo.logo-center` override, so it silently wins on mobile too unless the mobile override repeats the full `.header.scrolled .logo.logo-center` selector. When touching header/logo CSS, check both blocks and match specificity, not just add a rule that "should" apply at that breakpoint. Also, `position` (`relative` vs `absolute`) can't be CSS-transitioned smoothly — animating a scroll-triggered position swap looks janky; these rules intentionally use `transition: none` on the logo/position properties instead.
+
 ### Pages outside the site nav
 
 `docs/*.html` (`email-padel-massage.html`, `email-private-lessons.html`) are standalone HTML email templates, not linked from site navigation and not part of the deployed page structure.
 
 ### SEO/meta plumbing
 
-Every page pair cross-references its counterpart via `<link rel="alternate" hreflang="en|ru">` and sets a `canonical` URL — keep these in sync when adding or renaming pages, and update `sitemap.xml` accordingly.
+Every page cross-references its EN/RU (and EL, where it exists) counterparts via `<link rel="alternate" hreflang="en|ru|el">` and sets a `canonical` URL — keep these in sync when adding or renaming pages, and update `sitemap.xml` accordingly.
 
 Behavioral guidelines to reduce common LLM coding mistakes. Merge with project-specific instructions as needed.
 
