@@ -111,101 +111,68 @@
         <priority>0.3</priority>
     </url>
 
-    <!-- Register 6-Day Camp - English -->
+    <!-- Register Morning/Evening Camp - English -->
     <url>
-        <loc>https://thepadelcamp.com.cy/register/6-day</loc>
-        <xhtml:link rel="alternate" hreflang="en" href="https://thepadelcamp.com.cy/register/6-day"/>
-        <xhtml:link rel="alternate" hreflang="ru" href="https://thepadelcamp.com.cy/ru/register/6-day"/>
-        <xhtml:link rel="alternate" hreflang="el" href="https://thepadelcamp.com.cy/el/register/6-day"/>
-        <lastmod>2026-08-25</lastmod>
+        <loc>https://thepadelcamp.com.cy/register/morning-evening.html</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://thepadelcamp.com.cy/register/morning-evening.html"/>
+        <xhtml:link rel="alternate" hreflang="ru" href="https://thepadelcamp.com.cy/ru/register/morning-evening.html"/>
+        <xhtml:link rel="alternate" hreflang="el" href="https://thepadelcamp.com.cy/el/register/morning-evening.html"/>
+        <lastmod>2026-09-29</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
     </url>
 
-    <!-- Register 6-Day Camp - Russian -->
+    <!-- Register Morning/Evening Camp - Russian -->
     <url>
-        <loc>https://thepadelcamp.com.cy/ru/register/6-day</loc>
-        <xhtml:link rel="alternate" hreflang="en" href="https://thepadelcamp.com.cy/register/6-day"/>
-        <xhtml:link rel="alternate" hreflang="ru" href="https://thepadelcamp.com.cy/ru/register/6-day"/>
-        <xhtml:link rel="alternate" hreflang="el" href="https://thepadelcamp.com.cy/el/register/6-day"/>
-        <lastmod>2026-08-25</lastmod>
+        <loc>https://thepadelcamp.com.cy/ru/register/morning-evening.html</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://thepadelcamp.com.cy/register/morning-evening.html"/>
+        <xhtml:link rel="alternate" hreflang="ru" href="https://thepadelcamp.com.cy/ru/register/morning-evening.html"/>
+        <xhtml:link rel="alternate" hreflang="el" href="https://thepadelcamp.com.cy/el/register/morning-evening.html"/>
+        <lastmod>2026-09-29</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
     </url>
 
-    <!-- Register 6-Day Camp - Greek -->
+    <!-- Register Morning/Evening Camp - Greek -->
     <url>
-        <loc>https://thepadelcamp.com.cy/el/register/6-day</loc>
-        <xhtml:link rel="alternate" hreflang="en" href="https://thepadelcamp.com.cy/register/6-day"/>
-        <xhtml:link rel="alternate" hreflang="ru" href="https://thepadelcamp.com.cy/ru/register/6-day"/>
-        <xhtml:link rel="alternate" hreflang="el" href="https://thepadelcamp.com.cy/el/register/6-day"/>
-        <lastmod>2026-08-25</lastmod>
+        <loc>https://thepadelcamp.com.cy/el/register/morning-evening.html</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://thepadelcamp.com.cy/register/morning-evening.html"/>
+        <xhtml:link rel="alternate" hreflang="ru" href="https://thepadelcamp.com.cy/ru/register/morning-evening.html"/>
+        <xhtml:link rel="alternate" hreflang="el" href="https://thepadelcamp.com.cy/el/register/morning-evening.html"/>
+        <lastmod>2026-09-29</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
     </url>
 
-    <!-- Register 4-Day Camp - English -->
+    <!-- Register Weekend Camp - English -->
     <url>
-        <loc>https://thepadelcamp.com.cy/register/4-day</loc>
-        <xhtml:link rel="alternate" hreflang="en" href="https://thepadelcamp.com.cy/register/4-day"/>
-        <xhtml:link rel="alternate" hreflang="ru" href="https://thepadelcamp.com.cy/ru/register/4-day"/>
-        <xhtml:link rel="alternate" hreflang="el" href="https://thepadelcamp.com.cy/el/register/4-day"/>
-        <lastmod>2026-08-25</lastmod>
+        <loc>https://thepadelcamp.com.cy/register/weekend.html</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://thepadelcamp.com.cy/register/weekend.html"/>
+        <xhtml:link rel="alternate" hreflang="ru" href="https://thepadelcamp.com.cy/ru/register/weekend.html"/>
+        <xhtml:link rel="alternate" hreflang="el" href="https://thepadelcamp.com.cy/el/register/weekend.html"/>
+        <lastmod>2026-09-29</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
     </url>
 
-    <!-- Register 4-Day Camp - Russian -->
+    <!-- Register Weekend Camp - Russian -->
     <url>
-        <loc>https://thepadelcamp.com.cy/ru/register/4-day</loc>
-        <xhtml:link rel="alternate" hreflang="en" href="https://thepadelcamp.com.cy/register/4-day"/>
-        <xhtml:link rel="alternate" hreflang="ru" href="https://thepadelcamp.com.cy/ru/register/4-day"/>
-        <xhtml:link rel="alternate" hreflang="el" href="https://thepadelcamp.com.cy/el/register/4-day"/>
-        <lastmod>2026-08-25</lastmod>
+        <loc>https://thepadelcamp.com.cy/ru/register/weekend.html</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://thepadelcamp.com.cy/register/weekend.html"/>
+        <xhtml:link rel="alternate" hreflang="ru" href="https://thepadelcamp.com.cy/ru/register/weekend.html"/>
+        <xhtml:link rel="alternate" hreflang="el" href="https://thepadelcamp.com.cy/el/register/weekend.html"/>
+        <lastmod>2026-09-29</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
     </url>
 
-    <!-- Register 4-Day Camp - Greek -->
+    <!-- Register Weekend Camp - Greek -->
     <url>
-        <loc>https://thepadelcamp.com.cy/el/register/4-day</loc>
-        <xhtml:link rel="alternate" hreflang="en" href="https://thepadelcamp.com.cy/register/4-day"/>
-        <xhtml:link rel="alternate" hreflang="ru" href="https://thepadelcamp.com.cy/ru/register/4-day"/>
-        <xhtml:link rel="alternate" hreflang="el" href="https://thepadelcamp.com.cy/el/register/4-day"/>
-        <lastmod>2026-08-25</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.9</priority>
-    </url>
-
-    <!-- Register 2-Day Camp - English -->
-    <url>
-        <loc>https://thepadelcamp.com.cy/register/2-day</loc>
-        <xhtml:link rel="alternate" hreflang="en" href="https://thepadelcamp.com.cy/register/2-day"/>
-        <xhtml:link rel="alternate" hreflang="ru" href="https://thepadelcamp.com.cy/ru/register/2-day"/>
-        <xhtml:link rel="alternate" hreflang="el" href="https://thepadelcamp.com.cy/el/register/2-day"/>
-        <lastmod>2026-08-25</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.9</priority>
-    </url>
-
-    <!-- Register 2-Day Camp - Russian -->
-    <url>
-        <loc>https://thepadelcamp.com.cy/ru/register/2-day</loc>
-        <xhtml:link rel="alternate" hreflang="en" href="https://thepadelcamp.com.cy/register/2-day"/>
-        <xhtml:link rel="alternate" hreflang="ru" href="https://thepadelcamp.com.cy/ru/register/2-day"/>
-        <xhtml:link rel="alternate" hreflang="el" href="https://thepadelcamp.com.cy/el/register/2-day"/>
-        <lastmod>2026-08-25</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.9</priority>
-    </url>
-
-    <!-- Register 2-Day Camp - Greek -->
-    <url>
-        <loc>https://thepadelcamp.com.cy/el/register/2-day</loc>
-        <xhtml:link rel="alternate" hreflang="en" href="https://thepadelcamp.com.cy/register/2-day"/>
-        <xhtml:link rel="alternate" hreflang="ru" href="https://thepadelcamp.com.cy/ru/register/2-day"/>
-        <xhtml:link rel="alternate" hreflang="el" href="https://thepadelcamp.com.cy/el/register/2-day"/>
-        <lastmod>2026-08-25</lastmod>
+        <loc>https://thepadelcamp.com.cy/el/register/weekend.html</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://thepadelcamp.com.cy/register/weekend.html"/>
+        <xhtml:link rel="alternate" hreflang="ru" href="https://thepadelcamp.com.cy/ru/register/weekend.html"/>
+        <xhtml:link rel="alternate" hreflang="el" href="https://thepadelcamp.com.cy/el/register/weekend.html"/>
+        <lastmod>2026-09-29</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
     </url>
