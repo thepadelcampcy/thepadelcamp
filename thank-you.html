@@ -468,6 +468,75 @@
                 document.getElementById('tyFollowupSubmit').textContent = 'Отправить';
             }
 
+            // RU copy of the questionnaire, keyed by the English text. Answer
+            // values stay English, so the sheet reads the same for both languages.
+            var RU = {
+                'Help us make your camp as effective as possible. There are no right or wrong answers: they simply help our coaches understand your game and build the right training groups.': 'Помогите нам сделать кемп максимально полезным для вас. Правильных и неправильных ответов здесь нет: ответы помогут тренерам понять вашу игру и собрать подходящие группы.',
+                'Contact': 'Контакты', 'Experience': 'Опыт', 'Level': 'Уровень', 'Game': 'Игра', 'Goals': 'Цели', 'Review': 'Проверка',
+                'Back': 'Назад', 'Next': 'Далее',
+                'Your full name': 'Имя и фамилия',
+                'How long have you been playing padel? *': 'Как давно вы играете в падел? *',
+                "I haven't played yet": 'Ещё не играл(а)',
+                'Less than 3 months': 'Меньше 3 месяцев', '3–6 months': '3–6 месяцев', '6–12 months': '6–12 месяцев',
+                '1–2 years': '1–2 года', '2+ years': 'Больше 2 лет',
+                'How often do you currently play? *': 'Как часто вы сейчас играете? *',
+                'Less than once a month': 'Реже раза в месяц', '1–3 times a month': '1–3 раза в месяц', 'Once a week': 'Раз в неделю',
+                '2–3 times a week': '2–3 раза в неделю', '4+ times a week': '4 раза в неделю и чаще',
+                'What is your Playtomic level?': 'Ваш уровень в Playtomic', '(optional)': '(необязательно)',
+                "e.g. 2.75. Leave blank if you don't have one": 'Например, 2.75. Если уровня нет, оставьте пустым',
+                'Which level best describes your current padel game? *': 'Какой уровень лучше всего описывает вашу игру сейчас? *',
+                'Beginner': 'Новичок',
+                'I am new to padel or have limited experience. I am still learning the basic forehand and backhand and getting used to the rules, movement and court positioning. I am not yet comfortable using the walls.': 'Я только начинаю играть в падел или у меня мало опыта. Осваиваю базовые удары справа и слева, привыкаю к правилам, передвижению и позиции на корте. Игра со стеклом пока даётся с трудом.',
+                'High Beginner': 'Продвинутый новичок',
+                'I can play basic rallies and a full match. I understand the basic rules and positioning and can use simple wall shots, volleys and lobs. I can keep the ball in play, but I still make quite a lot of unforced errors.': 'Могу держать простой розыгрыш и сыграть полный матч. Знаю основные правила и позиции, умею простые удары от стекла, воллеи и свечи. Мяч в игре удерживаю, но ещё часто ошибаюсь сам(а).',
+                'Low Intermediate': 'Начальный средний',
+                'I can maintain rallies with reasonable consistency and feel comfortable playing from the back of the court. I can use the back and side walls, play basic volleys and lobs, and understand when to move forward to the net. I am starting to use tactics rather than simply returning the ball.': 'Довольно стабильно держу розыгрыш и уверенно играю с задней линии. Играю от заднего и бокового стекла, владею базовыми воллеями и свечами, понимаю, когда выходить к сетке. Начинаю играть тактически, а не просто перебрасывать мяч.',
+                'Intermediate': 'Средний',
+                'I am comfortable playing both from the back and at the net. I can use the walls effectively, control the direction of my shots and play consistent volleys and overheads. I understand positioning, communication with my partner and basic point construction.': 'Уверенно играю и сзади, и у сетки. Хорошо использую стекло, контролирую направление ударов, стабильно играю воллеи и удары над головой. Понимаю позиционную игру, общение с партнёром и основы построения розыгрыша.',
+                'High Intermediate': 'Высокий средний',
+                'I am confident in most match situations. I can control pace, direction and placement, use the lob and overhead shots effectively, and transition between defence and attack. I understand how to create space, build points and adapt my game to different opponents.': 'Уверенно чувствую себя в большинстве игровых ситуаций. Контролирую темп, направление и точность, эффективно использую свечу и удары над головой, переключаюсь между защитой и атакой. Умею создавать пространство, строить розыгрыш и подстраиваться под соперников.',
+                'Advanced': 'Продвинутый',
+                'I have a strong technical and tactical level. I can consistently execute advanced shots such as bandeja, víbora, bajada and smash. I understand advanced positioning, transitions and point construction and can adapt my tactics during matches.': 'Высокий технический и тактический уровень. Стабильно выполняю сложные удары: бандеху, вибору, бахаду и смэш. Понимаю продвинутую позиционную игру, переходы и построение розыгрыша, умею менять тактику по ходу матча.',
+                'Competitive / Advanced': 'Соревновательный',
+                'I regularly play competitive matches, leagues or tournaments. I have a high level of technical consistency, tactical awareness and match experience. I can maintain a high pace of play and make effective decisions under pressure.': 'Регулярно играю соревновательные матчи, лиги или турниры. Высокая техническая стабильность, тактическое понимание и матчевый опыт. Выдерживаю высокий темп и принимаю верные решения под давлением.',
+                'Which shots can you perform confidently during a match?': 'Какие удары вы уверенно выполняете в матче?',
+                '(select all that apply)': '(отметьте все подходящие)',
+                'Forehand': 'Удар справа (форхенд)', 'Backhand': 'Удар слева (бэкхенд)', 'Volley': 'Воллей', 'Lob': 'Свеча',
+                'Wall defence': 'Защита со стеклом', 'Bandeja': 'Бандеха', 'Víbora': 'Вибора', 'Smash': 'Смэш', 'Bajada': 'Бахада',
+                'How would you describe your competitive experience? *': 'Какой у вас соревновательный опыт? *',
+                "I haven't played matches yet": 'Ещё не играл(а) матчей',
+                'I play friendly matches with friends': 'Играю товарищеские матчи с друзьями',
+                'I play in local leagues': 'Играю в местных лигах',
+                'I participate in tournaments': 'Участвую в турнирах',
+                'I regularly compete at a high level': 'Регулярно выступаю на высоком уровне',
+                'What would you most like to improve during the camp? *': 'Что вы больше всего хотите улучшить на кемпе? *',
+                '(choose up to 3)': '(до 3 вариантов)',
+                'Technique': 'Технику', 'Consistency': 'Стабильность', 'Tactics & positioning': 'Тактику и позиционную игру',
+                'Attack & finishing points': 'Атаку и завершение розыгрыша', 'Defence & wall play': 'Защиту и игру со стеклом',
+                'Overhead shots': 'Удары над головой', 'Match strategy': 'Стратегию матча', 'Confidence in matches': 'Уверенность в матчах',
+                'Meet new people & enjoy the camp atmosphere': 'Новые знакомства и атмосферу кемпа',
+                'Select an option': 'Выберите размер',
+                'Any preferences...': 'Пожелания...',
+                'Please check your answers. Tap any answer to change it.': 'Проверьте ответы. Нажмите на любой, чтобы изменить.',
+                'Please enter your phone number.': 'Укажите номер телефона.',
+                'Please answer this question.': 'Пожалуйста, ответьте на этот вопрос.',
+                'Please enter a number from 0 to 7, e.g. 2.75.': 'Введите число от 0 до 7, например 2.75.'
+            };
+            function tr(en) { return (isRu && RU[en]) || en; }
+            if (isRu) {
+                var formEl = document.getElementById('tyFollowupForm');
+                var walker = document.createTreeWalker(formEl, NodeFilter.SHOW_TEXT);
+                var textNodes = [];
+                while (walker.nextNode()) textNodes.push(walker.currentNode);
+                textNodes.forEach(function (node) {
+                    var key = node.nodeValue.trim();
+                    if (RU[key]) node.nodeValue = node.nodeValue.replace(key, RU[key]);
+                });
+                formEl.querySelectorAll('[placeholder]').forEach(function (el) {
+                    if (RU[el.placeholder]) el.placeholder = RU[el.placeholder];
+                });
+            }
+
             // ── Step-by-step questionnaire ──
             // Camp bookings walk through steps 1–6 (contacts → experience → level →
             // game → goals → review). Other bookings (Media Package) only get
@@ -499,7 +568,7 @@
                     circle.className = 'ty-progress-circle';
                     circle.textContent = n;
                     var title = document.createElement('span');
-                    title.textContent = stepEl(n).getAttribute('data-title');
+                    title.textContent = tr(stepEl(n).getAttribute('data-title'));
                     p.appendChild(circle);
                     p.appendChild(title);
                     progress.appendChild(p);
@@ -551,10 +620,10 @@
                 stepEl(n).querySelectorAll('.form-group').forEach(function (g) {
                     var msg = null;
                     if (g.hasAttribute('data-required') && !groupAnswered(g)) {
-                        msg = g.querySelector('#tyPhone') ? 'Please enter your phone number.' : 'Please answer this question.';
+                        msg = tr(g.querySelector('#tyPhone') ? 'Please enter your phone number.' : 'Please answer this question.');
                     } else if (g.hasAttribute('data-playtomic')) {
                         var v = document.getElementById('tyPlaytomic').value.trim().replace(',', '.');
-                        if (v && !(/^\d(\.\d{1,2})?$/.test(v) && parseFloat(v) <= 7)) msg = 'Please enter a number from 0 to 7, e.g. 2.75.';
+                        if (v && !(/^\d(\.\d{1,2})?$/.test(v) && parseFloat(v) <= 7)) msg = tr('Please enter a number from 0 to 7, e.g. 2.75.');
                     }
                     setError(g, msg);
                     if (msg && !firstBad) firstBad = g;
