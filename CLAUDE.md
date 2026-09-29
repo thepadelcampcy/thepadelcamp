@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Static marketing/booking site for **The Padel Camp Cyprus** (thepadelcamp.com.cy), a padel training camp event. Plain HTML/CSS/JS — no framework, no build step, no package.json. Deployed via GitHub Pages (see `CNAME`).
 
-The repo also holds a few things that are **not** part of the deployed site: `infra/stripe-webhook-proxy/` (a small Cloudflare Worker that proxies Stripe webhook POSTs to the Google Apps Script backend, worked around because Apps Script's 302 redirect breaks Stripe's webhook delivery — deployed separately via `wrangler`, not GitHub Pages) and `marketing/` (social media content calendars/briefs, not code).
+The repo also holds a few things that are **not** part of the deployed site: `infra/stripe-webhook-proxy/` (a small Cloudflare Worker that proxies Stripe webhook POSTs to the Google Apps Script backend, worked around because Apps Script's 302 redirect breaks Stripe's webhook delivery — deployed separately via `wrangler`, not GitHub Pages), `infra/forms-apps-script/` (repo copy of the Google Apps Script behind `GOOGLE_SCRIPT_URL` in `main.js` — service bookings + thank-you.html post-payment questionnaire → Google Sheet + Telegram; the live code runs in Apps Script, see that folder's README for how to deploy and keep the copy in sync) and `marketing/` (social media content calendars/briefs, not code).
 
 ## Deploy
 
