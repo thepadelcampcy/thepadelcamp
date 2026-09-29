@@ -426,7 +426,25 @@ function buildStripeAttributionParam() {
     const fbc = getCookie('_fbc');
     const fbp = getCookie('_fbp');
     if (!gcid && !fbc && !fbp) return '';
-    return encodeURIComponent([gcid, fbc, fbp].join('||'));
+    const packed = [gcid, fbc, fbp].join('||');
+    // Stripe silently drops client_reference_id containing characters outside
+    // [A-Za-z0-9_-]; gcid/fbc/fbp contain dots and the separator is '|'.
+    // base64url keeps everything in the allowed set. Inputs are ASCII, so
+    // btoa() is safe here (it throws on chars > U+00FF).
+    // NOTE: this only fixes the charset problem, it is not encryption and adds
+    // no confidentiality — fbc/fbp/GA4 client_id are pseudonymized personal
+    // identifiers, trivially decodable by anyone with the URL. Per Stripe's
+    // own docs: "make sure [client_reference_id] doesn't include sensitive
+    // information... only share Payment Links that have URL parameters with
+    // intended recipients." This param must never end up in a Payment Link
+    // that gets shared publicly (email, QR code, social).
+    const encoded = btoa(packed).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+    // Check the actual encoded length against Stripe's 200-char cap.
+    if (encoded.length > 200) {
+        console.warn('[pixels.js] attribution string too long, dropped');
+        return '';
+    }
+    return encoded;
 }
 
 /**
