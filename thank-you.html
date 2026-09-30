@@ -435,9 +435,11 @@
             //   resend=1  — link re-sent to a Stripe payer or another participant
             //               of the same order; the purchase was already counted.
             //   test=1    — our own checks; nothing is tracked.
+            // resend/test suppress tracking, so any form of them counts (test=2,
+            // bare &test): a typo must not turn a test into a real sale.
             var offline = params.get('offline') === '1';
-            var resend = params.get('resend') === '1';
-            var testMode = params.get('test') === '1';
+            var resend = params.has('resend');
+            var testMode = params.has('test');
 
             var itemLabels = {
                 'morning_camp': 'Morning Camp',

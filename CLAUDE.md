@@ -60,7 +60,7 @@ Every Stripe Payment Link (camps, media, the three massage links that aren't in 
 Links the owners send by hand (base `https://thepadelcamp.com.cy/thank-you.html`):
 - **Offline client** (cash or barter, barter counts as a sale): `?offline=1&item=morning_camp` — once per purchase. Nothing on open; after the questionnaire is submitted, a Meta-only Purchase goes out with the entered email/phone, amount from `itemPrices` in the page (morning_camp 770, evening_camp 890, weekend_camp 380, media_package 130, massage-30/60/75 = 45/60/75). Not sent to GA4.
 - **Resend** to a Stripe payer, or the link for other participants of a multi-seat order: take `cs_…` from the Confirmed Payments sheet, `?session_id=cs_…&item=…&resend=1`. Questionnaire works, no Purchase.
-- **Test**: append `&test=1` to any link — no Purchase anywhere. The questionnaire still posts to the sheet and Telegram, so delete test rows there.
+- **Test**: append `&test=1` to any link — no Purchase anywhere. `test` and `resend` work with any value or none (`&test`, `test=2`), so a typo can't turn a test into a sale; `offline` needs exactly `offline=1`. The questionnaire still posts to the sheet and Telegram, so delete test rows there.
 
 **Secrets never live in this repo.** Stripe/Telegram tokens and the webhook signing secret live in Google Apps Script's Script Properties or Cloudflare Worker secrets (`npx wrangler secret put` in `infra/stripe-webhook-proxy/`) — never hardcoded in a committed file. This repo is public via GitHub Pages, so anything committed here is permanent regardless of later edits or history rewrites.
 
