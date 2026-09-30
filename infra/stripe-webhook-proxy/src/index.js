@@ -47,13 +47,23 @@ export default {
 
     if (isViewContent) {
       if (!env.VIEWCONTENT_RELAY_TOKEN || payload.token !== env.VIEWCONTENT_RELAY_TOKEN) {
+        console.log('reject: bad relay token');
         return new Response('Forbidden', { status: 403 });
       }
     } else {
       const ok = await verifyStripeSignature(body, request.headers.get('Stripe-Signature'), env.STRIPE_WEBHOOK_SIGNING_SECRET);
-      if (!ok) return new Response('Invalid signature', { status: 403 });
+      if (!ok) {
+        console.log('reject: invalid signature', request.headers.get('Stripe-Signature') ? 'header present' : 'no header');
+        return new Response('Invalid signature', { status: 403 });
+      }
     }
 
+    // Which request this is, for the logs: 'view_content' or the Stripe event type + session id.
+    const kind = isViewContent
+      ? 'view_content'
+      : `${payload && payload.type} ${payload && payload.data && payload.data.object && payload.data.object.id}`;
+
+    const started = Date.now();
     let upstream;
     try {
       upstream = await fetch(env.APPS_SCRIPT_URL, {
@@ -62,11 +72,16 @@ export default {
         body,
       });
     } catch (err) {
+      console.log('upstream fetch failed', kind, `${Date.now() - started}ms`, err.message);
       return new Response('Upstream fetch failed: ' + err.message, { status: 502 });
     }
 
     const text = await upstream.text();
-    console.log('upstream', upstream.status, upstream.headers.get('content-type'), text.slice(0, 200));
+    // Final URL after Google's redirects, without the query string (it carries tokens).
+    // Normal: script.googleusercontent.com/macros/echo. Anything else means the POST
+    // was redirected elsewhere and arrived as a GET (seen as doGet Failed in Apps Script).
+    const finalUrl = new URL(upstream.url);
+    console.log('upstream', kind, upstream.status, `${Date.now() - started}ms`, 'final', finalUrl.host + finalUrl.pathname, upstream.headers.get('content-type'), text.slice(0, 200));
 
     if (text === 'OK' || text === 'Ignored' || text === 'Not paid') {
       return new Response(text, { status: 200 });
