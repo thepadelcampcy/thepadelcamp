@@ -29,7 +29,7 @@ async function verifyStripeSignature(rawBody, sigHeader, secret) {
 }
 
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     if (request.method !== 'POST') {
       return new Response('Method Not Allowed', { status: 405 });
     }
@@ -63,25 +63,59 @@ export default {
       ? 'view_content'
       : `${payload && payload.type} ${payload && payload.data && payload.data.object && payload.data.object.id}`;
 
+    // Apps Script runs doPost during this POST and only then answers 302 to a
+    // one-time echo URL holding the script's reply (verified 2026-09-30: doPost
+    // ran in 100/100 probe requests, and a 10 s sleep in doPost delayed the 302
+    // by ~11 s). Reading that echo is what fails — slow, 404, or an HTML page
+    // from a stray doGet — so a 302 to the echo URL is taken as success and the
+    // echo is only read in the background for the log. The script's own
+    // failures are reported by the script itself (alerts + daily reconciliation).
+    // The Stripe signature is checked once above; the hop to Google is our own
+    // request and must not be re-verified.
     const started = Date.now();
+    const controller = new AbortController();
+    // Our own deadline, below Stripe's (~22 s observed): a 502 gets a prompt Stripe
+    // retry, which the script's dedup makes harmless.
+    const timer = setTimeout(() => controller.abort(), 20000);
     let upstream;
     try {
       upstream = await fetch(env.APPS_SCRIPT_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body,
+        redirect: 'manual',
+        signal: controller.signal,
       });
     } catch (err) {
-      console.log('upstream fetch failed', kind, `${Date.now() - started}ms`, err.message);
-      return new Response('Upstream fetch failed: ' + err.message, { status: 502 });
+      const reason = err.name === 'AbortError' ? 'timeout' : err.message;
+      console.log('upstream fetch failed', kind, `${Date.now() - started}ms`, reason);
+      return new Response('Upstream fetch failed: ' + reason, { status: 502 });
+    } finally {
+      clearTimeout(timer);
+    }
+    const postMs = Date.now() - started;
+
+    if (upstream.status >= 300 && upstream.status < 400) {
+      const location = upstream.headers.get('location') || '';
+      let target = null;
+      try { target = new URL(location); } catch { /* malformed Location */ }
+      // Logged without the query string: it carries a one-time key.
+      const where = target ? target.host + target.pathname : '(bad location)';
+      if (target && target.host === 'script.googleusercontent.com' && target.pathname === '/macros/echo') {
+        console.log('upstream', kind, upstream.status, `${postMs}ms`, '-> echo, accepted');
+        ctx.waitUntil(
+          fetch(location)
+            .then(r => r.text().then(t => console.log('echo', kind, r.status, `${Date.now() - started}ms`, t.slice(0, 200))))
+            .catch(err => console.log('echo failed', kind, err.message))
+        );
+        return new Response('Accepted', { status: 200 });
+      }
+      console.log('upstream', kind, upstream.status, `${postMs}ms`, 'unexpected redirect', where);
+      return new Response('Unexpected redirect', { status: 502 });
     }
 
     const text = await upstream.text();
-    // Final URL after Google's redirects, without the query string (it carries tokens).
-    // Normal: script.googleusercontent.com/macros/echo. Anything else means the POST
-    // was redirected elsewhere and arrived as a GET (seen as doGet Failed in Apps Script).
-    const finalUrl = new URL(upstream.url);
-    console.log('upstream', kind, upstream.status, `${Date.now() - started}ms`, 'final', finalUrl.host + finalUrl.pathname, upstream.headers.get('content-type'), text.slice(0, 200));
+    console.log('upstream', kind, upstream.status, `${postMs}ms`, upstream.headers.get('content-type'), text.slice(0, 200));
 
     if (text === 'OK' || text === 'Ignored' || text === 'Not paid') {
       return new Response(text, { status: 200 });
