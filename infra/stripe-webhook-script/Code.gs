@@ -72,9 +72,11 @@ function doPost(e) {
     const email = (session.customer_details && session.customer_details.email) || '';
     const name = (session.customer_details && session.customer_details.name) || '';
 
-    const resolved = resolveItemFromStripe(sessionId) || { label: 'Unknown item (€' + amount + ')', slug: 'unknown_item' };
+    const looked = resolveItemFromStripe(sessionId);
+    const resolved = looked || { label: 'Unknown item (€' + amount + ')', slug: 'unknown_item' };
     appendPaymentRow(sessionId, resolved.label, amount, currency, name, email);
     rowWritten = true;
+    if (!looked) notifyUnknownItem(sessionId, resolved.label, stripeLookupError);
 
     // Разбор атрибуции — best effort. Строка уже записана, поэтому бросать здесь
     // нельзя: исключение превратится в 'Error:' → 502 → ретрай → дедуп → 'OK',
@@ -401,19 +403,32 @@ function sha256Hex(input) {
 // label — человекочитаемое имя (таблица, Telegram); slug — короткое стабильное
 // имя из lookup_key (Meta content_name, GA4 item_name) — совпадает со слагом
 // на самом сайте (morning_camp/evening_camp/weekend_camp/media_package).
+// Причина последнего null из resolveItemFromStripe — для алерта «Unknown item»
+// (правка 2026-09-30): без неё алерт не даёт ни одной зацепки.
+let stripeLookupError = null;
+
 function resolveItemFromStripe(sessionId) {
-  if (!GGL_STRP_READ_KEY) return null;
+  stripeLookupError = null;
+  if (!GGL_STRP_READ_KEY) {
+    stripeLookupError = 'GGL_STRP_READ_KEY не задан в Script Properties';
+    return null;
+  }
   try {
     const response = UrlFetchApp.fetch('https://api.stripe.com/v1/checkout/sessions/' + encodeURIComponent(sessionId) + '/line_items?limit=10', {
       headers: { Authorization: 'Bearer ' + GGL_STRP_READ_KEY },
       muteHttpExceptions: true
     });
     if (response.getResponseCode() !== 200) {
-      Logger.log('Stripe line_items error: ' + response.getContentText());
+      stripeLookupError = 'Stripe line_items ' + response.getResponseCode() + ': ' + response.getContentText().slice(0, 300);
+      Logger.log(stripeLookupError);
       return null;
     }
     const lines = JSON.parse(response.getContentText()).data || [];
-    if (!lines.length) return null;
+    if (!lines.length) {
+      stripeLookupError = 'Stripe вернул пустой line_items';
+      Logger.log(stripeLookupError);
+      return null;
+    }
 
     const parts = lines.map(function(li) {
       const p = li.price || {};
@@ -429,9 +444,28 @@ function resolveItemFromStripe(sessionId) {
       slug: parts.map(function(x) { return x.slug; }).join(', ')
     };
   } catch (err) {
-    Logger.log('Stripe line_items error: ' + err.message);
+    stripeLookupError = 'Исключение при обращении к Stripe: ' + err.message;
+    Logger.log(stripeLookupError);
     return null;
   }
+}
+
+// Алерт: оплата записана, но название позиции из Stripe получить не удалось.
+// Без троттлинга: оплат единицы в месяц, а молчание дороже лишнего сообщения.
+function notifyUnknownItem(sessionId, label, reason) {
+  sendAlert(
+    '⚠️ Название позиции не получено из Stripe\n' +
+    'Оплата в Confirmed Payments записана как «' + label + '» — деньги и строка на месте.\n' +
+    'session: ' + sessionId + '\n' +
+    'Причина: ' + (reason || 'неизвестна') + '\n' +
+    'Проверить: ключ GGL_STRP_READ_KEY в Script Properties и его права (Checkout Sessions: Read).'
+  );
+}
+
+// Ручная проверка, что алерты реально доходят в Telegram и на почту.
+// Ничего не пишет в таблицу и не обращается к Stripe — безопасно на живом деплое.
+function testUnknownItemAlert() {
+  notifyUnknownItem('cs_test_не_реальная_сессия', 'Unknown item (€123)', 'тест алерта, реальной ошибки нет');
 }
 
 // Ручная проверка разбора client_reference_id. Запускается из редактора Apps
