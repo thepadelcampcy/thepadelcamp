@@ -33,6 +33,7 @@ const VIEWCONTENT_RELAY_TOKEN = props.getProperty('VIEWCONTENT_RELAY_TOKEN');
 const GGL_STRP_READ_KEY = props.getProperty('GGL_STRP_READ_KEY'); // Stripe restricted key, только Checkout Sessions: Read
 
 function doPost(e) {
+  let rowWritten = false; // видна в catch: false = сама оплата не записана
   try {
     const body = JSON.parse(e.postData.contents);
 
@@ -73,6 +74,7 @@ function doPost(e) {
 
     const resolved = resolveItemFromStripe(sessionId) || { label: 'Unknown item (€' + amount + ')', slug: 'unknown_item' };
     appendPaymentRow(sessionId, resolved.label, amount, currency, name, email);
+    rowWritten = true;
 
     // Разбор атрибуции — best effort. Строка уже записана, поэтому бросать здесь
     // нельзя: исключение превратится в 'Error:' → 502 → ретрай → дедуп → 'OK',
@@ -95,8 +97,132 @@ function doPost(e) {
 
     return ContentService.createTextOutput('OK').setMimeType(ContentService.MimeType.TEXT);
   } catch (err) {
+    notifyScriptError(rowWritten, err);
     return ContentService.createTextOutput('Error: ' + err.message).setMimeType(ContentService.MimeType.TEXT);
   }
+}
+
+// --- Оповещение о сбое внутри doPost (правка 2026-09-30) ---
+// После перехода Worker на «302 = успех» текст 'Error: ...' до Stripe уже не
+// доходит, поэтому о падении скрипта сообщаем сами. Троттлинг обязателен:
+// Stripe повторяет доставку до трёх дней, и каждая попытка снова упадёт.
+
+const ERROR_ALERT_LIMIT_PER_HOUR = 3;
+
+function notifyScriptError(rowWritten, err) {
+  if (!allowErrorAlert()) { Logger.log('script error (alert suppressed): ' + err.message); return; }
+  const how = rowWritten
+    ? 'Оплата в Confirmed Payments записана, но CAPI/GA4/Telegram по ней не ушли.'
+    : 'Оплата в Confirmed Payments НЕ записана — нужен Resend этого события в Stripe.';
+  sendAlert('⚠️ Скрипт вебхука упал\n' + how + '\nПричина: ' + err.message);
+}
+
+function allowErrorAlert() {
+  const key = 'script_err_' + Math.floor(Date.now() / 3600000);
+  const cache = CacheService.getScriptCache();
+  const n = Number(cache.get(key) || 0);
+  cache.put(key, String(n + 1), 3600);
+  return n < ERROR_ALERT_LIMIT_PER_HOUR;
+}
+
+// --- Ежедневная сверка Stripe ↔ Confirmed Payments (правка 2026-09-30) ---
+// Страховка: если оплаченная сессия Stripe не нашлась в таблице, доставка
+// потеряна. Сравниваются множества session id, а не количества: границы суток
+// в EEST и в Stripe (UTC) не совпадают. В таблицу ничего не пишет.
+// Запуск: один раз вручную reconcilePaymentsWithSheet, затем один раз
+// setupReconcileTrigger (ежедневно в 9:00).
+
+const RECONCILE_WINDOW_DAYS = 3;
+const ALERT_EMAIL = 'thepadelcampcy@gmail.com';
+
+function reconcilePaymentsWithSheet() {
+  try {
+    const to = Math.floor(Date.now() / 1000);
+    const paid = listPaidSessions(to - RECONCILE_WINDOW_DAYS * 86400, to);
+
+    const inSheet = new Set(
+      getPaymentSheet().getRange('B2:B').getValues()
+        .map(function (r) { return r[0]; })
+        .filter(function (v) { return typeof v === 'string' && v.indexOf('cs_') === 0; })
+    );
+    const missing = paid.filter(function (s) { return !inSheet.has(s.id); });
+
+    if (!missing.length) {
+      Logger.log('reconcile OK: ' + paid.length + ' paid за ' + RECONCILE_WINDOW_DAYS + ' дн., все в таблице');
+      return;
+    }
+    const when = Utilities.formatDate(new Date(), 'Europe/Nicosia', 'yyyy-MM-dd HH:mm');
+    let text = '⚠️ Сверка Stripe и таблицы: оплата не попала в таблицу\n';
+    text += 'Окно: ' + RECONCILE_WINDOW_DAYS + ' дн. до ' + when + '\n';
+    text += 'Оплат в Stripe: ' + paid.length + ', из них в таблице: ' + (paid.length - missing.length) + '\n\n';
+    missing.forEach(function (s) { text += '  ' + s.id + ' — ' + s.amount + ' ' + s.currency + '\n'; });
+    text += '\nЧто делать: Stripe Dashboard -> Webhooks -> событие с этой session id -> Resend.\n';
+    Logger.log(text);
+    sendAlert(text);
+  } catch (err) {
+    // Сбой самой сверки обязан быть замечен — иначе страховка молчит именно
+    // тогда, когда что-то сломалось.
+    Logger.log('reconcile failed: ' + err.message);
+    sendAlert('⚠️ Сверка Stripe и таблицы не выполнилась.\nПричина: ' + err.message);
+  }
+}
+
+function setupReconcileTrigger() {
+  ScriptApp.getProjectTriggers()
+    .filter(function (t) { return t.getHandlerFunction() === 'reconcilePaymentsWithSheet'; })
+    .forEach(function (t) { ScriptApp.deleteTrigger(t); });
+  ScriptApp.newTrigger('reconcilePaymentsWithSheet').timeBased().everyDays(1).atHour(9).create();
+}
+
+function listPaidSessions(fromUnix, toUnix) {
+  if (!GGL_STRP_READ_KEY) throw new Error('нет GGL_STRP_READ_KEY в Script Properties');
+  const out = [];
+  let startingAfter = null;
+  for (let page = 0; page < 20; page++) {
+    // payment_status проверяем в коде, а не фильтром запроса: на поддержку
+    // такого фильтра в list не опираемся.
+    const qs = [
+      'status=complete',
+      'created[gte]=' + fromUnix,
+      'created[lt]=' + toUnix,
+      'limit=100'
+    ].join('&') + (startingAfter ? '&starting_after=' + encodeURIComponent(startingAfter) : '');
+
+    const res = UrlFetchApp.fetch('https://api.stripe.com/v1/checkout/sessions?' + qs, {
+      headers: { Authorization: 'Bearer ' + GGL_STRP_READ_KEY },
+      muteHttpExceptions: true
+    });
+    // throw, а не частичный список: иначе ошибка Stripe выглядела бы как «всё сошлось».
+    if (res.getResponseCode() !== 200) {
+      throw new Error('Stripe sessions list ' + res.getResponseCode() + ': ' + res.getContentText().slice(0, 300));
+    }
+    const json = JSON.parse(res.getContentText());
+    (json.data || []).forEach(function (s) {
+      if (s.payment_status !== 'paid') return;
+      out.push({ id: s.id, amount: (s.amount_total || 0) / 100, currency: (s.currency || '').toUpperCase() });
+    });
+    if (!json.has_more || !json.data.length) break;
+    startingAfter = json.data[json.data.length - 1].id;
+  }
+  return out;
+}
+
+// Тревога всегда идёт в оба канала: письмо нужно именно тогда, когда Telegram
+// не сработал, поэтому успех Telegram не отменяет письмо.
+function sendAlert(text) {
+  try {
+    const res = UrlFetchApp.fetch('https://api.telegram.org/bot' + TELEGRAM_BOT_TOKEN + '/sendMessage', {
+      method: 'post',
+      contentType: 'application/json',
+      payload: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: text, disable_web_page_preview: true }),
+      muteHttpExceptions: true
+    });
+    Logger.log('alert telegram: ' + res.getResponseCode());
+  } catch (err) { Logger.log('alert telegram failed: ' + err.message); }
+
+  try {
+    MailApp.sendEmail({ to: ALERT_EMAIL, subject: '[Padel Camp] Вебхук Stripe', body: text });
+  } catch (err) { Logger.log('alert email failed: ' + err.message); }
 }
 
 // --- Дедупликация и запись в лист (заменяет старую logPayment) ---
