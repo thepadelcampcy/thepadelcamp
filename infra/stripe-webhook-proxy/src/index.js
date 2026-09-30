@@ -75,7 +75,9 @@ export default {
     const started = Date.now();
     const controller = new AbortController();
     // Our own deadline, below Stripe's (~22 s observed): a 502 gets a prompt Stripe
-    // retry, which the script's dedup makes harmless.
+    // retry, which the script's dedup makes harmless. A timeout means "result not
+    // known yet", not "delivery lost" — never turn it into a 200: the Worker can't
+    // tell whether the row was written, and only the retry makes sure it is.
     const timer = setTimeout(() => controller.abort(), 20000);
     let upstream;
     try {
