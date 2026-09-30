@@ -359,9 +359,21 @@ function trackBooking(serviceName, value) {
  * eventID so this browser-side Purchase event dedupes against the matching
  * server-side Conversions API event sent by the Apps Script webhook using
  * the same session ID.
+ *
+ * Offline (cash/barter) purchases pass data.em / data.ph — the buyer's email
+ * and phone from the questionnaire, handed to the pixel as advanced matching
+ * (it hashes them itself) — and data.metaOnly, which keeps them out of GA4
+ * and Clarity: those count website sales only.
  */
 function trackConfirmedPurchase(data) {
     if (localStorage.getItem(CONSENT_KEY) !== 'accepted') return;
+
+    if ((data.em || data.ph) && typeof fbq === 'function') {
+        var userData = {};
+        if (data.em) userData.em = data.em.toLowerCase();
+        if (data.ph) userData.ph = data.ph.replace(/\D/g, '');
+        fbq('init', META_PIXEL_ID, userData);
+    }
 
     if (typeof fbq === 'function') {
         var fbData = {
@@ -375,6 +387,8 @@ function trackConfirmedPurchase(data) {
             fbq('track', 'Purchase', fbData);
         }
     }
+
+    if (data.metaOnly) return;
 
     if (typeof gtag === 'function') {
         gtag('event', 'purchase', {
@@ -390,6 +404,22 @@ function trackConfirmedPurchase(data) {
     if (typeof clarity === 'function') {
         clarity('event', 'purchase_confirmed');
     }
+}
+
+/**
+ * SHA-256 of a string as hex (Promise). Resolves to '' where WebCrypto is
+ * unavailable (non-HTTPS preview hosts); callers skip the event then.
+ */
+function sha256Hex(str) {
+    if (!window.crypto || !window.crypto.subtle) {
+        console.log('[pixels.js] WebCrypto unavailable, skipping hash');
+        return Promise.resolve('');
+    }
+    return window.crypto.subtle.digest('SHA-256', new TextEncoder().encode(str)).then(function (buf) {
+        return Array.from(new Uint8Array(buf)).map(function (b) {
+            return ('0' + b.toString(16)).slice(-2);
+        }).join('');
+    });
 }
 
 // ─── Stripe Attribution Passthrough ──────────────────────────────

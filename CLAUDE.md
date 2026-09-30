@@ -53,6 +53,15 @@ All forms (registration, massage booking, service booking, media package) funnel
 
 After submit, the JS swaps the modal's inner HTML in place to show a payment screen: a Stripe Checkout link plus a QR code image (`assets/qr/*.jpeg`) for bank transfer, then a WhatsApp deep link (`wa.me/...`) to confirm payment. Stripe links, QR image paths, and prices are hardcoded per price tier directly in the submit handlers in `main.js` — when a price or Stripe link changes, update it there (and in the mirrored RU copy path if the flow differs per language).
 
+### thank-you.html links
+
+Every Stripe Payment Link (camps, media, the three massage links that aren't in this repo) redirects to `thank-you.html?type=…&item=…&value=…&session_id={CHECKOUT_SESSION_ID}`. The page reports a browser Purchase **only** when `session_id` starts with `cs_` — anything else is not a Stripe sale. A new Payment Link must keep `session_id={CHECKOUT_SESSION_ID}` in its redirect, or its browser Purchase silently disappears. The questionnaire is English-only by design.
+
+Links the owners send by hand (base `https://thepadelcamp.com.cy/thank-you.html`):
+- **Offline client** (cash or barter, barter counts as a sale): `?offline=1&item=morning_camp` — once per purchase. Nothing on open; after the questionnaire is submitted, a Meta-only Purchase goes out with the entered email/phone, amount from `itemPrices` in the page (morning_camp 770, evening_camp 890, weekend_camp 380, media_package 130, massage-30/60/75 = 45/60/75). Not sent to GA4.
+- **Resend** to a Stripe payer, or the link for other participants of a multi-seat order: take `cs_…` from the Confirmed Payments sheet, `?session_id=cs_…&item=…&resend=1`. Questionnaire works, no Purchase.
+- **Test**: append `&test=1` to any link — no Purchase anywhere. The questionnaire still posts to the sheet and Telegram, so delete test rows there.
+
 **Secrets never live in this repo.** Stripe/Telegram tokens and the webhook signing secret live in Google Apps Script's Script Properties or Cloudflare Worker secrets (`npx wrangler secret put` in `infra/stripe-webhook-proxy/`) — never hardcoded in a committed file. This repo is public via GitHub Pages, so anything committed here is permanent regardless of later edits or history rewrites.
 
 ### Header logo has two swapped images tied to scroll state

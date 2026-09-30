@@ -93,8 +93,8 @@ function doPost(e) {
     const fbp = attr.fbp;
 
     // CAPI и GA4 — до Telegram, чтобы сбой уведомления не блокировал аналитику
-    sendToMetaCAPI(sessionId, resolved.slug, amount, currency, email, fbc, fbp);
-    sendToGA4(gaClientId, resolved.slug, amount, currency, sessionId);
+    sendToMetaCAPI(sessionId, resolved.slug, amount, currency, email, fbc, fbp, session.customer_details, resolved.numItems);
+    sendToGA4(gaClientId, resolved.slug, amount, currency, sessionId, resolved.numItems);
     notifyTelegram(resolved.label, amount, currency, name, email);
 
     return ContentService.createTextOutput('OK').setMimeType(ContentService.MimeType.TEXT);
@@ -290,13 +290,35 @@ function notifyTelegram(item, amount, currency, name, email) {
   }
 }
 
-function sendToMetaCAPI(sessionId, item, amount, currency, email, fbc, fbp) {
+function sendToMetaCAPI(sessionId, item, amount, currency, email, fbc, fbp, customer, numItems) {
   if (!META_CAPI_ACCESS_TOKEN) return;
 
   const userData = {};
-  if (email) userData.em = [sha256Hex(email.trim().toLowerCase())];
+  if (email) {
+    userData.em = [sha256Hex(email.trim().toLowerCase())];
+    userData.external_id = [sha256Hex(email.trim().toLowerCase())];
+  }
   if (fbc) userData.fbc = fbc;
   if (fbp) userData.fbp = fbp;
+
+  // Остальные ключи сопоставления из Stripe (п. 36b: EMQ был 6.07/10).
+  // Нормализация по правилам Meta: lowercase, без пробелов; телефон — только
+  // цифры с кодом страны (Stripe отдаёт E.164, "+" просто отбрасываем).
+  const c = customer || {};
+  const addr = c.address || {};
+  const hashed = function(v) { return [sha256Hex(v)]; };
+  if (c.phone) {
+    const digits = String(c.phone).replace(/\D/g, '');
+    if (digits) userData.ph = hashed(digits);
+  }
+  if (c.name) {
+    const nameParts = String(c.name).trim().toLowerCase().split(/\s+/);
+    if (nameParts[0]) userData.fn = hashed(nameParts[0]);
+    if (nameParts.length > 1) userData.ln = hashed(nameParts.slice(1).join(' '));
+  }
+  if (addr.city) userData.ct = hashed(String(addr.city).toLowerCase().replace(/[^a-zÀ-ɏͰ-ϿЀ-ӿ]/g, ''));
+  if (addr.postal_code) userData.zp = hashed(String(addr.postal_code).toLowerCase().replace(/\s/g, ''));
+  if (addr.country) userData.country = hashed(String(addr.country).toLowerCase());
 
   const payload = {
     data: [{
@@ -306,11 +328,11 @@ function sendToMetaCAPI(sessionId, item, amount, currency, email, fbc, fbp) {
       action_source: 'website',
       event_source_url: 'https://thepadelcamp.com.cy/thank-you.html',
       user_data: userData,
-      custom_data: {
+      custom_data: Object.assign({
         value: amount,
         currency: currency,
         content_name: item
-      }
+      }, numItems > 1 ? { num_items: numItems } : {})
     }]
   };
 
@@ -359,8 +381,13 @@ function sendViewContentToMetaCAPI(eventId, contentName, fbc, fbp, sourceUrl) {
   }
 }
 
-function sendToGA4(clientId, item, amount, currency, sessionId) {
+function sendToGA4(clientId, item, amount, currency, sessionId, numItems) {
   if (!GA4_API_SECRET || !clientId) return;
+
+  // price в GA4 — за единицу; при нескольких местах делим сумму на количество
+  const gaItem = numItems > 1
+    ? { item_name: item, price: amount / numItems, quantity: numItems }
+    : { item_name: item, price: amount };
 
   const payload = {
     client_id: clientId,
@@ -370,7 +397,7 @@ function sendToGA4(clientId, item, amount, currency, sessionId) {
         transaction_id: sessionId,
         value: amount,
         currency: currency,
-        items: [{ item_name: item, price: amount }]
+        items: [gaItem]
       }
     }]
   };
@@ -435,13 +462,16 @@ function resolveItemFromStripe(sessionId) {
       const qty = li.quantity > 1 ? ' x' + li.quantity : '';
       const label = li.description || p.nickname || p.product || 'Unknown item';
       if (!p.lookup_key) Logger.log('lookup_key missing for price ' + p.id);
+      // " xN" только в человеческом названии (таблица, Telegram); slug уходит в
+      // Meta/GA4 как content_name/item_name и должен совпадать с data-purchase-item
       const slug = p.lookup_key || label;
-      return { label: label + qty, slug: slug + qty };
+      return { label: label + qty, slug: slug, quantity: li.quantity || 1 };
     });
 
     return {
       label: parts.map(function(x) { return x.label; }).join(', '),
-      slug: parts.map(function(x) { return x.slug; }).join(', ')
+      slug: parts.map(function(x) { return x.slug; }).join(', '),
+      numItems: parts.reduce(function(sum, x) { return sum + x.quantity; }, 0)
     };
   } catch (err) {
     stripeLookupError = 'Исключение при обращении к Stripe: ' + err.message;
