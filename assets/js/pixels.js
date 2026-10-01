@@ -63,15 +63,15 @@ function createConsentBanner() {
     // notice must not claim analytics waits for the answer.
     const T = {
         en: {
-            text: 'Help us make this site better. With your permission we use cookies and analytics to see which pages are useful and where the site is confusing. Basic cookie-free analytics also counts every visit, whether or not you answer. We do not sell your data. Read our <a href="/privacy-policy.html">Privacy Policy</a>.',
+            text: 'Help us improve the site: allow analytics cookies. Without consent, only cookie-free stats. <a href="/privacy-policy.html">Learn more.</a>',
             accept: 'Allow analytics', decline: 'No thanks'
         },
         ru: {
-            text: 'Помогите нам сделать сайт лучше. С вашего разрешения мы используем cookie и аналитику, чтобы понять, какие страницы полезны, а где сайт путает. Базовый анализ без cookie также считает каждый заход, независимо от вашего ответа. Мы не продаём ваши данные. Подробнее в <a href="/ru/privacy-policy.html">Политике конфиденциальности</a>.',
+            text: 'Помогите улучшить сайт: разрешите аналитические cookie. Без согласия — только статистика без cookie. <a href="/ru/privacy-policy.html">Подробнее.</a>',
             accept: 'Разрешить аналитику', decline: 'Не разрешать'
         },
         el: {
-            text: 'Βοηθήστε μας να βελτιώσουμε τον ιστότοπο. Με την άδειά σας χρησιμοποιούμε cookies και εργαλεία ανάλυσης για να δούμε ποιες σελίδες είναι χρήσιμες και πού μπερδεύει ο ιστότοπος. Η βασική ανάλυση χωρίς cookies μετρά κάθε επίσκεψη, ανεξάρτητα από την απάντησή σας. Δεν πουλάμε τα δεδομένα σας. Μάθετε περισσότερα στην <a href="/privacy-policy.html">Πολιτική Απορρήτου</a>.',
+            text: 'Βοηθήστε μας να βελτιώσουμε τον ιστότοπο: επιτρέψτε τα cookies ανάλυσης. Χωρίς συγκατάθεση, μόνο στατιστικά χωρίς cookies. <a href="/privacy-policy.html">Μάθετε περισσότερα.</a>',
             accept: 'Επίτρεψη ανάλυσης', decline: 'Όχι, ευχαριστώ'
         }
     }[lang];
