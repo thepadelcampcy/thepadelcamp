@@ -2,7 +2,9 @@
  * Tracking Pixels & Cookie Consent
  * =================================
  * Meta Pixel + Google Analytics 4 + Google Ads + Microsoft Clarity
- * GDPR-compliant: pixels only load after user consent
+ * GDPR-compliant: Meta/Google Ads/Clarity load only after user consent;
+ * GA4 loads always, in Google Consent Mode v2 (advanced) with cookieless
+ * measurement pings.
  *
  * SETUP: Replace these placeholder IDs with your real ones:
  * 1. META_PIXEL_ID  → your Meta Pixel ID (e.g. '123456789012345')
@@ -17,6 +19,24 @@ const GADS_ID = 'YOUR_GOOGLE_ADS_ID';
 const CLARITY_ID = 'yisjvh4uxg';
 
 const CONSENT_KEY = 'cookie_consent';
+
+// Google Consent Mode v2 (advanced) defaults. The first four signals are
+// exactly the ones Google requires for v2; functionality_storage and
+// security_storage are granted because gtag.js cannot load at all without
+// them. "Advanced" means GA4 is configured with everything denied: gtag.js
+// then sends cookieless pings, so visits and purchases from visitors who
+// decline or ignore the banner still reach GA4 (modelled, no cookies, no
+// _ga). Meta Pixel, Google Ads and Clarity have no equivalent — they stay
+// strictly opt-in and keep loading only on Accept.
+const GA_CONSENT_DEFAULT = {
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: 'denied',
+    functionality_storage: 'granted',
+    security_storage: 'granted',
+    wait_for_update: 500
+};
 
 // Cloudflare Worker that relays browser-side events to the "Padel Camp —
 // Stripe Webhook" Apps Script (which holds the real Meta CAPI credentials).
@@ -35,18 +55,21 @@ function createConsentBanner() {
     const pageLang = document.documentElement.lang;
     const lang = (pageLang === 'ru' || pageLang === 'el') ? pageLang : 'en';
 
+    // Wording is deliberate: it asks for help rather than warning about
+    // compliance, because the goal is more genuine acceptances. Both buttons
+    // stay equally available — no hidden, greyed-out or preselected decline.
     const T = {
         en: {
-            text: 'We use cookies and analytics tools to improve your experience. Learn more in our <a href="/privacy-policy.html">Privacy Policy</a>.',
-            accept: 'Accept', decline: 'Decline'
+            text: 'Help us make this site better. With your permission we use cookies and analytics to see which pages are useful and where the site is confusing. We do not sell your data. Read our <a href="/privacy-policy.html">Privacy Policy</a>.',
+            accept: 'Allow analytics', decline: 'No thanks'
         },
         ru: {
-            text: 'Мы используем файлы cookie и аналитические инструменты для улучшения работы сайта. Подробнее в нашей <a href="/ru/privacy-policy.html">Политике конфиденциальности</a>.',
-            accept: 'Принять', decline: 'Отклонить'
+            text: 'Помогите нам сделать сайт лучше. С вашего разрешения мы используем cookie и аналитику, чтобы понять, какие страницы полезны, а где сайт путает. Мы не продаём ваши данные. Подробнее в <a href="/ru/privacy-policy.html">Политике конфиденциальности</a>.',
+            accept: 'Разрешить аналитику', decline: 'Не разрешать'
         },
         el: {
-            text: 'Χρησιμοποιούμε cookies και εργαλεία ανάλυσης για να βελτιώσουμε την εμπειρία σας. Μάθετε περισσότερα στην <a href="/privacy-policy.html">Πολιτική Απορρήτου</a>.',
-            accept: 'Αποδοχή', decline: 'Απόρριψη'
+            text: 'Βοηθήστε μας να βελτιώσουμε τον ιστότοπο. Με την άδειά σας χρησιμοποιούμε cookies και εργαλεία ανάλυσης για να δούμε ποιες σελίδες είναι χρήσιμες και πού μπερδεύει ο ιστότοπος. Δεν πουλάμε τα δεδομένα σας. Μάθετε περισσότερα στην <a href="/privacy-policy.html">Πολιτική Απορρήτου</a>.',
+            accept: 'Επίτρεψη ανάλυσης', decline: 'Όχι, ευχαριστώ'
         }
     }[lang];
 
@@ -77,12 +100,18 @@ function createConsentBanner() {
 function acceptCookies() {
     localStorage.setItem(CONSENT_KEY, 'accepted');
     hideBanner();
+    // Update first, then load the opt-in pixels, so the very first fbq/clarity
+    // call is not made under a still-denied Google consent state.
+    updateGoogleConsent(true);
     loadAllPixels();
 }
 
 function declineCookies() {
     localStorage.setItem(CONSENT_KEY, 'declined');
     hideBanner();
+    // Declining is a real answer, not a "no answer": send the update so
+    // gtag.js stops waiting and keeps sending cookieless pings.
+    updateGoogleConsent(false);
 }
 
 function hideBanner() {
@@ -103,6 +132,11 @@ function hideBanner() {
 // logs to the console instead so wiring can still be verified locally.
 var IS_PRODUCTION_HOST = location.hostname === 'thepadelcamp.com.cy' || location.hostname === 'www.thepadelcamp.com.cy';
 
+// GA4 is the one pixel that loads before consent, because Consent Mode v2
+// advanced only produces its modelled pings if gtag.js is present from the
+// first page view. Meta/Clarity/Google Ads stay behind the banner.
+var ga4Loaded = false;
+
 function loadAllPixels() {
     if (!IS_PRODUCTION_HOST) {
         console.log('[pixels.js] Non-production host (' + location.hostname + ') — using console-only stub pixels instead of real Meta/GA4/Clarity.');
@@ -111,10 +145,23 @@ function loadAllPixels() {
         window.clarity = function() { console.log('[stub clarity]', Array.prototype.slice.call(arguments)); };
         return;
     }
-    loadMetaPixel();
     loadGA4();
+    loadMetaPixel();
     loadGoogleAds();
     loadClarity();
+}
+
+// Flip the four Google consent signals after the visitor answers. Granted
+// means Accept; denied keeps advanced mode active (pings continue, cookies
+// do not). wait_for_update in the default is cleared by this call.
+function updateGoogleConsent(granted) {
+    if (typeof gtag !== 'function') return;
+    gtag('consent', 'update', {
+        ad_storage: granted ? 'granted' : 'denied',
+        ad_user_data: granted ? 'granted' : 'denied',
+        ad_personalization: granted ? 'granted' : 'denied',
+        analytics_storage: granted ? 'granted' : 'denied'
+    });
 }
 
 function loadMetaPixel() {
@@ -135,6 +182,8 @@ function loadMetaPixel() {
 
 function loadGA4() {
     if (GA4_ID === 'YOUR_GA4_MEASUREMENT_ID') return;
+    if (ga4Loaded) return;
+    ga4Loaded = true;
 
     var s = document.createElement('script');
     s.async = true;
@@ -144,6 +193,9 @@ function loadGA4() {
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     window.gtag = gtag;
+    // Must be queued before 'config' — Google reads the state that is in
+    // effect when the config event is processed.
+    gtag('consent', 'default', GA_CONSENT_DEFAULT);
     gtag('js', new Date());
     gtag('config', GA4_ID);
 }
@@ -182,10 +234,10 @@ function loadClarity() {
  * Call this after a successful form submission
  */
 function trackRegistration(data) {
-    if (localStorage.getItem(CONSENT_KEY) !== 'accepted') return;
+    var consented = localStorage.getItem(CONSENT_KEY) === 'accepted';
 
     // Meta Pixel
-    if (typeof fbq === 'function') {
+    if (consented && typeof fbq === 'function') {
         fbq('track', 'Lead', {
             content_name: data.type || 'camp_registration',
             content_category: data.camp || 'padel_camp',
@@ -204,7 +256,7 @@ function trackRegistration(data) {
         });
     }
 
-    if (typeof clarity === 'function') {
+    if (consented && typeof clarity === 'function') {
         clarity('event', 'registration_submit');
     }
 }
@@ -213,9 +265,9 @@ function trackRegistration(data) {
  * Track a purchase/payment initiation
  */
 function trackPurchase(data) {
-    if (localStorage.getItem(CONSENT_KEY) !== 'accepted') return;
+    var consented = localStorage.getItem(CONSENT_KEY) === 'accepted';
 
-    if (typeof fbq === 'function') {
+    if (consented && typeof fbq === 'function') {
         fbq('track', 'InitiateCheckout', {
             content_name: data.camp || 'padel_camp',
             value: data.value || 0,
@@ -235,7 +287,7 @@ function trackPurchase(data) {
     // Explicit Clarity event for the Stripe click — Clarity's own auto-detected
     // "Smart Events" were misfiring on the WhatsApp confirmation link instead
     // of this one, so we mark the real moment ourselves.
-    if (typeof clarity === 'function') {
+    if (consented && typeof clarity === 'function') {
         clarity('event', 'initiate_checkout');
     }
 }
@@ -246,12 +298,12 @@ function trackPurchase(data) {
  * "looked but didn't convert" audiences.
  */
 function trackViewContent(data) {
-    if (localStorage.getItem(CONSENT_KEY) !== 'accepted') return;
+    var consented = localStorage.getItem(CONSENT_KEY) === 'accepted';
 
     const contentName = data.name || 'padel_camp';
     const eventId = 'vc_' + Date.now() + '_' + Math.random().toString(36).slice(2, 10);
 
-    if (typeof fbq === 'function') {
+    if (consented && typeof fbq === 'function') {
         fbq('track', 'ViewContent', {
             content_name: contentName,
             content_category: 'padel_camp'
@@ -265,7 +317,8 @@ function trackViewContent(data) {
         });
     }
 
-    sendViewContentToServer(eventId, contentName);
+    // The relay ships _fbc/_fbp to Meta CAPI, so it stays behind consent too.
+    if (consented) sendViewContentToServer(eventId, contentName);
 }
 
 /**
@@ -301,9 +354,9 @@ function sendViewContentToServer(eventId, contentName) {
  * Track a contact form submission
  */
 function trackContact() {
-    if (localStorage.getItem(CONSENT_KEY) !== 'accepted') return;
+    var consented = localStorage.getItem(CONSENT_KEY) === 'accepted';
 
-    if (typeof fbq === 'function') {
+    if (consented && typeof fbq === 'function') {
         fbq('track', 'Contact');
     }
 
@@ -314,7 +367,7 @@ function trackContact() {
         });
     }
 
-    if (typeof clarity === 'function') {
+    if (consented && typeof clarity === 'function') {
         clarity('event', 'contact_submit');
     }
 }
@@ -323,9 +376,9 @@ function trackContact() {
  * Track a service booking (massage, media package, etc.)
  */
 function trackBooking(serviceName, value) {
-    if (localStorage.getItem(CONSENT_KEY) !== 'accepted') return;
+    var consented = localStorage.getItem(CONSENT_KEY) === 'accepted';
 
-    if (typeof fbq === 'function') {
+    if (consented && typeof fbq === 'function') {
         fbq('track', 'Schedule', {
             content_name: serviceName,
             value: value || 0,
@@ -346,7 +399,7 @@ function trackBooking(serviceName, value) {
         });
     }
 
-    if (typeof clarity === 'function') {
+    if (consented && typeof clarity === 'function') {
         clarity('event', 'booking_submit');
     }
 }
@@ -366,16 +419,24 @@ function trackBooking(serviceName, value) {
  * and Clarity: those count website sales only.
  */
 function trackConfirmedPurchase(data) {
-    if (localStorage.getItem(CONSENT_KEY) !== 'accepted') return;
+    // Order matters here and must not be reshuffled:
+    //   1. Meta Purchase (advanced matching, then the tracked event)
+    //   2. metaOnly return — offline sales reach Meta only, never GA4
+    //   3. GA4 purchase — NOT consent-gated, so decliners still get their
+    //      single purchase signal (the server-side Measurement Protocol event
+    //      is a no-op for them: it needs the GA4 client id, which only travels
+    //      in client_reference_id after consent)
+    //   4. Clarity
+    var consented = localStorage.getItem(CONSENT_KEY) === 'accepted';
 
-    if ((data.em || data.ph) && typeof fbq === 'function') {
+    if (consented && (data.em || data.ph) && typeof fbq === 'function') {
         var userData = {};
         if (data.em) userData.em = data.em.toLowerCase();
         if (data.ph) userData.ph = data.ph.replace(/\D/g, '');
         fbq('init', META_PIXEL_ID, userData);
     }
 
-    if (typeof fbq === 'function') {
+    if (consented && typeof fbq === 'function') {
         var fbData = {
             value: data.value || 0,
             currency: 'EUR',
@@ -401,7 +462,7 @@ function trackConfirmedPurchase(data) {
 
     // Clarity's own auto-detected "Order success" Smart Event was empty/
     // unconfigured — this is the real, code-driven equivalent.
-    if (typeof clarity === 'function') {
+    if (consented && typeof clarity === 'function') {
         clarity('event', 'purchase_confirmed');
     }
 }
@@ -491,7 +552,7 @@ function appendStripeAttribution(url) {
 function initSocialClickTracking() {
     // WhatsApp & Stripe — event delegation for dynamic elements
     document.addEventListener('click', function(e) {
-        if (localStorage.getItem(CONSENT_KEY) !== 'accepted') return;
+        var consented = localStorage.getItem(CONSENT_KEY) === 'accepted';
 
         // WhatsApp click → back to Meta's standard Contact event (not a custom
         // event) so it stays selectable as an ad optimization goal in Ads
@@ -499,7 +560,7 @@ function initSocialClickTracking() {
         // has no such restriction on custom event names.
         var waLink = e.target.closest('a[href*="wa.me"], .whatsapp-float, .btn-whatsapp');
         if (waLink) {
-            if (typeof fbq === 'function') {
+            if (consented && typeof fbq === 'function') {
                 fbq('track', 'Contact', { content_name: 'whatsapp' });
             }
             if (typeof gtag === 'function') {
@@ -509,7 +570,7 @@ function initSocialClickTracking() {
                     transport_type: 'beacon'
                 });
             }
-            if (typeof clarity === 'function') {
+            if (consented && typeof clarity === 'function') {
                 clarity('event', 'whatsapp_click');
             }
         }
@@ -531,7 +592,7 @@ function initSocialClickTracking() {
     // Instagram float button
     document.querySelectorAll('.social-float-instagram').forEach(function(el) {
         el.addEventListener('click', function() {
-            if (localStorage.getItem(CONSENT_KEY) !== 'accepted') return;
+            var consented = localStorage.getItem(CONSENT_KEY) === 'accepted';
             if (typeof gtag === 'function') {
                 gtag('event', 'click', {
                     event_category: 'social',
@@ -539,7 +600,7 @@ function initSocialClickTracking() {
                     transport_type: 'beacon'
                 });
             }
-            if (typeof fbq === 'function') {
+            if (consented && typeof fbq === 'function') {
                 fbq('trackCustom', 'SocialClick', { platform: 'instagram' });
             }
         });
@@ -548,7 +609,7 @@ function initSocialClickTracking() {
     // Facebook float button
     document.querySelectorAll('.social-float-facebook').forEach(function(el) {
         el.addEventListener('click', function() {
-            if (localStorage.getItem(CONSENT_KEY) !== 'accepted') return;
+            var consented = localStorage.getItem(CONSENT_KEY) === 'accepted';
             if (typeof gtag === 'function') {
                 gtag('event', 'click', {
                     event_category: 'social',
@@ -556,7 +617,7 @@ function initSocialClickTracking() {
                     transport_type: 'beacon'
                 });
             }
-            if (typeof fbq === 'function') {
+            if (consented && typeof fbq === 'function') {
                 fbq('trackCustom', 'SocialClick', { platform: 'facebook' });
             }
         });
@@ -565,7 +626,6 @@ function initSocialClickTracking() {
     // Footer social links
     document.querySelectorAll('.footer-social a').forEach(function(el) {
         el.addEventListener('click', function() {
-            if (localStorage.getItem(CONSENT_KEY) !== 'accepted') return;
             var label = el.getAttribute('aria-label') || 'unknown';
             if (typeof gtag === 'function') {
                 gtag('event', 'click', {
@@ -580,7 +640,6 @@ function initSocialClickTracking() {
     // Email button
     document.querySelectorAll('a[href^="mailto:"]').forEach(function(el) {
         el.addEventListener('click', function() {
-            if (localStorage.getItem(CONSENT_KEY) !== 'accepted') return;
             if (typeof gtag === 'function') {
                 gtag('event', 'click', {
                     event_category: 'social',
@@ -597,13 +656,26 @@ function initSocialClickTracking() {
 document.addEventListener('DOMContentLoaded', function() {
     var consent = localStorage.getItem(CONSENT_KEY);
 
+    // Consent Mode v2 advanced: gtag.js goes out on every page view, with all
+    // four signals denied, so GA4 still receives cookieless pings from
+    // visitors who decline or ignore the banner. On a non-production host
+    // (localhost, tunnel) the real SDK stays off — loadAllPixels() installs
+    // console stubs instead once consent is given.
+    if (IS_PRODUCTION_HOST) loadGA4();
+
     if (consent === 'accepted') {
+        // Returning visitor: repeat the decision instead of relying on the
+        // stored default, so a granted state survives a cached pixels.js.
+        updateGoogleConsent(true);
         loadAllPixels();
     } else if (!consent) {
         createConsentBanner();
     }
-    // If 'declined' — do nothing, no banner, no pixels
+    // If 'declined' — the denied default stands, GA4 pings keep coming, no
+    // banner and no Meta/Clarity.
 
-    // Always init click tracking (events only fire if consent given)
+    // Always init click tracking. GA4 events fire for everyone (cookieless
+    // pings when consent is missing); Meta and Clarity calls inside are
+    // individually gated on consent.
     initSocialClickTracking();
 });

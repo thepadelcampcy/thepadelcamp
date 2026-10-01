@@ -4365,6 +4365,16 @@ textarea.form-input {
     white-space: nowrap;
 }
 
+/* Accept is the visually dominant action, but Decline keeps the same
+   padding, font size and weight and stays a real bordered button — never a
+   grey link, never hidden. Equal prominence is the legal requirement here,
+   prominence is the design choice.
+
+   Accept colors are hardcoded on purpose. experiment-theme.css redefines
+   --accent (dark green #004526) on 13 of the 17 pages, which put the old
+   var(--accent) background at roughly 1.4:1 against the near-black banner —
+   below the 3:1 WCAG minimum for a UI component. Light background with dark
+   text reads on every page regardless of theme. */
 .cookie-btn-accept {
     background: var(--white);
     color: var(--black);
@@ -4376,13 +4386,12 @@ textarea.form-input {
 
 .cookie-btn-decline {
     background: transparent;
-    color: var(--gray-400);
-    border: 1px solid var(--gray-600);
+    color: var(--white);
+    border: 1px solid var(--gray-500);
 }
 
 .cookie-btn-decline:hover {
-    color: var(--white);
-    border-color: var(--gray-400);
+    border-color: var(--white);
 }
 
 @media (max-width: 768px) {
@@ -4394,6 +4403,13 @@ textarea.form-input {
     .cookie-consent-buttons {
         width: 100%;
         justify-content: center;
+    }
+
+    /* Longer RU/EL button labels would otherwise wrap or overflow */
+    .cookie-btn {
+        flex: 1 1 auto;
+        padding: 10px 14px;
+        font-size: 13px;
     }
 }
 
