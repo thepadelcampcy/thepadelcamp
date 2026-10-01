@@ -763,13 +763,33 @@ document.addEventListener('submit', function(e) {
         el: { heading: 'Ευχαριστούμε!', text: 'Θα σας στείλουμε σύντομα τις λεπτομέρειες στο WhatsApp.', wa: 'Ή στείλτε μας μήνυμα τώρα', close: 'Κλείσιμο' }
     }[getPageLang()];
 
+    // Ready-made first message so the visitor doesn't have to write one
+    const waText = {
+        en: {
+            morning_camp: 'Hi! I\'d like more details about the Morning Camp (9–13 November).',
+            evening_camp: 'Hi! I\'d like more details about the Evening Camp (9–13 November).',
+            weekend_camp: 'Hi! I\'d like more details about the Weekend Camp (14–15 November).'
+        },
+        ru: {
+            morning_camp: 'Добрый день! Расскажите, пожалуйста, подробнее об утреннем лагере (9–13 ноября).',
+            evening_camp: 'Добрый день! Расскажите, пожалуйста, подробнее о вечернем лагере (9–13 ноября).',
+            weekend_camp: 'Добрый день! Расскажите, пожалуйста, подробнее о лагере выходного дня (14–15 ноября).'
+        },
+        el: {
+            morning_camp: 'Γεια σας! Θα ήθελα περισσότερες λεπτομέρειες για το Πρωινό Camp (9–13 Νοεμβρίου).',
+            evening_camp: 'Γεια σας! Θα ήθελα περισσότερες λεπτομέρειες για το Βραδινό Camp (9–13 Νοεμβρίου).',
+            weekend_camp: 'Γεια σας! Θα ήθελα περισσότερες λεπτομέρειες για το Σαββατοκύριακο Camp (14–15 Νοεμβρίου).'
+        }
+    }[getPageLang()][camp];
+    const waHref = 'https://wa.me/35797497756' + (waText ? '?text=' + encodeURIComponent(waText) : '');
+
     form.closest('.massage-booking-modal-content').innerHTML = `
         <button class="massage-modal-close" onclick="closeLeadModal()">&times;</button>
         <div class="payment-success">
             <div class="payment-success-icon">✓</div>
             <h2>${T.heading}</h2>
             <p class="payment-success-subtitle">${T.text}</p>
-            <a href="https://wa.me/35797497756" class="btn btn-ghost btn-block" target="_blank" rel="noopener nofollow">${T.wa}</a>
+            <a href="${waHref}" class="btn btn-ghost btn-block" target="_blank" rel="noopener nofollow">${T.wa}</a>
             <button onclick="closeLeadModal()" class="btn btn-primary btn-block schedule-lead">${T.close}</button>
         </div>
     `;
