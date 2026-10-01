@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Static Stripe links (no form in front of them) need attribution
     // applied on load, since there's no JS-generated innerHTML step to
     // hook into like the camp/massage flows.
-    ['mediaPackageStripeLink', 'morningStripeLink', 'eveningStripeLink', 'weekendStripeLink'].forEach(function(id) {
+    ['mediaPackageStripeLink', 'morningStripeLink', 'eveningStripeLink', 'weekendStripeLink', 'morningDepositLink', 'eveningDepositLink'].forEach(function(id) {
         var link = document.getElementById(id);
         if (link && typeof appendStripeAttribution === 'function') {
             link.href = appendStripeAttribution(link.href);

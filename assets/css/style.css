@@ -798,6 +798,21 @@ section[id],
     margin-top: 24px;
 }
 
+.schedule-deposit {
+    display: block;
+    margin-top: 12px;
+    text-align: center;
+    font-size: 14px;
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    opacity: 0.85;
+}
+
+.schedule-deposit:hover {
+    opacity: 1;
+}
+
 .schedule-lead {
     margin-top: 12px;
 }
