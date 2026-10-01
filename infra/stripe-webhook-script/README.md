@@ -67,6 +67,27 @@ The web app `/exec` URL is **not** committed — it carries `WEBHOOK_TOKEN` in i
 the Worker's `APPS_SCRIPT_URL` secret (`npx wrangler secret put APPS_SCRIPT_URL`). Rotating the URL means
 re-setting that secret too.
 
+### Rotating a Script Property: no deploy needed
+
+Script Properties apply **instantly** to every version and every deployment. Changing one takes effect on
+the next request, so there is nothing to deploy afterwards. If you do end up in the Deploy menu (for a code
+change), the two paths look alike but behave differently:
+
+| Path | What it does | Consequence |
+|---|---|---|
+| **Deploy → Manage deployments → ✏️ existing deployment → Version: New version → Deploy** | publishes the current code under the existing deployment | `/exec` URL unchanged, nothing else to do — this is step 4 of "How to change" below |
+| **Deploy → New deployment** | creates a **new** deployment with a **new** `/exec` URL | the Worker keeps posting to the old URL; the new one is only visible in the Apps Script UI |
+
+If a new deployment is created by accident, every Stripe webhook gets a 502. Money still arrives and the
+buyer is unaffected, but the Confirmed Payments row, Meta CAPI, GA4 Measurement Protocol and Telegram are
+all skipped, and Stripe eventually disables the endpoint. Recovery is to either delete the stray deployment
+or `npx wrangler secret put APPS_SCRIPT_URL` with the new URL and redeploy the Worker.
+
+So for `GGL_STRP_READ_KEY`, the whole procedure is: create the new restricted key in Stripe → write it in
+Project Settings → Script Properties → verify a real payment logs with `line_items` → revoke the old key.
+No deployment step at all. Keep the new key at **Checkout Sessions: Read** and nothing else, since
+`Code.gs` only fetches `line_items` with it.
+
 ## Item names
 
 `resolveItemFromStripe` reads `lookup_key` off each Stripe Price and uses it as the short slug sent to Meta
