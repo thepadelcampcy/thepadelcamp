@@ -51,6 +51,10 @@ function doPost(e) {
 
     const event = body; // было: JSON.parse(e.postData.contents) — уже распарсено выше
 
+    if (event.type === 'invoice.paid') {
+      return ContentService.createTextOutput(handleInvoicePaid(event.data.object)).setMimeType(ContentService.MimeType.TEXT);
+    }
+
     if (event.type !== 'checkout.session.completed') {
       return ContentService.createTextOutput('Ignored').setMimeType(ContentService.MimeType.TEXT);
     }
@@ -96,6 +100,8 @@ function doPost(e) {
     sendToMetaCAPI(sessionId, resolved.slug, amount, currency, email, fbc, fbp, session.customer_details, resolved.numItems);
     sendToGA4(gaClientId, resolved.slug, amount, currency, sessionId, resolved.numItems);
     notifyTelegram(resolved.label, amount, currency, name, email);
+
+    if (BALANCE_PLANS[resolved.slug]) createBalanceInvoiceSafe(session, resolved);
 
     return ContentService.createTextOutput('OK').setMimeType(ContentService.MimeType.TEXT);
   } catch (err) {
@@ -225,6 +231,157 @@ function sendAlert(text) {
   try {
     MailApp.sendEmail({ to: ALERT_EMAIL, subject: '[Padel Camp] Вебхук Stripe', body: text });
   } catch (err) { Logger.log('alert email failed: ' + err.message); }
+}
+
+// --- Депозит → инвойс на остаток (правка 2026-10-01) ---
+// Оплата депозита (Payment Link с lookup_key morning_deposit / evening_deposit)
+// сразу создаёт Stripe Invoice на остаток. Черновик Stripe сам финализирует и
+// отправит клиенту на email примерно через час (auto_advance) — в этот час его
+// можно поправить в Dashboard. Остаток начисляется на настоящий продукт кемпа,
+// поэтому early-bird промокод применяется так же, как в Checkout.
+// STRP_INVOICE_KEY — отдельный restricted key (Invoices: Write, Customers: Read,
+// Promotion Codes: Read): GGL_STRP_READ_KEY остаётся только на чтение.
+
+const STRP_INVOICE_KEY = props.getProperty('STRP_INVOICE_KEY');
+const BALANCE_DUE = new Date('2026-10-25T23:59:00+03:00');
+const BALANCE_MIN_DAYS_TO_PAY = 3; // депозит после ~22.10 — срок сдвигается, а не оказывается в прошлом
+const BALANCE_PLANS = {
+  morning_deposit: { label: 'Morning Camp — balance', product: 'prod_VKGJu1gYoG6qVx', fullPrice: 770, deposit: 250, promo: 'MORNING5' },
+  evening_deposit: { label: 'Evening Camp — balance', product: 'prod_VKGPq6FqL7Si3F', fullPrice: 890, deposit: 250, promo: 'EVENING5' }
+};
+
+// Сбой здесь не должен ронять doPost: депозит уже записан, CAPI/GA4/Telegram ушли.
+function createBalanceInvoiceSafe(session, resolved) {
+  try {
+    const r = createBalanceInvoice(session, resolved);
+    sendTelegramText('🧾 Инвойс на остаток создан: ' + r.amount + ' EUR, срок ' +
+      Utilities.formatDate(new Date(r.due * 1000), 'Europe/Nicosia', 'dd.MM') +
+      (r.discounted ? ', early-bird учтён' : ', без early-bird') +
+      '\nStripe отправит его клиенту на email примерно через час.\n' + r.id);
+  } catch (err) {
+    Logger.log('balance invoice failed: ' + err.message);
+    sendAlert('⚠️ Депозит оплачен, но инвойс на остаток НЕ создан.\nВыставить вручную: Stripe -> Invoices -> Create.\n' +
+      'session: ' + session.id + '\nПричина: ' + err.message);
+  }
+}
+
+function createBalanceInvoice(session, resolved) {
+  if (!STRP_INVOICE_KEY) throw new Error('нет STRP_INVOICE_KEY в Script Properties');
+  if (!session.customer) throw new Error('у сессии нет customer — на Payment Link должен быть customer_creation=always');
+  const plan = BALANCE_PLANS[resolved.slug];
+  const qty = resolved.numItems || 1;
+  const due = Math.floor(Math.max(BALANCE_DUE.getTime(), Date.now() + BALANCE_MIN_DAYS_TO_PAY * 86400000) / 1000);
+
+  const base = {
+    customer: session.customer,
+    collection_method: 'send_invoice',
+    due_date: String(due),
+    auto_advance: 'true',
+    pending_invoice_items_behavior: 'exclude',
+    description: 'Balance for The Padel Camp Cyprus. Your deposit is already deducted.',
+    'metadata[deposit_session]': session.id,
+    'metadata[item]': resolved.slug.replace('_deposit', '_balance')
+  };
+
+  // Early-bird: промокод, пока у него остались места. Не применился — инвойс без скидки.
+  let invoice = null;
+  let discounted = false;
+  const promoId = findAvailablePromoId(plan.promo);
+  if (promoId) {
+    try {
+      invoice = stripeInvoicePost('invoices', Object.assign({ 'discounts[0][promotion_code]': promoId }, base), 'bal-inv-d-' + session.id);
+      discounted = true;
+    } catch (err) {
+      Logger.log('invoice with promo failed, retrying without: ' + err.message);
+    }
+  }
+  if (!invoice) invoice = stripeInvoicePost('invoices', base, 'bal-inv-' + session.id);
+
+  stripeInvoicePost('invoiceitems', {
+    customer: session.customer,
+    invoice: invoice.id,
+    'price_data[currency]': 'eur',
+    'price_data[product]': plan.product,
+    'price_data[unit_amount]': String(plan.fullPrice * 100),
+    quantity: String(qty)
+  }, 'bal-camp-' + session.id);
+  stripeInvoicePost('invoiceitems', {
+    customer: session.customer,
+    invoice: invoice.id,
+    currency: 'eur',
+    amount: String(-plan.deposit * qty * 100),
+    description: 'Deposit paid',
+    discountable: 'false'
+  }, 'bal-dep-' + session.id);
+
+  const fresh = stripeInvoiceGet('invoices/' + invoice.id);
+  return { id: invoice.id, amount: (fresh.amount_due || 0) / 100, due: due, discounted: discounted };
+}
+
+function findAvailablePromoId(code) {
+  try {
+    const list = stripeInvoiceGet('promotion_codes?active=true&code=' + encodeURIComponent(code));
+    const p = (list.data || [])[0];
+    if (!p) return null;
+    if (p.max_redemptions && p.times_redeemed >= p.max_redemptions) return null;
+    if (p.expires_at && p.expires_at * 1000 < Date.now()) return null;
+    return p.id;
+  } catch (err) {
+    Logger.log('promo lookup failed: ' + err.message);
+    return null;
+  }
+}
+
+// Idempotency-Key: ретрай того же события Stripe не создаст второй инвойс.
+function stripeInvoicePost(path, params, idemKey) {
+  const body = Object.keys(params).map(function (k) {
+    return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
+  }).join('&');
+  const res = UrlFetchApp.fetch('https://api.stripe.com/v1/' + path, {
+    method: 'post',
+    headers: { Authorization: 'Bearer ' + STRP_INVOICE_KEY, 'Idempotency-Key': idemKey },
+    contentType: 'application/x-www-form-urlencoded',
+    payload: body,
+    muteHttpExceptions: true
+  });
+  if (res.getResponseCode() !== 200) throw new Error('Stripe ' + path + ' ' + res.getResponseCode() + ': ' + res.getContentText().slice(0, 300));
+  return JSON.parse(res.getContentText());
+}
+
+function stripeInvoiceGet(path) {
+  const res = UrlFetchApp.fetch('https://api.stripe.com/v1/' + path, {
+    headers: { Authorization: 'Bearer ' + STRP_INVOICE_KEY },
+    muteHttpExceptions: true
+  });
+  if (res.getResponseCode() !== 200) throw new Error('Stripe ' + path + ' ' + res.getResponseCode() + ': ' + res.getContentText().slice(0, 300));
+  return JSON.parse(res.getContentText());
+}
+
+// Оплата остатка: строка в Confirmed Payments (ID инвойса in_… вместо cs_…) и
+// Telegram. Meta/GA4 не шлём — конверсия уже засчитана на депозите.
+// Чужие инвойсы (без metadata.deposit_session) игнорируем.
+function handleInvoicePaid(inv) {
+  if (!inv || !inv.metadata || !inv.metadata.deposit_session) return 'Ignored';
+  if (paymentRowExists(inv.id)) return 'OK';
+  const slug = String(inv.metadata.item || '').replace('_balance', '_deposit');
+  const label = (BALANCE_PLANS[slug] && BALANCE_PLANS[slug].label) || 'Camp balance';
+  const amount = (inv.amount_paid || 0) / 100;
+  const currency = String(inv.currency || 'eur').toUpperCase();
+  appendPaymentRow(inv.id, label, amount, currency, inv.customer_name || '', inv.customer_email || '');
+  notifyTelegram(label, amount, currency, inv.customer_name, inv.customer_email);
+  return 'OK';
+}
+
+function sendTelegramText(text) {
+  if (!TELEGRAM_BOT_TOKEN) return;
+  try {
+    UrlFetchApp.fetch('https://api.telegram.org/bot' + TELEGRAM_BOT_TOKEN + '/sendMessage', {
+      method: 'post',
+      contentType: 'application/json',
+      payload: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: text, disable_web_page_preview: true }),
+      muteHttpExceptions: true
+    });
+  } catch (err) { Logger.log('telegram text failed: ' + err.message); }
 }
 
 // --- Дедупликация и запись в лист (заменяет старую logPayment) ---

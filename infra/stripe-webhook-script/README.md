@@ -120,3 +120,23 @@ to Stripe's free-text `li.description` and the item names stop matching. The scr
 
 If someone edits the script directly in the Apps Script editor, copy it back here so the repo copy does not
 go stale. That file was outside this repo until 2026-09-30, which is what made that investigation slow.
+
+## Deposit → balance invoice (2026-10-01)
+
+Paying a deposit link (price `lookup_key` `morning_deposit` / `evening_deposit`, €250) makes the script
+create a Stripe Invoice for the balance: full camp price × seats, early-bird promo code if it still has
+redemptions left, minus the deposit, due 25.10.2026 (or 3 days from now if later). The draft is
+finalized and emailed to the client by Stripe about an hour later (`auto_advance`), so it can still be
+edited in the Dashboard during that hour. Telegram gets "🧾 Инвойс на остаток создан"; if creation fails,
+an alert says to issue it by hand. Paying the invoice (`invoice.paid`) adds a row to Confirmed Payments
+(ID `in_…`) and a Telegram message — no Meta/GA4 event, the conversion was counted at the deposit.
+
+One-time setup:
+1. Stripe → Developers → API keys → Create restricted key "Apps Script invoices":
+   **Invoices: Write, Customers: Read, Promotion Codes: Read**, everything else None.
+   Script Properties → add `STRP_INVOICE_KEY`. (`GGL_STRP_READ_KEY` stays read-only.)
+2. Stripe → Developers → Webhooks → the Worker endpoint → add event **`invoice.paid`**.
+3. Paste `Code.gs` → Deploy → Manage deployments → ✏️ → New version → Deploy (same `/exec` URL).
+4. Settings → Billing → Invoices: turn on reminders for one-off invoices.
+
+Prices, products and promo codes are in `BALANCE_PLANS` in `Code.gs`; change them there if prices change.
