@@ -262,6 +262,38 @@ function closeServiceBookingModal() {
 }
 
 /**
+ * Lead Capture ("Get details first") Modal
+ * For visitors not ready to pay yet: name + WhatsApp/phone go to the forms
+ * Apps Script as a type 'service' row (Service Bookings sheet + Telegram),
+ * so no backend change was needed.
+ */
+let leadModalTemplate = null;
+
+function openLeadForm(campSlug, campName) {
+    const modal = document.getElementById('leadModal');
+    if (!modal) return;
+    const content = modal.querySelector('.massage-booking-modal-content');
+    // The success screen replaces the form; restore it on every open
+    if (leadModalTemplate === null) {
+        leadModalTemplate = content.innerHTML;
+    } else {
+        content.innerHTML = leadModalTemplate;
+    }
+    document.getElementById('leadCampInfo').textContent = campName;
+    document.getElementById('leadCamp').value = campSlug;
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeLeadModal() {
+    const modal = document.getElementById('leadModal');
+    if (modal && modal.classList.contains('active')) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+/**
  * FAQ Accordion
  */
 function initFAQ() {
@@ -486,6 +518,7 @@ document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
         closeVenueModal();
         closeServiceBookingModal();
+        closeLeadModal();
     }
     if (e.key === 'ArrowRight') {
         changeVenueSlide(1);
@@ -504,6 +537,9 @@ document.addEventListener('click', function(e) {
     }
     if (e.target === serviceBookingModal) {
         closeServiceBookingModal();
+    }
+    if (e.target === document.getElementById('leadModal')) {
+        closeLeadModal();
     }
 });
 
@@ -687,6 +723,56 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+});
+
+// Lead form submission. Delegated, because openLeadForm() re-creates the
+// form from its template after a previous submit.
+document.addEventListener('submit', function(e) {
+    if (e.target.id !== 'leadForm') return;
+    e.preventDefault();
+    const form = e.target;
+    if (isBotSubmission(form)) return;
+
+    const formData = new FormData(form);
+    const camp = formData.get('leadCamp');
+    const campNames = { morning_camp: 'Morning Camp', evening_camp: 'Evening Camp', weekend_camp: 'Weekend Camp' };
+    const email = (formData.get('leadEmail') || '').trim();
+    const notes = ['Lead: wants details before paying, reply on WhatsApp'];
+    if (email) notes.push('Email: ' + email);
+    notes.push('Future camps: ' + (formData.get('leadFuture') ? 'yes' : 'no'));
+
+    // Email goes in notes, not in `email`: the service handler mails a
+    // "Your Booking Confirmed!" letter to `email`, which is wrong for a lead.
+    sendToGoogleSheets({
+        type: 'service',
+        service: 'LEAD: ' + (campNames[camp] || camp),
+        price: '0',
+        name: formData.get('leadName'),
+        phone: formData.get('leadPhone'),
+        notes: notes.join('\n'),
+        lang: document.documentElement.lang || 'en'
+    }).catch(err => console.log('Send error:', err));
+
+    if (typeof trackRegistration === 'function') {
+        trackRegistration({ type: 'lead_details', camp: camp, value: 0 });
+    }
+
+    const T = {
+        en: { heading: 'Thank you!', text: 'We\'ll message you on WhatsApp with the details shortly.', wa: 'Or message us now', close: 'Close' },
+        ru: { heading: 'Спасибо!', text: 'Скоро напишем вам в WhatsApp и всё расскажем.', wa: 'Или напишите нам сейчас', close: 'Закрыть' },
+        el: { heading: 'Ευχαριστούμε!', text: 'Θα σας στείλουμε σύντομα τις λεπτομέρειες στο WhatsApp.', wa: 'Ή στείλτε μας μήνυμα τώρα', close: 'Κλείσιμο' }
+    }[getPageLang()];
+
+    form.closest('.massage-booking-modal-content').innerHTML = `
+        <button class="massage-modal-close" onclick="closeLeadModal()">&times;</button>
+        <div class="payment-success">
+            <div class="payment-success-icon">✓</div>
+            <h2>${T.heading}</h2>
+            <p class="payment-success-subtitle">${T.text}</p>
+            <a href="https://wa.me/35797497756" class="btn btn-ghost btn-block" target="_blank" rel="noopener nofollow">${T.wa}</a>
+            <button onclick="closeLeadModal()" class="btn btn-primary btn-block schedule-lead">${T.close}</button>
+        </div>
+    `;
 });
 
 /**

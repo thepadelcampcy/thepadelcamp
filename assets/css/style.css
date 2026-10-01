@@ -798,6 +798,17 @@ section[id],
     margin-top: 24px;
 }
 
+.schedule-lead {
+    margin-top: 12px;
+}
+
+.program-content .schedule-lead {
+    background: transparent;
+    color: var(--white);
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow: none;
+}
+
 .program-details-block {
     margin-top: 20px;
 }

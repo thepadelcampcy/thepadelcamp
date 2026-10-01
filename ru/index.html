@@ -45,7 +45,7 @@
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=optional">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=optional" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=optional"></noscript>
-    <link rel="stylesheet" href="../assets/css/style.css?v=27">
+    <link rel="stylesheet" href="../assets/css/style.css?v=28">
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300&display=swap" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300&display=swap"></noscript>
@@ -363,6 +363,7 @@
                 </div>
 
                 <a id="morningStripeLink" href="https://buy.stripe.com/3cI14p795g7F3i999GcEw0i?prefilled_promo_code=MORNING5" target="_blank" rel="noopener" class="btn btn-primary btn-block schedule-cta" data-purchase-value="770" data-purchase-item="morning_camp">Присоединиться к утреннему лагерю</a>
+                <button type="button" class="btn btn-ghost btn-block schedule-lead" onclick="openLeadForm('morning_camp', 'Утренний лагерь')">Сначала узнать подробности</button>
             </div>
 
             <!-- Evening Camp -->
@@ -406,6 +407,7 @@
                 </div>
 
                 <a id="eveningStripeLink" href="https://buy.stripe.com/bJe9AV3WTbRp6uladKcEw0j?prefilled_promo_code=EVENING5" target="_blank" rel="noopener" class="btn btn-primary btn-block schedule-cta" data-purchase-value="890" data-purchase-item="evening_camp">Присоединиться к вечернему лагерю</a>
+                <button type="button" class="btn btn-ghost btn-block schedule-lead" onclick="openLeadForm('evening_camp', 'Вечерний лагерь')">Сначала узнать подробности</button>
             </div>
 
             <!-- Weekend Camp -->
@@ -460,6 +462,7 @@
                 </div>
 
                 <a id="weekendStripeLink" href="https://book.stripe.com/4gMcN7bplf3B2e5clScEw0k?prefilled_promo_code=WEEKEND5" target="_blank" rel="noopener" class="btn btn-primary btn-block schedule-cta" data-purchase-value="380" data-purchase-item="weekend_camp">Присоединиться к лагерю на выходные</a>
+                <button type="button" class="btn btn-ghost btn-block schedule-lead" onclick="openLeadForm('weekend_camp', 'Лагерь на выходные')">Сначала узнать подробности</button>
             </div>
 
             </div>
@@ -614,6 +617,54 @@
 
                 <button type="submit" class="btn btn-primary btn-block btn-submit">
                     Отправить запрос на бронирование
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Lead Capture ("Get details") Modal -->
+    <div class="massage-booking-modal" id="leadModal">
+        <div class="massage-booking-modal-content">
+            <button class="massage-modal-close" onclick="closeLeadModal()">&times;</button>
+            <h2 class="massage-modal-title">Подробности о лагере</h2>
+            <p class="massage-booking-subtitle" id="leadCampInfo"></p>
+            <p class="massage-booking-subtitle">Оставьте номер, и мы пришлём подробности в WhatsApp.</p>
+
+            <form id="leadForm" class="massage-booking-form">
+                <input type="text" name="hp_field_a3x" class="hp-field" aria-hidden="true" tabindex="-1" autocomplete="off">
+                <input type="hidden" id="leadCamp" name="leadCamp" value="">
+
+                <div class="form-group">
+                    <label class="form-label" for="leadName">Имя *</label>
+                    <input type="text" id="leadName" name="leadName" class="form-input" required autocomplete="name" placeholder="Ваше имя">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="leadPhone">WhatsApp / телефон *</label>
+                    <input type="tel" id="leadPhone" name="leadPhone" class="form-input" required autocomplete="tel" placeholder="+357 99 123 456">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="leadEmail">Email (необязательно)</label>
+                    <input type="email" id="leadEmail" name="leadEmail" class="form-input" autocomplete="email" placeholder="your@email.com">
+                </div>
+
+                <div class="form-group">
+                    <label class="consent-option">
+                        <input type="checkbox" name="leadFuture">
+                        <span>Сообщайте мне и о следующих лагерях</span>
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label class="consent-option">
+                        <input type="checkbox" name="leadConsent" required>
+                        <span>Я согласен(на) на обработку моих персональных данных в соответствии с <a href="privacy-policy.html" target="_blank">Политикой конфиденциальности</a> *</span>
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block btn-submit">
+                    Получить подробности
                 </button>
             </form>
         </div>
@@ -930,6 +981,6 @@
     </a>
 
     <script src="../assets/js/pixels.js?v=16"></script>
-    <script src="../assets/js/main.js?v=10"></script>
+    <script src="../assets/js/main.js?v=11"></script>
 </body>
 </html>
