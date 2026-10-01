@@ -58,17 +58,20 @@ function createConsentBanner() {
     // Wording is deliberate: it asks for help rather than warning about
     // compliance, because the goal is more genuine acceptances. Both buttons
     // stay equally available — no hidden, greyed-out or preselected decline.
+    // The cookie-free sentence is not optional: GA4 is configured in advanced
+    // Consent Mode and transmits before the banner is even shown, so the
+    // notice must not claim analytics waits for the answer.
     const T = {
         en: {
-            text: 'Help us make this site better. With your permission we use cookies and analytics to see which pages are useful and where the site is confusing. We do not sell your data. Read our <a href="/privacy-policy.html">Privacy Policy</a>.',
+            text: 'Help us make this site better. With your permission we use cookies and analytics to see which pages are useful and where the site is confusing. Basic cookie-free analytics also counts every visit, whether or not you answer. We do not sell your data. Read our <a href="/privacy-policy.html">Privacy Policy</a>.',
             accept: 'Allow analytics', decline: 'No thanks'
         },
         ru: {
-            text: 'Помогите нам сделать сайт лучше. С вашего разрешения мы используем cookie и аналитику, чтобы понять, какие страницы полезны, а где сайт путает. Мы не продаём ваши данные. Подробнее в <a href="/ru/privacy-policy.html">Политике конфиденциальности</a>.',
+            text: 'Помогите нам сделать сайт лучше. С вашего разрешения мы используем cookie и аналитику, чтобы понять, какие страницы полезны, а где сайт путает. Базовый анализ без cookie также считает каждый заход, независимо от вашего ответа. Мы не продаём ваши данные. Подробнее в <a href="/ru/privacy-policy.html">Политике конфиденциальности</a>.',
             accept: 'Разрешить аналитику', decline: 'Не разрешать'
         },
         el: {
-            text: 'Βοηθήστε μας να βελτιώσουμε τον ιστότοπο. Με την άδειά σας χρησιμοποιούμε cookies και εργαλεία ανάλυσης για να δούμε ποιες σελίδες είναι χρήσιμες και πού μπερδεύει ο ιστότοπος. Δεν πουλάμε τα δεδομένα σας. Μάθετε περισσότερα στην <a href="/privacy-policy.html">Πολιτική Απορρήτου</a>.',
+            text: 'Βοηθήστε μας να βελτιώσουμε τον ιστότοπο. Με την άδειά σας χρησιμοποιούμε cookies και εργαλεία ανάλυσης για να δούμε ποιες σελίδες είναι χρήσιμες και πού μπερδεύει ο ιστότοπος. Η βασική ανάλυση χωρίς cookies μετρά κάθε επίσκεψη, ανεξάρτητα από την απάντησή σας. Δεν πουλάμε τα δεδομένα σας. Μάθετε περισσότερα στην <a href="/privacy-policy.html">Πολιτική Απορρήτου</a>.',
             accept: 'Επίτρεψη ανάλυσης', decline: 'Όχι, ευχαριστώ'
         }
     }[lang];
@@ -120,6 +123,14 @@ function hideBanner() {
         banner.classList.remove('visible');
         setTimeout(() => banner.remove(), 300);
     }
+}
+
+// Single source of truth for "did this visitor accept?". Every Meta Pixel and
+// Clarity call below must go through it — a helper that forgets would ship a
+// tracking event without consent, and with nine copies of this expression
+// drifting apart that was one edit away.
+function hasConsented() {
+    return localStorage.getItem(CONSENT_KEY) === 'accepted';
 }
 
 // ─── Pixel Loaders ───────────────────────────────────────────────
@@ -234,7 +245,7 @@ function loadClarity() {
  * Call this after a successful form submission
  */
 function trackRegistration(data) {
-    var consented = localStorage.getItem(CONSENT_KEY) === 'accepted';
+    var consented = hasConsented();
 
     // Meta Pixel
     if (consented && typeof fbq === 'function') {
@@ -265,7 +276,7 @@ function trackRegistration(data) {
  * Track a purchase/payment initiation
  */
 function trackPurchase(data) {
-    var consented = localStorage.getItem(CONSENT_KEY) === 'accepted';
+    var consented = hasConsented();
 
     if (consented && typeof fbq === 'function') {
         fbq('track', 'InitiateCheckout', {
@@ -298,7 +309,7 @@ function trackPurchase(data) {
  * "looked but didn't convert" audiences.
  */
 function trackViewContent(data) {
-    var consented = localStorage.getItem(CONSENT_KEY) === 'accepted';
+    var consented = hasConsented();
 
     const contentName = data.name || 'padel_camp';
     const eventId = 'vc_' + Date.now() + '_' + Math.random().toString(36).slice(2, 10);
@@ -354,7 +365,7 @@ function sendViewContentToServer(eventId, contentName) {
  * Track a contact form submission
  */
 function trackContact() {
-    var consented = localStorage.getItem(CONSENT_KEY) === 'accepted';
+    var consented = hasConsented();
 
     if (consented && typeof fbq === 'function') {
         fbq('track', 'Contact');
@@ -376,7 +387,7 @@ function trackContact() {
  * Track a service booking (massage, media package, etc.)
  */
 function trackBooking(serviceName, value) {
-    var consented = localStorage.getItem(CONSENT_KEY) === 'accepted';
+    var consented = hasConsented();
 
     if (consented && typeof fbq === 'function') {
         fbq('track', 'Schedule', {
@@ -427,7 +438,7 @@ function trackConfirmedPurchase(data) {
     //      is a no-op for them: it needs the GA4 client id, which only travels
     //      in client_reference_id after consent)
     //   4. Clarity
-    var consented = localStorage.getItem(CONSENT_KEY) === 'accepted';
+    var consented = hasConsented();
 
     if (consented && (data.em || data.ph) && typeof fbq === 'function') {
         var userData = {};
@@ -512,6 +523,9 @@ function getGA4ClientId() {
  * visitor's original session/ad click.
  */
 function buildStripeAttributionParam() {
+    // Deliberately not hasConsented(): this one is an early return, not a
+    // branch around a pixel call, and it guards the one value that must never
+    // leave the browser without consent — keep the check local and inverted.
     if (localStorage.getItem(CONSENT_KEY) !== 'accepted') return '';
     const gcid = getGA4ClientId();
     const fbc = getCookie('_fbc');
@@ -552,7 +566,7 @@ function appendStripeAttribution(url) {
 function initSocialClickTracking() {
     // WhatsApp & Stripe — event delegation for dynamic elements
     document.addEventListener('click', function(e) {
-        var consented = localStorage.getItem(CONSENT_KEY) === 'accepted';
+        var consented = hasConsented();
 
         // WhatsApp click → back to Meta's standard Contact event (not a custom
         // event) so it stays selectable as an ad optimization goal in Ads
@@ -592,7 +606,7 @@ function initSocialClickTracking() {
     // Instagram float button
     document.querySelectorAll('.social-float-instagram').forEach(function(el) {
         el.addEventListener('click', function() {
-            var consented = localStorage.getItem(CONSENT_KEY) === 'accepted';
+            var consented = hasConsented();
             if (typeof gtag === 'function') {
                 gtag('event', 'click', {
                     event_category: 'social',
@@ -609,7 +623,7 @@ function initSocialClickTracking() {
     // Facebook float button
     document.querySelectorAll('.social-float-facebook').forEach(function(el) {
         el.addEventListener('click', function() {
-            var consented = localStorage.getItem(CONSENT_KEY) === 'accepted';
+            var consented = hasConsented();
             if (typeof gtag === 'function') {
                 gtag('event', 'click', {
                     event_category: 'social',
