@@ -48,7 +48,6 @@ document.addEventListener('DOMContentLoaded', function() {
     initMassageCalendar();
     initFAQ();
     initHeaderScroll();
-    initContactForm();
     initAnimations();
     initPricingViewTracking();
 
@@ -317,50 +316,6 @@ function initHeaderScroll() {
 
         lastScroll = currentScroll;
     });
-}
-
-/**
- * Contact Form Handling
- */
-function initContactForm() {
-    const contactForm = document.getElementById('contactForm');
-
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            // Get form data
-            const formData = new FormData(this);
-            const data = Object.fromEntries(formData.entries());
-
-            // Here you would typically send the data to a server
-            // For now, we'll show a success message
-
-            // Create success message
-            const successMsg = document.createElement('div');
-            successMsg.className = 'form-success';
-            successMsg.innerHTML = `
-                <div style="text-align: center; padding: 30px;">
-                    <span style="font-size: 50px;">✅</span>
-                    <h3 style="margin: 20px 0 10px;">Message Sent!</h3>
-                    <p style="color: #6B7280;">We'll get back to you within 24 hours.</p>
-                </div>
-            `;
-
-            // Replace form with success message
-            contactForm.innerHTML = '';
-            contactForm.appendChild(successMsg);
-
-            // Track contact form event
-            if (typeof trackContact === 'function') {
-                trackContact();
-            }
-
-            // Log data (for development)
-            console.log('Form submitted:', data);
-        });
-    }
-
 }
 
 /**
