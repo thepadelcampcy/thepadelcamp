@@ -55,24 +55,25 @@ function createConsentBanner() {
     const pageLang = document.documentElement.lang;
     const lang = (pageLang === 'ru' || pageLang === 'el') ? pageLang : 'en';
 
-    // Wording is deliberate: it asks for help rather than warning about
-    // compliance, because the goal is more genuine acceptances. Both buttons
+    // Wording is deliberate: plain Accept/Decline and a purpose that names
+    // the ads too, because Accept also loads Meta Pixel. The 01.10 "Allow
+    // analytics / No thanks" version cut acceptances ~3x. Both buttons
     // stay equally available — no hidden, greyed-out or preselected decline.
     // The cookie-free sentence is not optional: GA4 is configured in advanced
     // Consent Mode and transmits before the banner is even shown, so the
     // notice must not claim analytics waits for the answer.
     const T = {
         en: {
-            text: 'Help us improve the site: allow analytics cookies. Without consent, only cookie-free stats. <a href="/privacy-policy.html">Learn more.</a>',
-            accept: 'Allow analytics', decline: 'No thanks'
+            text: 'We use cookies for analytics and to measure our ads. If you decline, we only collect cookie-free stats. <a href="/privacy-policy.html">Learn more.</a>',
+            accept: 'Accept', decline: 'Decline'
         },
         ru: {
-            text: 'Помогите улучшить сайт: разрешите аналитические cookie. Без согласия — только статистика без cookie. <a href="/ru/privacy-policy.html">Подробнее.</a>',
-            accept: 'Разрешить аналитику', decline: 'Не разрешать'
+            text: 'Мы используем cookie для аналитики и оценки рекламы. Если вы откажетесь, соберём только статистику без cookie. <a href="/ru/privacy-policy.html">Подробнее.</a>',
+            accept: 'Принять', decline: 'Отклонить'
         },
         el: {
-            text: 'Βοηθήστε μας να βελτιώσουμε τον ιστότοπο: επιτρέψτε τα cookies ανάλυσης. Χωρίς συγκατάθεση, μόνο στατιστικά χωρίς cookies. <a href="/privacy-policy.html">Μάθετε περισσότερα.</a>',
-            accept: 'Επίτρεψη ανάλυσης', decline: 'Όχι, ευχαριστώ'
+            text: 'Χρησιμοποιούμε cookies για ανάλυση και για τη μέτρηση των διαφημίσεών μας. Αν τα απορρίψετε, συλλέγουμε μόνο στατιστικά χωρίς cookies. <a href="/privacy-policy.html">Μάθετε περισσότερα.</a>',
+            accept: 'Αποδοχή', decline: 'Απόρριψη'
         }
     }[lang];
 
