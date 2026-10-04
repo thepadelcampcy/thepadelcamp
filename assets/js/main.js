@@ -242,6 +242,16 @@ function openLeadForm(campSlug, campName) {
     document.body.style.overflow = 'hidden';
 }
 
+// Shareable link that opens the lead form on load: /#notify (no camp) or
+// /#notify-morning, /#notify-evening, /#notify-weekend (that camp's button).
+document.addEventListener('DOMContentLoaded', function() {
+    const m = location.hash.match(/^#notify(?:-(morning|evening|weekend))?$/);
+    if (!m) return;
+    const btn = m[1] && document.querySelector('.schedule-lead[onclick*="' + m[1] + '_camp"]');
+    if (btn) btn.click();
+    else openLeadForm('', '');
+});
+
 function closeLeadModal() {
     const modal = document.getElementById('leadModal');
     if (modal && modal.classList.contains('active')) {
@@ -657,7 +667,7 @@ document.addEventListener('submit', function(e) {
     // "Your Booking Confirmed!" letter to `email`, which is wrong for a lead.
     sendToGoogleSheets({
         type: 'service',
-        service: 'LEAD: ' + (campNames[camp] || camp),
+        service: 'LEAD: ' + (campNames[camp] || camp || 'any camp'),
         price: '0',
         name: formData.get('leadName'),
         phone: formData.get('leadPhone'),
