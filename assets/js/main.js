@@ -652,7 +652,6 @@ document.addEventListener('submit', function(e) {
     const email = (formData.get('leadEmail') || '').trim();
     const notes = ['Lead: wants details before paying, reply on WhatsApp'];
     if (email) notes.push('Email: ' + email);
-    notes.push('Future camps: ' + (formData.get('leadFuture') ? 'yes' : 'no'));
 
     // Email goes in notes, not in `email`: the service handler mails a
     // "Your Booking Confirmed!" letter to `email`, which is wrong for a lead.
