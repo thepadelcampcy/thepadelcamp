@@ -680,9 +680,9 @@ document.addEventListener('submit', function(e) {
     }
 
     const T = {
-        en: { heading: 'Thank you!', text: 'We\'ll message you on WhatsApp with the details shortly.', wa: 'Or message us now', close: 'Close' },
-        ru: { heading: 'Спасибо!', text: 'Скоро напишем вам в WhatsApp и всё расскажем.', wa: 'Или напишите нам сейчас', close: 'Закрыть' },
-        el: { heading: 'Ευχαριστούμε!', text: 'Θα σας στείλουμε σύντομα τις λεπτομέρειες στο WhatsApp.', wa: 'Ή στείλτε μας μήνυμα τώρα', close: 'Κλείσιμο' }
+        en: { heading: 'Thank you!', text: 'We\'ll keep you posted about upcoming camps, events and Early Bird offers.', wa: 'Or message us now', close: 'Close' },
+        ru: { heading: 'Спасибо!', text: 'Будем сообщать вам о новых лагерях, событиях и скидках Early Bird.', wa: 'Или напишите нам сейчас', close: 'Закрыть' },
+        el: { heading: 'Ευχαριστούμε!', text: 'Θα σας ενημερώνουμε για τα επόμενα camps, τις εκδηλώσεις και τις προσφορές Early Bird.', wa: 'Ή στείλτε μας μήνυμα τώρα', close: 'Κλείσιμο' }
     }[getPageLang()];
 
     // Ready-made first message so the visitor doesn't have to write one

@@ -2365,6 +2365,11 @@ section[id],
         padding-right: 40px;
     }
 
+    /* Lead modal: equal padding so the title stays centred over the subtitle */
+    #leadModal .massage-modal-title {
+        padding-left: 40px;
+    }
+
     .massage-sessions-grid {
         grid-template-columns: 1fr;
         max-width: 280px;
