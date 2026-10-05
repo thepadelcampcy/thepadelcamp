@@ -554,12 +554,14 @@ function buildStripeAttributionParam() {
 }
 
 /**
- * Appends the packed attribution string to a Stripe link as client_reference_id.
+ * Appends the packed attribution string to a Stripe link as client_reference_id,
+ * replacing any value already there (links are rewritten again on click).
  */
 function appendStripeAttribution(url) {
+    const base = url.replace(/([?&])client_reference_id=[^&#]*&?/, '$1').replace(/[?&]$/, '');
     const param = buildStripeAttributionParam();
-    if (!param) return url;
-    return url + (url.indexOf('?') > -1 ? '&' : '?') + 'client_reference_id=' + param;
+    if (!param) return base;
+    return base + (base.indexOf('?') > -1 ? '&' : '?') + 'client_reference_id=' + param;
 }
 
 // ─── Social & WhatsApp Click Tracking ────────────────────────────
@@ -596,6 +598,9 @@ function initSocialClickTracking() {
         // Stripe redirects back post-payment.
         var stripeLink = e.target.closest('a[href*="buy.stripe.com"], a[href*="book.stripe.com"]');
         if (stripeLink) {
+            // Re-apply attribution at click time: links are rewritten on load,
+            // which for a first-time visitor is before they accept cookies.
+            stripeLink.href = appendStripeAttribution(stripeLink.href);
             var value = parseFloat(stripeLink.dataset.purchaseValue) || 0;
             var item = stripeLink.dataset.purchaseItem || 'padel_camp';
             if (typeof trackPurchase === 'function') {
