@@ -59,20 +59,22 @@ function createConsentBanner() {
     // the ads too, because Accept also loads Meta Pixel. The 01.10 "Allow
     // analytics / No thanks" version cut acceptances ~3x. Both buttons
     // stay equally available — no hidden, greyed-out or preselected decline.
-    // The cookie-free sentence is not optional: GA4 is configured in advanced
-    // Consent Mode and transmits before the banner is even shown, so the
-    // notice must not claim analytics waits for the answer.
+    // GA4 runs in advanced Consent Mode and transmits before the banner is
+    // shown, so the notice must never claim analytics waits for the answer.
+    // The cookie-free measurement is disclosed in the Privacy Policy (linked
+    // here); the 02.10 "If you decline…" sentence was dropped on 05.10
+    // because it read as a hint that declining costs nothing (~10% accept).
     const T = {
         en: {
-            text: 'We use cookies for analytics and to measure our ads. If you decline, we only collect cookie-free stats. <a href="/privacy-policy.html">Learn more.</a>',
+            text: 'We use cookies to improve the site and measure our ads. <a href="/privacy-policy.html">Learn more.</a>',
             accept: 'Accept', decline: 'Decline'
         },
         ru: {
-            text: 'Мы используем cookie для аналитики и оценки рекламы. Если вы откажетесь, соберём только статистику без cookie. <a href="/ru/privacy-policy.html">Подробнее.</a>',
+            text: 'Мы используем cookie, чтобы улучшать сайт и оценивать рекламу. <a href="/ru/privacy-policy.html">Подробнее.</a>',
             accept: 'Принять', decline: 'Отклонить'
         },
         el: {
-            text: 'Χρησιμοποιούμε cookies για ανάλυση και για τη μέτρηση των διαφημίσεών μας. Αν τα απορρίψετε, συλλέγουμε μόνο στατιστικά χωρίς cookies. <a href="/privacy-policy.html">Μάθετε περισσότερα.</a>',
+            text: 'Χρησιμοποιούμε cookies για να βελτιώνουμε τον ιστότοπο και να μετράμε τις διαφημίσεις μας. <a href="/privacy-policy.html">Μάθετε περισσότερα.</a>',
             accept: 'Αποδοχή', decline: 'Απόρριψη'
         }
     }[lang];
