@@ -71,10 +71,11 @@ function doPost(e) {
     const currency = (session.currency || 'eur').toUpperCase();
     const email = (session.customer_details && session.customer_details.email) || '';
     const name = (session.customer_details && session.customer_details.name) || '';
+    const phone = (session.customer_details && session.customer_details.phone) || '';
 
     const looked = resolveItemFromStripe(sessionId);
     const resolved = looked || { label: 'Unknown item (€' + amount + ')', slug: 'unknown_item' };
-    appendPaymentRow(sessionId, resolved.label, amount, currency, name, email);
+    appendPaymentRow(sessionId, resolved.label, amount, currency, name, email, phone);
     rowWritten = true;
     if (!looked) notifyUnknownItem(sessionId, resolved.label, stripeLookupError);
 
@@ -95,7 +96,7 @@ function doPost(e) {
     // CAPI и GA4 — до Telegram, чтобы сбой уведомления не блокировал аналитику
     sendToMetaCAPI(sessionId, resolved.slug, amount, currency, email, fbc, fbp, session.customer_details, resolved.numItems);
     sendToGA4(gaClientId, resolved.slug, amount, currency, sessionId, resolved.numItems);
-    notifyTelegram(resolved.label, amount, currency, name, email);
+    notifyTelegram(resolved.label, amount, currency, name, email, phone);
 
     return ContentService.createTextOutput('OK').setMimeType(ContentService.MimeType.TEXT);
   } catch (err) {
@@ -234,7 +235,10 @@ function getPaymentSheet() {
   let sheet = ss.getSheetByName('Confirmed Payments');
   if (!sheet) {
     sheet = ss.insertSheet('Confirmed Payments');
-    sheet.appendRow(['Timestamp', 'Session ID', 'Item', 'Amount', 'Currency', 'Name', 'Email']);
+    sheet.appendRow(['Timestamp', 'Session ID', 'Item', 'Amount', 'Currency', 'Name', 'Email', 'Phone']);
+  } else if (sheet.getRange(1, 8).getValue() === '') {
+    // Sheets created before 06.10 have no Phone column header
+    sheet.getRange(1, 8).setValue('Phone');
   }
   return sheet;
 }
@@ -247,8 +251,9 @@ function paymentRowExists(sessionId) {
   return false;
 }
 
-function appendPaymentRow(sessionId, item, amount, currency, name, email) {
-  getPaymentSheet().appendRow([new Date(), sessionId, item, amount, currency, name, email]);
+function appendPaymentRow(sessionId, item, amount, currency, name, email, phone) {
+  // Leading apostrophe keeps "+357…" as text instead of a number/formula
+  getPaymentSheet().appendRow([new Date(), sessionId, item, amount, currency, name, email, phone ? "'" + phone : '']);
 }
 
 // --- Разбор client_reference_id: base64url (с 29.09) + фолбэк на старый формат '||' ---
@@ -267,14 +272,15 @@ function parseAttribution(raw) {
   return { gcid: p[0] || '', fbc: p[1] || '', fbp: p[2] || '' };
 }
 
-function notifyTelegram(item, amount, currency, name, email) {
+function notifyTelegram(item, amount, currency, name, email, phone) {
   if (!TELEGRAM_BOT_TOKEN) return;
 
   const text = '✅ Payment confirmed!\n' +
     'Item: ' + item + '\n' +
     'Amount: ' + amount + ' ' + currency + '\n' +
     'Name: ' + (name || '—') + '\n' +
-    'Email: ' + (email || '—');
+    'Email: ' + (email || '—') + '\n' +
+    'Phone: ' + (phone || '—');
 
   const response = UrlFetchApp.fetch('https://api.telegram.org/bot' + TELEGRAM_BOT_TOKEN + '/sendMessage', {
     method: 'post',
