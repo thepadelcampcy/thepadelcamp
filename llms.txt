@@ -4,66 +4,66 @@
 
 ## About
 
-The Padel Camp Cyprus is an intensive padel tennis training camp held in Limassol, Cyprus. The camp features professional Spanish coaches who bring world-class padel training methodology to Cyprus.
+The Padel Camp Cyprus is an intensive padel training camp held in Limassol, Cyprus, with professional coaches from Spain. Training is in small groups (maximum 4 players per court), with groups divided by skill level from beginner to advanced.
 
 ## Event Details
 
 - **Event**: The Padel Camp Cyprus 2026
-- **Dates**: Moving to November 2026 (exact dates to be announced)
-- **Location**: Limassol, Cyprus
+- **Dates**: 9-15 November 2026
+- **Location**: MyQPadel, Moni, Limassol, Cyprus
 - **Languages**: English, Russian, Greek
 - **Website**: https://thepadelcamp.com.cy
 
-## Programs Available
+## Camps (November 2026)
 
-### 6-Day Camp
-- Dates: November 2026 (exact dates & price to be announced)
-- Includes: morning & evening training sessions (1.5h each), physio training after morning sessions
+Three formats, each with an Early Bird price (first 5 places, until 15 October) and a regular price afterwards.
 
-### 4-Day Camp
-- Dates: November 2026 (exact dates & price to be announced)
-- Includes: morning & evening training sessions (1.5h each), physio training after morning sessions
+### Morning Camp
+- Dates: 9-13 November (Monday-Friday), 09:00-12:00
+- 15 hours of coaching over 5 days
+- Early Bird price: EUR 750 (regular EUR 770)
 
-### 2-Day Camp
-- Dates: November 2026 (exact dates & price to be announced)
-- Includes: morning & evening training sessions (1.5h each), physio training after morning sessions
+### Evening Camp
+- Dates: 9-13 November (Monday-Friday), 17:30-20:30
+- 15 hours of coaching over 5 days
+- Early Bird price: EUR 870 (regular EUR 890)
+
+### Weekend Camp
+- Dates: 14-15 November (Saturday and Sunday)
+- 6 hours of coaching in total
+- Early Bird price: EUR 360 (regular EUR 380)
+
+A EUR 250 deposit can reserve a place in the Morning or Evening Camp.
 
 ## Key Features
 
 - Professional Spanish coaches from the world's #1 padel country
-- Small group training with 1:4 coach-to-player ratio
+- Small groups: maximum 4 players per court
 - Suitable for all skill levels (beginner to advanced)
-- Technical drills, tactical training, match play
-- Video analysis and personalized feedback
-- Fitness and conditioning classes
+- Technique (bandeja, vibora, bajada, smash, defensive shots), court positioning, pair tactics, match play
+- Every participant receives a certificate of completion
 
 ## Additional Services
 
-- Private lessons: €80/hour (1-on-1), €110/hour (2-on-1)
-- Sports massage: €45-75 (30-60 min sessions)
-- Media package (photos + video reels): €130
+- Private lessons: EUR 80/hour (1-on-1), EUR 110/hour (2-on-1)
+- Sports massage: EUR 45-75 (30-75 min sessions)
+- Media package (15-20 photos + a 1.5-2 min reel of your camp): EUR 130
 
 ## Contact
 
 - WhatsApp: +357 97 497 756
-- Email: info@thepadelcamp.com
-
-## Location
-
-The camp takes place at MyQPadel in Limassol, Cyprus - a Mediterranean destination with excellent weather conditions.
+- Email: thepadelcampcy@gmail.com
+- Instagram: https://www.instagram.com/thepadelcampcy
 
 ## Booking
 
-Camp dates are moving to November 2026. Leave your contact details on the website to be notified first once exact dates and pricing are confirmed.
+Book online at https://thepadelcamp.com.cy/#program-cards (secure payment by card via Stripe). For questions, or to arrange something outside the listed formats, message us on WhatsApp.
 
 ## Key Pages
 
 - [Homepage (EN)](https://thepadelcamp.com.cy/): Camp overview, program, pricing, and registration
 - [Homepage (RU)](https://thepadelcamp.com.cy/ru/): Russian version of the homepage
 - [Homepage (EL)](https://thepadelcamp.com.cy/el/): Greek version of the homepage
-- [Register — 2-Day Camp](https://thepadelcamp.com.cy/register/2-day): also at /ru/register/2-day, /el/register/2-day
-- [Register — 4-Day Camp](https://thepadelcamp.com.cy/register/4-day): also at /ru/register/4-day, /el/register/4-day
-- [Register — 6-Day Camp](https://thepadelcamp.com.cy/register/6-day): also at /ru/register/6-day, /el/register/6-day
 - [Partners & Sponsors](https://thepadelcamp.com.cy/partners.html): also at /ru/partners.html, /el/partners.html
 
 ## How to Cite
