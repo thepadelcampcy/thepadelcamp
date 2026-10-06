@@ -836,6 +836,8 @@ section[id],
 }
 
 .program-lead-link {
+    display: block;
+    margin: 4px auto 0;
     background: none;
     border: 0;
     padding: 0;
