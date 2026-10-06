@@ -829,6 +829,24 @@ section[id],
     border-color: rgba(255, 255, 255, 0.5);
 }
 
+.program-lead-line {
+    margin-top: 32px;
+    text-align: center;
+    font-size: 15px;
+}
+
+.program-lead-link {
+    background: none;
+    border: 0;
+    padding: 0;
+    font: inherit;
+    font-weight: 600;
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    cursor: pointer;
+}
+
 /* Equal camp card heights (weekend has no deposit link) while no card is
    expanded; an expanded card must not stretch the others into tall boxes */
 .program-cards-grid:not(:has(.program-details-block.active)) {

@@ -45,7 +45,7 @@
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=optional">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=optional" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=optional"></noscript>
-    <link rel="stylesheet" href="../assets/css/style.css?v=32">
+    <link rel="stylesheet" href="../assets/css/style.css?v=33">
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300&display=swap" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300&display=swap"></noscript>
@@ -364,7 +364,6 @@
 
                 <a id="morningStripeLink" href="https://buy.stripe.com/3cI14p795g7F3i999GcEw0i?prefilled_promo_code=MORNING5" target="_blank" rel="noopener" class="btn btn-primary btn-block schedule-cta" data-purchase-value="770" data-purchase-item="morning_camp">Присоединиться к утреннему лагерю</a>
                 <a id="morningDepositLink" href="https://buy.stripe.com/00waEZbpl3kTaKBgC8cEw0l" target="_blank" rel="noopener" class="schedule-deposit" data-purchase-value="250" data-purchase-item="morning_deposit">Или забронируйте с депозитом €250</a>
-                <button type="button" class="btn btn-ghost btn-block schedule-lead" onclick="openLeadForm('morning_camp', 'Утренний лагерь')">Узнать первым</button>
             </div>
 
             <!-- Evening Camp -->
@@ -409,7 +408,6 @@
 
                 <a id="eveningStripeLink" href="https://buy.stripe.com/bJe9AV3WTbRp6uladKcEw0j?prefilled_promo_code=EVENING5" target="_blank" rel="noopener" class="btn btn-primary btn-block schedule-cta" data-purchase-value="890" data-purchase-item="evening_camp">Присоединиться к вечернему лагерю</a>
                 <a id="eveningDepositLink" href="https://buy.stripe.com/14A8wR50XbRp9Gx3PmcEw0m" target="_blank" rel="noopener" class="schedule-deposit" data-purchase-value="250" data-purchase-item="evening_deposit">Или забронируйте с депозитом €250</a>
-                <button type="button" class="btn btn-ghost btn-block schedule-lead" onclick="openLeadForm('evening_camp', 'Вечерний лагерь')">Узнать первым</button>
             </div>
 
             <!-- Weekend Camp -->
@@ -464,8 +462,9 @@
                 </div>
 
                 <a id="weekendStripeLink" href="https://book.stripe.com/4gMcN7bplf3B2e5clScEw0k?prefilled_promo_code=WEEKEND5" target="_blank" rel="noopener" class="btn btn-primary btn-block schedule-cta" data-purchase-value="380" data-purchase-item="weekend_camp">Присоединиться к лагерю на выходные</a>
-                <button type="button" class="btn btn-ghost btn-block schedule-lead" onclick="openLeadForm('weekend_camp', 'Лагерь на выходные')">Узнать первым</button>
             </div>
+
+            <p class="program-lead-line">Не подходят ноябрьские даты? <button type="button" class="program-lead-link" onclick="openLeadForm('', '')">Узнать первым о следующих датах</button></p>
 
             </div>
         </div>
