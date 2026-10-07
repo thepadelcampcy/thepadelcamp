@@ -660,7 +660,7 @@ document.addEventListener('submit', function(e) {
     const camp = formData.get('leadCamp');
     const campNames = { morning_camp: 'Morning Camp', evening_camp: 'Evening Camp', weekend_camp: 'Weekend Camp' };
     const email = (formData.get('leadEmail') || '').trim();
-    const notes = ['Lead: wants details before paying, reply on WhatsApp'];
+    const notes = ['Lead: signed up via Notify me (wants updates on camps and events)'];
     if (email) notes.push('Email: ' + email);
 
     // Email goes in notes, not in `email`: the service handler mails a
