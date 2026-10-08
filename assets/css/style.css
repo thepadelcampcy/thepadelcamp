@@ -1281,6 +1281,59 @@ section[id],
     padding-top: 0;
 }
 
+/* Collapsed block with coaches of previous camps */
+.coaches-past {
+    margin-top: 48px;
+}
+
+.coaches-past-summary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 18px 0;
+    border-top: 1px solid var(--gray-300);
+    border-bottom: 1px solid var(--gray-300);
+    font-family: var(--font-primary);
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    list-style: none;
+    cursor: pointer;
+}
+
+.coaches-past-summary::-webkit-details-marker {
+    display: none;
+}
+
+.coaches-past-summary::after {
+    content: '+';
+    font-size: 24px;
+    line-height: 1;
+}
+
+.coaches-past[open] .coaches-past-summary::after {
+    content: '\2212';
+}
+
+.coaches-past-note {
+    max-width: 560px;
+    margin: 20px auto 32px;
+    text-align: center;
+    font-size: 15px;
+    color: var(--gray-500);
+    line-height: 1.6;
+}
+
+@media (min-width: 1025px) {
+    .coaches-past .coaches-grid {
+        grid-template-columns: repeat(3, 1fr);
+        max-width: none;
+    }
+}
+
 /* ========================================
    CTA BANNER (after Coaches)
    ======================================== */
