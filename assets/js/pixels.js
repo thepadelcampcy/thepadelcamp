@@ -387,6 +387,35 @@ function trackContact() {
 }
 
 /**
+ * Track opening of the collapsed "Coaches from our previous camps" block
+ */
+function trackCoachesExpand() {
+    var consented = hasConsented();
+
+    if (typeof gtag === 'function') {
+        gtag('event', 'coaches_expand', {
+            event_category: 'engagement',
+            event_label: 'coaches_past'
+        });
+    }
+
+    if (consented && typeof clarity === 'function') {
+        clarity('event', 'coaches_expand');
+    }
+}
+
+/**
+ * Fire coaches_expand when the visitor opens the collapsed coaches block
+ */
+function initCoachesTracking() {
+    var block = document.querySelector('.coaches-past');
+    if (!block) return;
+    block.addEventListener('toggle', function() {
+        if (block.open) trackCoachesExpand();
+    });
+}
+
+/**
  * Track a service booking (massage, media package, etc.)
  */
 function trackBooking(serviceName, value) {
@@ -700,4 +729,5 @@ document.addEventListener('DOMContentLoaded', function() {
     // pings when consent is missing); Meta and Clarity calls inside are
     // individually gated on consent.
     initSocialClickTracking();
+    initCoachesTracking();
 });
