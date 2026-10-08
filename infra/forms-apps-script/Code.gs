@@ -91,7 +91,7 @@ ${data.notes ? '📝 <b>Notes:</b>\n' + esc(data.notes) : ''}
   `.trim();
 
   if (!notify) return;
-  sendTelegramMessage(message);
+  sendTelegramMessage(message, leadWhatsAppButtons(data));
   sendAdminNotification('New Service Booking', message, data);
   sendConfirmationEmail(data.email, data.name, data);
 }
@@ -413,7 +413,30 @@ function getOrCreateSheet(sheetName) {
   return sheet;
 }
 
-function sendTelegramMessage(message) {
+// Кнопка «Написать в WhatsApp» под Telegram-уведомлением о лиде (service начинается с
+// "LEAD"): wa.me/<номер лида> с готовым приветствием на языке страницы. Для остальных
+// заявок и для мусорных номеров кнопки нет.
+function leadWhatsAppButtons(data) {
+  if (!/^LEAD/.test(val(data.service))) return null;
+
+  let digits = String(data.phone || '').replace(/\D/g, '');
+  if (digits.indexOf('00') === 0) digits = digits.slice(2);
+  // Кипрский номер без кода страны (8 цифр, мобильные начинаются с 9)
+  if (digits.length === 8 && digits.charAt(0) === '9') digits = '357' + digits;
+  if (digits.length < 9 || digits.length > 15) return null;
+
+  const name = String(data.name || '').trim();
+  const en = 'Hi' + (name ? ' ' + name : '') + '! This is The Padel Camp Cyprus. Thanks for signing up for our updates. How can we help?';
+  const text = {
+    en: en,
+    ru: 'Здравствуйте' + (name ? ', ' + name : '') + '! Это The Padel Camp Cyprus. Спасибо, что оставили заявку. Чем можем помочь?',
+    el: 'Γεια σας' + (name ? ' ' + name : '') + '! Εδώ το The Padel Camp Cyprus. Ευχαριστούμε που εγγραφήκατε. Πώς μπορούμε να βοηθήσουμε;'
+  }[data.lang] || en;
+
+  return [[{ text: '💬 Написать в WhatsApp', url: 'https://wa.me/' + digits + '?text=' + encodeURIComponent(text) }]];
+}
+
+function sendTelegramMessage(message, buttons) {
   if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) {
     Logger.log('Telegram not configured (Script Properties)');
     return;
@@ -421,14 +444,17 @@ function sendTelegramMessage(message) {
 
   const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
 
+  const body = {
+    chat_id: TELEGRAM_CHAT_ID,
+    text: message,
+    parse_mode: 'HTML'
+  };
+  if (buttons) body.reply_markup = { inline_keyboard: buttons };
+
   const options = {
     method: 'post',
     contentType: 'application/json',
-    payload: JSON.stringify({
-      chat_id: TELEGRAM_CHAT_ID,
-      text: message,
-      parse_mode: 'HTML'
-    }),
+    payload: JSON.stringify(body),
     muteHttpExceptions: true
   };
 

@@ -658,7 +658,6 @@ document.addEventListener('submit', function(e) {
 
     const formData = new FormData(form);
     const camp = formData.get('leadCamp');
-    const campNames = { morning_camp: 'Morning Camp', evening_camp: 'Evening Camp', weekend_camp: 'Weekend Camp' };
     const email = (formData.get('leadEmail') || '').trim();
     const notes = ['Lead: signed up via Notify me (wants updates on camps and events)'];
     if (email) notes.push('Email: ' + email);
@@ -667,7 +666,7 @@ document.addEventListener('submit', function(e) {
     // "Your Booking Confirmed!" letter to `email`, which is wrong for a lead.
     sendToGoogleSheets({
         type: 'service',
-        service: 'LEAD: ' + (campNames[camp] || camp || 'any camp'),
+        service: 'LEAD',
         price: '0',
         name: formData.get('leadName'),
         phone: formData.get('leadPhone'),
