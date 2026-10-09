@@ -416,6 +416,30 @@ function initCoachesTracking() {
 }
 
 /**
+ * Fire program_details_expand when a visitor presses "Show more" on a camp card
+ * (not on "Show less"). camp = morning / evening / weekend, from the card id.
+ */
+function initProgramDetailsTracking() {
+    document.addEventListener('click', function(e) {
+        var btn = e.target.closest && e.target.closest('.btn-view-details');
+        // main.js flips aria-expanded on the button's own click handler, which runs before this one
+        if (!btn || btn.getAttribute('aria-expanded') !== 'true') return;
+        var card = btn.closest('[id^="camp-"]');
+        var camp = card ? card.id.replace('camp-', '') : 'unknown';
+
+        if (typeof gtag === 'function') {
+            gtag('event', 'program_details_expand', {
+                event_category: 'engagement',
+                event_label: camp
+            });
+        }
+        if (hasConsented() && typeof clarity === 'function') {
+            clarity('event', 'program_details_expand');
+        }
+    });
+}
+
+/**
  * Track a service booking (massage, media package, etc.)
  */
 function trackBooking(serviceName, value) {
@@ -730,4 +754,5 @@ document.addEventListener('DOMContentLoaded', function() {
     // individually gated on consent.
     initSocialClickTracking();
     initCoachesTracking();
+    initProgramDetailsTracking();
 });
