@@ -423,8 +423,16 @@ function leadWhatsAppButtons(data) {
   if (digits.indexOf('00') === 0) digits = digits.slice(2);
   // Кипрский номер без кода страны (8 цифр, мобильные начинаются с 9)
   if (digits.length === 8 && digits.charAt(0) === '9') digits = '357' + digits;
-  // Британский номер с лишним нулём после кода (+44 07…) в WhatsApp не открывается
-  if (/^440\d{10}$/.test(digits)) digits = '44' + digits.slice(3);
+  // Номер с нулём в начале = без кода страны, ссылка будет битой
+  if (digits.charAt(0) === '0') return null;
+  // Лишний «национальный» 0 сразу после кода страны (+44 07…, +972 05…) в WhatsApp не открывается.
+  // Код страны: 1 цифра (1, 7), 2 цифры (из списка) или 3. Исключения, где 0 — часть номера: Италия 39, Кот-д'Ивуар 225, Бенин 229, Габон 241.
+  const cc = /^[17]/.test(digits) ? digits.slice(0, 1)
+    : /^(20|27|3[0-4]|36|39|4[013-9]|5[1-8]|6[0-6]|8[1246]|9[0-58])/.test(digits) ? digits.slice(0, 2)
+    : digits.slice(0, 3);
+  if (digits.charAt(cc.length) === '0' && ['39', '225', '229', '241'].indexOf(cc) === -1) {
+    digits = cc + digits.slice(cc.length + 1);
+  }
   if (digits.length < 9 || digits.length > 15) return null;
 
   const name = String(data.name || '').trim();
