@@ -423,6 +423,8 @@ function leadWhatsAppButtons(data) {
   if (digits.indexOf('00') === 0) digits = digits.slice(2);
   // Кипрский номер без кода страны (8 цифр, мобильные начинаются с 9)
   if (digits.length === 8 && digits.charAt(0) === '9') digits = '357' + digits;
+  // Британский номер с лишним нулём после кода (+44 07…) в WhatsApp не открывается
+  if (/^440\d{10}$/.test(digits)) digits = '44' + digits.slice(3);
   if (digits.length < 9 || digits.length > 15) return null;
 
   const name = String(data.name || '').trim();
