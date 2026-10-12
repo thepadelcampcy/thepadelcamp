@@ -1040,3 +1040,47 @@ h3,
 .program-content.featured .price-includes li::before {
     color: #9fd9b8;
 }
+
+/* Price block: outlined instead of filled green, so it no longer looks like
+   the green "Book" button right below it. */
+.early-bird-badge {
+    background: transparent;
+    border: 1px solid rgba(0, 69, 38, 0.28);
+}
+
+.early-bird-badge-label {
+    color: var(--gray-600);
+}
+
+.early-bird-badge-price {
+    color: var(--accent);
+    font-size: 30px;
+}
+
+.early-bird-badge-was {
+    color: var(--gray-500);
+}
+
+.early-bird-badge-divider {
+    background: rgba(0, 69, 38, 0.25);
+}
+
+.program-content.featured .early-bird-badge {
+    border-color: rgba(252, 250, 246, 0.3);
+}
+
+.program-content.featured .early-bird-badge-label {
+    color: rgba(252, 250, 246, 0.75);
+}
+
+.program-content.featured .early-bird-badge-price {
+    color: #fcfaf6;
+}
+
+.program-content.featured .early-bird-badge-was {
+    color: rgba(252, 250, 246, 0.6);
+}
+
+.program-content.featured .early-bird-badge-divider {
+    background: rgba(252, 250, 246, 0.3);
+}
