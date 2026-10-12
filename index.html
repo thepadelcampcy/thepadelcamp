@@ -51,14 +51,14 @@
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300&display=swap"></noscript>
     <link rel="stylesheet" href="assets/css/experiment-theme.css?v=43">
 
-    <!-- Hero photo: fixed to "The Oval" (owner's pick, 2026-09-28).
-         Preloaded here, as early as possible, then faded in (see
-         .hero-bg-photo) instead of popping in once it downloads. -->
-    <link rel="preload" as="image" href="/assets/images/limassol-photos/the-oval.jpg" fetchpriority="high">
+    <!-- Hero photo: team in blue shirts (gallery photo-9), two pre-cropped WebP files
+         (wide band for desktop, portrait for phones). Preloaded as early as possible,
+         then faded in (see .hero-bg-photo). Owner-supplied photo, no credit line. -->
+    <link rel="preload" as="image" href="/assets/images/hero/hero-team-desktop.webp" media="(min-width: 769px)" fetchpriority="high">
+    <link rel="preload" as="image" href="/assets/images/hero/hero-team-mobile.webp" media="(max-width: 768px)" fetchpriority="high">
     <script>
-        // Attribution required by CC BY-SA, see assets/images/limassol-photos/CREDITS.txt
-        window.__heroPhoto = '/assets/images/limassol-photos/the-oval.jpg';
-        window.__heroPhotoCredit = { text: '"The Oval" by Cybarco, CC BY-SA 4.0', href: 'https://commons.wikimedia.org/wiki/File:The_Oval.jpg' };
+        window.__heroPhoto = '/assets/images/hero/hero-team-desktop.webp';
+        window.__heroPhotoMobile = '/assets/images/hero/hero-team-mobile.webp';
     </script>
 
     <!-- Structured Data -->
@@ -185,7 +185,7 @@
         <script>
             (function () {
                 var img = document.getElementById('heroBgPhoto');
-                var src = window.__heroPhoto || '/assets/images/limassol-photos/marina-sunny-promenade.jpg';
+                var src = (window.matchMedia('(max-width: 768px)').matches && window.__heroPhotoMobile) || window.__heroPhoto || '/assets/images/limassol-photos/marina-sunny-promenade.jpg';
                 img.onload = function () { img.classList.add('is-loaded'); };
                 img.src = src;
                 if (img.complete) { img.classList.add('is-loaded'); }
@@ -358,7 +358,7 @@
                     </div>
                 </div>
 
-                <a id="morningStripeLink" href="https://buy.stripe.com/3cI14p795g7F3i999GcEw0i" target="_blank" rel="noopener" class="btn btn-primary btn-block schedule-cta" data-purchase-value="770" data-purchase-item="morning_camp">Join Morning Camp</a>
+                <a id="morningStripeLink" href="https://buy.stripe.com/3cI14p795g7F3i999GcEw0i" target="_blank" rel="noopener" class="btn btn-primary btn-block schedule-cta" data-purchase-value="770" data-purchase-item="morning_camp">Book Morning Camp</a>
             </div>
 
             <!-- Evening Camp -->
@@ -396,7 +396,7 @@
                     </div>
                 </div>
 
-                <a id="eveningStripeLink" href="https://buy.stripe.com/bJe9AV3WTbRp6uladKcEw0j" target="_blank" rel="noopener" class="btn btn-primary btn-block schedule-cta" data-purchase-value="890" data-purchase-item="evening_camp">Join Evening Camp</a>
+                <a id="eveningStripeLink" href="https://buy.stripe.com/bJe9AV3WTbRp6uladKcEw0j" target="_blank" rel="noopener" class="btn btn-primary btn-block schedule-cta" data-purchase-value="890" data-purchase-item="evening_camp">Book Evening Camp</a>
             </div>
 
             <!-- Weekend Camp -->
@@ -445,11 +445,12 @@
                     </div>
                 </div>
 
-                <a id="weekendStripeLink" href="https://book.stripe.com/4gMcN7bplf3B2e5clScEw0k" target="_blank" rel="noopener" class="btn btn-primary btn-block schedule-cta" data-purchase-value="380" data-purchase-item="weekend_camp">Join Weekend Camp</a>
+                <a id="weekendStripeLink" href="https://book.stripe.com/4gMcN7bplf3B2e5clScEw0k" target="_blank" rel="noopener" class="btn btn-primary btn-block schedule-cta" data-purchase-value="380" data-purchase-item="weekend_camp">Book Weekend Camp</a>
             </div>
 
             </div>
 
+            <p class="program-level-note">Not sure about your level? Groups are split by level, from beginner to advanced.</p>
             <p class="program-lead-line">Can't make November? <button type="button" class="program-lead-link" onclick="openLeadForm('', '')">Keep me informed about future camps and events</button></p>
         </div>
     </section>

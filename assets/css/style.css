@@ -3442,7 +3442,7 @@ section[id],
 
     /* Mobile header - liquid glass intro that shrinks on scroll */
     .header .container {
-        height: 22vh;
+        height: clamp(116px, 14vh, 130px);
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -3492,7 +3492,7 @@ section[id],
     }
 
     .logo img {
-        height: 20vh;
+        height: clamp(92px, 11.5vh, 108px);
         transition: none;
     }
 
@@ -3612,7 +3612,7 @@ section[id],
     }
 
     .hero {
-        padding: calc(22vh + 40px) 24px 64px;
+        padding: calc(clamp(116px, 14vh, 130px) + 28px) 24px 64px;
     }
 
     .hero-cta {
@@ -4952,4 +4952,15 @@ select:focus-visible,
             transform: none;
         }
     }
+}
+
+/* One-line level reassurance under the camp cards */
+.program-level-note {
+    margin-top: 28px;
+    text-align: center;
+    font-size: 15px;
+}
+
+.program-level-note + .program-lead-line {
+    margin-top: 12px;
 }
