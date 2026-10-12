@@ -101,7 +101,7 @@ function initMobileMenu() {
  * Smooth Scrolling for Anchor Links
  */
 function initSmoothScroll() {
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    document.querySelectorAll('a[href^="#"]:not(.skip-link)').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             e.preventDefault();
             const targetId = this.getAttribute('href');
@@ -115,7 +115,7 @@ function initSmoothScroll() {
                 // this design the header shrinks from 25vh to 70px once
                 // .scrolled kicks in, so a click from the very top used the
                 // large pre-scroll height and landed short of the target.
-                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                target.scrollIntoView({ behavior: (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) ? 'auto' : 'smooth', block: 'start' });
             }
         });
     });
@@ -332,6 +332,7 @@ function initHeaderScroll() {
  * Scroll Animations (Intersection Observer)
  */
 function initAnimations() {
+    const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const animatedElements = document.querySelectorAll('.feature-card, .service-card, .price-card, .coach-card, .schedule-day');
 
     if ('IntersectionObserver' in window) {
@@ -350,8 +351,8 @@ function initAnimations() {
 
         animatedElements.forEach(el => {
             el.style.opacity = '0';
-            el.style.transform = 'translateY(30px)';
-            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            el.style.transform = reduceMotion ? 'none' : 'translateY(30px)';
+            el.style.transition = reduceMotion ? 'opacity 0.3s ease' : 'opacity 0.6s ease, transform 0.6s ease';
             observer.observe(el);
         });
     }

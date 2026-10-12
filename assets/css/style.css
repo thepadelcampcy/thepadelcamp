@@ -11,7 +11,7 @@
     --gray-200: #e5e5e5;
     --gray-300: #d4d4d4;
     --gray-400: #a3a3a3;
-    --gray-500: #737373;
+    --gray-500: #5b5b5b;
     --gray-600: #525252;
     --gray-700: #404040;
     --gray-800: #262626;
@@ -332,6 +332,7 @@ section[id],
    ======================================== */
 .hero {
     min-height: 100vh;
+    min-height: 100dvh;
     display: flex;
     align-items: center;
     background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 50%, #f0f0f0 100%);
@@ -1777,8 +1778,8 @@ section[id],
 }
 
 .included-title.included-yes {
-    color: #22c55e;
-    border-color: #22c55e;
+    color: #15803d;
+    border-color: #15803d;
 }
 
 .included-title.included-no {
@@ -1808,7 +1809,7 @@ section[id],
     content: '✓';
     position: absolute;
     left: 0;
-    color: #22c55e;
+    color: #15803d;
     font-weight: 700;
 }
 
@@ -3562,6 +3563,7 @@ section[id],
         right: -100%;
         width: 100%;
         height: 100vh;
+        height: 100dvh;
         background: var(--white);
         display: flex;
         align-items: center;
@@ -4887,4 +4889,67 @@ textarea.form-input {
     background: var(--white);
     color: var(--black);
     border-color: var(--white);
+}
+
+
+/* ========================================
+   ACCESSIBILITY (audit 12.10.2026)
+   ======================================== */
+
+/* Skip link: hidden until it receives keyboard focus */
+.skip-link {
+    position: absolute;
+    left: 16px;
+    top: -100px;
+    z-index: 100000;
+    background: #ffffff;
+    color: #00472b;
+    padding: 12px 18px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+}
+
+.skip-link:focus {
+    top: 16px;
+}
+
+/* Visible keyboard focus. Two-tone (white halo + blue ring) so it reads on
+   cream, on the dark green/navy blocks and over photos. Mouse and touch
+   clicks do not trigger :focus-visible, so they look exactly as before. */
+:focus-visible {
+    outline: 3px solid #2563eb;
+    outline-offset: 3px;
+    box-shadow: 0 0 0 3px #ffffff;
+}
+
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+.form-input:focus-visible,
+.form-textarea:focus-visible,
+.form-select:focus-visible,
+.massage-booking-form .form-input:focus-visible {
+    outline: 3px solid #2563eb;
+    outline-offset: 1px;
+}
+
+/* Only for visitors who turned on "reduce motion" in their system:
+   content still appears (fades in), but nothing slides or jumps. */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: none;
+        }
+        to {
+            opacity: 1;
+            transform: none;
+        }
+    }
 }
