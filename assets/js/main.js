@@ -157,6 +157,17 @@ function initProgramTabs() {
             block.classList.toggle('active', !isActive);
             this.setAttribute('aria-expanded', String(!isActive));
             this.textContent = isActive ? this.dataset.labelView : this.dataset.labelHide;
+
+            const grid = block.closest('.program-cards-grid');
+            if (grid) {
+                clearTimeout(grid._relaxTimer);
+                if (!isActive) {
+                    grid.classList.add('has-open');
+                } else if (!grid.querySelector('.program-details-block.active')) {
+                    // wait for the 0.4s collapse before the cards are equalised again
+                    grid._relaxTimer = setTimeout(() => grid.classList.remove('has-open'), 450);
+                }
+            }
         });
     });
 }
