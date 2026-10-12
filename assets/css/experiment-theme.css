@@ -211,7 +211,7 @@ h3,
 }
 
 .program-price-note {
-    font-family: 'Inter', -apple-system, sans-serif;
+    font-family: 'Manrope', -apple-system, sans-serif;
     font-size: 13px;
     font-weight: 300;
     color: var(--gray-500);
@@ -614,7 +614,7 @@ body {
 /* Larger hero type on phones (owner's request) */
 @media (max-width: 768px) {
     .hero-overlay {
-        background: linear-gradient(180deg, rgba(0, 15, 24, 0.48) 0%, rgba(0, 15, 24, 0.58) 45%, rgba(0, 15, 24, 0.86) 100%);
+        background: linear-gradient(180deg, rgba(0, 15, 24, 0.30) 0%, rgba(0, 15, 24, 0.40) 45%, rgba(0, 15, 24, 0.80) 100%);
     }
 
     .hero-eyebrow {
