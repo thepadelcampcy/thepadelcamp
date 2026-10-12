@@ -5156,3 +5156,14 @@ select:focus-visible,
         transform: none;
     }
 }
+
+/* Balanced headings and no single orphaned word on the last line of a paragraph */
+h1,
+h2,
+h3 {
+    text-wrap: balance;
+}
+
+p {
+    text-wrap: pretty;
+}
