@@ -5034,10 +5034,9 @@ select:focus-visible,
     outline-offset: 1px;
 }
 
-/* Accordion buttons sit inside rounded cards that clip anything outside
+/* The Our approach buttons sit inside rounded cards that clip anything outside
    them, so their focus ring is drawn on the inside. */
-.approach-question:focus-visible,
-.faq-question:focus-visible {
+.approach-question:focus-visible {
     outline: 2px solid #00472b;
     outline-offset: -6px;
     border-radius: 14px;
@@ -5063,28 +5062,6 @@ select:focus-visible,
     }
 }
 
-/* Level reassurance under the camp cards: its own centred block, with a
-   hairline separating it from the "can't make November" line below */
-.program-level-note {
-    max-width: 560px;
-    margin: 28px auto 0;
-    text-align: center;
-    font-size: 15px;
-    color: var(--gray-600);
-}
-
-.program-level-note strong {
-    display: block;
-    color: var(--black);
-    font-weight: 600;
-}
-
-.program-level-note + .program-lead-line {
-    max-width: 360px;
-    margin: 24px auto 0;
-    padding-top: 24px;
-    border-top: 1px solid var(--gray-200);
-}
 
 /* ========================================
    MOTION (audit 12.10.2026)
