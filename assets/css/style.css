@@ -26,6 +26,7 @@
     --section-spacing: 120px;
 
     --transition: 0.2s ease;
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
 
     /* Liquid Glass */
     --glass-bg: rgba(255, 255, 255, 0.7);
@@ -125,10 +126,12 @@ img {
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
-.btn-primary:hover {
-    background: rgba(75, 85, 99, 1);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-    transform: translateY(-2px);
+@media (hover: hover) and (pointer: fine) {
+    .btn-primary:hover {
+        background: rgba(75, 85, 99, 1);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        transform: translateY(-2px);
+    }
 }
 
 .btn-ghost {
@@ -140,11 +143,13 @@ img {
     box-shadow: var(--glass-shadow);
 }
 
-.btn-ghost:hover {
-    background: rgba(75, 85, 99, 0.88);
-    color: var(--white);
-    border-color: transparent;
-    transform: translateY(-2px);
+@media (hover: hover) and (pointer: fine) {
+    .btn-ghost:hover {
+        background: rgba(75, 85, 99, 0.88);
+        color: var(--white);
+        border-color: transparent;
+        transform: translateY(-2px);
+    }
 }
 
 .btn-whatsapp {
@@ -152,8 +157,10 @@ img {
     color: var(--black);
 }
 
-.btn-whatsapp:hover {
-    background: #1da851;
+@media (hover: hover) and (pointer: fine) {
+    .btn-whatsapp:hover {
+        background: #1da851;
+    }
 }
 
 .btn-lg {
@@ -270,8 +277,10 @@ section[id],
     transition: var(--transition);
 }
 
-.nav-list a:hover {
-    color: var(--black);
+@media (hover: hover) and (pointer: fine) {
+    .nav-list a:hover {
+        color: var(--black);
+    }
 }
 
 .header-actions {
@@ -294,9 +303,14 @@ section[id],
     transition: var(--transition);
 }
 
-.lang-switch a:hover,
 .lang-switch a.active {
     color: var(--black);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .lang-switch a:hover {
+        color: var(--black);
+    }
 }
 
 /* Mobile language switch - hidden on desktop */
@@ -608,9 +622,11 @@ section[id],
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.learn-item:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--glass-shadow-lg);
+@media (hover: hover) and (pointer: fine) {
+    .learn-item:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--glass-shadow-lg);
+    }
 }
 
 .learn-item h3 {
@@ -656,13 +672,15 @@ section[id],
     border: 1px solid var(--glass-border-light);
     border-radius: 30px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
 }
 
-.tab-btn:hover {
-    color: var(--black);
-    background: var(--glass-bg);
-    box-shadow: var(--glass-shadow);
+@media (hover: hover) and (pointer: fine) {
+    .tab-btn:hover {
+        color: var(--black);
+        background: var(--glass-bg);
+        box-shadow: var(--glass-shadow);
+    }
 }
 
 .tab-btn.active {
@@ -810,8 +828,10 @@ section[id],
     opacity: 0.85;
 }
 
-.schedule-deposit:hover {
-    opacity: 1;
+@media (hover: hover) and (pointer: fine) {
+    .schedule-deposit:hover {
+        opacity: 1;
+    }
 }
 
 .schedule-lead {
@@ -893,9 +913,11 @@ section[id],
     transition: var(--transition);
 }
 
-.btn-view-details:hover {
-    background: var(--black);
-    color: var(--white);
+@media (hover: hover) and (pointer: fine) {
+    .btn-view-details:hover {
+        background: var(--black);
+        color: var(--white);
+    }
 }
 
 .program-details-block.active .btn-view-details {
@@ -1026,9 +1048,11 @@ section[id],
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.coach-card:hover {
-    transform: translateY(-6px);
-    box-shadow: var(--glass-shadow-lg);
+@media (hover: hover) and (pointer: fine) {
+    .coach-card:hover {
+        transform: translateY(-6px);
+        box-shadow: var(--glass-shadow-lg);
+    }
 }
 
 .coach-image {
@@ -1123,14 +1147,16 @@ section[id],
     font-family: inherit;
     color: var(--gray-700);
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
 }
 
-.guess-btn:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(255, 77, 0, 0.15);
+@media (hover: hover) and (pointer: fine) {
+    .guess-btn:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(255, 77, 0, 0.15);
+    }
 }
 
 .guess-btn--selected {
@@ -1139,10 +1165,12 @@ section[id],
     color: var(--white);
 }
 
-.guess-btn--selected:hover {
-    color: var(--white);
-    transform: none;
-    box-shadow: none;
+@media (hover: hover) and (pointer: fine) {
+    .guess-btn--selected:hover {
+        color: var(--white);
+        transform: none;
+        box-shadow: none;
+    }
 }
 
 .guess-btn--disabled {
@@ -1231,12 +1259,14 @@ section[id],
     font-weight: 700;
     font-family: inherit;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
 }
 
-.vote-modal-btn:hover {
-    background: var(--accent);
-    transform: translateY(-2px);
+@media (hover: hover) and (pointer: fine) {
+    .vote-modal-btn:hover {
+        background: var(--accent);
+        transform: translateY(-2px);
+    }
 }
 
 .coach-info {
@@ -1548,13 +1578,15 @@ section[id],
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
     text-decoration: none;
 }
 
-.venue-location .btn-map:hover {
-    background: rgba(255, 255, 255, 0.25);
-    transform: translateY(-2px);
+@media (hover: hover) and (pointer: fine) {
+    .venue-location .btn-map:hover {
+        background: rgba(255, 255, 255, 0.25);
+        transform: translateY(-2px);
+    }
 }
 
 .venue-location .btn-map svg {
@@ -1635,8 +1667,10 @@ section[id],
     transition: transform 0.3s ease;
 }
 
-.venue-thumb:hover img {
-    transform: scale(1.05);
+@media (hover: hover) and (pointer: fine) {
+    .venue-thumb:hover img {
+        transform: scale(1.05);
+    }
 }
 
 .venue-zoom {
@@ -1657,8 +1691,10 @@ section[id],
     transition: opacity 0.3s ease;
 }
 
-.venue-thumb:hover .venue-zoom {
-    opacity: 1;
+@media (hover: hover) and (pointer: fine) {
+    .venue-thumb:hover .venue-zoom {
+        opacity: 1;
+    }
 }
 
 /* Venue Modal */
@@ -1704,8 +1740,10 @@ section[id],
     z-index: 2001;
 }
 
-.venue-modal-close:hover {
-    color: var(--gray-400);
+@media (hover: hover) and (pointer: fine) {
+    .venue-modal-close:hover {
+        color: var(--gray-400);
+    }
 }
 
 .venue-modal-prev,
@@ -1733,9 +1771,11 @@ section[id],
     right: 20px;
 }
 
-.venue-modal-prev:hover,
-.venue-modal-next:hover {
-    background: rgba(255, 255, 255, 0.2);
+@media (hover: hover) and (pointer: fine) {
+    .venue-modal-prev:hover,
+    .venue-modal-next:hover {
+        background: rgba(255, 255, 255, 0.2);
+    }
 }
 
 /* ========================================
@@ -1886,9 +1926,11 @@ section[id],
     flex-direction: column;
 }
 
-.service-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--glass-shadow-lg);
+@media (hover: hover) and (pointer: fine) {
+    .service-card:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--glass-shadow-lg);
+    }
 }
 
 .service-card h3 {
@@ -2004,8 +2046,10 @@ section[id],
     transition: var(--transition);
 }
 
-.massage-modal-close:hover {
-    background: var(--gray-200);
+@media (hover: hover) and (pointer: fine) {
+    .massage-modal-close:hover {
+        background: var(--gray-200);
+    }
 }
 
 .massage-modal-title {
@@ -2029,8 +2073,10 @@ section[id],
     transition: color 0.2s ease;
 }
 
-.massage-modal-subtitle a:hover {
-    color: var(--black);
+@media (hover: hover) and (pointer: fine) {
+    .massage-modal-subtitle a:hover {
+        color: var(--black);
+    }
 }
 
 .massage-label {
@@ -2071,9 +2117,11 @@ section[id],
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.massage-session-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--glass-shadow-lg);
+@media (hover: hover) and (pointer: fine) {
+    .massage-session-card:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--glass-shadow-lg);
+    }
 }
 
 .massage-session-card.recommended {
@@ -2082,8 +2130,10 @@ section[id],
     color: var(--white);
 }
 
-.massage-session-card.recommended:hover {
-    background: rgba(0, 0, 0, 0.8);
+@media (hover: hover) and (pointer: fine) {
+    .massage-session-card.recommended:hover {
+        background: rgba(0, 0, 0, 0.8);
+    }
 }
 
 .session-badge {
@@ -2150,13 +2200,15 @@ section[id],
     border: 1px solid var(--glass-border-light);
     border-radius: 30px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
 }
 
-.massage-tab-btn:hover {
-    color: var(--black);
-    background: var(--glass-bg);
-    box-shadow: var(--glass-shadow);
+@media (hover: hover) and (pointer: fine) {
+    .massage-tab-btn:hover {
+        color: var(--black);
+        background: var(--glass-bg);
+        box-shadow: var(--glass-shadow);
+    }
 }
 
 .massage-tab-btn.active {
@@ -2197,9 +2249,11 @@ section[id],
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.massage-package-card:hover {
-    transform: translateY(-6px);
-    box-shadow: var(--glass-shadow-lg);
+@media (hover: hover) and (pointer: fine) {
+    .massage-package-card:hover {
+        transform: translateY(-6px);
+        box-shadow: var(--glass-shadow-lg);
+    }
 }
 
 .massage-package-card.featured {
@@ -2208,8 +2262,10 @@ section[id],
     color: var(--white);
 }
 
-.massage-package-card.featured:hover {
-    background: rgba(0, 0, 0, 0.8);
+@media (hover: hover) and (pointer: fine) {
+    .massage-package-card.featured:hover {
+        background: rgba(0, 0, 0, 0.8);
+    }
 }
 
 .package-badge {
@@ -2369,14 +2425,16 @@ section[id],
     min-height: 36px;
     border-left: 1px solid var(--gray-200);
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.calendar-slot:hover {
-    background: var(--gray-100);
+@media (hover: hover) and (pointer: fine) {
+    .calendar-slot:hover {
+        background: var(--gray-100);
+    }
 }
 
 .calendar-slot.selected {
@@ -2390,8 +2448,10 @@ section[id],
     cursor: not-allowed;
 }
 
-.calendar-slot.unavailable:hover {
-    background: var(--gray-100);
+@media (hover: hover) and (pointer: fine) {
+    .calendar-slot.unavailable:hover {
+        background: var(--gray-100);
+    }
 }
 
 .calendar-selection {
@@ -2664,9 +2724,11 @@ section[id],
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.price-card:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--glass-shadow-lg);
+@media (hover: hover) and (pointer: fine) {
+    .price-card:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--glass-shadow-lg);
+    }
 }
 
 .price-card.featured {
@@ -2675,8 +2737,10 @@ section[id],
     color: var(--white);
 }
 
-.price-card.featured:hover {
-    background: rgba(0, 0, 0, 0.8);
+@media (hover: hover) and (pointer: fine) {
+    .price-card.featured:hover {
+        background: rgba(0, 0, 0, 0.8);
+    }
 }
 
 .price-badge {
@@ -2776,8 +2840,10 @@ section[id],
     color: var(--black);
 }
 
-.price-card.featured .btn-primary:hover {
-    background: var(--gray-200);
+@media (hover: hover) and (pointer: fine) {
+    .price-card.featured .btn-primary:hover {
+        background: var(--gray-200);
+    }
 }
 
 /* ========================================
@@ -2854,9 +2920,11 @@ section[id],
     margin-left: 4px;
 }
 
-.gallery-video:hover .gallery-play-btn {
-    background: var(--accent);
-    transform: translate(-50%, -50%) scale(1.08);
+@media (hover: hover) and (pointer: fine) {
+    .gallery-video:hover .gallery-play-btn {
+        background: var(--accent);
+        transform: translate(-50%, -50%) scale(1.08);
+    }
 }
 
 @media (max-width: 900px) {
@@ -2908,8 +2976,10 @@ section[id],
     z-index: 2001;
 }
 
-.video-lightbox-close:hover {
-    color: var(--gray-400);
+@media (hover: hover) and (pointer: fine) {
+    .video-lightbox-close:hover {
+        color: var(--gray-400);
+    }
 }
 
 /* ========================================
@@ -2944,12 +3014,14 @@ section[id],
     border-radius: 20px;
     box-shadow: var(--glass-shadow);
     overflow: hidden;
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
 }
 
-.approach-item:hover {
-    box-shadow: var(--glass-shadow-lg);
-    transform: translateY(-2px);
+@media (hover: hover) and (pointer: fine) {
+    .approach-item:hover {
+        box-shadow: var(--glass-shadow-lg);
+        transform: translateY(-2px);
+    }
 }
 
 .approach-question {
@@ -2970,8 +3042,10 @@ section[id],
     letter-spacing: 0.02em;
 }
 
-.approach-question:hover {
-    color: var(--accent);
+@media (hover: hover) and (pointer: fine) {
+    .approach-question:hover {
+        color: var(--accent);
+    }
 }
 
 .approach-icon {
@@ -2986,7 +3060,7 @@ section[id],
     content: '';
     position: absolute;
     background: var(--black);
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
 }
 
 .approach-icon::before {
@@ -3097,8 +3171,10 @@ section[id],
     transition: var(--transition);
 }
 
-.faq-question:hover {
-    color: var(--gray-600);
+@media (hover: hover) and (pointer: fine) {
+    .faq-question:hover {
+        color: var(--gray-600);
+    }
 }
 
 .faq-icon {
@@ -3187,10 +3263,12 @@ section[id],
     border-color: var(--gray-600);
 }
 
-.contact-section .btn-ghost:hover {
-    background: var(--white);
-    color: var(--black);
-    border-color: var(--white);
+@media (hover: hover) and (pointer: fine) {
+    .contact-section .btn-ghost:hover {
+        background: var(--white);
+        color: var(--black);
+        border-color: var(--white);
+    }
 }
 
 /* ========================================
@@ -3225,8 +3303,10 @@ section[id],
     transition: var(--transition);
 }
 
-.footer-links a:hover {
-    color: var(--black);
+@media (hover: hover) and (pointer: fine) {
+    .footer-links a:hover {
+        color: var(--black);
+    }
 }
 
 .footer-lang {
@@ -3241,9 +3321,14 @@ section[id],
     transition: var(--transition);
 }
 
-.footer-lang a:hover,
 .footer-lang a.active {
     color: var(--black);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .footer-lang a:hover {
+        color: var(--black);
+    }
 }
 
 .footer-bottom {
@@ -3295,8 +3380,10 @@ section[id],
     padding: 4px;
 }
 
-.footer-social a:hover {
-    color: var(--white);
+@media (hover: hover) and (pointer: fine) {
+    .footer-social a:hover {
+        color: var(--white);
+    }
 }
 
 /* ========================================
@@ -3323,7 +3410,7 @@ section[id],
     backdrop-filter: blur(var(--glass-blur-sm));
     -webkit-backdrop-filter: blur(var(--glass-blur-sm));
     border: 1px solid rgba(255, 255, 255, 0.2);
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
 }
 
 .social-float-btn svg {
@@ -3331,8 +3418,10 @@ section[id],
     height: 24px;
 }
 
-.social-float-btn:hover {
-    transform: scale(1.1);
+@media (hover: hover) and (pointer: fine) {
+    .social-float-btn:hover {
+        transform: scale(1.1);
+    }
 }
 
 .social-float-instagram {
@@ -3340,8 +3429,10 @@ section[id],
     box-shadow: 0 8px 32px rgba(225, 48, 108, 0.4);
 }
 
-.social-float-instagram:hover {
-    box-shadow: 0 12px 40px rgba(225, 48, 108, 0.5);
+@media (hover: hover) and (pointer: fine) {
+    .social-float-instagram:hover {
+        box-shadow: 0 12px 40px rgba(225, 48, 108, 0.5);
+    }
 }
 
 .social-float-facebook {
@@ -3349,8 +3440,10 @@ section[id],
     box-shadow: 0 8px 32px rgba(24, 119, 242, 0.4);
 }
 
-.social-float-facebook:hover {
-    box-shadow: 0 12px 40px rgba(24, 119, 242, 0.5);
+@media (hover: hover) and (pointer: fine) {
+    .social-float-facebook:hover {
+        box-shadow: 0 12px 40px rgba(24, 119, 242, 0.5);
+    }
 }
 
 /* ========================================
@@ -3373,12 +3466,14 @@ section[id],
     box-shadow: 0 8px 32px rgba(37, 211, 102, 0.4);
     border: 1px solid rgba(255, 255, 255, 0.2);
     z-index: 999;
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
 }
 
-.whatsapp-float:hover {
-    transform: scale(1.1);
-    box-shadow: 0 12px 40px rgba(37, 211, 102, 0.5);
+@media (hover: hover) and (pointer: fine) {
+    .whatsapp-float:hover {
+        transform: scale(1.1);
+        box-shadow: 0 12px 40px rgba(37, 211, 102, 0.5);
+    }
 }
 
 .whatsapp-float svg {
@@ -3474,9 +3569,14 @@ section[id],
         display: block;
     }
 
-    .lang-switch-mobile a:hover,
     .lang-switch-mobile a.active {
         color: var(--black);
+    }
+
+        @media (hover: hover) and (pointer: fine) {
+        .lang-switch-mobile a:hover {
+                color: var(--black);
+            }
     }
 
     /* Hide desktop lang-switch on mobile */
@@ -3794,8 +3894,10 @@ section[id],
     transition: var(--transition);
 }
 
-.registration-modal-close:hover {
-    background: var(--gray-200);
+@media (hover: hover) and (pointer: fine) {
+    .registration-modal-close:hover {
+        background: var(--gray-200);
+    }
 }
 
 .registration-title {
@@ -3986,8 +4088,10 @@ textarea.form-input {
     padding: 4px 0;
 }
 
-.goal-option:hover {
-    color: var(--black);
+@media (hover: hover) and (pointer: fine) {
+    .goal-option:hover {
+        color: var(--black);
+    }
 }
 
 .goal-option input {
@@ -4190,8 +4294,10 @@ textarea.form-input {
     transition: var(--transition);
 }
 
-.bank-detail-row:hover {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+@media (hover: hover) and (pointer: fine) {
+    .bank-detail-row:hover {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    }
 }
 
 .bank-label {
@@ -4328,10 +4434,12 @@ textarea.form-input {
     box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
 }
 
-.btn-whatsapp:hover {
-    background: #20BA5A;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(37, 211, 102, 0.4);
+@media (hover: hover) and (pointer: fine) {
+    .btn-whatsapp:hover {
+        background: #20BA5A;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(37, 211, 102, 0.4);
+    }
 }
 
 .btn-whatsapp:active {
@@ -4353,10 +4461,12 @@ textarea.form-input {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-.btn-download:hover {
-    background: var(--black);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+@media (hover: hover) and (pointer: fine) {
+    .btn-download:hover {
+        background: var(--black);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    }
 }
 
 .btn-download:active {
@@ -4480,7 +4590,7 @@ textarea.form-input {
     font-family: var(--font-primary);
     cursor: pointer;
     border: none;
-    transition: all 0.2s ease;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
     white-space: nowrap;
 }
 
@@ -4499,8 +4609,10 @@ textarea.form-input {
     color: var(--black);
 }
 
-.cookie-btn-accept:hover {
-    background: var(--gray-200);
+@media (hover: hover) and (pointer: fine) {
+    .cookie-btn-accept:hover {
+        background: var(--gray-200);
+    }
 }
 
 .cookie-btn-decline {
@@ -4509,8 +4621,10 @@ textarea.form-input {
     border: 1px solid var(--gray-500);
 }
 
-.cookie-btn-decline:hover {
-    border-color: var(--white);
+@media (hover: hover) and (pointer: fine) {
+    .cookie-btn-decline:hover {
+        border-color: var(--white);
+    }
 }
 
 @media (max-width: 768px) {
@@ -4887,10 +5001,12 @@ textarea.form-input {
     border-color: var(--gray-600);
 }
 
-.partners-cta-section .btn-ghost:hover {
-    background: var(--white);
-    color: var(--black);
-    border-color: var(--white);
+@media (hover: hover) and (pointer: fine) {
+    .partners-cta-section .btn-ghost:hover {
+        background: var(--white);
+        color: var(--black);
+        border-color: var(--white);
+    }
 }
 
 
@@ -4968,4 +5084,75 @@ select:focus-visible,
     margin: 24px auto 0;
     padding-top: 24px;
     border-top: 1px solid var(--gray-200);
+}
+
+/* ========================================
+   MOTION (audit 12.10.2026)
+   ======================================== */
+
+/* Booking / lead dialogs fade and settle in (~0.2s) instead of appearing in one frame */
+@keyframes dialogFade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes dialogSettle {
+    from { opacity: 0; transform: scale(0.97); }
+    to { opacity: 1; transform: none; }
+}
+
+.massage-booking-modal.active {
+    animation: dialogFade 0.2s var(--ease-out);
+}
+
+.massage-booking-modal.active .massage-booking-modal-content {
+    animation: dialogSettle 0.2s var(--ease-out);
+}
+
+/* Buttons give a small press response */
+.btn,
+.btn-view-details,
+.cookie-btn {
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.16s var(--ease-out), opacity 0.2s ease;
+}
+
+.btn:active,
+.btn-view-details:active,
+.cookie-btn:active {
+    transform: scale(0.97);
+}
+
+/* Accordions: browsers that can animate to "auto" height (Chrome, Edge, newer Safari)
+   open and close to the exact content height, fast on close; others keep the
+   max-height behaviour above. */
+@supports (interpolate-size: allow-keywords) {
+    .faq-answer,
+    .approach-answer,
+    .program-details {
+        interpolate-size: allow-keywords;
+        max-height: none;
+        height: 0;
+        transition: height 0.18s var(--ease-out);
+    }
+
+    .faq-item.active .faq-answer,
+    .approach-item.active .approach-answer,
+    .program-details-block.active .program-details {
+        max-height: none;
+        height: auto;
+        transition-duration: 0.28s;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    @keyframes dialogSettle {
+        from { opacity: 0; transform: none; }
+        to { opacity: 1; transform: none; }
+    }
+
+    .btn:active,
+    .btn-view-details:active,
+    .cookie-btn:active {
+        transform: none;
+    }
 }

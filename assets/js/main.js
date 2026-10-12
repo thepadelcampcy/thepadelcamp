@@ -373,6 +373,8 @@ function initAnimations() {
                 if (entry.isIntersecting) {
                     entry.target.style.opacity = '1';
                     entry.target.style.transform = 'translateY(0)';
+                    const shown = entry.target;
+                    setTimeout(() => { shown.style.transitionDelay = ''; }, 700);
                     observer.unobserve(entry.target);
                 }
             });
@@ -383,8 +385,12 @@ function initAnimations() {
 
         animatedElements.forEach(el => {
             el.style.opacity = '0';
-            el.style.transform = reduceMotion ? 'none' : 'translateY(30px)';
-            el.style.transition = reduceMotion ? 'opacity 0.3s ease' : 'opacity 0.6s ease, transform 0.6s ease';
+            el.style.transform = reduceMotion ? 'none' : 'translateY(12px)';
+            const ease = 'cubic-bezier(0.23, 1, 0.32, 1)';
+            el.style.transition = reduceMotion ? 'opacity 0.3s ease' : 'opacity 0.35s ' + ease + ', transform 0.35s ' + ease;
+            // small stagger between neighbours, cleared once shown so hovers are not delayed
+            const position = Array.prototype.indexOf.call(el.parentElement.children, el);
+            if (!reduceMotion) el.style.transitionDelay = Math.min(position, 3) * 50 + 'ms';
             observer.observe(el);
         });
     }

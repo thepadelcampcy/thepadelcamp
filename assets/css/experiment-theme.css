@@ -73,10 +73,15 @@ h3,
 }
 
 /* Nav links pick up the gold accent on hover/active instead of grey->black */
-.nav-list a:hover,
-.lang-switch a:hover,
 .lang-switch a.active {
     color: var(--accent);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .nav-list a:hover,
+    .lang-switch a:hover {
+        color: var(--accent);
+    }
 }
 
 /* Pure black sections -> navy, matching the new palette */
@@ -185,10 +190,16 @@ h3,
     border-color: rgba(252, 250, 246, 0.5);
 }
 
-.program-content.featured .btn-view-details:hover,
 .program-content.featured .program-details-block.active .btn-view-details {
     background: #fcfaf6;
     color: #001e2d;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .program-content.featured .btn-view-details:hover {
+        background: #fcfaf6;
+        color: #001e2d;
+    }
 }
 
 .program-content .btn-primary.btn-block::after {
@@ -681,10 +692,12 @@ html[lang="ru"] .hero-title em {
     -webkit-backdrop-filter: none;
 }
 
-.btn-primary:hover {
-    background: var(--accent-hover);
-    border-color: var(--accent-hover);
-    color: #fcfaf6;
+@media (hover: hover) and (pointer: fine) {
+    .btn-primary:hover {
+        background: var(--accent-hover);
+        border-color: var(--accent-hover);
+        color: #fcfaf6;
+    }
 }
 
 .hero-cta .btn-ghost {
@@ -694,10 +707,12 @@ html[lang="ru"] .hero-title em {
     box-shadow: none;
 }
 
-.hero-cta .btn-ghost:hover {
-    background: rgba(252, 250, 246, 0.18);
-    color: #fcfaf6;
-    border-color: rgba(252, 250, 246, 0.7);
+@media (hover: hover) and (pointer: fine) {
+    .hero-cta .btn-ghost:hover {
+        background: rgba(252, 250, 246, 0.18);
+        color: #fcfaf6;
+        border-color: rgba(252, 250, 246, 0.7);
+    }
 }
 
 .hero-meta .meta-item {
@@ -782,9 +797,11 @@ html[lang="ru"] .hero-title em {
     z-index: 2;
 }
 
-.gallery-nav:hover {
-    background: #fff;
-    transform: translateY(-50%) scale(1.06);
+@media (hover: hover) and (pointer: fine) {
+    .gallery-nav:hover {
+        background: #fff;
+        transform: translateY(-50%) scale(1.06);
+    }
 }
 
 .gallery-nav-prev {
@@ -933,10 +950,16 @@ html[lang="ru"] .hero-title em {
     transition: background 0.2s ease, color 0.2s ease;
 }
 
-.gallery-more:hover,
 .gallery-more:focus-visible {
     background: var(--accent);
     color: #fcfaf6;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .gallery-more:hover {
+        background: var(--accent);
+        color: #fcfaf6;
+    }
 }
 
 /* Larger reading type on phones, to match the enlarged hero (owner's
