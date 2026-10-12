@@ -27,7 +27,7 @@ button {
    massage session prices) instead of a fixed size */
 .service-price,
 .session-price {
-    font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+    font-family: 'Cormorant Garamond', 'EB Garamond', 'Times New Roman', serif;
     font-weight: 600;
 }
 
@@ -53,7 +53,7 @@ h3,
 .price-location,
 .approach-question,
 .faq-question {
-    font-family: 'Cormorant Garamond', 'Times New Roman', serif !important;
+    font-family: 'Cormorant Garamond', 'EB Garamond', 'Times New Roman', serif !important;
     font-weight: 500 !important;
     text-transform: none !important;
     letter-spacing: 0 !important;
@@ -214,7 +214,7 @@ h3,
 /* The schedule's date/stat labels were plain bold sans — felt flat
    next to the serif headings, so give them the same refined treatment */
 .day-num {
-    font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+    font-family: 'Cormorant Garamond', 'EB Garamond', 'Times New Roman', serif;
     font-size: 22px;
 }
 
@@ -298,7 +298,7 @@ h3,
 }
 
 .early-bird-badge-price {
-    font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+    font-family: 'Cormorant Garamond', 'EB Garamond', 'Times New Roman', serif;
     font-size: 26px;
     font-weight: 700;
     color: #fcfaf6;
@@ -435,35 +435,35 @@ h3,
 
 /* Cold grey section backgrounds -> warm cream/sand, sitewide */
 .learn-section {
-    background: linear-gradient(180deg, #fcfaf6 0%, #f4eee4 100%);
+    background: linear-gradient(180deg, #f7f4ee 0%, #efe8dc 100%);
 }
 
 .coaches-section {
-    background: linear-gradient(180deg, #f4eee4 0%, #efe3d3 100%);
+    background: linear-gradient(180deg, #efe8dc 0%, #eaddcb 100%);
 }
 
 .venue-section {
-    background: linear-gradient(180deg, #efe3d3 0%, #f4eee4 100%);
+    background: linear-gradient(180deg, #eaddcb 0%, #efe8dc 100%);
 }
 
 .included-section {
-    background: linear-gradient(180deg, #f4eee4 0%, #efe3d3 100%);
+    background: linear-gradient(180deg, #efe8dc 0%, #eaddcb 100%);
 }
 
 .approach-section {
-    background: linear-gradient(135deg, #f4eee4 0%, #fcfaf6 100%);
+    background: linear-gradient(135deg, #efe8dc 0%, #f7f4ee 100%);
 }
 
 .partners-preview {
-    background: #f4eee4;
+    background: #efe8dc;
 }
 
 .pricing-section {
-    background: linear-gradient(180deg, #fcfaf6 0%, #f4eee4 100%);
+    background: linear-gradient(180deg, #f7f4ee 0%, #efe8dc 100%);
 }
 
 body {
-    background: #fcfaf6;
+    background: #f7f4ee;
 }
 
 /* Frosted cards sitewide: same component, gold-tinted border instead of plain white */
@@ -750,7 +750,7 @@ html[lang="ru"] .hero-title em {
     border-radius: 28px;
     overflow: hidden;
     scroll-snap-align: center;
-    background: #f4eee4;
+    background: #efe8dc;
     box-shadow: 0 20px 50px rgba(0, 30, 45, 0.18);
 }
 
@@ -1012,4 +1012,31 @@ html[lang="ru"] .hero-title em {
     .lp-card li {
         font-size: 17px !important;
     }
+}
+
+/* Cormorant defaults to old-style figures (7, 9 drop below the line; "1" looks
+   like a small-cap I). Lining figures keep prices and "1-on-1" even and
+   readable without changing the typeface. */
+h1,
+h2,
+h3,
+[class$="-title"],
+.date-range,
+.price-value,
+.price-location,
+.approach-question,
+.faq-question,
+.service-price,
+.session-price,
+.early-bird-badge-price,
+.day-num {
+    font-variant-numeric: lining-nums;
+}
+
+/* Featured (dark) program card: the dark-green stat line and tick marks
+   were nearly invisible on the navy-green gradient. Light mint reads
+   clearly (about 9:1) and stays in the green family. */
+.program-content.featured .program-hours,
+.program-content.featured .price-includes li::before {
+    color: #9fd9b8;
 }
