@@ -180,6 +180,21 @@ function initMassageCalendar() {
 }
 
 /**
+ * Focus handling shared by the dialogs: focus moves to the close button when a
+ * dialog opens and returns to the element that opened it when it closes.
+ */
+let focusBeforeDialog = null;
+function focusDialog(modal) {
+    focusBeforeDialog = document.activeElement;
+    const target = modal.querySelector('.massage-modal-close, .video-lightbox-close');
+    if (target) target.focus({ preventScroll: true });
+}
+function restoreDialogFocus() {
+    if (focusBeforeDialog && focusBeforeDialog.focus) focusBeforeDialog.focus({ preventScroll: true });
+    focusBeforeDialog = null;
+}
+
+/**
  * Service Booking Form Modal
  */
 function openServiceBookingForm(serviceName, price) {
@@ -212,6 +227,7 @@ function openServiceBookingForm(serviceName, price) {
         // Open booking form modal
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
+        focusDialog(modal);
     }
 }
 
@@ -220,6 +236,7 @@ function closeServiceBookingModal() {
     if (modal) {
         modal.classList.remove('active');
         document.body.style.overflow = '';
+        restoreDialogFocus();
 
         // Reset form
         const form = document.getElementById('serviceBookingForm');
@@ -251,6 +268,7 @@ function openLeadForm(campSlug, campName) {
     document.getElementById('leadCamp').value = campSlug;
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
+    focusDialog(modal);
 }
 
 // Shareable link that opens the lead form on load: /#notify (no camp) or
@@ -268,6 +286,7 @@ function closeLeadModal() {
     if (modal && modal.classList.contains('active')) {
         modal.classList.remove('active');
         document.body.style.overflow = '';
+        restoreDialogFocus();
     }
 }
 
@@ -290,6 +309,7 @@ function initFAQ() {
             if (!isActive) {
                 item.classList.add('active');
             }
+            faqItems.forEach(i => i.querySelector('.faq-question').setAttribute('aria-expanded', String(i.classList.contains('active'))));
         });
     });
 
@@ -309,6 +329,7 @@ function initFAQ() {
             if (!isActive) {
                 item.classList.add('active');
             }
+            approachItems.forEach(i => i.querySelector('.approach-question').setAttribute('aria-expanded', String(i.classList.contains('active'))));
         });
     });
 }
@@ -489,6 +510,7 @@ function openVideoLightbox(src) {
     video.src = src;
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
+    focusDialog(modal);
     video.play();
 }
 
@@ -502,6 +524,7 @@ function closeVideoLightbox() {
     video.load();
     modal.classList.remove('active');
     document.body.style.overflow = '';
+    restoreDialogFocus();
 }
 
 function toggleGallery() {

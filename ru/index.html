@@ -563,8 +563,8 @@
 
     <!-- Service Booking Form Modal -->
     <div class="massage-booking-modal" id="serviceBookingModal">
-        <div class="massage-booking-modal-content">
-            <button class="massage-modal-close" onclick="closeServiceBookingModal()">&times;</button>
+        <div class="massage-booking-modal-content" role="dialog" aria-modal="true" aria-labelledby="serviceBookingTitle">
+            <button class="massage-modal-close" type="button" onclick="closeServiceBookingModal()" aria-label="Закрыть">&times;</button>
             <h2 class="massage-modal-title" id="serviceBookingTitle">Забронировать услугу</h2>
             <p class="massage-booking-subtitle" id="selectedServiceInfo">Услуга — €0</p>
 
@@ -609,9 +609,9 @@
 
     <!-- Lead Capture ("Get details") Modal -->
     <div class="massage-booking-modal" id="leadModal">
-        <div class="massage-booking-modal-content">
-            <button class="massage-modal-close" onclick="closeLeadModal()">&times;</button>
-            <h2 class="massage-modal-title">Узнать первым</h2>
+        <div class="massage-booking-modal-content" role="dialog" aria-modal="true" aria-labelledby="leadModalTitle">
+            <button class="massage-modal-close" type="button" onclick="closeLeadModal()" aria-label="Закрыть">&times;</button>
+            <h2 class="massage-modal-title" id="leadModalTitle">Узнать первым</h2>
             <p class="massage-booking-subtitle" id="leadCampInfo"></p>
             <p class="massage-booking-subtitle">Сообщайте мне о новых лагерях, событиях и специальных предложениях.</p>
 
@@ -772,7 +772,7 @@
     </section>
 
     <!-- Video Lightbox -->
-    <div class="video-lightbox" id="videoLightbox">
+    <div class="video-lightbox" id="videoLightbox" role="dialog" aria-modal="true" aria-label="Видео">
         <button class="video-lightbox-close" onclick="closeVideoLightbox()" aria-label="Закрыть видео">&times;</button>
         <video id="videoLightboxPlayer" controls playsinline></video>
     </div>
@@ -786,7 +786,7 @@
             </div>
             <div class="approach-accordion">
                 <div class="approach-item">
-                    <button class="approach-question">
+                    <button class="approach-question" aria-expanded="false">
                         <span>Цели</span>
                         <span class="approach-icon"></span>
                     </button>
@@ -800,7 +800,7 @@
                     </div>
                 </div>
                 <div class="approach-item">
-                    <button class="approach-question">
+                    <button class="approach-question" aria-expanded="false">
                         <span>Методология</span>
                         <span class="approach-icon"></span>
                     </button>
@@ -814,7 +814,7 @@
                     </div>
                 </div>
                 <div class="approach-item">
-                    <button class="approach-question">
+                    <button class="approach-question" aria-expanded="false">
                         <span>Политика отмены</span>
                         <span class="approach-icon"></span>
                     </button>
@@ -840,7 +840,7 @@
             </div>
             <div class="faq-list">
                 <div class="faq-item">
-                    <button class="faq-question">
+                    <button class="faq-question" aria-expanded="false">
                         <span>Какой уровень нужен?</span>
                         <span class="faq-icon"></span>
                     </button>
@@ -849,7 +849,7 @@
                     </div>
                 </div>
                 <div class="faq-item">
-                    <button class="faq-question">
+                    <button class="faq-question" aria-expanded="false">
                         <span>Что брать с собой?</span>
                         <span class="faq-icon"></span>
                     </button>
@@ -858,7 +858,7 @@
                     </div>
                 </div>
                 <div class="faq-item">
-                    <button class="faq-question">
+                    <button class="faq-question" aria-expanded="false">
                         <span>Политика отмены?</span>
                         <span class="faq-icon"></span>
                     </button>
@@ -867,7 +867,7 @@
                     </div>
                 </div>
                 <div class="faq-item">
-                    <button class="faq-question">
+                    <button class="faq-question" aria-expanded="false">
                         <span>На каком языке?</span>
                         <span class="faq-icon"></span>
                     </button>
@@ -876,7 +876,7 @@
                     </div>
                 </div>
                 <div class="faq-item">
-                    <button class="faq-question">
+                    <button class="faq-question" aria-expanded="false">
                         <span>Размещение?</span>
                         <span class="faq-icon"></span>
                     </button>
