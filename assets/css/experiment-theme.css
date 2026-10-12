@@ -1084,3 +1084,47 @@ h3,
 .program-content.featured .early-bird-badge-divider {
     background: rgba(252, 250, 246, 0.3);
 }
+
+/* FAQ rows become rounded cards, the same look as "Our approach". */
+.faq-list {
+    display: grid;
+    gap: 16px;
+}
+
+.faq-item {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--accent-soft);
+    border-radius: 20px;
+    box-shadow: var(--glass-shadow);
+    overflow: hidden;
+}
+
+.faq-question {
+    padding: 24px 28px;
+}
+
+.faq-answer p {
+    padding: 0 28px 24px;
+}
+
+.faq-item.active .faq-answer {
+    max-height: 400px;
+}
+
+/* Partner logos have a white background that cannot be blended away (the card is
+   translucent), so they are shown as clean rounded tiles instead of hard-cornered squares. */
+/* the logo files are square, so the tile is exactly the image */
+.partner-logo-img {
+    width: 120px;
+    height: 120px;
+    max-width: none;
+    object-fit: cover;
+    border-radius: 18px;
+    border: 1px solid rgba(0, 69, 38, 0.14);
+}
+
+.partner-logo-img-lg {
+    border-radius: 18px;
+}
