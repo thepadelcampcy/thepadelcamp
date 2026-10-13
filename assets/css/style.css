@@ -1418,6 +1418,40 @@ section[id],
     margin-bottom: 40px;
 }
 
+/* Venue photos */
+.venue-photos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    max-width: 1100px;
+    margin: 0 auto 28px;
+}
+
+.venue-photos img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 14px;
+    display: block;
+}
+
+.venue-photos .venue-photo-wide {
+    grid-column: 1 / -1;
+    aspect-ratio: 16 / 6;
+}
+
+@media (max-width: 640px) {
+    .venue-photos {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .venue-photos .venue-photo-wide {
+        aspect-ratio: 4 / 3;
+    }
+}
+
 /* Simple Venue Layout */
 .venue-simple {
     max-width: 900px;
