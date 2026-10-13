@@ -299,3 +299,21 @@ LLM-ВИДИМОСТЬ — <файл/поверхность>            <дат�
 | 2026-10-13 | padel training camp Cyprus November 2026 | Claude WebSearch (US-индекс) | Нет — не найден | Corporate Cyprus Padel League, La Casa de Padel, Baghdatis Academy (клубы/лиги; лагерей не нашлось вовсе) |
 | 2026-10-13 | The Padel Camp Cyprus Limassol | Claude WebSearch (US-индекс) | Нет — бренд не найден даже по точному названию | Padel Magic, NAIS, Padel Syndicate, My Q Padel Club, PadelPro Academy/Parklane |
 | 2026-10-13 | падел лагерь Кипр Лимассол ноябрь 2026 (RU) | Claude WebSearch (US-индекс) | Нет — не найден | Корпоративная лига, Padel Syndicate, My Q Padel Club |
+
+---
+
+## 9. Месячный чек-лист (раз в месяц, первый прогон 2026-10-13)
+
+> Замеры через WebSearch (US-веб-поиск) **не заменяют** реальные чаты: у ChatGPT/Claude/Perplexity свой поиск
+> (у ChatGPT — индекс Bing). ИИ уже приводят клиентов: ChatGPT — 38 сессий и покупка 900 € (Daria, 11.09),
+> Daniel (IL) узнал о лагере от Claude (в GA4 такой переход не виден). Поэтому основной замер — ручной.
+
+1. **Ручной замер в самих чатах** (с включённым поиском): ChatGPT, Perplexity, Gemini, Claude. Три запроса:
+   - `padel training camp Cyprus <ближайший месяц/год>`
+   - `The Padel Camp Cyprus`
+   - `падел лагерь Кипр Лимассол <месяц>` (RU)
+   По каждому: названы ли мы, какой формулировкой, верны ли даты/цены/место, кого назвали вместо нас, какие домены цитируют. Строки — в §8.
+2. **GA4 (ИИ-рефералы):** сессии с источников chatgpt.com, perplexity, gemini, copilot, bing за месяц + покупки с них.
+3. **«Как вы о нас узнали»:** выписать ответы клиентов и лидов из WhatsApp/формы; отдельно отметить «ИИ» (ChatGPT, Claude и т.д.).
+4. **Факты:** сверить `llms.txt`, JSON-LD (`offers`) и видимые цены/даты на EN/RU/EL; при смене цен менять во всех местах сразу.
+5. **Открытое:** абзац-ответ в hero, title ≤60, баннер Early Bird (после 15.10), внешние упоминания (Google Business Profile, местные медиа, MyQPadel/Playtomic, ссылки с партнёров).
