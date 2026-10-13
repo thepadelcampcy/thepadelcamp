@@ -296,3 +296,6 @@ LLM-ВИДИМОСТЬ — <файл/поверхность>            <дат�
 | 2026-08-21 | падел лагерь Кипр октябрь 2026 (RU) | Google (веб-поиск, grounded-ответ) | **Нет — не упомянут вовсе** | padelcamps.site — прямой конкурент, лагерь в Ларнаке на те же сен-окт 2026 |
 | 2026-08-21 | What is The Padel Camp Cyprus? | Claude (без веб-поиска, по весам модели) | Нет — бренд не в обучающих данных, нулевое знание без поиска | н/д |
 | | | | | |
+| 2026-10-13 | padel training camp Cyprus November 2026 | Claude WebSearch (US-индекс) | Нет — не найден | Corporate Cyprus Padel League, La Casa de Padel, Baghdatis Academy (клубы/лиги; лагерей не нашлось вовсе) |
+| 2026-10-13 | The Padel Camp Cyprus Limassol | Claude WebSearch (US-индекс) | Нет — бренд не найден даже по точному названию | Padel Magic, NAIS, Padel Syndicate, My Q Padel Club, PadelPro Academy/Parklane |
+| 2026-10-13 | падел лагерь Кипр Лимассол ноябрь 2026 (RU) | Claude WebSearch (US-индекс) | Нет — не найден | Корпоративная лига, Padel Syndicate, My Q Padel Club |
