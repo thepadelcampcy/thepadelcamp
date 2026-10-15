@@ -37,11 +37,15 @@ function doPost(e) {
   try {
     const body = JSON.parse(e.postData.contents);
 
-    if (body.type === 'view_content') {
+    if (body.type === 'view_content' || body.type === 'initiate_checkout') {
       if (!VIEWCONTENT_RELAY_TOKEN || body.token !== VIEWCONTENT_RELAY_TOKEN) {
         return ContentService.createTextOutput('Forbidden').setMimeType(ContentService.MimeType.TEXT);
       }
-      sendViewContentToMetaCAPI(body.event_id, body.content_name, body.fbc, body.fbp, body.url);
+      if (body.type === 'initiate_checkout') {
+        sendInitiateCheckoutToMetaCAPI(body.event_id, body.content_name, body.value, body.fbc, body.fbp, body.url);
+      } else {
+        sendViewContentToMetaCAPI(body.event_id, body.content_name, body.fbc, body.fbp, body.url);
+      }
       return ContentService.createTextOutput('OK').setMimeType(ContentService.MimeType.TEXT);
     }
 
@@ -384,6 +388,36 @@ function sendViewContentToMetaCAPI(eventId, contentName, fbc, fbp, sourceUrl) {
     Logger.log('Meta CAPI ViewContent response: ' + response.getContentText());
   } catch (err) {
     Logger.log('Meta CAPI ViewContent error: ' + err.message);
+  }
+}
+
+function sendInitiateCheckoutToMetaCAPI(eventId, contentName, value, fbc, fbp, sourceUrl) {
+  if (!META_CAPI_ACCESS_TOKEN) return;
+
+  const userData = {};
+  if (fbc) userData.fbc = fbc;
+  if (fbp) userData.fbp = fbp;
+  if (!userData.fbc && !userData.fbp) return;
+
+  const payload = {
+    data: [{
+      event_name: 'InitiateCheckout',
+      event_time: Math.floor(new Date().getTime() / 1000),
+      event_id: eventId,
+      action_source: 'website',
+      event_source_url: sourceUrl || 'https://thepadelcamp.com.cy/',
+      user_data: userData,
+      custom_data: { content_name: contentName || 'padel_camp', value: Number(value) || 0, currency: 'EUR' }
+    }]
+  };
+
+  const url = 'https://graph.facebook.com/v26.0/' + META_PIXEL_ID + '/events?access_token=' + META_CAPI_ACCESS_TOKEN;
+
+  try {
+    const response = UrlFetchApp.fetch(url, { method: 'post', contentType: 'application/json', payload: JSON.stringify(payload), muteHttpExceptions: true });
+    Logger.log('Meta CAPI InitiateCheckout response: ' + response.getContentText());
+  } catch (err) {
+    Logger.log('Meta CAPI InitiateCheckout error: ' + err.message);
   }
 }
 

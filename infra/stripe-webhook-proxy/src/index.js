@@ -43,7 +43,8 @@ export default {
       payload = null;
     }
 
-    const isViewContent = payload && payload.type === 'view_content';
+    // Browser-side events relayed to Meta CAPI (not Stripe webhooks).
+    const isViewContent = payload && (payload.type === 'view_content' || payload.type === 'initiate_checkout');
 
     if (isViewContent) {
       if (!env.VIEWCONTENT_RELAY_TOKEN || payload.token !== env.VIEWCONTENT_RELAY_TOKEN) {
@@ -60,7 +61,7 @@ export default {
 
     // Which request this is, for the logs: 'view_content' or the Stripe event type + session id.
     const kind = isViewContent
-      ? 'view_content'
+      ? payload.type
       : `${payload && payload.type} ${payload && payload.data && payload.data.object && payload.data.object.id}`;
 
     // Apps Script runs doPost during this POST and only then answers 302 to a

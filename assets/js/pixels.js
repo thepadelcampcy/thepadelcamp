@@ -284,14 +284,19 @@ function trackRegistration(data) {
  */
 function trackPurchase(data) {
     var consented = hasConsented();
+    var eventId = 'ic_' + Date.now() + '_' + Math.random().toString(36).slice(2, 10);
 
     if (consented && typeof fbq === 'function') {
         fbq('track', 'InitiateCheckout', {
             content_name: data.camp || 'padel_camp',
             value: data.value || 0,
             currency: 'EUR'
-        });
+        }, { eventID: eventId });
     }
+
+    // Server-side twin of the pixel call (same event_id, so Meta dedupes).
+    // Behind consent like ViewContent: the relay ships _fbc/_fbp.
+    if (consented) sendInitiateCheckoutToServer(eventId, data.camp, data.value);
 
     if (typeof gtag === 'function') {
         gtag('event', 'begin_checkout', {
@@ -371,6 +376,30 @@ function sendViewContentToServer(eventId, contentName) {
 /**
  * Track a contact form submission
  */
+function sendInitiateCheckoutToServer(eventId, camp, value) {
+    const fbc = getCookie('_fbc');
+    const fbp = getCookie('_fbp');
+    if (!fbc && !fbp) return; // nothing for Meta to match this visitor on
+
+    fetch(CAPI_RELAY_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            token: VIEWCONTENT_RELAY_TOKEN,
+            type: 'initiate_checkout',
+            event_id: eventId,
+            content_name: camp || 'padel_camp',
+            value: value || 0,
+            fbc: fbc,
+            fbp: fbp,
+            url: location.href
+        })
+    }).catch(function() {});
+}
+
 function trackContact() {
     var consented = hasConsented();
 
