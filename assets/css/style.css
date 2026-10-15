@@ -4651,13 +4651,13 @@ textarea.form-input {
    below the 3:1 WCAG minimum for a UI component. Light background with dark
    text reads on every page regardless of theme. */
 .cookie-btn-accept {
-    background: var(--white);
+    background: #d4f23a;
     color: var(--black);
 }
 
 @media (hover: hover) and (pointer: fine) {
     .cookie-btn-accept:hover {
-        background: var(--gray-200);
+        background: #e3f870;
     }
 }
 
@@ -4690,6 +4690,36 @@ textarea.form-input {
         padding: 10px 14px;
         font-size: 13px;
     }
+}
+
+/* Large bottom sheet: hard to overlook, so visitors answer instead of
+   scrolling past it. Both buttons keep identical size and weight. */
+.cookie-consent {
+    padding: 32px 20px calc(32px + env(safe-area-inset-bottom));
+    border-radius: 20px 20px 0 0;
+}
+
+.cookie-consent-inner {
+    flex-direction: column;
+    text-align: center;
+    gap: 24px;
+    max-width: 560px;
+}
+
+.cookie-consent-text {
+    font-size: 17px;
+    line-height: 1.5;
+}
+
+.cookie-consent-buttons {
+    width: 100%;
+    gap: 12px;
+}
+
+.cookie-btn {
+    flex: 1 1 0;
+    padding: 16px 14px;
+    font-size: 16px;
 }
 
 /* ========================================

@@ -88,11 +88,11 @@ function createConsentBanner() {
                 ${T.text}
             </p>
             <div class="cookie-consent-buttons">
-                <button class="cookie-btn cookie-btn-accept" onclick="acceptCookies()">
-                    ${T.accept}
-                </button>
                 <button class="cookie-btn cookie-btn-decline" onclick="declineCookies()">
                     ${T.decline}
+                </button>
+                <button class="cookie-btn cookie-btn-accept" onclick="acceptCookies()">
+                    ${T.accept}
                 </button>
             </div>
         </div>
@@ -110,6 +110,9 @@ function acceptCookies() {
     // call is not made under a still-denied Google consent state.
     updateGoogleConsent(true);
     loadAllPixels();
+    // Banner accept-rate counter: carries no identifiers, only that a choice
+    // was made on this page.
+    if (typeof gtag === 'function') gtag('event', 'cookie_accept');
 }
 
 function declineCookies() {
@@ -118,6 +121,7 @@ function declineCookies() {
     // Declining is a real answer, not a "no answer": send the update so
     // gtag.js stops waiting and keeps sending cookieless pings.
     updateGoogleConsent(false);
+    if (typeof gtag === 'function') gtag('event', 'cookie_decline');
 }
 
 function hideBanner() {
