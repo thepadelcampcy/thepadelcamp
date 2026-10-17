@@ -281,6 +281,22 @@ document.addEventListener('DOMContentLoaded', function() {
     else openLeadForm('', '');
 });
 
+// Ad links /#camp-morning|evening|weekend: on a phone the card is taller than
+// the screen, so the browser's own jump hides its Book button. If the whole
+// card fits, put it just under the header; otherwise scroll until Book is
+// visible at the bottom of the screen.
+window.addEventListener('load', function() {
+    const card = location.hash.match(/^#camp-(morning|evening|weekend)$/) && document.querySelector(location.hash);
+    const cta = card && card.querySelector('.schedule-cta');
+    if (!cta) return;
+    // Header height is still animating at load; the CSS scroll-margin
+    // (scrolled header + gap) is the stable offset.
+    const gap = 12;
+    const top = card.getBoundingClientRect().top + window.pageYOffset - parseFloat(getComputedStyle(card).scrollMarginTop);
+    const ctaBottom = cta.getBoundingClientRect().bottom + window.pageYOffset;
+    window.scrollTo(0, Math.max(top, ctaBottom + gap * 2 - window.innerHeight));
+});
+
 function closeLeadModal() {
     const modal = document.getElementById('leadModal');
     if (modal && modal.classList.contains('active')) {

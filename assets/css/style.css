@@ -197,6 +197,14 @@ section[id],
     scroll-margin-top: 100px;
 }
 
+/* Ad deep links: main.js re-positions these on load (card under the header,
+   or Book button on screen if the card is taller than the viewport). */
+#camp-morning,
+#camp-evening,
+#camp-weekend {
+    scroll-margin-top: 76px;
+}
+
 .header .container {
     display: flex;
     align-items: center;
