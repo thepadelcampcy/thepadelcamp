@@ -193,11 +193,16 @@ img {
    regardless of the header's much taller pre-scroll height — see
    initSmoothScroll() in main.js, which now just uses scrollIntoView(). */
 section[id],
-#program-cards,
+#program-cards {
+    scroll-margin-top: 100px;
+}
+
+/* Ad deep links: main.js re-positions these on load (card under the header,
+   or Book button on screen if the card is taller than the viewport). */
 #camp-morning,
 #camp-evening,
 #camp-weekend {
-    scroll-margin-top: 100px;
+    scroll-margin-top: 76px;
 }
 
 .header .container {
