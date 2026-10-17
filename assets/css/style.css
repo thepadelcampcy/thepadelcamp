@@ -193,7 +193,10 @@ img {
    regardless of the header's much taller pre-scroll height — see
    initSmoothScroll() in main.js, which now just uses scrollIntoView(). */
 section[id],
-#program-cards {
+#program-cards,
+#camp-morning,
+#camp-evening,
+#camp-weekend {
     scroll-margin-top: 100px;
 }
 
