@@ -14,6 +14,7 @@ script. `doPost` routes by payload:
 | input | guard | does | returns |
 |---|---|---|---|
 | `view_content` | `VIEWCONTENT_RELAY_TOKEN` in the body | Meta CAPI `ViewContent` only | `OK` / `Forbidden` |
+| `initiate_checkout` | `VIEWCONTENT_RELAY_TOKEN` in the body | saves `attr_token` + GA4 client_id/fbc/fbp to sheet **Attribution**, then Meta CAPI `InitiateCheckout` | `OK` / `Forbidden` |
 | `checkout.session.completed` with `payment_status: paid` | `WEBHOOK_TOKEN` in the query string | Confirmed Payments sheet + Telegram + Meta CAPI `Purchase` + GA4 Measurement Protocol `purchase` | `OK` |
 | `checkout.session.completed`, not paid | — | nothing | `Not paid` |
 | any other event type | — | nothing | `Ignored` |
@@ -45,6 +46,9 @@ The sequence is deliberate and should not be rearranged:
 
 - Google Sheet `1eRs41v1VRVIKTOdovtrg9B1agOVEF6Bbw3zqC3Zz1jM` → sheet **Confirmed Payments**, columns
   `Timestamp, Session ID, Item, Amount, Currency, Name, Email`. `paymentRowExists` matches on column 2.
+- Same spreadsheet → sheet **Attribution** (created on first use): `Timestamp, Token, GA4 client_id, fbc, fbp`. A payment whose
+  `client_reference_id` is `t-<token>` gets its attribution from the last row with that token (since 18.10;
+  base64url and `||` formats are still parsed for older sessions).
 - Execution as **Me**, access **Anyone** (Stripe posts without auth; the Worker is what authenticates the
   caller, via the HMAC signature check, and this script's own `WEBHOOK_TOKEN` query-param check sits behind
   it as a second layer).

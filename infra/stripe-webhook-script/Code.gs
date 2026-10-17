@@ -42,6 +42,10 @@ function doPost(e) {
         return ContentService.createTextOutput('Forbidden').setMimeType(ContentService.MimeType.TEXT);
       }
       if (body.type === 'initiate_checkout') {
+        // Метки покупателя под токеном из client_reference_id (правка 2026-10-18).
+        // Ошибка записи не должна мешать отправке InitiateCheckout в CAPI.
+        try { saveAttribution(body.attr_token, body.gcid, body.fbc, body.fbp); }
+        catch (err) { Logger.log('saveAttribution failed: ' + err.message); }
         sendInitiateCheckoutToMetaCAPI(body.event_id, body.content_name, body.value, body.fbc, body.fbp, body.url);
       } else {
         sendViewContentToMetaCAPI(body.event_id, body.content_name, body.fbc, body.fbp, body.url);
@@ -260,10 +264,51 @@ function appendPaymentRow(sessionId, item, amount, currency, name, email, phone)
   getPaymentSheet().appendRow([new Date(), sessionId, item, amount, currency, name, email, phone ? "'" + phone : '']);
 }
 
-// --- Разбор client_reference_id: base64url (с 29.09) + фолбэк на старый формат '||' ---
+// --- Атрибуция по токену (с 18.10) ---
+// Stripe ограничивает client_reference_id 200 символами, а _fbc после клика по
+// рекламе сам по себе ~180 (≈240 в base64) — сайт выбрасывал метки целиком.
+// Теперь в client_reference_id уходит 't-' + токен, а сами метки сайт присылает
+// сюда вместе с initiate_checkout при клике на Stripe; лежат во вкладке Attribution.
+
+const ATTR_TOKEN_RE = /^[0-9a-f]{24}$/;
+
+function getAttributionSheet() {
+  const ss = SpreadsheetApp.openById(SHEET_ID);
+  let sheet = ss.getSheetByName('Attribution');
+  if (!sheet) {
+    sheet = ss.insertSheet('Attribution');
+    sheet.appendRow(['Timestamp', 'Token', 'GA4 client_id', 'fbc', 'fbp']);
+  }
+  return sheet;
+}
+
+function saveAttribution(token, gcid, fbc, fbp) {
+  if (!ATTR_TOKEN_RE.test(String(token || ''))) return;
+  // Апостроф: иначе таблица превратит client_id "123.456" (и токен из одних цифр
+  // или вида "12e34…") в число и потеряет цифры
+  const t = function (v) { return v ? "'" + String(v).slice(0, 500) : ''; };
+  getAttributionSheet().appendRow([new Date(), t(token), t(gcid), t(fbc), t(fbp)]);
+}
+
+// Последняя строка с этим токеном (повторный клик на той же странице пишет новую).
+function lookupAttribution(token) {
+  const empty = { gcid: '', fbc: '', fbp: '' };
+  if (!ATTR_TOKEN_RE.test(token)) return empty;
+  const data = getAttributionSheet().getDataRange().getValues();
+  for (let i = data.length - 1; i >= 1; i--) {
+    if (data[i][1] === token) {
+      return { gcid: String(data[i][2] || ''), fbc: String(data[i][3] || ''), fbp: String(data[i][4] || '') };
+    }
+  }
+  Logger.log('attribution token not found: ' + token);
+  return empty;
+}
+
+// --- Разбор client_reference_id: 't-' токен (с 18.10), base64url (29.09–18.10), старый формат '||' ---
 
 function parseAttribution(raw) {
   if (!raw) return { gcid: '', fbc: '', fbp: '' };
+  if (raw.indexOf('t-') === 0) return lookupAttribution(raw.slice(2));
   if (raw.indexOf('||') !== -1) {
     const p = raw.split('||');
     return { gcid: p[0] || '', fbc: p[1] || '', fbp: p[2] || '' };
@@ -549,7 +594,8 @@ function testParseAttribution() {
     { name: 'null', raw: null },
     { name: 'legacy ||', raw: raw },
     { name: 'base64url', raw: b64 },
-    { name: 'not base64', raw: '!!!not-base64!!!' }
+    { name: 'not base64', raw: '!!!not-base64!!!' },
+    { name: 'token, not in sheet', raw: 't-000000000000000000000000' }
   ];
   cases.forEach(function (c) {
     let out;

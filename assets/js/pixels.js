@@ -380,11 +380,17 @@ function sendViewContentToServer(eventId, contentName) {
 function sendInitiateCheckoutToServer(eventId, camp, value) {
     const fbc = getCookie('_fbc');
     const fbp = getCookie('_fbp');
-    if (!fbc && !fbp) return; // nothing for Meta to match this visitor on
+    const gcid = getGA4ClientId();
+    if (!fbc && !fbp && !gcid) return; // nothing to match or attribute on
 
+    // Also carries the full attribution under STRIPE_ATTR_TOKEN: the script
+    // stores it, and the Stripe webhook looks it up by the token that went
+    // into client_reference_id. keepalive: this fires on the click that
+    // navigates to Stripe, which would otherwise cancel the request.
     fetch(CAPI_RELAY_URL, {
         method: 'POST',
         mode: 'no-cors',
+        keepalive: true,
         headers: {
             'Content-Type': 'application/json',
         },
@@ -396,6 +402,8 @@ function sendInitiateCheckoutToServer(eventId, camp, value) {
             value: value || 0,
             fbc: fbc,
             fbp: fbp,
+            gcid: gcid,
+            attr_token: STRIPE_ATTR_TOKEN,
             url: location.href
         })
     }).catch(function() {});
@@ -606,40 +614,33 @@ function getGA4ClientId() {
 }
 
 /**
- * Packs GA4's client_id and Meta's _fbc/_fbp cookies into one string for
- * Stripe's client_reference_id field, so the Apps Script webhook can forward
- * real session/ad-click attribution to GA4 Measurement Protocol and Meta
- * CAPI. Without this, server-side purchase events can't be tied back to the
- * visitor's original session/ad click.
+ * Random per-page-load token for Stripe's client_reference_id. The actual
+ * attribution (GA4 client_id, _fbc, _fbp) goes to the webhook Apps Script
+ * with the InitiateCheckout relay on the Stripe click
+ * (sendInitiateCheckoutToServer), stored under this token; the webhook looks
+ * it up when the payment arrives. Until 18.10 the values themselves were
+ * packed into client_reference_id as base64url, but Stripe caps it at 200
+ * chars and an ad-click _fbc alone is ~180 (≈240 after base64), so every
+ * ad-click buyer's attribution was dropped whole.
+ */
+const STRIPE_ATTR_TOKEN = (function () {
+    const bytes = new Uint8Array(12);
+    crypto.getRandomValues(bytes);
+    return Array.from(bytes, function (b) { return ('0' + b.toString(16)).slice(-2); }).join('');
+})();
+
+/**
+ * client_reference_id value: 't-' + STRIPE_ATTR_TOKEN. The 't-' prefix tells
+ * the webhook it's a token, not the old base64url format (which can never
+ * start with 't-').
  */
 function buildStripeAttributionParam() {
     // Deliberately not hasConsented(): this one is an early return, not a
     // branch around a pixel call, and it guards the one value that must never
     // leave the browser without consent — keep the check local and inverted.
     if (localStorage.getItem(CONSENT_KEY) !== 'accepted') return '';
-    const gcid = getGA4ClientId();
-    const fbc = getCookie('_fbc');
-    const fbp = getCookie('_fbp');
-    if (!gcid && !fbc && !fbp) return '';
-    const packed = [gcid, fbc, fbp].join('||');
-    // Stripe silently drops client_reference_id containing characters outside
-    // [A-Za-z0-9_-]; gcid/fbc/fbp contain dots and the separator is '|'.
-    // base64url keeps everything in the allowed set. Inputs are ASCII, so
-    // btoa() is safe here (it throws on chars > U+00FF).
-    // NOTE: this only fixes the charset problem, it is not encryption and adds
-    // no confidentiality — fbc/fbp/GA4 client_id are pseudonymized personal
-    // identifiers, trivially decodable by anyone with the URL. Per Stripe's
-    // own docs: "make sure [client_reference_id] doesn't include sensitive
-    // information... only share Payment Links that have URL parameters with
-    // intended recipients." This param must never end up in a Payment Link
-    // that gets shared publicly (email, QR code, social).
-    const encoded = btoa(packed).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
-    // Check the actual encoded length against Stripe's 200-char cap.
-    if (encoded.length > 200) {
-        console.warn('[pixels.js] attribution string too long, dropped');
-        return '';
-    }
-    return encoded;
+    if (!getGA4ClientId() && !getCookie('_fbc') && !getCookie('_fbp')) return '';
+    return 't-' + STRIPE_ATTR_TOKEN;
 }
 
 /**
