@@ -19,6 +19,7 @@ const GADS_ID = 'YOUR_GOOGLE_ADS_ID';
 const CLARITY_ID = 'yisjvh4uxg';
 
 const CONSENT_KEY = 'cookie_consent';
+const NOTRACK_KEY = 'pc_notrack';
 
 // Google Consent Mode v2 (advanced) defaults. The first four signals are
 // exactly the ones Google requires for v2; functionality_storage and
@@ -762,6 +763,13 @@ function initSocialClickTracking() {
 // ─── Initialize ──────────────────────────────────────────────────
 
 document.addEventListener('DOMContentLoaded', function() {
+    // Team testing device: ?notrack=1 sets the flag once, ?notrack=0 clears it.
+    // While set, skip GA4/Meta/Clarity entirely so our own visits never reach analytics.
+    var notrackParam = new URLSearchParams(location.search).get('notrack');
+    if (notrackParam === '1') localStorage.setItem(NOTRACK_KEY, '1');
+    else if (notrackParam === '0') localStorage.removeItem(NOTRACK_KEY);
+    if (localStorage.getItem(NOTRACK_KEY) === '1') return;
+
     var consent = localStorage.getItem(CONSENT_KEY);
 
     // Consent Mode v2 advanced: gtag.js goes out on every page view, with all
