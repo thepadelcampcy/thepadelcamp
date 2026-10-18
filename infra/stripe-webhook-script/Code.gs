@@ -102,9 +102,14 @@ function doPost(e) {
     const fbp = attr.fbp;
 
     // CAPI и GA4 — до Telegram, чтобы сбой уведомления не блокировал аналитику
-    sendToMetaCAPI(sessionId, resolved.slug, amount, currency, email, fbc, fbp, session.customer_details, resolved.numItems);
-    sendToGA4(gaClientId, resolved.slug, amount, currency, sessionId, resolved.numItems);
-    notifyTelegram(resolved.label, amount, currency, name, email, phone);
+    const capiStatus = sendToMetaCAPI(sessionId, resolved.slug, amount, currency, email, fbc, fbp, session.customer_details, resolved.numItems);
+    const ga4Status = sendToGA4(gaClientId, resolved.slug, amount, currency, sessionId, resolved.numItems);
+    // Статус каждого шага — в само уведомление об оплате (правка 2026-10-18): каждая
+    // оплата становится сквозной проверкой, тихая поломка видна на первой же покупке.
+    const tracking = 'Метки: ' + attributionStatus(session.client_reference_id, attr) + '\n' +
+      'Meta CAPI: ' + capiStatus + '\n' +
+      'GA4: ' + ga4Status;
+    notifyTelegram(resolved.label, amount, currency, name, email, phone, tracking);
 
     return ContentService.createTextOutput('OK').setMimeType(ContentService.MimeType.TEXT);
   } catch (err) {
@@ -321,7 +326,19 @@ function parseAttribution(raw) {
   return { gcid: p[0] || '', fbc: p[1] || '', fbp: p[2] || '' };
 }
 
-function notifyTelegram(item, amount, currency, name, email, phone) {
+// Человеческое описание меток покупателя для уведомления об оплате.
+function attributionStatus(raw, attr) {
+  if (!raw) return '— нет (не принял cookies или оплата не по ссылке с сайта)';
+  if (!attr.gcid && !attr.fbc && !attr.fbp) {
+    return String(raw).indexOf('t-') === 0
+      ? '⚠️ токен не найден во вкладке Attribution (запрос при клике не дошёл)'
+      : '⚠️ не удалось разобрать';
+  }
+  if (attr.fbc) return '✅ fbc (пришёл с рекламы Meta)';
+  return 'без fbc (не с рекламы Meta)';
+}
+
+function notifyTelegram(item, amount, currency, name, email, phone, tracking) {
   if (!TELEGRAM_BOT_TOKEN) return;
 
   const text = '✅ Payment confirmed!\n' +
@@ -329,7 +346,8 @@ function notifyTelegram(item, amount, currency, name, email, phone) {
     'Amount: ' + amount + ' ' + currency + '\n' +
     'Name: ' + (name || '—') + '\n' +
     'Email: ' + (email || '—') + '\n' +
-    'Phone: ' + (phone || '—');
+    'Phone: ' + (phone || '—') +
+    (tracking ? '\n\n' + tracking : '');
 
   const response = UrlFetchApp.fetch('https://api.telegram.org/bot' + TELEGRAM_BOT_TOKEN + '/sendMessage', {
     method: 'post',
@@ -345,8 +363,9 @@ function notifyTelegram(item, amount, currency, name, email, phone) {
   }
 }
 
+// Возвращает статус для уведомления об оплате.
 function sendToMetaCAPI(sessionId, item, amount, currency, email, fbc, fbp, customer, numItems) {
-  if (!META_CAPI_ACCESS_TOKEN) return;
+  if (!META_CAPI_ACCESS_TOKEN) return '⚠️ не отправлено: нет META_CAPI_ACCESS_TOKEN';
 
   const userData = {};
   if (email) {
@@ -401,8 +420,11 @@ function sendToMetaCAPI(sessionId, item, amount, currency, email, fbc, fbp, cust
       muteHttpExceptions: true
     });
     Logger.log('Meta CAPI response: ' + response.getContentText());
+    const code = response.getResponseCode();
+    return code === 200 ? '✅' : '❌ ошибка ' + code + ': ' + response.getContentText().slice(0, 200);
   } catch (err) {
     Logger.log('Meta CAPI error: ' + err.message);
+    return '❌ ' + err.message;
   }
 }
 
@@ -466,8 +488,10 @@ function sendInitiateCheckoutToMetaCAPI(eventId, contentName, value, fbc, fbp, s
   }
 }
 
+// Возвращает статус для уведомления об оплате.
 function sendToGA4(clientId, item, amount, currency, sessionId, numItems) {
-  if (!GA4_API_SECRET || !clientId) return;
+  if (!GA4_API_SECRET) return '⚠️ не отправлено: нет GA4_API_SECRET';
+  if (!clientId) return '— не отправлено: нет GA4 client_id';
 
   // price в GA4 — за единицу; при нескольких местах делим сумму на количество
   const gaItem = numItems > 1
@@ -496,9 +520,12 @@ function sendToGA4(clientId, item, amount, currency, sessionId, numItems) {
       payload: JSON.stringify(payload),
       muteHttpExceptions: true
     });
-    Logger.log('GA4 MP response code: ' + response.getResponseCode());
+    const code = response.getResponseCode();
+    Logger.log('GA4 MP response code: ' + code);
+    return code >= 200 && code < 300 ? '✅' : '❌ ошибка ' + code;
   } catch (err) {
     Logger.log('GA4 MP error: ' + err.message);
+    return '❌ ' + err.message;
   }
 }
 

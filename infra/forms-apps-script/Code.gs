@@ -46,6 +46,9 @@ function doPost(e) {
 
   } catch (error) {
     Logger.log('Error: ' + error);
+    // Сайт шлёт сюда в режиме no-cors и ответа не видит — без этой тревоги
+    // упавшая заявка или анкета терялась бы молча (правка 2026-10-18).
+    alertScriptError(error, e);
     return ContentService.createTextOutput(JSON.stringify({
       status: 'error',
       message: error.toString()
@@ -389,6 +392,25 @@ function overHourlyLimit() {
     return true;
   }
   return false;
+}
+
+// Тревога о падении doPost: Telegram + письмо, не чаще 3 раз в час (URL публичный,
+// мусорные запросы не должны заваливать уведомлениями). В письмо — начало
+// исходного запроса, чтобы заявку можно было восстановить вручную.
+function alertScriptError(error, e) {
+  const cache = CacheService.getScriptCache();
+  const key = 'err_' + Math.floor(Date.now() / 3600000);
+  const n = Number(cache.get(key) || 0);
+  cache.put(key, String(n + 1), 3600);
+  if (n >= 3) return;
+
+  const body = (e && e.postData && e.postData.contents) ? String(e.postData.contents).slice(0, 2000) : '-';
+  sendTelegramMessage('⚠️ <b>Скрипт форм упал</b> — заявка/анкета могла не записаться.\nПричина: ' + esc(error) + '\nДанные запроса — в письме на ' + ADMIN_EMAIL);
+  try {
+    MailApp.sendEmail(ADMIN_EMAIL, '[Padel Camp] Скрипт форм упал', 'Причина: ' + error + '\n\nЗапрос:\n' + body);
+  } catch (err) {
+    Logger.log('Alert email error: ' + err);
+  }
 }
 
 // Таблица считает "+357..." / "=..." формулой (#ERROR!) — апостроф хранит как текст

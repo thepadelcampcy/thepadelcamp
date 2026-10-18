@@ -40,7 +40,9 @@ The sequence is deliberate and should not be rearranged:
    produce `Error:` → 502 → Stripe retry → dedup hits → `OK`, and Meta CAPI, GA4 and Telegram would then
    never run for that purchase. The guard turns a crash into a purchase with no attribution.
 4. **Meta CAPI, then GA4, then Telegram** — Telegram is last because it is the least reliable and the most
-   likely to throw; it also has an email fallback so a failure is not silent.
+   likely to throw; it also has an email fallback so a failure is not silent. Since 18.10 the Telegram message ends
+   with three status lines — attribution (fbc / no fbc / token not found), Meta CAPI and GA4 (✅ or the error) —
+   so every payment doubles as an end-to-end check of the tracking chain.
 
 ## Where it lives
 

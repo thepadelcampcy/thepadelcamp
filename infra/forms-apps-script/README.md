@@ -11,7 +11,7 @@ The site POSTs JSON to `GOOGLE_SCRIPT_URL` (`assets/js/main.js`). `doPost` route
 | `service` | "Book 1-on-1 / 2-on-1" form on the home pages (EN/RU/EL) | Service Bookings | Telegram, admin email, confirmation email to the client |
 | `post_payment_details` | Follow-up questionnaire on `thank-you.html` | Post-Payment Details | Telegram, admin email (backup for Telegram) |
 
-Anything else is ignored. Sheet rows are always written; Telegram/emails are rate-limited (30/hour, max 3 client emails per address per 6h) because the URL is public.
+Anything else is ignored. Sheet rows are always written; Telegram/emails are rate-limited (30/hour, max 3 client emails per address per 6h) because the URL is public. If `doPost` throws, `alertScriptError` sends a Telegram alert plus an email with the raw request (max 3/hour), because the site posts in `no-cors` mode and never sees the error.
 
 Camp **payments** are handled elsewhere: Stripe → Cloudflare Worker (`infra/stripe-webhook-proxy/`) → the separate Apps Script "Padel Camp — Stripe Webhook" (sheet Confirmed Payments). That script is not in this repo.
 
