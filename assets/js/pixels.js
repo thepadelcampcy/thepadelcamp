@@ -654,6 +654,30 @@ function appendStripeAttribution(url) {
     return base + (base.indexOf('?') > -1 ? '&' : '?') + 'client_reference_id=' + param;
 }
 
+var lastStripeIntent = 0;
+
+/**
+ * A Stripe link was clicked or opened some other way (see the extra listeners
+ * in initSocialClickTracking). Throttled because one gesture can raise several
+ * events (e.g. Android long-press fires both contextmenu and our touch timer).
+ */
+function handleStripeIntent(target) {
+    var stripeLink = target && target.closest && target.closest('a[href*="buy.stripe.com"], a[href*="book.stripe.com"]');
+    if (!stripeLink) return;
+    var now = Date.now();
+    if (now - lastStripeIntent < 3000) return;
+    lastStripeIntent = now;
+
+    // Re-apply attribution at click time: links are rewritten on load,
+    // which for a first-time visitor is before they accept cookies.
+    stripeLink.href = appendStripeAttribution(stripeLink.href);
+    var value = parseFloat(stripeLink.dataset.purchaseValue) || 0;
+    var item = stripeLink.dataset.purchaseItem || 'padel_camp';
+    if (typeof trackPurchase === 'function') {
+        trackPurchase({ camp: item, value: value });
+    }
+}
+
 // ─── Social & WhatsApp Click Tracking ────────────────────────────
 
 function initSocialClickTracking() {
@@ -686,17 +710,27 @@ function initSocialClickTracking() {
         // NOT a Purchase yet — the customer hasn't paid, just clicked toward
         // Stripe. The real Purchase event fires from thank-you.html, after
         // Stripe redirects back post-payment.
-        var stripeLink = e.target.closest('a[href*="buy.stripe.com"], a[href*="book.stripe.com"]');
-        if (stripeLink) {
-            // Re-apply attribution at click time: links are rewritten on load,
-            // which for a first-time visitor is before they accept cookies.
-            stripeLink.href = appendStripeAttribution(stripeLink.href);
-            var value = parseFloat(stripeLink.dataset.purchaseValue) || 0;
-            var item = stripeLink.dataset.purchaseItem || 'padel_camp';
-            if (typeof trackPurchase === 'function') {
-                trackPurchase({ camp: item, value: value });
-            }
-        }
+        handleStripeIntent(e.target);
+    });
+
+    // Opening the link without a 'click' (middle button, right-click menu,
+    // long-press "open in new tab") still carries the token already put into
+    // the href on load, so the relay must fire for those too, or the payment
+    // arrives with no Attribution row.
+    document.addEventListener('auxclick', function(e) {
+        if (e.button === 1) handleStripeIntent(e.target);
+    });
+    document.addEventListener('contextmenu', function(e) {
+        handleStripeIntent(e.target);
+    });
+    var stripeLongPress = null;
+    document.addEventListener('touchstart', function(e) {
+        var target = e.target;
+        clearTimeout(stripeLongPress);
+        stripeLongPress = setTimeout(function() { handleStripeIntent(target); }, 500);
+    }, { passive: true });
+    ['touchend', 'touchmove', 'touchcancel'].forEach(function(name) {
+        document.addEventListener(name, function() { clearTimeout(stripeLongPress); }, { passive: true });
     });
 
     // Instagram float button
