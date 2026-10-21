@@ -345,13 +345,13 @@ function adLine(attr) {
 // Человеческое описание меток покупателя для уведомления об оплате.
 function attributionStatus(raw, attr) {
   if (!raw) return '— нет (не принял cookies или оплата не по ссылке с сайта)';
-  if (!attr.gcid && !attr.fbc && !attr.fbp) {
+  if (!attr.gcid && !attr.fbc && !attr.fbp && !attr.utm_source) {
     return String(raw).indexOf('t-') === 0
       ? '⚠️ токен не найден во вкладке Attribution (запрос при клике не дошёл)'
       : '⚠️ не удалось разобрать';
   }
   if (attr.fbc) return '✅ fbc (пришёл с рекламы Meta)';
-  return 'без fbc (не с рекламы Meta)';
+  return 'без fbc (не с рекламы Meta или не принял cookies)';
 }
 
 function notifyTelegram(item, amount, currency, name, email, phone, tracking) {

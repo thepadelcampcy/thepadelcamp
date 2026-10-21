@@ -297,7 +297,8 @@ function trackPurchase(data) {
 
     // Server-side twin of the pixel call (same event_id, so Meta dedupes).
     // Behind consent like ViewContent: the relay ships _fbc/_fbp.
-    if (consented) sendInitiateCheckoutToServer(eventId, data.camp, data.value);
+    // Without consent only the anonymous ad UTM goes (see sendInitiateCheckoutToServer).
+    sendInitiateCheckoutToServer(eventId, data.camp, data.value, consented);
 
     if (typeof gtag === 'function') {
         gtag('event', 'begin_checkout', {
@@ -377,11 +378,15 @@ function sendViewContentToServer(eventId, contentName) {
 /**
  * Track a contact form submission
  */
-function sendInitiateCheckoutToServer(eventId, camp, value) {
-    const fbc = getCookie('_fbc');
-    const fbp = getCookie('_fbp');
-    const gcid = getGA4ClientId();
-    if (!fbc && !fbp && !gcid) return; // nothing to match or attribute on
+function sendInitiateCheckoutToServer(eventId, camp, value, consented) {
+    // Without consent the browser identifiers stay home; only the random token
+    // and the ad UTM (no personal data) go, so the payment Telegram message can
+    // still say which ad it came from. The script skips Meta CAPI when it gets
+    // neither fbc nor fbp.
+    const fbc = consented ? getCookie('_fbc') : '';
+    const fbp = consented ? getCookie('_fbp') : '';
+    const gcid = consented ? getGA4ClientId() : '';
+    if (!fbc && !fbp && !gcid && !getStoredUtm().utm_source) return; // nothing to match or attribute on
 
     // Also carries the full attribution under STRIPE_ATTR_TOKEN: the script
     // stores it, and the Stripe webhook looks it up by the token that went
@@ -397,7 +402,8 @@ function sendInitiateCheckoutToServer(eventId, camp, value) {
         fbp: fbp,
         gcid: gcid,
         attr_token: STRIPE_ATTR_TOKEN,
-        url: location.href
+        // No query string without consent: it carries the fbclid click id.
+        url: consented ? location.href : location.origin + location.pathname
     };
     // Which ad: lands in the Attribution sheet and the payment Telegram message.
     Object.assign(body, getStoredUtm());
@@ -678,10 +684,13 @@ const STRIPE_ATTR_TOKEN = (function () {
  */
 function buildStripeAttributionParam() {
     // Deliberately not hasConsented(): this one is an early return, not a
-    // branch around a pixel call, and it guards the one value that must never
-    // leave the browser without consent — keep the check local and inverted.
-    if (localStorage.getItem(CONSENT_KEY) !== 'accepted') return '';
-    if (!getGA4ClientId() && !getCookie('_fbc') && !getCookie('_fbp')) return '';
+    // branch around a pixel call — keep the check local and inverted.
+    // Without consent the token is still added when there is an ad UTM to
+    // report (the relay then ships only the UTM, never fbc/fbp/client_id).
+    if (localStorage.getItem(CONSENT_KEY) !== 'accepted') {
+        return getStoredUtm().utm_source ? 't-' + STRIPE_ATTR_TOKEN : '';
+    }
+    if (!getGA4ClientId() && !getCookie('_fbc') && !getCookie('_fbp') && !getStoredUtm().utm_source) return '';
     return 't-' + STRIPE_ATTR_TOKEN;
 }
 
