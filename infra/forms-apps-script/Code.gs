@@ -61,8 +61,13 @@ function handleServiceBooking(data, notify) {
 
   if (sheet.getLastRow() === 0) {
     sheet.appendRow([
-      'Timestamp', 'Service', 'Price', 'Name', 'Phone', 'Email', 'Notes'
+      'Timestamp', 'Service', 'Price', 'Name', 'Phone', 'Email', 'Notes',
+      'utm_source', 'utm_campaign', 'utm_content', 'utm_term'
     ]);
+  }
+  // utm_* добавили 21.10 — дописываем заголовки в уже существующий лист
+  if (sheet.getRange(1, 8).getValue() === '') {
+    sheet.getRange(1, 8, 1, 4).setValues([['utm_source', 'utm_campaign', 'utm_content', 'utm_term']]);
   }
 
   sheet.appendRow([
@@ -72,7 +77,11 @@ function handleServiceBooking(data, notify) {
     txt(data.name),
     txt(data.phone),
     txt(data.email),
-    txt(data.notes)
+    txt(data.notes),
+    txt(data.utm_source),
+    txt(data.utm_campaign),
+    txt(data.utm_content),
+    txt(data.utm_term)
   ]);
 
   const message = `
@@ -84,6 +93,8 @@ function handleServiceBooking(data, notify) {
 👤 <b>Name:</b> ${esc(val(data.name))}
 📱 <b>Phone:</b> ${esc(val(data.phone))}
 ✉️ <b>Email:</b> ${esc(val(data.email))}
+
+📣 <b>Ad:</b> ${esc(adLine(data))}
 
 ${data.notes ? '📝 <b>Notes:</b>\n' + esc(data.notes) : ''}
 
@@ -368,6 +379,13 @@ function buildEmailHtml(name, data, isRu) {
 // ============================================
 
 // пустое → '-'
+// Из какой рекламы пришёл клиент (последнее касание с UTM, см. pixels.js на сайте).
+// utm_content = адсет, utm_term = объявление.
+function adLine(data) {
+  if (!data.utm_source) return 'unknown (no UTM: direct, organic or old page)';
+  return [data.utm_source, data.utm_campaign, 'adset: ' + (data.utm_content || '-'), 'ad: ' + (data.utm_term || '-')].join(' / ');
+}
+
 function val(v) {
   return (v === undefined || v === null || v === '') ? '-' : v;
 }

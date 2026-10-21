@@ -387,6 +387,20 @@ function sendInitiateCheckoutToServer(eventId, camp, value) {
     // stores it, and the Stripe webhook looks it up by the token that went
     // into client_reference_id. keepalive: this fires on the click that
     // navigates to Stripe, which would otherwise cancel the request.
+    const body = {
+        token: VIEWCONTENT_RELAY_TOKEN,
+        type: 'initiate_checkout',
+        event_id: eventId,
+        content_name: camp || 'padel_camp',
+        value: value || 0,
+        fbc: fbc,
+        fbp: fbp,
+        gcid: gcid,
+        attr_token: STRIPE_ATTR_TOKEN,
+        url: location.href
+    };
+    // Which ad: lands in the Attribution sheet and the payment Telegram message.
+    Object.assign(body, getStoredUtm());
     fetch(CAPI_RELAY_URL, {
         method: 'POST',
         mode: 'no-cors',
@@ -394,18 +408,7 @@ function sendInitiateCheckoutToServer(eventId, camp, value) {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-            token: VIEWCONTENT_RELAY_TOKEN,
-            type: 'initiate_checkout',
-            event_id: eventId,
-            content_name: camp || 'padel_camp',
-            value: value || 0,
-            fbc: fbc,
-            fbp: fbp,
-            gcid: gcid,
-            attr_token: STRIPE_ATTR_TOKEN,
-            url: location.href
-        })
+        body: JSON.stringify(body)
     }).catch(function() {});
 }
 
@@ -590,6 +593,45 @@ function sha256Hex(str) {
             return ('0' + b.toString(16)).slice(-2);
         }).join('');
     });
+}
+
+// ─── Ad UTM capture (last tagged touch, 30 days) ─────────────────
+
+const UTM_KEY = 'utm_last_touch';
+const UTM_TTL_MS = 30 * 24 * 60 * 60 * 1000;
+const UTM_FIELDS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+
+/**
+ * Remembers which ad brought the visitor, so a booking form or a Stripe click
+ * made on a later page (or a later day) can still say where they came from.
+ * Last touch: a new tagged landing replaces the old one, a visit without UTM
+ * keeps it. Plain first-party attribution text, not gated by consent; what
+ * leaves the browser is only what the visitor submits (form) or what the
+ * consented InitiateCheckout relay ships.
+ */
+(function captureUtm() {
+    try {
+        const params = new URLSearchParams(location.search);
+        if (!params.get('utm_source')) return;
+        const touch = { ts: Date.now() };
+        UTM_FIELDS.forEach(function (k) { touch[k] = (params.get(k) || '').slice(0, 100); });
+        localStorage.setItem(UTM_KEY, JSON.stringify(touch));
+    } catch (e) {}
+})();
+
+/**
+ * The stored UTM fields (only the five utm_* keys), or {} when none / expired.
+ */
+function getStoredUtm() {
+    try {
+        const touch = JSON.parse(localStorage.getItem(UTM_KEY) || 'null');
+        if (!touch || Date.now() - touch.ts > UTM_TTL_MS) return {};
+        const out = {};
+        UTM_FIELDS.forEach(function (k) { if (touch[k]) out[k] = touch[k]; });
+        return out;
+    } catch (e) {
+        return {};
+    }
 }
 
 // ─── Stripe Attribution Passthrough ──────────────────────────────

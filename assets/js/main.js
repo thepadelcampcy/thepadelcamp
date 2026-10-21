@@ -30,6 +30,8 @@ function getPageLang() {
 
 // Функция для отправки данных в Google Sheets + Telegram
 function sendToGoogleSheets(data) {
+    // Which ad the visitor came from (pixels.js); the script puts it in the sheet and Telegram.
+    if (typeof getStoredUtm === 'function') data = Object.assign({}, data, getStoredUtm());
     return fetch(GOOGLE_SCRIPT_URL, {
         method: 'POST',
         mode: 'no-cors',

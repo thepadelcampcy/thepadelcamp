@@ -44,7 +44,7 @@ function doPost(e) {
       if (body.type === 'initiate_checkout') {
         // Метки покупателя под токеном из client_reference_id (правка 2026-10-18).
         // Ошибка записи не должна мешать отправке InitiateCheckout в CAPI.
-        try { saveAttribution(body.attr_token, body.gcid, body.fbc, body.fbp); }
+        try { saveAttribution(body.attr_token, body.gcid, body.fbc, body.fbp, body); }
         catch (err) { Logger.log('saveAttribution failed: ' + err.message); }
         sendInitiateCheckoutToMetaCAPI(body.event_id, body.content_name, body.value, body.fbc, body.fbp, body.url);
       } else {
@@ -107,6 +107,7 @@ function doPost(e) {
     // Статус каждого шага — в само уведомление об оплате (правка 2026-10-18): каждая
     // оплата становится сквозной проверкой, тихая поломка видна на первой же покупке.
     const tracking = 'Метки: ' + attributionStatus(session.client_reference_id, attr) + '\n' +
+      'Реклама: ' + adLine(attr) + '\n' +
       'Meta CAPI: ' + capiStatus + '\n' +
       'GA4: ' + ga4Status;
     notifyTelegram(resolved.label, amount, currency, name, email, phone, tracking);
@@ -282,17 +283,24 @@ function getAttributionSheet() {
   let sheet = ss.getSheetByName('Attribution');
   if (!sheet) {
     sheet = ss.insertSheet('Attribution');
-    sheet.appendRow(['Timestamp', 'Token', 'GA4 client_id', 'fbc', 'fbp']);
+    sheet.appendRow(['Timestamp', 'Token', 'GA4 client_id', 'fbc', 'fbp', 'utm_source', 'utm_campaign', 'utm_content', 'utm_term']);
+  }
+  // utm_* добавили 21.10 — дописываем заголовки в уже существующий лист
+  if (sheet.getRange(1, 6).getValue() === '') {
+    sheet.getRange(1, 6, 1, 4).setValues([['utm_source', 'utm_campaign', 'utm_content', 'utm_term']]);
   }
   return sheet;
 }
 
-function saveAttribution(token, gcid, fbc, fbp) {
+// utm приходит от сайта (последнее касание с меткой): utm_content = адсет, utm_term = объявление.
+function saveAttribution(token, gcid, fbc, fbp, utm) {
   if (!ATTR_TOKEN_RE.test(String(token || ''))) return;
   // Апостроф: иначе таблица превратит client_id "123.456" (и токен из одних цифр
   // или вида "12e34…") в число и потеряет цифры
   const t = function (v) { return v ? "'" + String(v).slice(0, 500) : ''; };
-  getAttributionSheet().appendRow([new Date(), t(token), t(gcid), t(fbc), t(fbp)]);
+  utm = utm || {};
+  getAttributionSheet().appendRow([new Date(), t(token), t(gcid), t(fbc), t(fbp),
+    t(utm.utm_source), t(utm.utm_campaign), t(utm.utm_content), t(utm.utm_term)]);
 }
 
 // Последняя строка с этим токеном (повторный клик на той же странице пишет новую).
@@ -302,7 +310,9 @@ function lookupAttribution(token) {
   const data = getAttributionSheet().getDataRange().getValues();
   for (let i = data.length - 1; i >= 1; i--) {
     if (data[i][1] === token) {
-      return { gcid: String(data[i][2] || ''), fbc: String(data[i][3] || ''), fbp: String(data[i][4] || '') };
+      return { gcid: String(data[i][2] || ''), fbc: String(data[i][3] || ''), fbp: String(data[i][4] || ''),
+        utm_source: String(data[i][5] || ''), utm_campaign: String(data[i][6] || ''),
+        utm_content: String(data[i][7] || ''), utm_term: String(data[i][8] || '') };
     }
   }
   Logger.log('attribution token not found: ' + token);
@@ -324,6 +334,12 @@ function parseAttribution(raw) {
   ).getDataAsString();
   const p = decoded.split('||');
   return { gcid: p[0] || '', fbc: p[1] || '', fbp: p[2] || '' };
+}
+
+// Из какой рекламы пришёл покупатель (последнее касание с UTM, см. pixels.js на сайте).
+function adLine(attr) {
+  if (!attr.utm_source) return 'не определена (нет UTM: прямой заход, органика или не принял cookies)';
+  return [attr.utm_source, attr.utm_campaign, 'адсет: ' + (attr.utm_content || '-'), 'объявление: ' + (attr.utm_term || '-')].join(' / ');
 }
 
 // Человеческое описание меток покупателя для уведомления об оплате.
