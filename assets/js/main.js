@@ -787,3 +787,58 @@ function downloadPaymentDetails(fullName, campName, amount) {
     link.click();
     document.body.removeChild(link);
 }
+
+/**
+ * Language switch keeps the reader in place: remember the innermost section/card
+ * on screen (and which "Show more" blocks are open) and restore it on the other page.
+ */
+(function() {
+    const KEY = 'lang_switch_pos';
+    const anchors = () => document.querySelectorAll('main section[id], .program-content[id]');
+
+    document.addEventListener('click', function(e) {
+        const link = e.target.closest && e.target.closest('.lang-switch a, .lang-switch-mobile a');
+        if (!link) return;
+        let best = null, bestH = Infinity;
+        anchors().forEach(el => {
+            const r = el.getBoundingClientRect();
+            if (r.top <= 0 && r.bottom > 0 && r.height < bestH) { best = el; bestH = r.height; }
+        });
+        const open = [];
+        document.querySelectorAll('.program-details-block').forEach((b, i) => { if (b.classList.contains('active')) open.push(i); });
+        try {
+            const max = document.documentElement.scrollHeight - window.innerHeight;
+            sessionStorage.setItem(KEY, JSON.stringify({
+                id: best && best.id,
+                offset: best ? -best.getBoundingClientRect().top : 0,
+                ratio: max > 0 ? window.pageYOffset / max : 0,
+                open: open
+            }));
+        } catch (err) {}
+    });
+
+    let saved = null;
+    try {
+        saved = JSON.parse(sessionStorage.getItem(KEY));
+        sessionStorage.removeItem(KEY);
+    } catch (err) {}
+    if (!saved || location.hash) return;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const blocks = document.querySelectorAll('.program-details-block');
+        (saved.open || []).forEach(i => {
+            const btn = blocks[i] && blocks[i].querySelector('.btn-view-details');
+            if (btn) btn.click();
+        });
+        const restore = function() {
+            const el = saved.id && document.getElementById(saved.id);
+            if (el) window.scrollTo(0, el.getBoundingClientRect().top + window.pageYOffset + saved.offset);
+            else window.scrollTo(0, saved.ratio * (document.documentElement.scrollHeight - window.innerHeight));
+        };
+        restore();
+        // images/fonts shift the layout - restore once more after load unless the reader already scrolled
+        let touched = false;
+        ['touchstart', 'wheel', 'keydown'].forEach(t => window.addEventListener(t, () => { touched = true; }, { once: true, passive: true }));
+        window.addEventListener('load', function() { if (!touched) restore(); });
+    });
+})();
