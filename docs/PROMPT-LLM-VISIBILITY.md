@@ -299,6 +299,21 @@ LLM-ВИДИМОСТЬ — <файл/поверхность>            <дат�
 | 2026-10-13 | padel training camp Cyprus November 2026 | Claude WebSearch (US-индекс) | Нет — не найден | Corporate Cyprus Padel League, La Casa de Padel, Baghdatis Academy (клубы/лиги; лагерей не нашлось вовсе) |
 | 2026-10-13 | The Padel Camp Cyprus Limassol | Claude WebSearch (US-индекс) | Нет — бренд не найден даже по точному названию | Padel Magic, NAIS, Padel Syndicate, My Q Padel Club, PadelPro Academy/Parklane |
 | 2026-10-13 | падел лагерь Кипр Лимассол ноябрь 2026 (RU) | Claude WebSearch (US-индекс) | Нет — не найден | Корпоративная лига, Padel Syndicate, My Q Padel Club |
+| 2026-10-21 | padel training camp Cyprus November 2026 | Claude WebSearch (US-индекс) | Нет - не найден | Corporate Cyprus Padel League, La Casa de Padel, mywelpad (лагерей не нашлось вовсе) |
+| 2026-10-21 | The Padel Camp Cyprus | Claude WebSearch (US-индекс) | Нет - не найден даже по точному названию | PadelPro (cbn.com.cy), Padel Magic, La Casa de Padel, mywelpad |
+| 2026-10-21 | падел лагерь Кипр Лимассол ноябрь 2026 (RU) | Claude WebSearch (US-индекс) | Нет - не найден | Корпоративная лига, Filia Sports Festival, MY Q Padel Club (лагерей нет) |
+| 2026-10-21 | padel training camp Cyprus November 2026 | Perplexity (Comet, реальный чат, скрин владельца) | **Да, первыми** - верные даты 9-15.11, MyQPadel, 770/890/380, 15 ч, до 4 игроков на корт; домен thepadelcamp | Padel retreat, Куклия/Пафос, 20-27.11 (вилла) |
+| 2026-10-21 | padel training camp Cyprus November 2026 | ChatGPT (реальный чат, скрин владельца) | **Да, №1** - верные даты, цены, формат, фото тренера, ссылка на сайт | Padel Retreat Kouklia (The Padel Circle), 20-27.11, от 1290 € |
+| 2026-10-21 | padel training camp Cyprus November 2026 | Claude (чат, со слов владельца) | Сначала нет; затем признал, что цены из JSON-LD offers он принял за видимый текст страницы - без сверки | - |
+| 2026-10-21 | The Padel Camp Cyprus | Perplexity (Comet) | Да - верно (9-15.11, MyQPadel, Spanish coaches). Галерея картинок частично чужая (курорт, гольф). Источник-сниппет: старое FB-видео "2-day or 5-day format" | - |
+| 2026-10-21 | The Padel Camp Cyprus | ChatGPT | Да - ссылка на официальный сайт, верно (Morning/Evening/Weekend, MyQPadel) | - |
+| 2026-10-21 | The Padel Camp Cyprus | Claude (чат, скрин) | Не тест: ответил "нет вопроса", поиска не было | н/д |
+| 2026-10-21 | What is The Padel Camp Cyprus? | Claude (чат с поиском и памятью, скрин) | **Нет** - "couldn't find any public information"; назвал PadelPro, goAll, Padel Magic, Padel Paradise; предположил "too new or small" | PadelPro, goAll, Padel Magic, Padel Paradise |
+| 2026-10-21 | падел лагерь Кипр Лимассол ноябрь 2026 | Perplexity (Comet) | Да - верно, таблица с 3 форматами и ценами | - |
+| 2026-10-21 | падел лагерь Кипр Лимассол ноябрь 2026 | ChatGPT | Да - верно, 3 формата, фото с сайта | - |
+| 2026-10-21 | падел лагерь Кипр Лимассол ноябрь 2026 | Claude (с поиском) | **Нет** - "конкретных кемпов не нашлось" | goAll Padel Centers, Baghdatis Academy, Corporate Padel League, Padel Syndicate, MY Q |
+| 2026-10-21 | "The Padel Camp Cyprus" | Brave Search (индекс, который использует Claude) | Да, №1 по брендовому запросу (EN title) | - |
+| 2026-10-21 | GA4 AI-рефералы | Data API | chatgpt.com: 15 сессий за 30 дней (45 с 01.08), 0 покупок за 30 дней; bing: 1 | - |
 
 ---
 
