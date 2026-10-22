@@ -11,6 +11,8 @@ The site POSTs JSON to `GOOGLE_SCRIPT_URL` (`assets/js/main.js`). `doPost` route
 | `service` | "Book 1-on-1 / 2-on-1" form on the home pages (EN/RU/EL) | Service Bookings | Telegram, admin email, confirmation email to the client |
 | `post_payment_details` | Follow-up questionnaire on `thank-you.html` | Post-Payment Details | Telegram, admin email (backup for Telegram) |
 
+A `service` with `service: 'LEAD'` is the "Notify me" form: the site sends the address in `leadEmail` (not `email`), the script shows it as Email in the sheet and Telegram, and the client gets a short "You're on the list" letter (`sendLeadWelcomeEmail`: asks dates, accommodation level, padel/Playtomic level) instead of "Your Booking Confirmed!". Without `leadEmail` (old cached `main.js`) it behaves as before.
+
 Anything else is ignored. Sheet rows are always written; Telegram/emails are rate-limited (30/hour, max 3 client emails per address per 6h) because the URL is public.
 
 Camp **payments** are handled elsewhere: Stripe → Cloudflare Worker (`infra/stripe-webhook-proxy/`) → the separate Apps Script "Padel Camp — Stripe Webhook" (sheet Confirmed Payments). That script is not in this repo.

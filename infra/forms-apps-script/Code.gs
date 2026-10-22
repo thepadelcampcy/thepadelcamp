@@ -57,6 +57,16 @@ function doPost(e) {
 // SERVICE BOOKING
 // ============================================
 function handleServiceBooking(data, notify) {
+  // Лид из формы "Notify me": сайт кладёт адрес в leadEmail (а не в email), чтобы
+  // ниже не ушло письмо "Your Booking Confirmed!". Для таблицы и Telegram показываем его
+  // как обычный email, а клиенту шлём короткое приветствие (sendLeadWelcomeEmail).
+  const isLead = data.service === 'LEAD' && !!data.leadEmail;
+  if (isLead) {
+    // адрес теперь в колонке Email, поэтому строку "Email: ..." из заметок убираем (старый сайт её туда кладёт)
+    const notes = String(data.notes || '').split(/\r?\n/).filter(l => !/^Email:\s/.test(l)).join('\n');
+    data = Object.assign({}, data, { email: data.leadEmail, notes: notes });
+  }
+
   const sheet = getOrCreateSheet('Service Bookings');
 
   if (sheet.getLastRow() === 0) {
@@ -104,7 +114,11 @@ ${data.notes ? '📝 <b>Notes:</b>\n' + esc(data.notes) : ''}
   if (!notify) return;
   sendTelegramMessage(message, leadWhatsAppButtons(data));
   sendAdminNotification('New Service Booking', message, data);
-  sendConfirmationEmail(data.email, data.name, data);
+  if (isLead) {
+    sendLeadWelcomeEmail(data.email, data.name, data);
+  } else {
+    sendConfirmationEmail(data.email, data.name, data);
+  }
 }
 
 // ============================================
@@ -244,17 +258,72 @@ function sendAdminNotification(subject, telegramMessage, data) {
 // CLIENT CONFIRMATION EMAIL (service booking)
 // ============================================
 
-function sendConfirmationEmail(email, name, data) {
-  if (!email) return;
-
+// true, если на этот адрес ещё можно слать письмо (не больше CLIENT_EMAIL_LIMIT за 6 часов)
+function takeEmailSlot(email) {
   const cache = CacheService.getScriptCache();
   const key = 'mail_' + String(email).trim().toLowerCase().slice(0, 200);
   const sent = Number(cache.get(key) || 0);
   if (sent >= CLIENT_EMAIL_LIMIT) {
     Logger.log('Client email limit reached for ' + email);
-    return;
+    return false;
   }
   cache.put(key, String(sent + 1), 21600); // 6 часов — максимум для CacheService
+  return true;
+}
+
+// Приветствие после подписки "Notify me": подтверждаем подписку и спрашиваем, что нужно
+// для подбора (даты, жильё, уровень). Обычное личное письмо, без вёрстки.
+function sendLeadWelcomeEmail(email, name, data) {
+  if (!email || !takeEmailSlot(email)) return;
+
+  const isRu = data.lang === 'ru';
+  const first = String(val(name)).trim().split(/\s+/)[0];
+  const wa = '<a href="https://wa.me/35797497756">+357 97 497756</a>';
+
+  const subject = isRu ? 'Вы в списке - The Padel Camp Cyprus' : "You're on the list - The Padel Camp Cyprus";
+  const htmlBody = isRu
+    ? `<div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.5;color:#222">
+<p style="margin:0 0 12px 0">Здравствуйте, ${esc(first)}!</p>
+<p style="margin:0 0 12px 0">Спасибо, что подписались на новости о наших лагерях. Вы в нашем списке.</p>
+<p style="margin:0 0 4px 0">Чтобы лучше подобрать формат, подскажите, пожалуйста:</p>
+<ul style="margin:0 0 12px 0;padding-left:22px">
+<li>какие даты вам подходят (месяц, конкретные недели, будни или выходные)?</li>
+<li>нужно ли жильё, и если да, какого уровня (бюджетное, среднее, 4-5★)?</li>
+<li>какой у вас уровень в паделе (новичок, средний, продвинутый)? Если есть уровень в Playtomic, укажите его.</li>
+</ul>
+<p style="margin:0 0 12px 0">Просто ответьте на это письмо или напишите нам в WhatsApp: ${wa}. Мы напишем вам первыми, как только появятся новые даты.</p>
+<p style="margin:0 0 12px 0">С уважением,<br>The Padel Camp Cyprus</p>
+<p style="margin:0"><a href="mailto:thepadelcampcy@gmail.com">thepadelcampcy@gmail.com</a><br><a href="https://thepadelcamp.com.cy">thepadelcamp.com.cy</a></p>
+</div>`
+    : `<div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.5;color:#222">
+<p style="margin:0 0 12px 0">Hi ${esc(first)},</p>
+<p style="margin:0 0 12px 0">Thanks for signing up to hear about our camps. You're on our list.</p>
+<p style="margin:0 0 4px 0">To suggest the best fit, could you tell us:</p>
+<ul style="margin:0 0 12px 0;padding-left:22px">
+<li>which dates would suit you best (a month, specific weeks, weekdays or a weekend)?</li>
+<li>would you need accommodation, and if so, what level (budget, mid-range or 4-5★)?</li>
+<li>what's your level in padel (beginner, intermediate, advanced)? If you have a Playtomic level, please share it.</li>
+</ul>
+<p style="margin:0 0 12px 0">Just reply to this email or message us on WhatsApp: ${wa}. We'll write to you first as soon as new dates are out.</p>
+<p style="margin:0 0 12px 0">Kind regards,<br>The Padel Camp Cyprus</p>
+<p style="margin:0"><a href="mailto:thepadelcampcy@gmail.com">thepadelcampcy@gmail.com</a><br><a href="https://thepadelcamp.com.cy">thepadelcamp.com.cy</a></p>
+</div>`;
+
+  try {
+    MailApp.sendEmail({
+      to: email,
+      replyTo: ADMIN_EMAIL,
+      subject: subject,
+      htmlBody: htmlBody,
+      name: 'The Padel Camp Cyprus'
+    });
+  } catch (error) {
+    Logger.log('Lead welcome email error: ' + error);
+  }
+}
+
+function sendConfirmationEmail(email, name, data) {
+  if (!email || !takeEmailSlot(email)) return;
 
   const isRu = data.lang === 'ru';
 

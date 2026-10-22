@@ -721,14 +721,16 @@ document.addEventListener('submit', function(e) {
     const notes = ['Lead: signed up via Notify me (wants updates on camps and events)'];
     if (email) notes.push('Email: ' + email);
 
-    // Email goes in notes, not in `email`: the service handler mails a
-    // "Your Booking Confirmed!" letter to `email`, which is wrong for a lead.
+    // Email goes in notes and in `leadEmail`, not in `email`: the service handler mails a
+    // "Your Booking Confirmed!" letter to `email`, which is wrong for a lead. The script
+    // reads `leadEmail` and sends a short "You're on the list" letter instead.
     sendToGoogleSheets({
         type: 'service',
         service: 'LEAD',
         price: '0',
         name: formData.get('leadName'),
         phone: formData.get('leadPhone'),
+        leadEmail: email,
         notes: notes.join('\n'),
         lang: document.documentElement.lang || 'en'
     }).catch(err => console.log('Send error:', err));
