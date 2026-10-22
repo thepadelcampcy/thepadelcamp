@@ -897,6 +897,31 @@ section[id],
 .program-cards-grid:not(.has-open) {
     align-items: stretch;
 }
+/* Corner ribbon on a camp card ("only N spots left"). */
+.program-content--ribbon {
+    position: relative;
+    overflow: hidden;
+}
+
+.spots-ribbon {
+    position: absolute;
+    top: 36px;
+    right: -64px;
+    width: 230px;
+    transform: rotate(45deg);
+    background: #ff4d00;
+    color: var(--white);
+    text-align: center;
+    font-size: 11px;
+    font-weight: 800;
+    line-height: 26px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    pointer-events: none;
+    z-index: 5;
+}
+
 
 .program-details-block {
     margin-top: 20px;
