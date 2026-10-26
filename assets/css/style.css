@@ -3728,7 +3728,7 @@ section[id],
        is wider than the old hamburger icon was) */
     .header.scrolled .lang-switch-mobile {
         left: auto;
-        right: 110px;
+        right: 160px;
         flex-direction: row;
         gap: 4px;
     }
@@ -3769,10 +3769,14 @@ section[id],
         font-size: 24px;
     }
 
-    /* Removed on mobile — one-page sales site, priority is the pitch/CTA,
-       not section navigation; visitors scroll, they don't need a menu. */
+    /* Hamburger is back on mobile (blog and sections reachable from the header) */
     .mobile-menu-btn {
-        display: none;
+        display: flex;
+    }
+
+    /* Keep the button (now the X) above the full-screen menu overlay */
+    .header:has(.nav.active) .header-actions {
+        z-index: 1003;
     }
 
     .mobile-menu-btn.active span:first-child {
@@ -5395,5 +5399,33 @@ p {
 @media (max-width: 768px) {
     .blog-grid {
         grid-template-columns: 1fr;
+    }
+}
+
+/* Narrow phones: tighter header so the wider RU/EL Book button, the language
+   switch and the hamburger do not overlap once the header is scrolled. */
+@media (max-width: 400px) {
+    .header-actions {
+        gap: 6px;
+    }
+    .mobile-menu-btn {
+        padding: 8px 4px;
+    }
+    .header-book-btn {
+        padding: 8px 12px;
+    }
+    .header.scrolled .lang-switch-mobile {
+        right: 164px;
+    }
+    .header.scrolled .lang-switch-mobile a {
+        padding: 6px 6px;
+    }
+}
+
+/* Very small phones (320px): no room for the language switch next to the logo and Book,
+   it stays reachable in the footer */
+@media (max-width: 340px) {
+    .header.scrolled .lang-switch-mobile {
+        display: none;
     }
 }
