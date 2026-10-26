@@ -80,6 +80,9 @@ function handleServiceBooking(data, notify) {
     sheet.getRange(1, 8, 1, 4).setValues([['utm_source', 'utm_campaign', 'utm_content', 'utm_term']]);
   }
 
+  // колонка L: когда лиду ушло приветствие (23.10), чтобы считать, сколько писем ушло и сколько ответов
+  if (sheet.getRange(1, 12).getValue() === '') sheet.getRange(1, 12).setValue('Welcome sent');
+
   sheet.appendRow([
     new Date(),
     txt(data.service),
@@ -93,6 +96,7 @@ function handleServiceBooking(data, notify) {
     txt(data.utm_content),
     txt(data.utm_term)
   ]);
+  const row = sheet.getLastRow();
 
   const message = `
 🎓 <b>NEW SERVICE BOOKING!</b>
@@ -115,7 +119,7 @@ ${data.notes ? '📝 <b>Notes:</b>\n' + esc(data.notes) : ''}
   sendTelegramMessage(message, leadWhatsAppButtons(data));
   sendAdminNotification('New Service Booking', message, data);
   if (isLead) {
-    sendLeadWelcomeEmail(data.email, data.name, data);
+    if (sendLeadWelcomeEmail(data.email, data.name, data)) sheet.getRange(row, 12).setValue(new Date());
   } else {
     sendConfirmationEmail(data.email, data.name, data);
   }
@@ -274,38 +278,31 @@ function takeEmailSlot(email) {
 // Приветствие после подписки "Notify me": подтверждаем подписку и спрашиваем, что нужно
 // для подбора (даты, жильё, уровень). Обычное личное письмо, без вёрстки.
 function sendLeadWelcomeEmail(email, name, data) {
-  if (!email || !takeEmailSlot(email)) return;
+  if (!email || !takeEmailSlot(email)) return false;
 
   const isRu = data.lang === 'ru';
   const first = String(val(name)).trim().split(/\s+/)[0];
-  const wa = '<a href="https://wa.me/35797497756">+357 97 497756</a>';
+  // Готовое сообщение в WhatsApp: человек нажимает, и ему не нужно ничего придумывать
+  const waText = isRu
+    ? 'Здравствуйте! Хочу узнать про ваш следующий лагерь (январь/февраль).'
+    : "Hi! I'd like to know about your next camp (January/February).";
+  const wa = '<a href="https://wa.me/35797497756?text=' + encodeURIComponent(waText) + '">+357 97 497756</a>';
+  const style = 'margin:0 0 12px 0';
 
   const subject = isRu ? 'Вы в списке - The Padel Camp Cyprus' : "You're on the list - The Padel Camp Cyprus";
   const htmlBody = isRu
     ? `<div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.5;color:#222">
-<p style="margin:0 0 12px 0">Здравствуйте, ${esc(first)}!</p>
-<p style="margin:0 0 12px 0">Спасибо, что подписались на новости о наших лагерях. Вы в нашем списке.</p>
-<p style="margin:0 0 4px 0">Чтобы лучше подобрать формат, подскажите, пожалуйста:</p>
-<ul style="margin:0 0 12px 0;padding-left:22px">
-<li>какие даты вам подходят (месяц, конкретные недели, будни или выходные)?</li>
-<li>нужно ли жильё, и если да, какого уровня (бюджетное, среднее, 4-5★)?</li>
-<li>какой у вас уровень в паделе (новичок, средний, продвинутый)? Если есть уровень в Playtomic, укажите его.</li>
-</ul>
-<p style="margin:0 0 12px 0">Просто ответьте на это письмо или напишите нам в WhatsApp: ${wa}. Мы напишем вам первыми, как только появятся новые даты.</p>
-<p style="margin:0 0 12px 0">С уважением,<br>The Padel Camp Cyprus</p>
+<p style="${style}">Здравствуйте, ${esc(first)}!</p>
+<p style="${style}">Спасибо, что подписались. Следующий лагерь мы планируем на январь или февраль. Какие даты вам подошли бы больше?</p>
+<p style="${style}">Просто ответьте на это письмо: «январь», «февраль» или «пока не знаю», либо напишите, какие даты вам удобны. Можно и в WhatsApp: ${wa}.</p>
+<p style="${style}">С уважением,<br>Анастасия<br>The Padel Camp Cyprus</p>
 <p style="margin:0"><a href="mailto:thepadelcampcy@gmail.com">thepadelcampcy@gmail.com</a><br><a href="https://thepadelcamp.com.cy">thepadelcamp.com.cy</a></p>
 </div>`
     : `<div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.5;color:#222">
-<p style="margin:0 0 12px 0">Hi ${esc(first)},</p>
-<p style="margin:0 0 12px 0">Thanks for signing up to hear about our camps. You're on our list.</p>
-<p style="margin:0 0 4px 0">To suggest the best fit, could you tell us:</p>
-<ul style="margin:0 0 12px 0;padding-left:22px">
-<li>which dates would suit you best (a month, specific weeks, weekdays or a weekend)?</li>
-<li>would you need accommodation, and if so, what level (budget, mid-range or 4-5★)?</li>
-<li>what's your level in padel (beginner, intermediate, advanced)? If you have a Playtomic level, please share it.</li>
-</ul>
-<p style="margin:0 0 12px 0">Just reply to this email or message us on WhatsApp: ${wa}. We'll write to you first as soon as new dates are out.</p>
-<p style="margin:0 0 12px 0">Kind regards,<br>The Padel Camp Cyprus</p>
+<p style="${style}">Hi ${esc(first)},</p>
+<p style="${style}">Thanks for signing up. We're planning our next camp for January or February. Which dates would suit you better?</p>
+<p style="${style}">Just reply to this email with "January", "February" or "not sure yet", or tell us the dates that work for you. You can also message us on WhatsApp: ${wa}.</p>
+<p style="${style}">Kind regards,<br>Anastasia<br>The Padel Camp Cyprus</p>
 <p style="margin:0"><a href="mailto:thepadelcampcy@gmail.com">thepadelcampcy@gmail.com</a><br><a href="https://thepadelcamp.com.cy">thepadelcamp.com.cy</a></p>
 </div>`;
 
@@ -317,8 +314,10 @@ function sendLeadWelcomeEmail(email, name, data) {
       htmlBody: htmlBody,
       name: 'The Padel Camp Cyprus'
     });
+    return true;
   } catch (error) {
     Logger.log('Lead welcome email error: ' + error);
+    return false;
   }
 }
 
