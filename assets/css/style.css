@@ -1359,6 +1359,49 @@ section[id],
     padding-top: 0;
 }
 
+.coaches-grid--two {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 860px;
+    margin: 56px auto 0;
+}
+
+.coach-instagram {
+    display: inline-block;
+    margin-top: 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gray-500);
+    text-decoration: none;
+    border-bottom: 1px solid var(--gray-300);
+}
+
+.coach-instagram:hover {
+    color: inherit;
+}
+
+.coaches-lead {
+    max-width: 680px;
+    margin: 56px auto 0;
+    text-align: center;
+}
+
+.coaches-lead p {
+    font-size: 16px;
+    color: var(--gray-500);
+    line-height: 1.7;
+}
+
+.coach-more {
+    margin-bottom: 4px;
+}
+
+.coach-more summary {
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
 /* Collapsed block with coaches of previous camps */
 .coaches-past {
     margin-top: 48px;
