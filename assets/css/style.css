@@ -1113,6 +1113,33 @@ section[id],
     object-position: top center;
 }
 
+.coach-image--swap {
+    position: relative;
+}
+
+.coach-image--swap .coach-image-alt {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    animation: coach-photo-swap 10s ease-in-out infinite;
+}
+
+.coach-image--swap:hover .coach-image-alt {
+    animation-play-state: paused;
+}
+
+@keyframes coach-photo-swap {
+    0%, 40% { opacity: 0; }
+    50%, 90% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .coach-image--swap .coach-image-alt {
+        animation: none;
+    }
+}
+
 .coach-placeholder {
     width: 100%;
     height: 100%;
