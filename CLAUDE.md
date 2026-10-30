@@ -16,6 +16,12 @@ No CI — GitHub Pages serves directly from the `main` branch (no `.github/workf
 
 **`style.css` and `main.js` are cache-busted with a `?v=N` query string** on every single HTML page (20+ files). Whenever you change either file, bump `N` in *all* pages that reference it, not just the one you're testing — otherwise returning visitors' browsers keep serving the stale cached copy. Grep for `style.css?v=` / `main.js?v=` to find every reference before bumping.
 
+## Scope rules for edits and reviews
+
+- Work on one language first (usually EN) until the owner approves it. Only then port it to the other versions of that page (RU in `ru/`, EL in `el/` where the page exists) — don't touch them before the approval, and don't treat the change as finished until they are ported. After the owner approves, remind them that the other languages are still pending. A review must also check that the copies haven't drifted apart.
+- The classic site (`old.thepadelcamp.com.cy`, repo `padelcamp-classic`) is **out of scope by default**: don't edit it, don't review or audit it, don't mirror changes into it. Touch it only when the owner explicitly asks.
+- Reminder instead of silence: after any change to `assets/js/pixels.js`, `assets/js/main.js` or `thank-you.html`, tell the owner that `old.` has not received it and ask whether to port it.
+
 ## Working locally
 
 There is no build/lint/test tooling in this repo. Just edit the HTML/CSS/JS files directly and preview with any static file server, e.g.:
