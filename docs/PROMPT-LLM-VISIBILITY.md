@@ -314,6 +314,10 @@ LLM-ВИДИМОСТЬ — <файл/поверхность>            <дат�
 | 2026-10-21 | падел лагерь Кипр Лимассол ноябрь 2026 | Claude (с поиском) | **Нет** - "конкретных кемпов не нашлось" | goAll Padel Centers, Baghdatis Academy, Corporate Padel League, Padel Syndicate, MY Q |
 | 2026-10-21 | "The Padel Camp Cyprus" | Brave Search (индекс, который использует Claude) | Да, №1 по брендовому запросу (EN title) | - |
 | 2026-10-21 | GA4 AI-рефералы | Data API | chatgpt.com: 15 сессий за 30 дней (45 с 01.08), 0 покупок за 30 дней; bing: 1 | - |
+| 2026-10-27 | padel training camp Cyprus November 2026 | Claude WebSearch (US-индекс) | Нет - не найден | Padel Paradise, Tennis Academy Limassol, La Casa de Padel, Corporate League (лагерей нет) |
+| 2026-10-27 | The Padel Camp Cyprus | Claude WebSearch (US-индекс) | Нет - не найден даже по точному названию | PadelPro, Padel Magic, Padel Paradise, Capo Bay |
+| 2026-10-27 | падел лагерь Кипр Лимассол ноябрь 2026 | Claude WebSearch (US-индекс) | Нет - не найден | Корпоративная лига, Filia Sports Festival (лагерей нет) |
+| 2026-10-27 | GA4 AI-рефералы | Data API | chatgpt.com: 14 сессий за 30 дней (1 с 21.10), 0 покупок; bing: 1 | - |
 
 ---
 
