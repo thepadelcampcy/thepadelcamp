@@ -1,21 +1,18 @@
 /**
  * Tracking Pixels & Cookie Consent
  * =================================
- * Meta Pixel + Google Analytics 4 + Google Ads + Microsoft Clarity
- * GDPR-compliant: Meta/Google Ads/Clarity load only after user consent;
+ * Meta Pixel + Google Analytics 4 + Microsoft Clarity
+ * GDPR-compliant: Meta/Clarity load only after user consent;
  * GA4 loads always, in Google Consent Mode v2 (advanced) with cookieless
  * measurement pings.
  *
- * SETUP: Replace these placeholder IDs with your real ones:
- * 1. META_PIXEL_ID  → your Meta Pixel ID (e.g. '123456789012345')
- * 2. GA4_ID         → your GA4 Measurement ID (e.g. 'G-XXXXXXXXXX')
- * 3. GADS_ID        → your Google Ads ID (e.g. 'AW-XXXXXXXXX')
- * 4. CLARITY_ID     → your Microsoft Clarity Project ID (from clarity.microsoft.com)
+ * IDs: META_PIXEL_ID (Meta Pixel), GA4_ID (GA4 Measurement ID), CLARITY_ID
+ * (Microsoft Clarity project). Google Ads conversions come from the GA4 import,
+ * so there is no separate Google Ads tag here.
  */
 
 const META_PIXEL_ID = '838994425860514';
 const GA4_ID = 'G-DDFNKFDZHR';
-const GADS_ID = 'YOUR_GOOGLE_ADS_ID';
 const CLARITY_ID = 'yisjvh4uxg';
 
 const CONSENT_KEY = 'cookie_consent';
@@ -166,7 +163,6 @@ function loadAllPixels() {
     }
     loadGA4();
     loadMetaPixel();
-    loadGoogleAds();
     loadClarity();
 }
 
@@ -217,16 +213,6 @@ function loadGA4() {
     gtag('consent', 'default', GA_CONSENT_DEFAULT);
     gtag('js', new Date());
     gtag('config', GA4_ID);
-}
-
-function loadGoogleAds() {
-    if (GADS_ID === 'YOUR_GOOGLE_ADS_ID') return;
-
-    // Google Ads uses the same gtag.js — just add the config
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    if (!window.gtag) window.gtag = gtag;
-    gtag('config', GADS_ID);
 }
 
 function loadClarity() {
@@ -375,9 +361,6 @@ function sendViewContentToServer(eventId, contentName) {
     }).catch(function() {});
 }
 
-/**
- * Track a contact form submission
- */
 function sendInitiateCheckoutToServer(eventId, camp, value, consented) {
     // Without consent the browser identifiers stay home; only the random token
     // and the ad UTM (no personal data) go, so the payment Telegram message can
@@ -418,6 +401,9 @@ function sendInitiateCheckoutToServer(eventId, camp, value, consented) {
     }).catch(function() {});
 }
 
+/**
+ * Track a contact form submission
+ */
 function trackContact() {
     var consented = hasConsented();
 

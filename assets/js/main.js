@@ -42,12 +42,30 @@ function sendToGoogleSheets(data) {
     });
 }
 
+// no-cors hides the server's answer, but a dropped request (offline, in-app
+// browser, blocked script.google.com) still rejects. Without this the success
+// screen stays and the lead is lost silently: turn it into a WhatsApp fallback.
+const SEND_FAILED_TEXT = {
+    en: { heading: 'Not sent', text: 'We could not send your request. Please message us on' },
+    ru: { heading: 'Не отправлено', text: 'Не удалось отправить заявку. Напишите нам в' },
+    el: { heading: 'Δεν στάλθηκε', text: 'Το αίτημα δεν στάλθηκε. Στείλτε μας μήνυμα στο' }
+};
+
+function showSendFailed(modalContent) {
+    const box = modalContent && modalContent.querySelector('.payment-success');
+    if (!box) return; // the modal was closed or reopened meanwhile
+    const T = SEND_FAILED_TEXT[getPageLang()];
+    box.querySelector('.payment-success-icon').textContent = '!';
+    box.querySelector('h2').textContent = T.heading;
+    box.querySelector('.payment-success-subtitle').innerHTML =
+        T.text + ' <a href="https://wa.me/35797497756" target="_blank" rel="noopener nofollow">WhatsApp</a>';
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize all modules
     initMobileMenu();
     initSmoothScroll();
     initProgramTabs();
-    initMassageCalendar();
     initFAQ();
     initHeaderScroll();
     initAnimations();
@@ -172,13 +190,6 @@ function initProgramTabs() {
             }
         });
     });
-}
-
-/**
- * Massage Booking Calendar (Simplified - no calendar needed)
- */
-function initMassageCalendar() {
-    // Calendar no longer needed - booking handled directly through session cards
 }
 
 /**
@@ -439,18 +450,6 @@ function initPricingViewTracking() {
 }
 
 /**
- * Utility: Format date for different locales
- */
-function formatDate(date, locale = 'en') {
-    const options = {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-    };
-    return new Date(date).toLocaleDateString(locale, options);
-}
-
-/**
  * Venue Gallery Modal
  */
 const venueImages = [
@@ -637,10 +636,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 lang: document.documentElement.lang || 'en'
             };
 
-            console.log('Service booking data:', data);
-
             // Отправляем данные в Google Sheets + Telegram
-            sendToGoogleSheets(data).catch(err => console.log('Send error:', err));
+            sendToGoogleSheets(data).catch(err => {
+                console.log('Send error:', err);
+                showSendFailed(document.querySelector('#serviceBookingModal .massage-booking-modal-content'));
+            });
 
             // Track service booking event
             if (typeof trackBooking === 'function') {
@@ -715,6 +715,7 @@ document.addEventListener('submit', function(e) {
     const form = e.target;
     if (isBotSubmission(form)) return;
 
+    const modalContent = form.closest('.massage-booking-modal-content');
     const formData = new FormData(form);
     const camp = formData.get('leadCamp');
     const email = (formData.get('leadEmail') || '').trim();
@@ -733,7 +734,10 @@ document.addEventListener('submit', function(e) {
         leadEmail: email,
         notes: notes.join('\n'),
         lang: document.documentElement.lang || 'en'
-    }).catch(err => console.log('Send error:', err));
+    }).catch(err => {
+        console.log('Send error:', err);
+        showSendFailed(modalContent);
+    });
 
     if (typeof trackRegistration === 'function') {
         trackRegistration({ type: 'lead_details', camp: camp, value: 0 });
@@ -765,7 +769,7 @@ document.addEventListener('submit', function(e) {
     }[getPageLang()][camp];
     const waHref = 'https://wa.me/35797497756' + (waText ? '?text=' + encodeURIComponent(waText) : '');
 
-    form.closest('.massage-booking-modal-content').innerHTML = `
+    modalContent.innerHTML = `
         <button class="massage-modal-close" onclick="closeLeadModal()">&times;</button>
         <div class="payment-success">
             <div class="payment-success-icon">✓</div>
@@ -776,19 +780,6 @@ document.addEventListener('submit', function(e) {
         </div>
     `;
 });
-
-/**
- * Download Payment Details PDF
- */
-function downloadPaymentDetails(fullName, campName, amount) {
-    // Download the bank details PDF certificate
-    const link = document.createElement('a');
-    link.href = 'assets/Padel_Camp_Bank_Details.pdf';
-    link.download = 'Padel_Camp_Bank_Details.pdf';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-}
 
 /**
  * Language switch keeps the reader in place: remember the innermost section/card
