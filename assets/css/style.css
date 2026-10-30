@@ -5403,6 +5403,42 @@ p {
     margin-top: 32px;
 }
 
+/* Camp + hotel prices under the Weekend card button. The two price boxes reuse
+   .early-bird-badge, so they match the main price box in every card theme. */
+.weekend-hotel {
+    max-width: 520px;
+    margin: 40px auto 0;
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.weekend-hotel-label {
+    margin-bottom: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gray-600);
+}
+
+.weekend-hotel .early-bird-badge {
+    margin: 0 0 12px;
+}
+
+.weekend-hotel .early-bird-badge-price {
+    font-size: 24px;
+}
+
+.weekend-hotel-link {
+    display: block;
+    margin-top: 6px;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
 @media (max-width: 640px) {
     .stay-row {
         flex-direction: column;
