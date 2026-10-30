@@ -1,6 +1,10 @@
 google-apps-script.js
 .DS_Store
+.claude/settings.local.json
 
 # Raw phone photo/video originals — converted .jpg/.mp4 versions are what the site actually uses
 assets/images/gallery/*.heic
 assets/videos/gallery/*.mov
+
+# Local Wrangler cache (Cloudflare account data)
+.wrangler/
