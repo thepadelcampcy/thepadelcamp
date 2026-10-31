@@ -34,7 +34,7 @@ export default {
       return new Response('Method Not Allowed', { status: 405 });
     }
 
-    const body = await request.text();
+    let body = await request.text();
 
     let payload;
     try {
@@ -51,6 +51,13 @@ export default {
         console.log('reject: bad relay token');
         return new Response('Forbidden', { status: 403 });
       }
+      // Apps Script only sees Cloudflare as the client; Meta CAPI wants the
+      // visitor's own IP and user agent (client_user_agent is required for website events).
+      body = JSON.stringify({
+        ...payload,
+        ip: request.headers.get('CF-Connecting-IP') || '',
+        ua: request.headers.get('User-Agent') || '',
+      });
     } else {
       const ok = await verifyStripeSignature(body, request.headers.get('Stripe-Signature'), env.STRIPE_WEBHOOK_SIGNING_SECRET);
       if (!ok) {

@@ -46,9 +46,9 @@ function doPost(e) {
         // Ошибка записи не должна мешать отправке InitiateCheckout в CAPI.
         try { saveAttribution(body.attr_token, body.gcid, body.fbc, body.fbp, body); }
         catch (err) { Logger.log('saveAttribution failed: ' + err.message); }
-        sendInitiateCheckoutToMetaCAPI(body.event_id, body.content_name, body.value, body.fbc, body.fbp, body.url);
+        sendInitiateCheckoutToMetaCAPI(body.event_id, body.content_name, body.value, body.fbc, body.fbp, body.url, body.ip, body.ua);
       } else {
-        sendViewContentToMetaCAPI(body.event_id, body.content_name, body.fbc, body.fbp, body.url);
+        sendViewContentToMetaCAPI(body.event_id, body.content_name, body.fbc, body.fbp, body.url, body.ip, body.ua);
       }
       return ContentService.createTextOutput('OK').setMimeType(ContentService.MimeType.TEXT);
     }
@@ -444,13 +444,15 @@ function sendToMetaCAPI(sessionId, item, amount, currency, email, fbc, fbp, cust
   }
 }
 
-function sendViewContentToMetaCAPI(eventId, contentName, fbc, fbp, sourceUrl) {
+function sendViewContentToMetaCAPI(eventId, contentName, fbc, fbp, sourceUrl, ip, ua) {
   if (!META_CAPI_ACCESS_TOKEN) return;
 
   const userData = {};
   if (fbc) userData.fbc = fbc;
   if (fbp) userData.fbp = fbp;
   if (!userData.fbc && !userData.fbp) return;
+  if (ip) userData.client_ip_address = ip;
+  if (ua) userData.client_user_agent = ua;
 
   const payload = {
     data: [{
@@ -474,13 +476,15 @@ function sendViewContentToMetaCAPI(eventId, contentName, fbc, fbp, sourceUrl) {
   }
 }
 
-function sendInitiateCheckoutToMetaCAPI(eventId, contentName, value, fbc, fbp, sourceUrl) {
+function sendInitiateCheckoutToMetaCAPI(eventId, contentName, value, fbc, fbp, sourceUrl, ip, ua) {
   if (!META_CAPI_ACCESS_TOKEN) return;
 
   const userData = {};
   if (fbc) userData.fbc = fbc;
   if (fbp) userData.fbp = fbp;
   if (!userData.fbc && !userData.fbp) return;
+  if (ip) userData.client_ip_address = ip;
+  if (ua) userData.client_user_agent = ua;
 
   const payload = {
     data: [{
