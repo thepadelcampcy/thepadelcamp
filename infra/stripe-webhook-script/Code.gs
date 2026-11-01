@@ -46,9 +46,9 @@ function doPost(e) {
         // Ошибка записи не должна мешать отправке InitiateCheckout в CAPI.
         try { saveAttribution(body.attr_token, body.gcid, body.fbc, body.fbp, body); }
         catch (err) { Logger.log('saveAttribution failed: ' + err.message); }
-        sendInitiateCheckoutToMetaCAPI(body.event_id, body.content_name, body.value, body.fbc, body.fbp, body.url, body.ip, body.ua, body.external_id);
+        sendInitiateCheckoutToMetaCAPI(body.event_id, body.content_name, body.value, body.fbc, body.fbp, body.url, body.ip, body.ua);
       } else {
-        sendViewContentToMetaCAPI(body.event_id, body.content_name, body.fbc, body.fbp, body.url, body.ip, body.ua, body.external_id);
+        sendViewContentToMetaCAPI(body.event_id, body.content_name, body.fbc, body.fbp, body.url, body.ip, body.ua);
       }
       return ContentService.createTextOutput('OK').setMimeType(ContentService.MimeType.TEXT);
     }
@@ -102,7 +102,7 @@ function doPost(e) {
     const fbp = attr.fbp;
 
     // CAPI и GA4 — до Telegram, чтобы сбой уведомления не блокировал аналитику
-    const capiStatus = sendToMetaCAPI(sessionId, resolved.slug, amount, currency, email, fbc, fbp, session.customer_details, resolved.numItems, attr.ip, attr.ua, attr.external_id);
+    const capiStatus = sendToMetaCAPI(sessionId, resolved.slug, amount, currency, email, fbc, fbp, session.customer_details, resolved.numItems, attr.ip, attr.ua);
     const ga4Status = sendToGA4(gaClientId, resolved.slug, amount, currency, sessionId, resolved.numItems, attr.gsid);
     // Статус каждого шага — в само уведомление об оплате (правка 2026-10-18): каждая
     // оплата становится сквозной проверкой, тихая поломка видна на первой же покупке.
@@ -283,7 +283,7 @@ function getAttributionSheet() {
   let sheet = ss.getSheetByName('Attribution');
   if (!sheet) {
     sheet = ss.insertSheet('Attribution');
-    sheet.appendRow(['Timestamp', 'Token', 'GA4 client_id', 'fbc', 'fbp', 'utm_source', 'utm_campaign', 'utm_content', 'utm_term', 'client_ip', 'client_ua', 'external_id', 'ga_session_id']);
+    sheet.appendRow(['Timestamp', 'Token', 'GA4 client_id', 'fbc', 'fbp', 'utm_source', 'utm_campaign', 'utm_content', 'utm_term', 'client_ip', 'client_ua', 'ga_session_id']);
   }
   // utm_* добавили 21.10 — дописываем заголовки в уже существующий лист
   if (sheet.getRange(1, 6).getValue() === '') {
@@ -293,9 +293,9 @@ function getAttributionSheet() {
   if (sheet.getRange(1, 10).getValue() === '') {
     sheet.getRange(1, 10, 1, 2).setValues([['client_ip', 'client_ua']]);
   }
-  // external_id и ga_session_id добавили 01.11
+  // ga_session_id добавили 01.11
   if (sheet.getRange(1, 12).getValue() === '') {
-    sheet.getRange(1, 12, 1, 2).setValues([['external_id', 'ga_session_id']]);
+    sheet.getRange(1, 12).setValue('ga_session_id');
   }
   return sheet;
 }
@@ -313,7 +313,7 @@ function saveAttribution(token, gcid, fbc, fbp, utm) {
   getAttributionSheet().appendRow([new Date(), t(token), t(gcid), t(fbc), t(fbp),
     t(utm.utm_source), t(utm.utm_campaign), t(utm.utm_content), t(utm.utm_term),
     consented ? t(utm.ip) : '', consented ? t(utm.ua) : '',
-    consented ? t(utm.external_id) : '', consented ? t(utm.gsid) : '']);
+    consented ? t(utm.gsid) : '']);
 }
 
 // Последняя строка с этим токеном (повторный клик на той же странице пишет новую).
@@ -327,7 +327,7 @@ function lookupAttribution(token) {
         utm_source: String(data[i][5] || ''), utm_campaign: String(data[i][6] || ''),
         utm_content: String(data[i][7] || ''), utm_term: String(data[i][8] || ''),
         ip: String(data[i][9] || ''), ua: String(data[i][10] || ''),
-        external_id: String(data[i][11] || ''), gsid: String(data[i][12] || '') };
+        gsid: String(data[i][11] || '') };
     }
   }
   Logger.log('attribution token not found: ' + token);
@@ -395,7 +395,7 @@ function notifyTelegram(item, amount, currency, name, email, phone, tracking) {
 }
 
 // Возвращает статус для уведомления об оплате.
-function sendToMetaCAPI(sessionId, item, amount, currency, email, fbc, fbp, customer, numItems, ip, ua, externalId) {
+function sendToMetaCAPI(sessionId, item, amount, currency, email, fbc, fbp, customer, numItems, ip, ua) {
   if (!META_CAPI_ACCESS_TOKEN) return '⚠️ не отправлено: нет META_CAPI_ACCESS_TOKEN';
 
   const userData = {};
@@ -403,8 +403,6 @@ function sendToMetaCAPI(sessionId, item, amount, currency, email, fbc, fbp, cust
     userData.em = [sha256Hex(email.trim().toLowerCase())];
     userData.external_id = [sha256Hex(email.trim().toLowerCase())];
   }
-  // Тот же id, что сайт передаёт в Pixel (только принявшим cookies)
-  if (externalId) userData.external_id = (userData.external_id || []).concat(sha256Hex(externalId));
   if (fbc) userData.fbc = fbc;
   if (fbp) userData.fbp = fbp;
   if (ip) userData.client_ip_address = ip;
@@ -463,14 +461,13 @@ function sendToMetaCAPI(sessionId, item, amount, currency, email, fbc, fbp, cust
   }
 }
 
-function sendViewContentToMetaCAPI(eventId, contentName, fbc, fbp, sourceUrl, ip, ua, externalId) {
+function sendViewContentToMetaCAPI(eventId, contentName, fbc, fbp, sourceUrl, ip, ua) {
   if (!META_CAPI_ACCESS_TOKEN) return;
 
   const userData = {};
   if (fbc) userData.fbc = fbc;
   if (fbp) userData.fbp = fbp;
   if (!userData.fbc && !userData.fbp) return;
-  if (externalId) userData.external_id = [sha256Hex(externalId)];
   if (ip) userData.client_ip_address = ip;
   if (ua) userData.client_user_agent = ua;
 
@@ -496,14 +493,13 @@ function sendViewContentToMetaCAPI(eventId, contentName, fbc, fbp, sourceUrl, ip
   }
 }
 
-function sendInitiateCheckoutToMetaCAPI(eventId, contentName, value, fbc, fbp, sourceUrl, ip, ua, externalId) {
+function sendInitiateCheckoutToMetaCAPI(eventId, contentName, value, fbc, fbp, sourceUrl, ip, ua) {
   if (!META_CAPI_ACCESS_TOKEN) return;
 
   const userData = {};
   if (fbc) userData.fbc = fbc;
   if (fbp) userData.fbp = fbp;
   if (!userData.fbc && !userData.fbp) return;
-  if (externalId) userData.external_id = [sha256Hex(externalId)];
   if (ip) userData.client_ip_address = ip;
   if (ua) userData.client_user_agent = ua;
 

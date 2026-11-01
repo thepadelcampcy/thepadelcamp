@@ -191,11 +191,7 @@ function loadMetaPixel() {
     s.parentNode.insertBefore(t,s)}(window, document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
 
-    // external_id: random first-party visitor id, created only after Accept.
-    // The pixel hashes it itself; the server events send the same value hashed.
-    var extId = getExternalId();
-    if (extId) fbq('init', META_PIXEL_ID, { external_id: extId });
-    else fbq('init', META_PIXEL_ID);
+    fbq('init', META_PIXEL_ID);
     fbq('track', 'PageView');
 }
 
@@ -360,7 +356,6 @@ function sendViewContentToServer(eventId, contentName) {
             content_name: contentName,
             fbc: fbc,
             fbp: fbp,
-            external_id: getExternalId(),
             url: location.href
         })
     }).catch(function() {});
@@ -390,7 +385,6 @@ function sendInitiateCheckoutToServer(eventId, camp, value, consented) {
         fbp: fbp,
         gcid: gcid,
         gsid: consented ? getGA4SessionId() : '',
-        external_id: consented ? getExternalId() : '',
         attr_token: STRIPE_ATTR_TOKEN,
         // No query string without consent: it carries the fbclid click id.
         url: consented ? location.href : location.origin + location.pathname
@@ -663,26 +657,6 @@ function getGA4SessionId() {
     const c = getCookie('_ga_' + GA4_ID.replace('G-', ''));
     const m = c.match(/^GS1\.\d\.(\d+)/) || c.match(/^GS2\.\d\.s(\d+)/);
     return m ? m[1] : '';
-}
-
-/**
- * Persistent random visitor id for Meta's external_id. Exists only after
- * Accept: returns '' (and creates nothing) without consent.
- */
-function getExternalId() {
-    if (!hasConsented()) return '';
-    try {
-        var id = localStorage.getItem('pc_external_id');
-        if (!id) {
-            var bytes = new Uint8Array(16);
-            crypto.getRandomValues(bytes);
-            id = Array.from(bytes, function (b) { return ('0' + b.toString(16)).slice(-2); }).join('');
-            localStorage.setItem('pc_external_id', id);
-        }
-        return id;
-    } catch (e) {
-        return '';
-    }
 }
 
 /**
