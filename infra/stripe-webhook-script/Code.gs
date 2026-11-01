@@ -46,9 +46,9 @@ function doPost(e) {
         // Ошибка записи не должна мешать отправке InitiateCheckout в CAPI.
         try { saveAttribution(body.attr_token, body.gcid, body.fbc, body.fbp, body); }
         catch (err) { Logger.log('saveAttribution failed: ' + err.message); }
-        sendInitiateCheckoutToMetaCAPI(body.event_id, body.content_name, body.value, body.fbc, body.fbp, body.url, body.ip, body.ua);
+        sendInitiateCheckoutToMetaCAPI(body.event_id, body.content_name, body.value, body.fbc, body.fbp, body.url, body.ip, body.ua, body.external_id);
       } else {
-        sendViewContentToMetaCAPI(body.event_id, body.content_name, body.fbc, body.fbp, body.url, body.ip, body.ua);
+        sendViewContentToMetaCAPI(body.event_id, body.content_name, body.fbc, body.fbp, body.url, body.ip, body.ua, body.external_id);
       }
       return ContentService.createTextOutput('OK').setMimeType(ContentService.MimeType.TEXT);
     }
@@ -102,8 +102,8 @@ function doPost(e) {
     const fbp = attr.fbp;
 
     // CAPI и GA4 — до Telegram, чтобы сбой уведомления не блокировал аналитику
-    const capiStatus = sendToMetaCAPI(sessionId, resolved.slug, amount, currency, email, fbc, fbp, session.customer_details, resolved.numItems);
-    const ga4Status = sendToGA4(gaClientId, resolved.slug, amount, currency, sessionId, resolved.numItems);
+    const capiStatus = sendToMetaCAPI(sessionId, resolved.slug, amount, currency, email, fbc, fbp, session.customer_details, resolved.numItems, attr.ip, attr.ua, attr.external_id);
+    const ga4Status = sendToGA4(gaClientId, resolved.slug, amount, currency, sessionId, resolved.numItems, attr.gsid);
     // Статус каждого шага — в само уведомление об оплате (правка 2026-10-18): каждая
     // оплата становится сквозной проверкой, тихая поломка видна на первой же покупке.
     const tracking = 'Метки: ' + attributionStatus(session.client_reference_id, attr) + '\n' +
@@ -283,11 +283,19 @@ function getAttributionSheet() {
   let sheet = ss.getSheetByName('Attribution');
   if (!sheet) {
     sheet = ss.insertSheet('Attribution');
-    sheet.appendRow(['Timestamp', 'Token', 'GA4 client_id', 'fbc', 'fbp', 'utm_source', 'utm_campaign', 'utm_content', 'utm_term']);
+    sheet.appendRow(['Timestamp', 'Token', 'GA4 client_id', 'fbc', 'fbp', 'utm_source', 'utm_campaign', 'utm_content', 'utm_term', 'client_ip', 'client_ua', 'external_id', 'ga_session_id']);
   }
   // utm_* добавили 21.10 — дописываем заголовки в уже существующий лист
   if (sheet.getRange(1, 6).getValue() === '') {
     sheet.getRange(1, 6, 1, 4).setValues([['utm_source', 'utm_campaign', 'utm_content', 'utm_term']]);
+  }
+  // client_ip/client_ua добавили 01.11 — для Meta CAPI Purchase
+  if (sheet.getRange(1, 10).getValue() === '') {
+    sheet.getRange(1, 10, 1, 2).setValues([['client_ip', 'client_ua']]);
+  }
+  // external_id и ga_session_id добавили 01.11
+  if (sheet.getRange(1, 12).getValue() === '') {
+    sheet.getRange(1, 12, 1, 2).setValues([['external_id', 'ga_session_id']]);
   }
   return sheet;
 }
@@ -299,8 +307,13 @@ function saveAttribution(token, gcid, fbc, fbp, utm) {
   // или вида "12e34…") в число и потеряет цифры
   const t = function (v) { return v ? "'" + String(v).slice(0, 500) : ''; };
   utm = utm || {};
+  // IP и user-agent сохраняем только если посетитель принял cookies (есть gcid/fbc/fbp);
+  // у отказавшихся строка содержит лишь UTM.
+  const consented = !!(gcid || fbc || fbp);
   getAttributionSheet().appendRow([new Date(), t(token), t(gcid), t(fbc), t(fbp),
-    t(utm.utm_source), t(utm.utm_campaign), t(utm.utm_content), t(utm.utm_term)]);
+    t(utm.utm_source), t(utm.utm_campaign), t(utm.utm_content), t(utm.utm_term),
+    consented ? t(utm.ip) : '', consented ? t(utm.ua) : '',
+    consented ? t(utm.external_id) : '', consented ? t(utm.gsid) : '']);
 }
 
 // Последняя строка с этим токеном (повторный клик на той же странице пишет новую).
@@ -312,7 +325,9 @@ function lookupAttribution(token) {
     if (data[i][1] === token) {
       return { gcid: String(data[i][2] || ''), fbc: String(data[i][3] || ''), fbp: String(data[i][4] || ''),
         utm_source: String(data[i][5] || ''), utm_campaign: String(data[i][6] || ''),
-        utm_content: String(data[i][7] || ''), utm_term: String(data[i][8] || '') };
+        utm_content: String(data[i][7] || ''), utm_term: String(data[i][8] || ''),
+        ip: String(data[i][9] || ''), ua: String(data[i][10] || ''),
+        external_id: String(data[i][11] || ''), gsid: String(data[i][12] || '') };
     }
   }
   Logger.log('attribution token not found: ' + token);
@@ -380,7 +395,7 @@ function notifyTelegram(item, amount, currency, name, email, phone, tracking) {
 }
 
 // Возвращает статус для уведомления об оплате.
-function sendToMetaCAPI(sessionId, item, amount, currency, email, fbc, fbp, customer, numItems) {
+function sendToMetaCAPI(sessionId, item, amount, currency, email, fbc, fbp, customer, numItems, ip, ua, externalId) {
   if (!META_CAPI_ACCESS_TOKEN) return '⚠️ не отправлено: нет META_CAPI_ACCESS_TOKEN';
 
   const userData = {};
@@ -388,8 +403,12 @@ function sendToMetaCAPI(sessionId, item, amount, currency, email, fbc, fbp, cust
     userData.em = [sha256Hex(email.trim().toLowerCase())];
     userData.external_id = [sha256Hex(email.trim().toLowerCase())];
   }
+  // Тот же id, что сайт передаёт в Pixel (только принявшим cookies)
+  if (externalId) userData.external_id = (userData.external_id || []).concat(sha256Hex(externalId));
   if (fbc) userData.fbc = fbc;
   if (fbp) userData.fbp = fbp;
+  if (ip) userData.client_ip_address = ip;
+  if (ua) userData.client_user_agent = ua;
 
   // Остальные ключи сопоставления из Stripe (п. 36b: EMQ был 6.07/10).
   // Нормализация по правилам Meta: lowercase, без пробелов; телефон — только
@@ -444,13 +463,14 @@ function sendToMetaCAPI(sessionId, item, amount, currency, email, fbc, fbp, cust
   }
 }
 
-function sendViewContentToMetaCAPI(eventId, contentName, fbc, fbp, sourceUrl, ip, ua) {
+function sendViewContentToMetaCAPI(eventId, contentName, fbc, fbp, sourceUrl, ip, ua, externalId) {
   if (!META_CAPI_ACCESS_TOKEN) return;
 
   const userData = {};
   if (fbc) userData.fbc = fbc;
   if (fbp) userData.fbp = fbp;
   if (!userData.fbc && !userData.fbp) return;
+  if (externalId) userData.external_id = [sha256Hex(externalId)];
   if (ip) userData.client_ip_address = ip;
   if (ua) userData.client_user_agent = ua;
 
@@ -476,13 +496,14 @@ function sendViewContentToMetaCAPI(eventId, contentName, fbc, fbp, sourceUrl, ip
   }
 }
 
-function sendInitiateCheckoutToMetaCAPI(eventId, contentName, value, fbc, fbp, sourceUrl, ip, ua) {
+function sendInitiateCheckoutToMetaCAPI(eventId, contentName, value, fbc, fbp, sourceUrl, ip, ua, externalId) {
   if (!META_CAPI_ACCESS_TOKEN) return;
 
   const userData = {};
   if (fbc) userData.fbc = fbc;
   if (fbp) userData.fbp = fbp;
   if (!userData.fbc && !userData.fbp) return;
+  if (externalId) userData.external_id = [sha256Hex(externalId)];
   if (ip) userData.client_ip_address = ip;
   if (ua) userData.client_user_agent = ua;
 
@@ -509,7 +530,7 @@ function sendInitiateCheckoutToMetaCAPI(eventId, contentName, value, fbc, fbp, s
 }
 
 // Возвращает статус для уведомления об оплате.
-function sendToGA4(clientId, item, amount, currency, sessionId, numItems) {
+function sendToGA4(clientId, item, amount, currency, sessionId, numItems, gaSessionId) {
   if (!GA4_API_SECRET) return '⚠️ не отправлено: нет GA4_API_SECRET';
   if (!clientId) return '— не отправлено: нет GA4 client_id';
 
@@ -522,12 +543,12 @@ function sendToGA4(clientId, item, amount, currency, sessionId, numItems) {
     client_id: clientId,
     events: [{
       name: 'purchase',
-      params: {
+      params: Object.assign({
         transaction_id: sessionId,
         value: amount,
         currency: currency,
         items: [gaItem]
-      }
+      }, gaSessionId ? { session_id: gaSessionId, engagement_time_msec: 100 } : {})
     }]
   };
 
