@@ -191,6 +191,48 @@ function setupReconcileTrigger() {
   ScriptApp.newTrigger('reconcilePaymentsWithSheet').timeBased().everyDays(1).atHour(9).create();
 }
 
+// --- Удаление IP и user-agent из Attribution через 30 дней (правка 2026-11-01) ---
+// Этот срок обещан в политике конфиденциальности: менять только вместе с ней.
+// Остальные колонки строки не трогает. Сбой или непонятная дата приходят алертом,
+// иначе обещание тихо перестанет выполняться.
+// Запуск: один раз вручную setupAttributionCleanupTrigger (ежедневно в 4:00).
+
+const ATTRIBUTION_IP_UA_RETENTION_DAYS = 30;
+
+function clearOldAttributionIpUa() {
+  try {
+    const sheet = getAttributionSheet();
+    const rows = sheet.getLastRow() - 1;
+    if (rows < 1) return;
+    const cutoff = Date.now() - ATTRIBUTION_IP_UA_RETENTION_DAYS * 86400000;
+    const stamps = sheet.getRange(2, 1, rows, 1).getValues();
+    const ipUa = sheet.getRange(2, 10, rows, 2).getValues();
+    let cleared = 0;
+    let badDates = 0;
+    for (let i = 0; i < rows; i++) {
+      if (ipUa[i][0] === '' && ipUa[i][1] === '') continue;
+      const ts = stamps[i][0];
+      if (Object.prototype.toString.call(ts) !== '[object Date]') { badDates++; continue; }
+      if (ts.getTime() < cutoff) {
+        sheet.getRange(i + 2, 10, 1, 2).clearContent();
+        cleared++;
+      }
+    }
+    Logger.log('clearOldAttributionIpUa: очищено строк ' + cleared + ', непонятных дат ' + badDates);
+    if (badDates) sendAlert('⚠️ Attribution: ' + badDates + ' строк с IP и непонятной датой, срок хранения не проверен.');
+  } catch (err) {
+    Logger.log('clearOldAttributionIpUa failed: ' + err.message);
+    sendAlert('⚠️ Очистка IP в Attribution не выполнилась.\nПричина: ' + err.message);
+  }
+}
+
+function setupAttributionCleanupTrigger() {
+  ScriptApp.getProjectTriggers()
+    .filter(function (t) { return t.getHandlerFunction() === 'clearOldAttributionIpUa'; })
+    .forEach(function (t) { ScriptApp.deleteTrigger(t); });
+  ScriptApp.newTrigger('clearOldAttributionIpUa').timeBased().everyDays(1).atHour(4).create();
+}
+
 function listPaidSessions(fromUnix, toUnix) {
   if (!GGL_STRP_READ_KEY) throw new Error('нет GGL_STRP_READ_KEY в Script Properties');
   const out = [];

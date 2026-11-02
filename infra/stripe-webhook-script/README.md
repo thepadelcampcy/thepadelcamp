@@ -48,7 +48,7 @@ The sequence is deliberate and should not be rearranged:
 
 - Google Sheet `1eRs41v1VRVIKTOdovtrg9B1agOVEF6Bbw3zqC3Zz1jM` → sheet **Confirmed Payments**, columns
   `Timestamp, Session ID, Item, Amount, Currency, Name, Email`. `paymentRowExists` matches on column 2.
-- Same spreadsheet → sheet **Attribution** (created on first use): `Timestamp, Token, GA4 client_id, fbc, fbp, utm_*, client_ip, client_ua, ga_session_id` (ip/ua/session id are stored only for visitors who accepted cookies; used for Meta CAPI user_data and GA4 Measurement Protocol `session_id`). A payment whose
+- Same spreadsheet → sheet **Attribution** (created on first use): `Timestamp, Token, GA4 client_id, fbc, fbp, utm_*, client_ip, client_ua, ga_session_id` (ip/ua/session id are stored only for visitors who accepted cookies; used for Meta CAPI user_data and GA4 Measurement Protocol `session_id`; `clearOldAttributionIpUa` empties ip/ua after 30 days, a period promised in the privacy policy, so change them together). A payment whose
   `client_reference_id` is `t-<token>` gets its attribution from the last row with that token (since 18.10;
   base64url and `||` formats are still parsed for older sessions).
 - Execution as **Me**, access **Anyone** (Stripe posts without auth; the Worker is what authenticates the
