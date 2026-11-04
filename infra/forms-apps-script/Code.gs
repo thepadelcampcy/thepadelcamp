@@ -144,6 +144,11 @@ function handlePostPaymentDetails(data, notify) {
     sheet.getRange(1, 18).setValue('Playtomic Level');
   }
 
+  // Колонку «How Heard» добавили 04.11 — тоже дописываем заголовок в существующий лист
+  if (sheet.getRange(1, 19).getValue() === '') {
+    sheet.getRange(1, 19).setValue('How Heard');
+  }
+
   // старая форма (до новой анкеты) шлёт goals/skills, новая — improve/shots
   const shots = data.shots ? list(data.shots) : val(data.skills);
   const improve = list(data.improve || data.goals);
@@ -166,7 +171,8 @@ function handlePostPaymentDetails(data, notify) {
     val(data.tshirt),
     txt(data.notes),
     val(data.lang),
-    txt(data.playtomic)
+    txt(data.playtomic),
+    val(data.source)
   ]);
 
   let message = `
@@ -188,6 +194,7 @@ function handlePostPaymentDetails(data, notify) {
 📈 <b>Wants to improve:</b> ${esc(improve)}
 🏆 <b>Competitive:</b> ${esc(val(data.competitive))}
 👕 <b>T-Shirt:</b> ${esc(val(data.tshirt))}
+${data.source ? '📣 <b>Heard about us:</b> ' + esc(val(data.source)) : ''}
 `;
   }
 

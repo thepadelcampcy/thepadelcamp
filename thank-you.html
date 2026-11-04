@@ -385,6 +385,19 @@
                                     <option value="XXL">XXL</option>
                                 </select>
                             </div>
+                            <div class="form-group">
+                                <label class="form-label" id="tyLabelSource" for="tySource">How did you hear about us? <span class="ty-question-hint">(optional)</span></label>
+                                <select id="tySource" name="tySource" class="form-input">
+                                    <option value="">Select an option</option>
+                                    <option value="Instagram or Facebook">Instagram or Facebook</option>
+                                    <option value="Google search">Google search</option>
+                                    <option value="ChatGPT or another AI assistant">ChatGPT or another AI assistant</option>
+                                    <option value="Friend or word of mouth">Friend or word of mouth</option>
+                                    <option value="Telegram or WhatsApp">Telegram or WhatsApp</option>
+                                    <option value="Padel club or coach">Padel club or coach</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
                             <div class="form-group" id="tyNotesGroup">
                                 <label class="form-label" id="tyLabelNotes" for="tyNotes">Notes (optional)</label>
                                 <textarea id="tyNotes" name="tyNotes" class="form-input" rows="2" placeholder="Any preferences..."></textarea>
@@ -722,6 +735,7 @@
                         improve: checked('tyImprove'),
                         competitive: checked('tyCompetitive').join(', '),
                         tshirt: fieldValue('tyTshirt'),
+                        source: fieldValue('tySource'),
                         notes: fieldValue('tyNotes'),
                         lang: 'en'
                     };
