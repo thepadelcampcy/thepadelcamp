@@ -444,7 +444,7 @@ function initPricingViewTracking() {
                 observer.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.3 });
+    }, { threshold: 0.1 }); // #program is ~3100-3450px tall on phones, so 30% never fits a viewport
 
     observer.observe(pricingSection);
 }
