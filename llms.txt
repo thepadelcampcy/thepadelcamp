@@ -21,12 +21,12 @@ Three formats, each with a single fixed price. Promo prices for the first places
 ### Morning Camp
 - Dates: 9-13 November (Monday-Friday), 09:00-12:00
 - 15 hours of coaching over 5 days
-- Price: EUR 770
+- Price: EUR 770 (sold out)
 
 ### Evening Camp
 - Dates: 9-13 November (Monday-Friday), 18:00-21:00
 - 15 hours of coaching over 5 days
-- Price: EUR 890
+- Price: EUR 770
 
 ### Weekend Camp
 - Dates: 14-15 November (Saturday and Sunday)

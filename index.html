@@ -89,13 +89,13 @@
                 "price": "770",
                 "priceCurrency": "EUR",
                 "validFrom": "2026-09-26",
-                "availability": "https://schema.org/InStock",
+                "availability": "https://schema.org/SoldOut",
                 "url": "https://thepadelcamp.com.cy/#program-cards"
             },
             {
                 "@type": "Offer",
                 "name": "Evening Camp",
-                "price": "890",
+                "price": "770",
                 "priceCurrency": "EUR",
                 "validFrom": "2026-09-26",
                 "availability": "https://schema.org/InStock",
@@ -382,7 +382,7 @@
 
             <!-- Morning Camp -->
             <div class="program-content program-content--ribbon" id="camp-morning">
-                <div class="spots-ribbon">Last spot</div>
+                <div class="spots-ribbon">Sold out</div>
                 <p class="program-dates">&#128197; 9&ndash;13 November</p>
                 <div class="early-bird-badge">
                     <div class="early-bird-badge-col">
@@ -396,7 +396,7 @@
                     <li>09:00&ndash;12:00 &middot; 15 hours coaching</li>
                     <li>Spanish professional coaches</li>
                     <li>Max 4 players per court</li>
-                    <li><strong>Last spot:</strong> 1.5-2 lvl welcome</li>
+                    <li style="visibility:hidden" aria-hidden="true">&nbsp;</li>
                     <li style="visibility:hidden" aria-hidden="true">&nbsp;</li>
                 </ul>
 
@@ -418,7 +418,7 @@
                     </div>
                 </div>
 
-                <a href="https://wa.me/35797497756?text=Hi!%20I%20would%20like%20the%20last%20spot%20in%20the%20Morning%20Camp.%20My%20level%3A%20" target="_blank" rel="noopener nofollow" class="btn btn-primary btn-block schedule-cta">Ask about the last spot</a>
+                <span class="btn btn-primary schedule-cta" aria-disabled="true" style="width:100%;opacity:0.5;pointer-events:none;cursor:default;">Sold out</span>
             </div>
 
             <!-- Evening Camp -->
@@ -427,7 +427,7 @@
                 <div class="early-bird-badge">
                     <div class="early-bird-badge-col">
                         <span class="early-bird-badge-label">Price</span>
-                        <span class="early-bird-badge-price">&euro;890</span>
+                        <span class="early-bird-badge-price">&euro;770</span>
                     </div>
                 </div>
 
@@ -459,7 +459,7 @@
                     </div>
                 </div>
 
-                <a id="eveningStripeLink" href="https://buy.stripe.com/bJe9AV3WTbRp6uladKcEw0j" target="_blank" rel="noopener" class="btn btn-primary btn-block schedule-cta" data-purchase-value="890" data-purchase-item="evening_camp">Book Evening Camp</a>
+                <a id="eveningStripeLink" href="https://book.stripe.com/3cI14pdxtaNlbOFgC8cEw0p" target="_blank" rel="noopener" class="btn btn-primary btn-block schedule-cta" data-purchase-value="770" data-purchase-item="evening_camp">Book Evening Camp</a>
             </div>
 
             <!-- Weekend Camp -->
