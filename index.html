@@ -49,7 +49,7 @@
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Manrope:wght@300&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Manrope:wght@300&display=swap" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Manrope:wght@300&display=swap"></noscript>
-    <link rel="stylesheet" href="assets/css/experiment-theme.css?v=45">
+    <link rel="stylesheet" href="assets/css/experiment-theme.css?v=47">
 
     <!-- Hero photo: team in blue shirts (gallery photo-9), two pre-cropped WebP files
          (wide band for desktop, portrait for phones). Preloaded as early as possible,
@@ -689,13 +689,7 @@
             <div class="services-header">
                 <h2 class="section-title">EXTRA</h2>
             </div>
-            <div class="services-grid">
-                <div class="service-card">
-                    <h3>Media Package</h3>
-                    <p>15-20 professional photos plus a dynamic reel (1.5-2 min) of your camp moments.</p>
-                    <span class="service-price"><span class="price-mini-currency">&euro;</span>130</span>
-                    <a id="mediaPackageStripeLink" href="https://buy.stripe.com/9B65kF8d9bRpbOFclScEw0a" target="_blank" rel="noopener" class="btn btn-primary btn-sm service-btn" data-purchase-value="130" data-purchase-item="media_package">Pay &euro;130</a>
-                </div>
+            <div class="services-grid services-grid-2x2">
                 <div class="service-card" onclick="openServiceBookingForm('Private Lesson (1-on-1)', 90)">
                     <h3>Private 1-on-1</h3>
                     <p>Personalized coaching with a Spanish coach, focused entirely on your game. Special rates for past and current camp participants - message us.</p>
@@ -704,9 +698,21 @@
                 </div>
                 <div class="service-card" onclick="openServiceBookingForm('Private Lesson (2-on-1)', 120)">
                     <h3>Private 2-on-1</h3>
-                    <p>Personalized coaching with a Spanish coach, shared between you and a partner. Special rates for past and current camp participants - message us.</p>
+                    <p>Personalized coaching with a Spanish coach, shared between you and a partner. Train as a pair on what decides doubles: positioning together, communication, covering the middle and who takes which ball - at a lower price per person than a 1-on-1 lesson.</p>
                     <span class="service-price"><span class="price-mini-currency">&euro;</span>120</span>
                     <button class="btn btn-primary btn-sm service-btn" onclick="openServiceBookingForm('Private Lesson (2-on-1)', 120)">Book 2-on-1</button>
+                </div>
+                <div class="service-card" onclick="openServiceBookingForm('Match Play with a Coach (1 hour)', 120)">
+                    <h3>Match Play with a Coach</h3>
+                    <p>One hour of real match play for 3-4 players, guided by a Spanish coach. The coach stops play at the key moments and corrects your positioning, shot selection and decisions while the point is still fresh - so what you train finally carries into your games, instead of the same habits repeating in every friendly match.</p>
+                    <span class="service-price"><span class="price-mini-currency">&euro;</span>120</span>
+                    <button class="btn btn-primary btn-sm service-btn" onclick="openServiceBookingForm('Match Play with a Coach (1 hour)', 120)">Book Match Play</button>
+                </div>
+                <div class="service-card">
+                    <h3>Media Package</h3>
+                    <p>15-20 professional photos plus a dynamic reel (1.5-2 min) of your camp moments.</p>
+                    <span class="service-price"><span class="price-mini-currency">&euro;</span>130</span>
+                    <a id="mediaPackageStripeLink" href="https://buy.stripe.com/9B65kF8d9bRpbOFclScEw0a" target="_blank" rel="noopener" class="btn btn-primary btn-sm service-btn" data-purchase-value="130" data-purchase-item="media_package">Pay &euro;130</a>
                 </div>
             </div>
         </div>
@@ -1274,6 +1280,6 @@
     </script>
 
     <script src="assets/js/pixels.js?v=33"></script>
-    <script src="assets/js/main.js?v=28"></script>
+    <script src="assets/js/main.js?v=29"></script>
 </body>
 </html>

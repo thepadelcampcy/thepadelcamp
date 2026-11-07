@@ -69,6 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initFAQ();
     initHeaderScroll();
     initAnimations();
+    initServicesCarouselDots();
     initPricingViewTracking();
 
     // Static Stripe links (no form in front of them) need attribution
@@ -392,6 +393,55 @@ function initHeaderScroll() {
 /**
  * Scroll Animations (Intersection Observer)
  */
+/**
+ * EXTRA cards: on phones .services-grid-2x2 is a horizontal swipe carousel
+ * (CSS). Add one dot per card under it, highlight the card in view, and let
+ * a tap on a dot scroll to its card. The dots are hidden by CSS on wider
+ * screens, where the cards are a 2x2 grid.
+ */
+function initServicesCarouselDots() {
+    document.querySelectorAll('.services-grid-2x2').forEach(function(grid) {
+        const cards = Array.prototype.slice.call(grid.children);
+        if (cards.length < 2) return;
+
+        const dots = document.createElement('div');
+        dots.className = 'services-dots';
+        const labels = { en: 'Show card ', ru: 'Показать карточку ', el: 'Εμφάνιση κάρτας ' };
+        const label = labels[getPageLang()];
+
+        cards.forEach(function(card, i) {
+            const dot = document.createElement('button');
+            dot.type = 'button';
+            dot.className = 'services-dot';
+            dot.setAttribute('aria-label', label + (i + 1));
+            dot.addEventListener('click', function() {
+                grid.scrollTo({ left: card.offsetLeft - cards[0].offsetLeft, behavior: 'smooth' });
+            });
+            dots.appendChild(dot);
+        });
+        grid.parentNode.insertBefore(dots, grid.nextSibling);
+
+        function update() {
+            const atEnd = grid.scrollLeft + grid.clientWidth >= grid.scrollWidth - 2;
+            let active = cards.length - 1;
+            if (!atEnd) {
+                let best = Infinity;
+                cards.forEach(function(card, i) {
+                    const d = Math.abs(card.offsetLeft - cards[0].offsetLeft - grid.scrollLeft);
+                    if (d < best) { best = d; active = i; }
+                });
+            }
+            Array.prototype.forEach.call(dots.children, function(dot, i) {
+                dot.classList.toggle('active', i === active);
+                if (i === active) dot.setAttribute('aria-current', 'true');
+                else dot.removeAttribute('aria-current');
+            });
+        }
+        grid.addEventListener('scroll', update, { passive: true });
+        update();
+    });
+}
+
 function initAnimations() {
     const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const animatedElements = document.querySelectorAll('.feature-card, .service-card, .price-card, .coach-card, .schedule-day');

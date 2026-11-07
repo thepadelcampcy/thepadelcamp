@@ -828,6 +828,10 @@ html[lang="ru"] .hero-title em {
     gap: 20px;
 }
 
+.services-grid-2x2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
 .service-card {
     padding: 28px;
     cursor: pointer;
@@ -859,6 +863,72 @@ html[lang="ru"] .hero-title em {
     .services-grid {
         grid-template-columns: 1fr;
     }
+}
+
+/* Phones: the 4-card EXTRA block becomes a horizontal swipe carousel
+   (one card at a time, the edge of the next one peeking out) instead of
+   a long single column. Cards bleed to the screen edges past the
+   container's 16px padding. */
+@media (max-width: 560px) {
+    .services-grid-2x2 {
+        display: flex;
+        gap: 12px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-padding: 0 16px;
+        margin: 0 -16px;
+        padding: 4px 16px 16px;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .services-grid-2x2::-webkit-scrollbar {
+        display: none;
+    }
+
+    .services-grid-2x2 .service-card {
+        flex: 0 0 85%;
+        scroll-snap-align: start;
+    }
+
+    .services-grid-2x2 + .services-dots {
+        display: flex;
+        justify-content: center;
+        gap: 4px;
+        margin-top: 4px;
+    }
+}
+
+.services-dots {
+    display: none;
+}
+
+/* 8px dot inside a 24px tap target */
+.services-dot {
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.services-dot::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: 0.25;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.services-dot.active::before {
+    opacity: 1;
+    transform: scale(1.15);
 }
 
 /* What's Included: one bordered card with a divider between the two
