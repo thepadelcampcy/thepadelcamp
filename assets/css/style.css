@@ -4847,9 +4847,9 @@ textarea.form-input {
 
 .partners-logos {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 32px;
-    max-width: 800px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    max-width: 1000px;
     margin-bottom: 48px;
 }
 
@@ -4860,7 +4860,7 @@ textarea.form-input {
     border: 1px solid var(--glass-border);
     border-radius: 16px;
     box-shadow: var(--glass-shadow);
-    padding: 40px 32px;
+    padding: 32px 20px;
     text-align: center;
 }
 
@@ -4907,9 +4907,40 @@ textarea.form-input {
     margin-bottom: 24px;
 }
 
+/* Phones: partner cards become a swipe carousel (dots come from
+   initServicesCarouselDots in main.js, styled as .services-dots) */
 @media (max-width: 640px) {
-    .partners-logos {
-        grid-template-columns: 1fr;
+    .partners-logos,
+    .partners-valued .partners-valued-grid {
+        display: flex;
+        gap: 12px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-padding: 0 16px;
+        margin: 0 -16px;
+        padding: 4px 16px 16px;
+        max-width: none;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .partners-logos::-webkit-scrollbar,
+    .partners-valued-grid::-webkit-scrollbar {
+        display: none;
+    }
+
+    .partners-logos .partner-logo-card,
+    .partners-valued-grid .partner-card {
+        flex: 0 0 85%;
+        scroll-snap-align: start;
+    }
+
+    .partners-logos + .services-dots,
+    .partners-valued-grid + .services-dots {
+        display: flex;
+        justify-content: center;
+        gap: 4px;
+        margin-bottom: 32px;
     }
 }
 
@@ -4952,9 +4983,9 @@ textarea.form-input {
 
 .partners-valued-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 40px;
-    max-width: 900px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    max-width: 1100px;
     margin-top: 40px;
 }
 
@@ -4965,7 +4996,7 @@ textarea.form-input {
     border: 1px solid var(--glass-border);
     border-radius: 16px;
     box-shadow: var(--glass-shadow);
-    padding: 48px 32px;
+    padding: 36px 20px;
     text-align: center;
 }
 

@@ -400,7 +400,7 @@ function initHeaderScroll() {
  * screens, where the cards are a 2x2 grid.
  */
 function initServicesCarouselDots() {
-    document.querySelectorAll('.services-grid-2x2').forEach(function(grid) {
+    document.querySelectorAll('.services-grid-2x2, .partners-logos, .partners-valued-grid').forEach(function(grid) {
         const cards = Array.prototype.slice.call(grid.children);
         if (cards.length < 2) return;
 
