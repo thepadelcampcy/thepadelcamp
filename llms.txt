@@ -9,29 +9,18 @@ The Padel Camp Cyprus is an intensive padel training camp held in Limassol, Cypr
 ## Event Details
 
 - **Event**: The Padel Camp Cyprus 2026
-- **Dates**: 9-15 November 2026
-- **Location**: MyQPadel, Limassol, Cyprus
+- **Next camp**: dates to be announced (join the notify list at https://thepadelcamp.com.cy/#program)
+- **Location**: Limassol, Cyprus
 - **Languages**: English, Russian, Greek
 - **Website**: https://thepadelcamp.com.cy
 
-## Camps (November 2026)
+## Camp Formats
 
-Three formats, each with a single fixed price. Promo prices for the first places are given by request via WhatsApp.
+The November 2026 camp has finished. Dates and prices for the next camp are not set yet; they will be published on the website. The formats are expected to stay the same:
 
-### Morning Camp
-- Dates: 9-13 November (Monday-Friday), 09:00-12:00
-- 15 hours of coaching over 5 days
-- Price: EUR 770 (sold out)
-
-### Evening Camp
-- Dates: 9-13 November (Monday-Friday), 18:00-21:00
-- 15 hours of coaching over 5 days
-- Price: EUR 770
-
-### Weekend Camp
-- Dates: 14-15 November (Saturday and Sunday)
-- 6 hours of coaching in total
-- Price: EUR 380 (sold out)
+- **Morning Camp**: 5 days (Monday-Friday), 09:00-12:00, 15 hours of coaching
+- **Evening Camp**: 5 days (Monday-Friday), 18:00-21:00, 15 hours of coaching
+- **Weekend Camp**: 2 days (Saturday and Sunday), 6 hours of coaching in total
 
 ## Key Features
 
@@ -54,7 +43,7 @@ Three formats, each with a single fixed price. Promo prices for the first places
 
 ## Booking
 
-Book online at https://thepadelcamp.com.cy/#program-cards (secure payment by card via Stripe). For questions, or to arrange something outside the listed formats, message us on WhatsApp.
+There is no camp open for booking right now. To be told first when the next dates are set, leave your contact at https://thepadelcamp.com.cy/#program. Private lessons can be booked any time (see Additional Services). For questions, message us on WhatsApp.
 
 ## Key Pages
 

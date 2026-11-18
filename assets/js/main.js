@@ -802,9 +802,9 @@ document.addEventListener('submit', function(e) {
     // Ready-made first message so the visitor doesn't have to write one
     const waText = {
         en: {
-            morning_camp: 'Hi! I\'d like more details about the Morning Camp (9–13 November).',
-            evening_camp: 'Hi! I\'d like more details about the Evening Camp (9–13 November).',
-            weekend_camp: 'Hi! I\'d like more details about the Weekend Camp (14–15 November).'
+            morning_camp: 'Hi! I\'d like more details about the Morning Camp.',
+            evening_camp: 'Hi! I\'d like more details about the Evening Camp.',
+            weekend_camp: 'Hi! I\'d like more details about the Weekend Camp.'
         },
         ru: {
             morning_camp: 'Добрый день! Расскажите, пожалуйста, подробнее об утреннем лагере (9–13 ноября).',
