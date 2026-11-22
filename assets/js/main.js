@@ -787,21 +787,45 @@ document.addEventListener('click', function(e) {
     if (e.target === document.getElementById('coachModal')) closeCoachModal();
 });
 
-document.addEventListener('submit', function(e) {
+// CV file (PDF/image, up to 5 MB) is sent as base64 in `cvFile`; the forms
+// Apps Script saves it to the Drive folder "Coach CVs" and puts the link in Notes.
+const COACH_CV_MAX_BYTES = 5 * 1024 * 1024;
+
+function readFileAsBase64(file) {
+    return new Promise(function(resolve, reject) {
+        const r = new FileReader();
+        r.onload = function() { resolve(String(r.result).split(',')[1] || ''); };
+        r.onerror = reject;
+        r.readAsDataURL(file);
+    });
+}
+
+document.addEventListener('submit', async function(e) {
     if (e.target.id !== 'coachForm') return;
     e.preventDefault();
     const form = e.target;
     if (isBotSubmission(form)) return;
     const modalContent = form.closest('.massage-booking-modal-content');
     const f = new FormData(form);
+    const cv = f.get('coachCv');
+    const hasCv = cv && cv.size > 0;
+    if (hasCv && cv.size > COACH_CV_MAX_BYTES) {
+        const hint = document.getElementById('coachCvHint');
+        if (hint) { hint.textContent = 'This file is over 5 MB. Please attach a smaller file or email it to thepadelcampcy@gmail.com.'; hint.style.color = '#c0392b'; hint.style.opacity = '1'; }
+        return;
+    }
+    const btn = form.querySelector('button[type=submit]');
+    if (btn) btn.disabled = true;
+
     const notes = ['Coach application'];
     notes.push('Email: ' + (f.get('coachEmail') || '').trim());
     if (f.get('coachCity')) notes.push('City/country: ' + f.get('coachCity'));
     notes.push('English: ' + (f.get('coachEnglish') || '-'));
     notes.push('Experience: ' + (f.get('coachExperience') || '').trim());
-    if (f.get('coachLink')) notes.push('CV/profile: ' + f.get('coachLink'));
+    if (f.get('coachInstagram')) notes.push('Instagram: ' + String(f.get('coachInstagram')).trim());
+    if (hasCv) notes.push('CV file: ' + cv.name);
 
-    sendToGoogleSheets({
+    const payload = {
         type: 'service',
         service: 'COACH APPLICATION',
         price: '0',
@@ -809,7 +833,14 @@ document.addEventListener('submit', function(e) {
         phone: f.get('coachPhone') || '',
         notes: notes.join('\n'),
         lang: document.documentElement.lang || 'en'
-    }).catch(err => {
+    };
+    try {
+        if (hasCv) payload.cvFile = { name: cv.name, type: cv.type || 'application/octet-stream', data: await readFileAsBase64(cv) };
+    } catch (err) {
+        console.log('CV read error:', err);
+    }
+
+    sendToGoogleSheets(payload).catch(err => {
         console.log('Send error:', err);
         showSendFailed(modalContent);
     });

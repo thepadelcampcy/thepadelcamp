@@ -811,7 +811,7 @@
         <div class="massage-booking-modal-content" role="dialog" aria-modal="true" aria-labelledby="coachModalTitle">
             <button class="massage-modal-close" type="button" onclick="closeCoachModal()" aria-label="Close">&times;</button>
             <h2 class="massage-modal-title" id="coachModalTitle">Coach with Us</h2>
-            <p class="massage-booking-subtitle">Tell us about yourself. Add a link to your CV, or email it to <a href="mailto:thepadelcampcy@gmail.com">thepadelcampcy@gmail.com</a>.</p>
+            <p class="massage-booking-subtitle">Tell us about yourself and attach your CV. You can also email it to <a href="mailto:thepadelcampcy@gmail.com">thepadelcampcy@gmail.com</a>.</p>
 
             <form id="coachForm" class="massage-booking-form">
                 <input type="text" name="hp_field_a3x" class="hp-field" aria-hidden="true" tabindex="-1" autocomplete="off">
@@ -855,8 +855,14 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label" for="coachLink">Link to your CV or profile</label>
-                    <input type="url" id="coachLink" name="coachLink" class="form-input" placeholder="Google Drive, LinkedIn, Instagram...">
+                    <label class="form-label" for="coachCv">CV (PDF or image)</label>
+                    <input type="file" id="coachCv" name="coachCv" class="form-input" accept=".pdf,application/pdf,image/jpeg,image/png,image/webp">
+                    <p class="lead-hint" id="coachCvHint">PDF, JPG or PNG, up to 5 MB.</p>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="coachInstagram">Instagram</label>
+                    <input type="text" id="coachInstagram" name="coachInstagram" class="form-input" placeholder="@yourprofile">
                 </div>
 
                 <div class="form-group">

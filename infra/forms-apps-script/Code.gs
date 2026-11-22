@@ -67,6 +67,16 @@ function handleServiceBooking(data, notify) {
     data = Object.assign({}, data, { email: data.leadEmail, notes: notes });
   }
 
+  // Заявка тренера с файлом резюме: сохраняем файл в папку Drive "Coach CVs" и в Notes
+  // вместо имени файла пишем ссылку на него. Файл приватный (доступ только у владельца).
+  if (data.service === 'COACH APPLICATION' && data.cvFile && data.cvFile.data) {
+    const cvUrl = saveCoachCv(data.cvFile, data.name);
+    const notes = String(data.notes || '');
+    data = Object.assign({}, data, {
+      notes: /^CV file: .*$/m.test(notes) ? notes.replace(/^CV file: .*$/m, 'CV file: ' + cvUrl) : notes + '\nCV file: ' + cvUrl
+    });
+  }
+
   const sheet = getOrCreateSheet('Service Bookings');
 
   if (sheet.getLastRow() === 0) {
@@ -291,8 +301,8 @@ function sendLeadWelcomeEmail(email, name, data) {
   const first = String(val(name)).trim().split(/\s+/)[0];
   // Готовое сообщение в WhatsApp: человек нажимает, и ему не нужно ничего придумывать
   const waText = isRu
-    ? 'Здравствуйте! Хочу узнать про ваш следующий лагерь (январь/февраль).'
-    : "Hi! I'd like to know about your next camp (January/February).";
+    ? 'Здравствуйте! Хочу узнать про ваш следующий лагерь (конец февраля / начало марта).'
+    : "Hi! I'd like to know about your next camp (late February / early March).";
   const wa = '<a href="https://wa.me/35797497756?text=' + encodeURIComponent(waText) + '">+357 97 497756</a>';
   const style = 'margin:0 0 12px 0';
 
@@ -300,15 +310,15 @@ function sendLeadWelcomeEmail(email, name, data) {
   const htmlBody = isRu
     ? `<div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.5;color:#222">
 <p style="${style}">Здравствуйте, ${esc(first)}!</p>
-<p style="${style}">Спасибо, что подписались. Следующий лагерь мы планируем на январь или февраль. Какие даты вам подошли бы больше?</p>
-<p style="${style}">Просто ответьте на это письмо: «январь», «февраль» или «пока не знаю», либо напишите, какие даты вам удобны. Можно и в WhatsApp: ${wa}.</p>
+<p style="${style}">Спасибо, что подписались. Следующий лагерь мы планируем на конец февраля – начало марта 2027 года в Лимассоле. Точные даты объявим в ближайшее время, и вы узнаете о них первыми.</p>
+<p style="${style}">Если есть вопросы или пожелания по датам, просто ответьте на это письмо или напишите нам в WhatsApp: ${wa}.</p>
 <p style="${style}">С уважением,<br>Анастасия<br>The Padel Camp Cyprus</p>
 <p style="margin:0"><a href="mailto:thepadelcampcy@gmail.com">thepadelcampcy@gmail.com</a><br><a href="https://thepadelcamp.com.cy">thepadelcamp.com.cy</a></p>
 </div>`
     : `<div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.5;color:#222">
 <p style="${style}">Hi ${esc(first)},</p>
-<p style="${style}">Thanks for signing up. We're planning our next camp for January or February. Which dates would suit you better?</p>
-<p style="${style}">Just reply to this email with "January", "February" or "not sure yet", or tell us the dates that work for you. You can also message us on WhatsApp: ${wa}.</p>
+<p style="${style}">Thanks for signing up. We're planning our next camp for late February to early March 2027 in Limassol. We'll announce the exact dates soon, and you'll be the first to know.</p>
+<p style="${style}">If you have any questions or preferences about the dates, just reply to this email or message us on WhatsApp: ${wa}.</p>
 <p style="${style}">Kind regards,<br>Anastasia<br>The Padel Camp Cyprus</p>
 <p style="margin:0"><a href="mailto:thepadelcampcy@gmail.com">thepadelcampcy@gmail.com</a><br><a href="https://thepadelcamp.com.cy">thepadelcamp.com.cy</a></p>
 </div>`;
@@ -587,4 +597,38 @@ function formatDate(date) {
 
 function testTelegramBot() {
   sendTelegramMessage('🎾 <b>Test!</b>\n\nGoogle Apps Script connected successfully! ✅');
+}
+
+
+// ============================================
+// COACH CV UPLOAD (form "Apply as a coach")
+// ============================================
+const COACH_CV_FOLDER = 'Coach CVs';
+const COACH_CV_TYPES = ['application/pdf', 'image/jpeg', 'image/png', 'image/webp'];
+const COACH_CV_MAX_BYTES = 6 * 1024 * 1024;
+
+function saveCoachCv(file, name) {
+  try {
+    const type = String(file.type || '');
+    if (COACH_CV_TYPES.indexOf(type) === -1) return 'not saved (file type ' + type + ')';
+    const bytes = Utilities.base64Decode(String(file.data));
+    if (bytes.length > COACH_CV_MAX_BYTES) return 'not saved (file over 6 MB)';
+    const folders = DriveApp.getFoldersByName(COACH_CV_FOLDER);
+    const folder = folders.hasNext() ? folders.next() : DriveApp.createFolder(COACH_CV_FOLDER);
+    const stamp = Utilities.formatDate(new Date(), 'Asia/Nicosia', 'yyyy-MM-dd');
+    const fileName = stamp + ' ' + String(val(name)).trim() + ' - ' + String(file.name || 'cv').slice(0, 80);
+    const saved = folder.createFile(Utilities.newBlob(bytes, type, fileName));
+    return saved.getUrl();
+  } catch (error) {
+    Logger.log('Coach CV save error: ' + error);
+    return 'not saved (' + error + ')';
+  }
+}
+
+// Запустите один раз вручную после вставки кода: Google попросит разрешить доступ
+// к Google Drive (нужно для сохранения резюме). Создаёт папку "Coach CVs", если её нет.
+function authorizeDriveForCoachCvs() {
+  const folders = DriveApp.getFoldersByName(COACH_CV_FOLDER);
+  const folder = folders.hasNext() ? folders.next() : DriveApp.createFolder(COACH_CV_FOLDER);
+  Logger.log('Coach CVs folder: ' + folder.getUrl());
 }
