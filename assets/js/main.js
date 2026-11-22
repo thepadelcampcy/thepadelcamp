@@ -797,6 +797,7 @@ document.addEventListener('submit', function(e) {
     const notes = ['Coach application'];
     notes.push('Email: ' + (f.get('coachEmail') || '').trim());
     if (f.get('coachCity')) notes.push('City/country: ' + f.get('coachCity'));
+    notes.push('English: ' + (f.get('coachEnglish') || '-'));
     notes.push('Experience: ' + (f.get('coachExperience') || '').trim());
     if (f.get('coachLink')) notes.push('CV/profile: ' + f.get('coachLink'));
 

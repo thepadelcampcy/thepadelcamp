@@ -581,7 +581,7 @@
             </div>
             <div style="max-width:760px;margin:48px auto 0;padding:24px;border-radius:16px;border:1px solid var(--accent-soft,rgba(255,77,0,.4));text-align:center">
                 <h3 class="coaches-intro-heading" style="margin-top:0">Are you a padel coach?</h3>
-                <p style="margin:0 0 16px">We&rsquo;re always looking for professional coaches from Spain to join our camps in Cyprus. Send us your details and CV, and we&rsquo;ll get in touch.</p>
+                <p style="margin:0 0 16px">We&rsquo;re always looking for professional coaches from Spain to join our camps in Cyprus. Our sessions are run in English, so good spoken English is a must. Send us your details and CV, and we&rsquo;ll get in touch.</p>
                 <button type="button" class="btn btn-primary" onclick="openCoachForm()">Apply as a coach</button>
             </div>
         </div>
@@ -834,6 +834,19 @@
                 <div class="form-group">
                     <label class="form-label" for="coachCity">City / country</label>
                     <input type="text" id="coachCity" name="coachCity" class="form-input" placeholder="Madrid, Spain">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="coachEnglish">English level *</label>
+                    <select id="coachEnglish" name="coachEnglish" class="form-input" required>
+                        <option value="">Choose your level</option>
+                        <option value="Native / fluent">Native / fluent</option>
+                        <option value="Advanced (C1)">Advanced (C1)</option>
+                        <option value="Upper-intermediate (B2)">Upper-intermediate (B2)</option>
+                        <option value="Intermediate (B1)">Intermediate (B1)</option>
+                        <option value="Basic (A1-A2)">Basic (A1&ndash;A2)</option>
+                    </select>
+                    <p class="lead-hint">Our sessions are run in English, so good spoken English is essential.</p>
                 </div>
 
                 <div class="form-group">
