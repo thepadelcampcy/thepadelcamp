@@ -303,6 +303,7 @@
 
             <div style="text-align:center;margin:0 0 24px;padding:14px 18px;border-radius:12px;background:rgba(255,77,0,.08);border:1px solid rgba(255,77,0,.4);font-weight:700">Next camp: late February &ndash; early March 2027 in Limassol. Exact dates, venue, coaches and prices will be announced soon. The prices below are from our last camp, so you know what to expect.</div>
 
+            <style>@media (min-width:1001px){#program-cards{grid-template-columns:repeat(2,minmax(0,1fr));max-width:920px;margin-left:auto;margin-right:auto}}</style>
             <div class="program-cards-grid" id="program-cards" style="opacity:.88">
 
             <!-- Weekend Camp -->
@@ -358,23 +359,23 @@
                 <button type="button" class="btn btn-primary btn-block schedule-cta" onclick="openLeadForm('', '')">Get notified</button>
             </div>
 
-            <!-- Evening Camp -->
-            <div class="program-content program-content--ribbon" id="camp-evening">
+            <!-- 5-Day Camp (morning or evening group). Old ad links #camp-morning / #camp-evening land here via main.js -->
+            <div class="program-content program-content--ribbon" id="camp-5day" style="scroll-margin-top:76px">
                 <div class="spots-ribbon">Coming soon</div>
                 <p class="program-dates">&#128197; Late Feb &ndash; early Mar 2027</p>
                 <div class="early-bird-badge">
                     <div class="early-bird-badge-col">
                         <span class="early-bird-badge-label">Last camp price</span>
-                        <span class="early-bird-badge-price">&euro;770</span>
+                        <span class="early-bird-badge-price"><span style="font-size:.55em;font-weight:600">from</span> &euro;770</span>
                     </div>
                 </div>
 
                 <ul class="price-includes">
                     <li>5 days training (Mon&ndash;Fri)</li>
-                    <li>Evenings &middot; 15 hours coaching</li>
+                    <li>3 hours a day &middot; 15 hours coaching</li>
+                    <li>Morning or evening group</li>
                     <li>Spanish professional coaches</li>
                     <li>Max 4 players per court</li>
-                    <li style="visibility:hidden" aria-hidden="true">&nbsp;</li>
                     <li style="visibility:hidden" aria-hidden="true">&nbsp;</li>
                 </ul>
 
@@ -384,58 +385,15 @@
                         <button type="button" class="btn-view-details" aria-expanded="false" data-label-view="Show more" data-label-hide="Show less">Show more</button>
                     </div>
                     <div class="program-details">
-                        <h3 class="program-details-title">EVENING CAMP &middot; 3 HOURS A DAY</h3>
-                        <p class="program-details-subtitle">5 days &middot; Monday&ndash;Friday &middot; 15 hours of structured professional coaching</p>
+                        <h3 class="program-details-title">5-DAY CAMP &middot; 3 HOURS A DAY</h3>
+                        <p class="program-details-subtitle">5 days &middot; Monday&ndash;Friday &middot; 15 hours of structured professional coaching &middot; morning or evening group</p>
 
-                        <p>Want to train seriously without changing your daytime schedule? The Evening Camp gives you five consecutive days of focused padel training with professional coaches, while keeping your mornings and afternoons free.</p>
-                        <p>From Monday to Friday, you will train for <strong>3 hours per day</strong>, giving you a total of <strong>15 hours of quality coaching</strong> throughout the camp.</p>
-                        <p>Training takes place in small groups with a maximum of <strong>4 players per court</strong>, allowing coaches to work closely with every player and provide individual technical corrections, tactical guidance and practical feedback.</p>
-                        <p>The program combines technical development with real-game situations. You will work on positioning, defense, transition, net play, attacking patterns, overheads and tactical decision-making. Instead of simply hitting more balls, you will learn <strong>when to use each shot, why to use it and how to build the point together with your partner</strong>.</p>
-                        <p>The evening format is ideal if you work, have daytime commitments or simply prefer training later in the day. You get the full The Padel Camp experience without having to dedicate your daytime hours to the camp.</p>
-                        <p><strong>Perfect for:</strong> players who want serious padel development without changing their daytime schedule.</p>
-                        <p><strong>Schedule:</strong> at our last camp the Evening Camp ran 18:00&ndash;21:00. Exact times depend on the venue and will be announced with the dates.</p>
-                    </div>
-                </div>
-
-                <button type="button" class="btn btn-primary btn-block schedule-cta" onclick="openLeadForm('', '')">Get notified</button>
-            </div>
-
-            <!-- Morning Camp -->
-            <div class="program-content program-content--ribbon" id="camp-morning">
-                <div class="spots-ribbon">Coming soon</div>
-                <p class="program-dates">&#128197; Late Feb &ndash; early Mar 2027</p>
-                <div class="early-bird-badge">
-                    <div class="early-bird-badge-col">
-                        <span class="early-bird-badge-label">Last camp price</span>
-                        <span class="early-bird-badge-price">&euro;770</span>
-                    </div>
-                </div>
-
-                <ul class="price-includes">
-                    <li>5 days training (Mon&ndash;Fri)</li>
-                    <li>Mornings &middot; 15 hours coaching</li>
-                    <li>Spanish professional coaches</li>
-                    <li>Max 4 players per court</li>
-                    <li style="visibility:hidden" aria-hidden="true">&nbsp;</li>
-                    <li style="visibility:hidden" aria-hidden="true">&nbsp;</li>
-                </ul>
-
-                <div class="program-details-block">
-                    <div class="program-meta">
-                        <span class="program-hours">5 DAYS &middot; 15 HOURS</span>
-                        <button type="button" class="btn-view-details" aria-expanded="false" data-label-view="Show more" data-label-hide="Show less">Show more</button>
-                    </div>
-                    <div class="program-details">
-                        <h3 class="program-details-title">MORNING CAMP &middot; 3 HOURS A DAY</h3>
-                        <p class="program-details-subtitle">5 days &middot; Monday&ndash;Friday &middot; 15 hours of structured professional coaching</p>
-
-                        <p>Start your day with focused padel training and use five consecutive mornings to make a real difference to your game.</p>
-                        <p>The Morning Camp is designed for players who want a structured and intensive training experience without taking up their entire day. You will train in a small group with professional coaches, with a maximum of <strong>4 players per court</strong>, allowing the coaches to give you individual attention, technical corrections and tactical guidance throughout the sessions.</p>
-                        <p>Across the week, training combines technical development with real-game situations. You will work on your defensive game, transition to the net, attacking patterns, overheads, positioning, partner coordination and tactical decision-making.</p>
-                        <p>The key difference is that you don't simply repeat shots. You learn <strong>when to use them, why to use them and how to build a point around them</strong>.</p>
-                        <p>With <strong>15 hours of quality coaching over five days</strong>, the Morning Camp gives you enough continuity to understand your game, work on specific weaknesses and turn new techniques into better decisions on court.</p>
-                        <p><strong>Perfect for:</strong> players who want maximum training focus while keeping their afternoons and evenings free.</p>
-                        <p><strong>Schedule:</strong> at our last camp the Morning Camp ran 09:00&ndash;12:00. Exact times depend on the venue and will be announced with the dates.</p>
+                        <p>Five consecutive days of focused padel training with professional Spanish coaches: enough continuity to understand your game, work on specific weaknesses and turn new techniques into better decisions on court.</p>
+                        <p>From Monday to Friday you train for <strong>3 hours a day</strong>, <strong>15 hours of quality coaching</strong> in total. Training takes place in small groups with a maximum of <strong>4 players per court</strong>, so the coaches work closely with every player and give individual technical corrections, tactical guidance and practical feedback.</p>
+                        <p>The program combines technical development with real-game situations. You will work on positioning, defense, transition to the net, net play, attacking patterns, overheads, partner coordination and tactical decision-making. Instead of simply hitting more balls, you learn <strong>when to use each shot, why to use it and how to build the point together with your partner</strong>.</p>
+                        <p><strong>Choose your group:</strong> train in the <strong>morning</strong> and keep your afternoons and evenings free, or in the <strong>evening</strong> if you work or have daytime commitments. Both groups follow the same program with the same coaches.</p>
+                        <p><strong>Schedule:</strong> at our last camp the morning group trained 09:00&ndash;12:00 and the evening group 18:00&ndash;21:00. Exact times depend on the venue and will be announced with the dates.</p>
+                        <p><strong>Perfect for:</strong> players who want a serious week of padel development that fits around their day.</p>
                     </div>
                 </div>
 

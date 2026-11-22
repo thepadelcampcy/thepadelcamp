@@ -295,12 +295,14 @@ document.addEventListener('DOMContentLoaded', function() {
     else openLeadForm('', '');
 });
 
-// Ad links /#camp-morning|evening|weekend: on a phone the card is taller than
+// Ad links /#camp-morning|evening|weekend|5day: on a phone the card is taller than
 // the screen, so the browser's own jump hides its Book button. If the whole
 // card fits, put it just under the header; otherwise scroll until Book is
 // visible at the bottom of the screen.
 window.addEventListener('load', function() {
-    const card = location.hash.match(/^#camp-(morning|evening|weekend)$/) && document.querySelector(location.hash);
+    // Morning and Evening are now one card (#camp-5day); old ad links still land on it.
+    const m = location.hash.match(/^#camp-(morning|evening|weekend|5day)$/);
+    const card = m && document.getElementById(m[1] === 'morning' || m[1] === 'evening' ? 'camp-5day' : 'camp-' + m[1]);
     const cta = card && card.querySelector('.schedule-cta');
     if (!cta) return;
     // Header height is still animating at load; the CSS scroll-margin
