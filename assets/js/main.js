@@ -548,6 +548,7 @@ document.addEventListener('keydown', function(e) {
         closeVenueModal();
         closeServiceBookingModal();
         closeLeadModal();
+        if (typeof closeCoachModal === 'function') closeCoachModal();
     }
     if (e.key === 'ArrowRight') {
         changeVenueSlide(1);
@@ -755,6 +756,77 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+});
+
+// Coach application ("Apply as a coach" in the coaches section). Sent to the forms
+// Apps Script as a service row (Service Bookings sheet + Telegram). The address goes
+// only into Notes, not `email`, so the script doesn't mail a booking confirmation.
+let coachModalTemplate = null;
+
+function openCoachForm() {
+    const modal = document.getElementById('coachModal');
+    if (!modal) return;
+    const content = modal.querySelector('.massage-booking-modal-content');
+    if (coachModalTemplate === null) coachModalTemplate = content.innerHTML;
+    else content.innerHTML = coachModalTemplate;
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    focusDialog(modal);
+}
+
+function closeCoachModal() {
+    const modal = document.getElementById('coachModal');
+    if (modal && modal.classList.contains('active')) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+        restoreDialogFocus();
+    }
+}
+
+document.addEventListener('click', function(e) {
+    if (e.target === document.getElementById('coachModal')) closeCoachModal();
+});
+
+document.addEventListener('submit', function(e) {
+    if (e.target.id !== 'coachForm') return;
+    e.preventDefault();
+    const form = e.target;
+    if (isBotSubmission(form)) return;
+    const modalContent = form.closest('.massage-booking-modal-content');
+    const f = new FormData(form);
+    const notes = ['Coach application'];
+    notes.push('Email: ' + (f.get('coachEmail') || '').trim());
+    if (f.get('coachCity')) notes.push('City/country: ' + f.get('coachCity'));
+    notes.push('Experience: ' + (f.get('coachExperience') || '').trim());
+    if (f.get('coachLink')) notes.push('CV/profile: ' + f.get('coachLink'));
+
+    sendToGoogleSheets({
+        type: 'service',
+        service: 'COACH APPLICATION',
+        price: '0',
+        name: f.get('coachName'),
+        phone: f.get('coachPhone') || '',
+        notes: notes.join('\n'),
+        lang: document.documentElement.lang || 'en'
+    }).catch(err => {
+        console.log('Send error:', err);
+        showSendFailed(modalContent);
+    });
+
+    const T = {
+        en: { heading: 'Thank you!', text: 'We have received your application and will get back to you by email.', close: 'Close' },
+        ru: { heading: 'Спасибо!', text: 'Мы получили вашу заявку и ответим вам по email.', close: 'Закрыть' },
+        el: { heading: 'Ευχαριστούμε!', text: 'Λάβαμε την αίτησή σας και θα σας απαντήσουμε με email.', close: 'Κλείσιμο' }
+    }[getPageLang()];
+    modalContent.innerHTML = `
+        <button class="massage-modal-close" onclick="closeCoachModal()">&times;</button>
+        <div class="payment-success">
+            <div class="payment-success-icon">✓</div>
+            <h2>${T.heading}</h2>
+            <p class="payment-success-subtitle">${T.text}</p>
+            <button onclick="closeCoachModal()" class="btn btn-primary btn-block">${T.close}</button>
+        </div>
+    `;
 });
 
 // Notify form: the morning/evening question only applies to the 5-day camp.
