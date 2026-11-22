@@ -757,6 +757,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 
+// Notify form: the morning/evening question only applies to the 5-day camp.
+document.addEventListener('change', function(e) {
+    if (e.target.name !== 'leadFormat') return;
+    const group = document.getElementById('leadTimeGroup');
+    if (!group) return;
+    const weekendOnly = e.target.value === 'Weekend camp';
+    group.style.display = weekendOnly ? 'none' : '';
+    if (weekendOnly) group.querySelectorAll('input').forEach(i => { i.checked = false; });
+});
+
 // Lead form submission. Delegated, because openLeadForm() re-creates the
 // form from its template after a previous submit.
 document.addEventListener('submit', function(e) {
@@ -770,6 +780,16 @@ document.addEventListener('submit', function(e) {
     const camp = formData.get('leadCamp');
     const email = (formData.get('leadEmail') || '').trim();
     const notes = ['Lead: signed up via Notify me (wants updates on camps and events)'];
+    // Next-camp survey (format / time / weeks / city). Goes into Notes as one line
+    // per question, so the forms Apps Script needs no change; pages without these
+    // fields (not yet ported) simply send nothing extra.
+    const format = formData.get('leadFormat');
+    const time = formData.get('leadTime');
+    if (format) notes.push('Format: ' + format + (time && format !== 'Weekend camp' ? ' (' + time + ')' : ''));
+    const weeks = formData.getAll('leadWeeks');
+    if (weeks.length) notes.push('Weeks: ' + weeks.join(', '));
+    const cities = formData.getAll('leadCity');
+    if (cities.length) notes.push('City: ' + cities.join(', '));
     if (email) notes.push('Email: ' + email);
 
     // Email goes in notes and in `leadEmail`, not in `email`: the service handler mails a
