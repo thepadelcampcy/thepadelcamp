@@ -599,13 +599,6 @@
             <div class="venue-header">
                 <h2 class="section-title">THE VENUE</h2>
             </div>
-            <div class="venue-photos">
-                <img src="assets/images/venue/court-red.webp" alt="MyQPadel covered court with red walls" width="1400" height="933" loading="lazy" decoding="async">
-                <img src="assets/images/venue/court-play.webp" alt="Player on a MyQPadel court" width="1400" height="933" loading="lazy" decoding="async">
-                <img src="assets/images/venue/court-wide.webp" alt="Wide view of a covered MyQPadel court" width="1400" height="933" loading="lazy" decoding="async">
-                <img class="venue-photo-wide" src="assets/images/venue/club-aerial.webp" alt="MyQPadel club from above" width="1400" height="787" loading="lazy" decoding="async">
-            </div>
-            <p class="venue-address" style="text-align:center;margin:-8px 0 24px">MyQPadel, Limassol &middot; our November 2026 camp</p>
             <div class="venue-simple">
                 <div class="venue-simple-content">
                     <h3>Quality courts, chosen for the season</h3>
@@ -665,11 +658,11 @@
                     <span class="service-price"><span class="price-mini-currency">&euro;</span>120</span>
                     <button class="btn btn-primary btn-sm service-btn" onclick="openServiceBookingForm('Match Play with a Coach (1 hour)', 120)">Book Match Play</button>
                 </div>
-                <div class="service-card">
-                    <h3>Media Package</h3>
-                    <p>15-20 professional photos plus a dynamic reel (1.5-2 min) of your camp moments.</p>
-                    <span class="service-price"><span class="price-mini-currency">&euro;</span>130</span>
-                    <a id="mediaPackageStripeLink" href="https://buy.stripe.com/9B65kF8d9bRpbOFclScEw0a" target="_blank" rel="noopener" class="btn btn-primary btn-sm service-btn" data-purchase-value="130" data-purchase-item="media_package">Pay &euro;130</a>
+                <div class="service-card" onclick="openServiceBookingForm('Match Play 2+2 (2 players + 2 coaches, 1 hour)', 150)">
+                    <h3>Match Play 2+2</h3>
+                    <p>One hour of real match play for 2 players against 2 of our coaches. You play proper points at a higher pace, while the coaches set up the situations you need to work on and correct your decisions as you go. A favourite with our players.</p>
+                    <span class="service-price"><span class="price-mini-currency">&euro;</span>150</span>
+                    <button class="btn btn-primary btn-sm service-btn" onclick="openServiceBookingForm('Match Play 2+2 (2 players + 2 coaches, 1 hour)', 150)">Book Match Play 2+2</button>
                 </div>
             </div>
         </div>
@@ -831,7 +824,6 @@
                         <li>Flights / Transportation</li>
                         <li>Travel insurance</li>
                         <li>Private lessons (optional add-on)</li>
-                        <li>Media package (optional add-on)</li>
                     </ul>
                 </div>
             </div>
