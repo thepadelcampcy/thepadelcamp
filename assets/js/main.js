@@ -813,7 +813,7 @@ document.addEventListener('submit', async function(e) {
     const hasCv = cv && cv.size > 0;
     if (hasCv && cv.size > COACH_CV_MAX_BYTES) {
         const hint = document.getElementById('coachCvHint');
-        if (hint) { hint.textContent = 'This file is over 5 MB. Please attach a smaller file or email it to thepadelcampcy@gmail.com.'; hint.style.color = '#c0392b'; hint.style.opacity = '1'; }
+        if (hint) { hint.textContent = ({ ru: 'Файл больше 5 МБ. Прикрепите файл поменьше или пришлите его на thepadelcampcy@gmail.com.', el: 'Το αρχείο ξεπερνά τα 5 MB. Επισυνάψτε μικρότερο αρχείο ή στείλτε το στο thepadelcampcy@gmail.com.' })[getPageLang()] || 'This file is over 5 MB. Please attach a smaller file or email it to thepadelcampcy@gmail.com.'; hint.style.color = '#c0392b'; hint.style.opacity = '1'; }
         return;
     }
     const btn = form.querySelector('button[type=submit]');
