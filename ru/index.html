@@ -20,7 +20,7 @@
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://thepadelcamp.com.cy/ru/">
-    <meta property="og:title" content="Padel Camp Кипр 2026 | Тренировки с испанскими профессионалами">
+    <meta property="og:title" content="Padel Camp Кипр | Тренировки с испанскими профессионалами">
     <meta property="og:description" content="Интенсивный тренировочный лагерь по паделу в Лимассоле с профессиональными испанскими тренерами.">
     <meta property="og:image" content="https://thepadelcamp.com.cy/assets/images/og-image.jpg">
     <meta property="og:locale" content="ru_RU">
@@ -31,7 +31,7 @@
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://thepadelcamp.com.cy/ru/">
-    <meta name="twitter:title" content="Padel Camp Кипр 2026 | Тренировки с испанскими профессионалами">
+    <meta name="twitter:title" content="Padel Camp Кипр | Тренировки с испанскими профессионалами">
     <meta name="twitter:description" content="Интенсивный тренировочный лагерь по паделу в Лимассоле с профессиональными испанскими тренерами.">
     <meta name="twitter:image" content="https://thepadelcamp.com.cy/assets/images/og-image.jpg">
 
@@ -70,6 +70,14 @@
       "mainEntity": [
         {
           "@type": "Question",
+          "name": "Когда следующий лагерь?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Следующий лагерь планируем на конец февраля – начало марта 2027 года в Лимассоле. Точные даты, площадку, тренеров и цены объявим в ближайшее время. Оставьте контакт через «Узнать первым», и мы сообщим вам первыми."
+          }
+        },
+        {
+          "@type": "Question",
           "name": "Какой уровень нужен?",
           "acceptedAnswer": {
             "@type": "Answer",
@@ -105,7 +113,7 @@
           "name": "Размещение?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Не входит в стоимость лагеря и оплачивается напрямую отелю. Несколько отелей рядом с клубом предложили условия для наших гостей. Напишите нам даты, и мы запросим предложение. Предложения действуют при наличии мест, поэтому бронируйте заранее."
+            "text": "Не входит в стоимость лагеря и оплачивается напрямую отелю. Как только площадка будет выбрана, мы порекомендуем отели рядом и, где возможно, запросим специальные условия для наших игроков."
           }
         }
       ]
@@ -142,7 +150,7 @@
                     <a href="/ru/" class="active">RU</a>
                     <a href="/el/">EL</a>
                 </div>
-                <a href="#program-cards" class="btn btn-primary header-book-btn">Бронь<span class="header-book-btn-full">&nbsp;сейчас</span></a>
+                <a href="#notify" class="btn btn-primary header-book-btn" onclick="openLeadForm('', ''); return false;">Узнать<span class="header-book-btn-full">&nbsp;первым</span></a>
                 <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
                     <span></span>
                     <span></span>
@@ -178,7 +186,7 @@
             <div class="hero-text">
                 <p class="hero-eyebrow">ТРЕНИРУЙСЯ · ИГРАЙ · УЧИСЬ</p>
                 <h1 class="hero-title">Тренируйся<br><em class="accent">как профи</em> <span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap">&mdash; падел-кэмп в Лимассоле, Кипр</span></h1>
-                <p class="hero-dates"><span>Следующий лагерь: даты скоро</span><span class="hero-dates-sep"> &middot; </span><span>Лимассол, Кипр</span></p>
+                <p class="hero-dates"><span>Следующий лагерь: конец февраля &ndash; начало марта 2027</span><span class="hero-dates-sep"> &middot; </span><span>Лимассол, Кипр</span></p>
                 <p class="hero-subtitle">Интенсивный лагерь по паделю в Лимассоле, Кипр, с профессиональными тренерами из Испании. Наши опытные тренеры помогут вам выйти на новый уровень игры.</p>
                 <div class="hero-cta">
                     <a href="#program-cards" class="btn btn-primary btn-lg">Смотреть программу</a>
@@ -277,7 +285,7 @@
                 </div>
                 <div class="learn-item">
                     <h3>Физическая подготовка</h3>
-                    <p>Правильная разминка, растяжка, профилактика травм. Физиотерапевт на кемпе: <a href="https://righttrackphysio.com.cy/pages/padel-camp-november-2026.html" target="_blank" rel="noopener">Right Track</a></p>
+                    <p>Правильная разминка, растяжка, профилактика травм. Физиотерапевт-партнёр наших лагерей: <a href="https://righttrackphysio.com.cy" target="_blank" rel="noopener">Right Track</a></p>
                 </div>
             </div>
         </div>
@@ -291,16 +299,18 @@
                 <p class="section-subtitle">Интенсивные тренировки в Лимассоле для максимального прогресса. Каждый участник получает сертификат о прохождении лагеря.</p>
             </div>
 
-            <p class="program-lead-line" style="margin:0 0 24px">Не успели в лагерь? <a href="#services" class="program-lead-link" style="font-weight:700">Запишитесь на персональную тренировку &rarr;</a></p>
+            <p class="program-lead-line" style="margin:0 0 24px">Не хотите ждать следующего лагеря? <a href="#services" class="program-lead-link" style="font-weight:700">Персональные тренировки с испанским тренером &mdash; по запросу &rarr;</a></p>
 
-            <div style="text-align:center;margin:0 0 24px;padding:14px 18px;border-radius:12px;background:rgba(255,77,0,.08);border:1px solid rgba(255,77,0,.4);font-weight:700">Следующий лагерь: даты и цены скоро. Цены ниже с нашего прошлого лагеря, чтобы вы понимали уровень.</div>
+            <div style="text-align:center;margin:0 0 24px;padding:14px 18px;border-radius:12px;background:rgba(255,77,0,.08);border:1px solid rgba(255,77,0,.4);font-weight:700">Следующий лагерь: конец февраля &ndash; начало марта 2027 в Лимассоле. Точные даты, площадку, тренеров и цены объявим в ближайшее время. Цены ниже &mdash; с нашего прошлого лагеря, чтобы вы понимали уровень.</div>
 
+            <style>@media (min-width:1001px){#program-cards{grid-template-columns:repeat(2,minmax(0,1fr));max-width:920px;margin-left:auto;margin-right:auto}}</style>
             <div class="program-cards-grid" id="program-cards" style="opacity:.88">
 
             <!-- Weekend Camp -->
             <div class="program-content program-content--ribbon" id="camp-weekend">
                 <div class="spots-ribbon">Скоро</div>
-                <p class="program-dates" style="font-weight:700;color:#ff4d00">&#128197; Даты скоро</p>
+                <h3 class="program-card-title" style="font-size:24px;line-height:1.1;margin:0 64px 10px 0;letter-spacing:.5px">ЛАГЕРЬ НА ВЫХОДНЫЕ</h3>
+                <p class="program-dates" style="font-weight:700;color:#ff4d00">&#128197; Конец фев. &ndash; начало мар. 2027</p>
                 <div class="early-bird-badge">
                     <div class="early-bird-badge-col">
                         <span class="early-bird-badge-label">Цена прошлого лагеря</span>
@@ -329,6 +339,7 @@
                         <p>Нет времени на полную неделю? Лагерь на выходные даёт два насыщенных дня профессиональных тренировок &mdash; идеально для тех, кто хочет серьёзно потренироваться, не занимая будни.</p>
                         <p>Каждая группа получает <strong>6 часов качественных тренировок за два дня</strong>, по две сессии по 90 минут в день. Тренировки проходят в небольших группах, максимум <strong>4 игрока на корте</strong>, с большим вниманием к каждому, техническими поправками и тактическими рекомендациями от профессиональных тренеров.</p>
 
+                        <p class="weekend-groups-note" style="margin-bottom:8px">Расписание на прошлом лагере (точное время объявим вместе с датами):</p>
                         <table class="weekend-groups-table">
                             <thead>
                                 <tr><th></th><th>Утро</th><th>День</th><th>Итого</th></tr>
@@ -343,30 +354,30 @@
                         <p>Две сессии каждого дня работают в связке: сначала вы разбираете и отрабатываете ключевые концепции, затем возвращаетесь на корт позже в тот же день, чтобы применить их в реалистичных игровых ситуациях.</p>
                         <p>Вы проработаете позиционирование, защиту, переход, игру у сетки, атакующие комбинации, смэши и тактическое мышление &mdash; с акцентом на то, как эти навыки применяются в реальных матчах.</p>
                         <p><strong>Идеально подходит:</strong> тем, кто хочет интенсивные выходные с профессиональными тренировками, 6 часов качественной подготовки и ощутимый прогресс в игре без необходимости выделять целую неделю.</p>
-                        <p><strong>Лагерь + отель (условия прошлого лагеря):</strong> отель 3&#9733; от &euro;429, 5&#9733; от &euro;499 с человека за 2 ночи в номере twin, вдвоём. Лагерь оплачивается нам, отель оплачивается напрямую отелю. При наличии мест. Дополнительная ночь по запросу.</p>
                     </div>
                 </div>
 
-                <button type="button" class="btn btn-primary btn-block schedule-cta" onclick="openLeadForm('', '')">Сообщить о следующем лагере</button>
+                <button type="button" class="btn btn-primary btn-block schedule-cta" onclick="openLeadForm('', '')">Узнать первым</button>
             </div>
 
-            <!-- Evening Camp -->
-            <div class="program-content program-content--ribbon" id="camp-evening">
+            <!-- 5-Day Camp (morning or evening group). Old ad links #camp-morning / #camp-evening land here via main.js -->
+            <div class="program-content program-content--ribbon" id="camp-5day" style="scroll-margin-top:76px">
                 <div class="spots-ribbon">Скоро</div>
-                <p class="program-dates">&#128197; Даты скоро</p>
+                <h3 class="program-card-title" style="font-size:24px;line-height:1.1;margin:0 64px 10px 0;letter-spacing:.5px">5-ДНЕВНЫЙ ЛАГЕРЬ</h3>
+                <p class="program-dates" style="font-weight:700;color:#ff4d00">&#128197; Конец фев. &ndash; начало мар. 2027</p>
                 <div class="early-bird-badge">
                     <div class="early-bird-badge-col">
                         <span class="early-bird-badge-label">Цена прошлого лагеря</span>
-                        <span class="early-bird-badge-price">&euro;770</span>
+                        <span class="early-bird-badge-price"><span style="font-size:.55em;font-weight:600">от</span> &euro;770</span>
                     </div>
                 </div>
 
                 <ul class="price-includes">
-                    <li>5 дней тренировок (Пн&ndash;Пт)</li>
-                    <li>18:00&ndash;21:00 &middot; 15 часов тренировок</li>
+                    <li>5 дней тренировок (пн&ndash;пт)</li>
+                    <li>3 часа в день &middot; 15 часов тренировок</li>
+                    <li>Утренняя или вечерняя группа</li>
                     <li>Испанские профессиональные тренеры</li>
                     <li>Максимум 4 игрока на корте</li>
-                    <li style="visibility:hidden" aria-hidden="true">&nbsp;</li>
                     <li style="visibility:hidden" aria-hidden="true">&nbsp;</li>
                 </ul>
 
@@ -376,100 +387,24 @@
                         <button type="button" class="btn-view-details" aria-expanded="false" data-label-view="Подробнее" data-label-hide="Скрыть">Подробнее</button>
                     </div>
                     <div class="program-details">
-                        <h3 class="program-details-title">ВЕЧЕРНИЙ ЛАГЕРЬ &mdash; 18:00&ndash;21:00</h3>
-                        <p class="program-details-subtitle">5 дней &middot; понедельник&ndash;пятница &middot; 15 часов структурированных тренировок</p>
+                        <h3 class="program-details-title">5-ДНЕВНЫЙ ЛАГЕРЬ &mdash; 3 ЧАСА В ДЕНЬ</h3>
+                        <p class="program-details-subtitle">5 дней &middot; понедельник&ndash;пятница &middot; 15 часов структурированных тренировок &middot; утренняя или вечерняя группа</p>
 
-                        <p>Хотите тренироваться серьёзно, не меняя дневной график? Вечерний лагерь даёт пять дней подряд сфокусированных тренировок по паделу с профессиональными тренерами &mdash; утро и день остаются полностью свободными.</p>
-                        <p>С понедельника по пятницу вы тренируетесь по <strong>3 часа в день</strong>, итого <strong>15 часов качественных тренировок</strong> за весь лагерь.</p>
-                        <p>Тренировки проходят в небольших группах, максимум <strong>4 игрока на корте</strong>, поэтому тренеры успевают уделить внимание каждому, дать индивидуальные технические поправки, тактические рекомендации и практическую обратную связь.</p>
-                        <p>Программа сочетает техническое развитие с реальными игровыми ситуациями. Вы проработаете позиционирование, защиту, переход, игру у сетки, атакующие комбинации, смэши и тактическое мышление. Вместо простого набора ударов вы научитесь понимать, <strong>когда применять каждый удар, зачем его применять и как строить розыгрыш вместе с партнёром</strong>.</p>
-                        <p>Вечерний формат идеально подходит, если вы работаете, у вас загружен день или вы просто предпочитаете тренироваться позже. Вы проходите полную программу The Padel Camp, не жертвуя дневными часами.</p>
-                        <p><strong>Идеально подходит:</strong> тем, кто хочет серьёзно прогрессировать в паделе, не меняя дневной график.</p>
-                        <p><strong>Лагерь + отель (условия прошлого лагеря):</strong> отель 3&#9733; от &euro;999, 5&#9733; от &euro;1,199 с человека за 5 ночей в номере twin, вдвоём. Лагерь оплачивается нам, отель оплачивается напрямую отелю. При наличии мест.</p>
+                        <p>Пять дней подряд насыщенных тренировок с профессиональными испанскими тренерами. Этого достаточно, чтобы понять свою игру, поработать над слабыми местами и превратить новую технику в более точные решения на корте.</p>
+                        <p>С понедельника по пятницу вы тренируетесь <strong>3 часа в день</strong>, всего <strong>15 часов качественных тренировок</strong>. Занятия проходят в небольших группах, максимум <strong>4 игрока на корте</strong>, поэтому тренеры работают с каждым: индивидуальные технические поправки, тактические рекомендации и практическая обратная связь.</p>
+                        <p>Программа сочетает технику с реальными игровыми ситуациями. Вы проработаете позиционирование, защиту, выход к сетке, игру у сетки, атакующие комбинации, смэши, взаимодействие с партнёром и тактическое мышление. Вместо того чтобы просто бить больше мячей, вы учитесь <strong>когда использовать каждый удар, зачем и как строить розыгрыш вместе с партнёром</strong>.</p>
+                        <p><strong>Выберите группу:</strong> тренируйтесь <strong>утром</strong>, чтобы день и вечер оставались свободными, или <strong>вечером</strong>, если днём вы работаете или заняты. Обе группы занимаются по одной программе с одними и теми же тренерами.</p>
+                        <p><strong>Расписание:</strong> на прошлом лагере утренняя группа занималась с 09:00 до 12:00, вечерняя &mdash; с 18:00 до 21:00. Точное время зависит от площадки и будет объявлено вместе с датами.</p>
+                        <p><strong>Идеально подходит:</strong> тем, кто хочет серьёзную неделю паделя, которая вписывается в их день.</p>
                     </div>
                 </div>
 
-                <button type="button" class="btn btn-primary btn-block schedule-cta" onclick="openLeadForm('', '')">Сообщить о следующем лагере</button>
-            </div>
-
-            <!-- Morning Camp -->
-            <div class="program-content program-content--ribbon" id="camp-morning">
-                <div class="spots-ribbon">Скоро</div>
-                <p class="program-dates">&#128197; Даты скоро</p>
-                <div class="early-bird-badge">
-                    <div class="early-bird-badge-col">
-                        <span class="early-bird-badge-label">Цена прошлого лагеря</span>
-                        <span class="early-bird-badge-price">&euro;770</span>
-                    </div>
-                </div>
-
-                <ul class="price-includes">
-                    <li>5 дней тренировок (Пн&ndash;Пт)</li>
-                    <li>09:00&ndash;12:00 &middot; 15 часов тренировок</li>
-                    <li>Испанские профессиональные тренеры</li>
-                    <li>Максимум 4 игрока на корте</li>
-                    <li style="visibility:hidden" aria-hidden="true">&nbsp;</li>
-                    <li style="visibility:hidden" aria-hidden="true">&nbsp;</li>
-                </ul>
-
-                <div class="program-details-block">
-                    <div class="program-meta">
-                        <span class="program-hours">5 ДНЕЙ &middot; 15 ЧАСОВ</span>
-                        <button type="button" class="btn-view-details" aria-expanded="false" data-label-view="Подробнее" data-label-hide="Скрыть">Подробнее</button>
-                    </div>
-                    <div class="program-details">
-                        <h3 class="program-details-title">УТРЕННИЙ ЛАГЕРЬ &mdash; 09:00&ndash;12:00</h3>
-                        <p class="program-details-subtitle">5 дней &middot; понедельник&ndash;пятница &middot; 15 часов структурированных тренировок</p>
-
-                        <p>Начните день с сосредоточенной тренировки по паделу: пять утр подряд, которые действительно изменят вашу игру.</p>
-                        <p>Утренний лагерь создан для тех, кто хочет тренироваться системно и интенсивно, не отдавая тренировкам весь день. Вы будете заниматься в небольшой группе с профессиональными тренерами &mdash; максимум <strong>4 игрока на корте</strong>, что позволяет уделить внимание каждому, дать технические поправки и тактические рекомендации на протяжении всех сессий.</p>
-                        <p>В течение недели тренировки сочетают техническое развитие с реальными игровыми ситуациями. Вы проработаете защиту, выход к сетке, атакующие комбинации, смэши, позиционирование, взаимодействие с партнёром и тактическое мышление.</p>
-                        <p>Ключевое отличие в том, что вы не просто повторяете удары. Вы учитесь, <strong>когда их применять, зачем их применять и как строить розыгрыш вокруг них</strong>.</p>
-                        <p>С <strong>15 часами качественных тренировок</strong> за пять дней вы успеете разобраться в своей игре, поработать над конкретными слабыми местами и превратить новые приёмы в более точные решения на корте.</p>
-                        <p><strong>Идеально подходит:</strong> тем, кто хочет полностью сосредоточиться на тренировках и сохранить свободными вторую половину дня и вечер.</p>
-                    </div>
-                </div>
-
-                <button type="button" class="btn btn-primary btn-block schedule-cta" onclick="openLeadForm('', '')">Сообщить о следующем лагере</button>
+                <button type="button" class="btn btn-primary btn-block schedule-cta" onclick="openLeadForm('', '')">Узнать первым</button>
             </div>
 
             </div>
 
-            <div class="weekend-hotel">
-                <div class="weekend-hotel-label">Evening Camp + отель (условия прошлого лагеря)</div>
-                <div class="early-bird-badge">
-                    <div class="early-bird-badge-col">
-                        <span class="early-bird-badge-label">С отелем 3&#9733;</span>
-                        <span class="early-bird-badge-price">от &euro;999</span>
-                    </div>
-                    <div class="early-bird-badge-divider"></div>
-                    <div class="early-bird-badge-col">
-                        <span class="early-bird-badge-label">С отелем 5&#9733;</span>
-                        <span class="early-bird-badge-price">от &euro;1,199</span>
-                    </div>
-                </div>
-                <p>С человека, 5 ночей, номер twin, вдвоём. Отель оплачивается напрямую отелю. Другие даты по запросу.</p>
-                <a href="https://wa.me/35797497756?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20Evening%20Camp%20%2B%20%D0%BE%D1%82%D0%B5%D0%BB%D1%8C.%20%D0%9E%D1%82%D0%B5%D0%BB%D1%8C%3A%203%E2%98%85%2F5%E2%98%85.%20%D0%94%D0%B0%D1%82%D1%8B%3A%20" target="_blank" rel="noopener nofollow" class="weekend-hotel-link">Написать в WhatsApp</a>
-            </div>
-
-            <div class="weekend-hotel">
-                <div class="weekend-hotel-label">Weekend Camp + отель (условия прошлого лагеря)</div>
-                <div class="early-bird-badge">
-                    <div class="early-bird-badge-col">
-                        <span class="early-bird-badge-label">С отелем 3&#9733;</span>
-                        <span class="early-bird-badge-price">от &euro;429</span>
-                    </div>
-                    <div class="early-bird-badge-divider"></div>
-                    <div class="early-bird-badge-col">
-                        <span class="early-bird-badge-label">С отелем 5&#9733;</span>
-                        <span class="early-bird-badge-price">от &euro;499</span>
-                    </div>
-                </div>
-                <p>С человека, 2 ночи, номер twin, вдвоём. Отель оплачивается напрямую отелю. Другие даты по запросу.</p>
-                <a href="https://wa.me/35797497756?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20Weekend%20Camp%20%2B%20%D0%BE%D1%82%D0%B5%D0%BB%D1%8C.%20%D0%9E%D1%82%D0%B5%D0%BB%D1%8C%3A%203%E2%98%85%2F5%E2%98%85.%20%D0%94%D0%B0%D1%82%D1%8B%3A%20" target="_blank" rel="noopener nofollow" class="weekend-hotel-link">Написать в WhatsApp</a>
-            </div>
-
-            <p class="program-lead-line">Даты следующего лагеря скоро. <button type="button" class="program-lead-link" onclick="openLeadForm('', '')">Сообщайте мне о будущих лагерях и событиях</button></p>
+            <p class="program-lead-line">Следующий лагерь: конец февраля &ndash; начало марта 2027. <button type="button" class="program-lead-link" onclick="openLeadForm('', '')">Сообщите мне первым, когда объявите даты</button></p>
         </div>
     </section>
 
@@ -478,7 +413,7 @@
         <div class="container">
             <div class="coaches-header">
                 <h2 class="section-title">ТРЕНЕРЫ</h2>
-                <p class="coaches-subtitle">Опытные профессиональные тренеры по паделю</p>
+                <p class="coaches-subtitle">Профессиональные испанские тренеры, работавшие на наших лагерях</p>
             </div>
             <div class="coaches-intro">
                 <p>В The Padel Camp мы уверены: хороший коучинг — это не просто удары по мячу. Это понимание вашей игры, более точные решения на корте и уверенность в себе.</p>
@@ -497,22 +432,35 @@
                 <p class="coaches-intro-tagline">Профессиональный коучинг. Небольшие группы. Индивидуальное внимание.</p>
             </div>
             <div class="coaches-lead">
-                <h3 class="coaches-intro-heading">Тренируйтесь с теми, кто играет на высшем уровне</h3>
-                <p>Наши тренеры не просто учат паделу, они сами играют на профессиональном уровне. Оба - состоявшиеся игроки Мадридского региона, одной из самых конкурентных падел-сцен мира, и имеют многолетний опыт тренерской работы в академиях и кэмпах Европы, Азии и не только.</p>
+                <h3 class="coaches-intro-heading">Тренеры, которые работали с нашими игроками</h3>
+                <p>Мы всегда работаем с профессиональными тренерами из Испании. Здесь тренеры наших прошлых лагерей: игроки профессионального уровня с многолетним опытом работы в академиях и лагерях по всей Европе и не только. Команду тренеров следующего лагеря объявим вместе с датами.</p>
             </div>
-            <div class="coaches-grid coaches-grid--two">
+            <style>
+                .coaches-carousel{position:relative;margin:48px auto 0;max-width:1100px}
+                .coaches-carousel .coaches-track{display:flex;gap:24px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:4px 4px 16px;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
+                .coaches-carousel .coach-card{flex:0 0 calc((100% - 48px)/3);scroll-snap-align:start;min-width:0}
+                .coaches-carousel .coach-card:hover{transform:none}
+                .coaches-carousel-nav{display:flex;justify-content:center;gap:12px;margin-top:12px}
+                .coaches-carousel-nav button{width:44px;height:44px;border-radius:50%;border:1px solid var(--accent-soft,#ccc);background:transparent;color:inherit;font-size:22px;line-height:1;cursor:pointer}
+                .coach-achievements{margin:10px 0 0;padding-left:18px;font-size:14px;line-height:1.5}
+                .coach-achievements li{margin-bottom:4px}
+                @media (max-width:1000px){.coaches-carousel .coach-card{flex-basis:calc((100% - 24px)/2)}}
+                @media (max-width:640px){.coaches-carousel .coach-card{flex-basis:85%}}
+            </style>
+            <div class="coaches-carousel">
+                <div class="coaches-track" id="coachesTrack">
                     <div class="coach-card">
                         <div class="coach-image coach-image--swap">
                             <img src="../assets/images/coaches/Adrian.jpeg" alt="Adrián Cabello - Тренер-профессионал" width="720" height="960" loading="lazy" decoding="async">
                             <img class="coach-image-alt" src="../assets/images/coaches/Adrian-2.jpeg" alt="" aria-hidden="true" width="720" height="960" loading="lazy" decoding="async">
                         </div>
                         <div class="coach-info">
-                            <span class="coach-flag">🇪🇸 Испания &middot; Тренер-профессионал</span>
+                            <span class="coach-flag">🇪🇸 Испания &middot; лагерь ноябрь 2026</span>
                             <h3 class="coach-name">Adrián Cabello</h3>
-                            <p class="coach-bio">Выступает в мужском Open Мадрида, сейчас в топ-40 (лучшая позиция - 28-я). Сертифицирован Федерацией падела Испании, тренерский опыт в пяти странах.</p>
+                            <p class="coach-bio">Выступает в Madrid Men’s Open, сейчас в топ-40 (лучшая позиция - 28-я). Сертифицирован Федерацией падела Испании, тренерский опыт в пяти странах.</p>
                             <details class="coach-more">
                                 <summary>Подробнее</summary>
-                                <p class="coach-bio">Адриан активно выступает в мужском Open Мадрида: сейчас он в топ-40 (лучшая позиция - 28-я), в мае 2026 года был финалистом Open Coimbra Padel. Он также играл в турнирах FIP и A1 Padel, вместе с Даниэлем дошёл до финала турнира Итальянской федерации падела и выиграл два местных турнира федерации Сенегала в Дакаре.</p>
+                                <p class="coach-bio">Адриан активно выступает в Madrid Men’s Open: сейчас он в топ-40 (лучшая позиция - 28-я), в мае 2026 года был финалистом Open Coimbra Padel. Он также играл в турнирах FIP и A1 Padel, вместе с Даниэлем дошёл до финала турнира Итальянской федерации падела и выиграл два местных турнира федерации Сенегала в Дакаре.</p>
                                 <p class="coach-bio">Адриан - инструктор по паделу 1-го уровня, сертифицированный Федерацией падела Испании. Он работал и выступал в Испании, Италии и Сенегале, тренировал в США и Франции, проводит клиники и сотрудничает с клубами в разных странах, а также работал в Juan Lebrón Campus.</p>
                                 <p class="coach-bio">Его сильная сторона - вывести вашу игру на новый уровень: тактика, принятие решений и игровые ситуации. На его тренировках вы научитесь читать игру так, как это делают профессионалы, и применять это уже в следующем матче.</p>
                             </details>
@@ -525,18 +473,76 @@
                             <img class="coach-image-alt" src="../assets/images/coaches/Daniel-2.jpeg" alt="" aria-hidden="true" width="720" height="960" loading="lazy" decoding="async">
                         </div>
                         <div class="coach-info">
-                            <span class="coach-flag">🇪🇸 Испания &middot; Тренер-профессионал</span>
+                            <span class="coach-flag">🇪🇸 Испания &middot; лагерь ноябрь 2026</span>
                             <h3 class="coach-name">Daniel Jaramillo</h3>
-                            <p class="coach-bio">Выступал в круге A1 Padel, в 2025 году вошёл в топ-30 Мадридского Men’s Open. Тренирует с 2015 года, опыт кэмпов от Мадрида до Флоренции и Бали.</p>
+                            <p class="coach-bio">Выступал в A1 Padel, в 2025 году вошёл в топ-30 Madrid Men’s Open. Тренирует с 2015 года, опыт кэмпов от Мадрида до Флоренции и Бали.</p>
                             <details class="coach-more">
                                 <summary>Подробнее</summary>
                                 <p class="coach-bio">Даниэль взял в руки ракетку в 10 лет и вырос в элитных академиях, среди которых M3 Academy и Cepac Padel, у самых уважаемых имён в паделе: Mariano Amat, Jorge Martínez, Adrián Caviglia, Mati Díaz и Gastón Malacalza.</p>
-                                <p class="coach-bio">Он выступал в профессиональном круге A1 Padel, в 2025 году вошёл в топ-30 рейтинга Men’s Open Мадрида и поддерживается NOX и Федерацией падела Мадрида.</p>
+                                <p class="coach-bio">Он выступал в профессиональном туре A1 Padel, в 2025 году вошёл в топ-30 рейтинга Madrid Men’s Open и поддерживается NOX и Федерацией падела Мадрида.</p>
                                 <p class="coach-bio">Вне корта Даниэль тренирует с 2015 года. Он основал собственную академию Worldwide Padel Coaches и вёл тренировки в кэмпах и академиях Испании, Италии и Индонезии: от Juan Lebrón Campus до Bali Padel Academy, где обучал тренеров команды NOX Coaching.</p>
                                 <p class="coach-bio">Вас ждут энергия, чёткая структура и внимание к деталям. Даниэль строит занятия под ваш уровень и цели, соединяя технику с физической подготовкой, и следит, чтобы каждая тренировка приносила удовольствие.</p>
                             </details>
                         </div>
                     </div>
+
+                    <div class="coach-card">
+                        <div class="coach-image">
+                            <img src="../assets/images/coaches/Barbara.jpeg" alt="Barbara Sala - Тренер" width="720" height="960" loading="lazy" decoding="async">
+                        </div>
+                        <div class="coach-info">
+                            <span class="coach-flag">🇪🇸 Испания &middot; лагерь апрель 2026</span>
+                            <h3 class="coach-name">Barbara Sala</h3>
+                            <p class="coach-bio">Лучший рейтинг FIP: 297-я в мире. Играет за команду Федерации паделя Канарских островов в Первой категории, в 2025 году выиграла два турнира Challenger.</p>
+                            <details class="coach-more">
+                                <summary>Подробнее</summary>
+                                <p class="coach-bio">Барбара привносит энергию, точность и победный настрой. Яркий игрок на национальной и международной арене, она сочетает техническое мастерство с умной атакующей игрой &mdash; и точно знает, что нужно для победы и как научить этому других.</p>
+                                <ul class="coach-achievements"><li>Лучший рейтинг FIP: 297-я в мире</li><li>4-я ракетка Канарских островов</li><li>Команда Федерации паделя Канарских островов, Первая категория &mdash; №1 на островах три года подряд (2023&ndash;2025)</li><li>Финалистка Spanish Team Championship (Primera Categor&iacute;a) 2024 и 2025</li><li>Победительница 2 турниров Challenger в 2025 году</li><li>Полуфиналистка FIP Rise Tenerife 2022</li></ul>
+                            </details>
+                        </div>
+                    </div>
+
+                    <div class="coach-card">
+                        <div class="coach-image">
+                            <img src="../assets/images/coaches/Pedro.jpeg" alt="Pedro Sousa Martinez - Тренер" width="720" height="960" loading="lazy" decoding="async">
+                        </div>
+                        <div class="coach-info">
+                            <span class="coach-flag">🇪🇸 Испания &middot; лагерь апрель 2026</span>
+                            <h3 class="coach-name">Pedro Sousa Martinez</h3>
+                            <p class="coach-bio">Игрок туров FIP и A1 Padel, чемпион Галисии 2023. Тренировался в Manu Mart&iacute;n Professional Academy вместе с Arturo Coello.</p>
+                            <details class="coach-more">
+                                <summary>Подробнее</summary>
+                                <p class="coach-bio">Молодой и энергичный тренер, который привносит свежие знания из элиты мирового паделя. Педро тренировался бок о бок с Arturo Coello в Manu Mart&iacute;n Professional Academy и по собственному опыту знает самый быстрый путь к прогрессу.</p>
+                                <ul class="coach-achievements"><li>Игрок тура FIP (лучший рейтинг: 426)</li><li>Лучший рейтинг A1 Padel: 173</li><li>Чемпион Галисии 2023 (№1 в регионе)</li><li>Стажировки у &Aacute;lvarez Clementi, Pratto и Choya</li><li>5+ лет тренерской работы в Европе (Дания, Нидерланды, Германия)</li></ul>
+                            </details>
+                        </div>
+                    </div>
+
+                    <div class="coach-card">
+                        <div class="coach-image">
+                            <img src="../assets/images/coaches/David.jpeg" alt="David Antolin - Тренер" width="720" height="960" loading="lazy" decoding="async">
+                        </div>
+                        <div class="coach-info">
+                            <span class="coach-flag">🇪🇸 Испания &middot; лагерь апрель 2026</span>
+                            <h3 class="coach-name">David Antolin</h3>
+                            <p class="coach-bio">Бывший игрок профессионального тура, более 12 лет в паделе. Лучший рейтинг World Padel Tour: топ-120, лучший рейтинг FIP: 134-й в мире.</p>
+                            <details class="coach-more">
+                                <summary>Подробнее</summary>
+                                <p class="coach-bio">Тренер с более чем 12-летним опытом выступлений и организации падел-лагерей по всей Европе. Его философия &mdash; современный атакующий падел на основе испанской техники и тактического мышления. С Давидом вы не просто учитесь бить по мячу &mdash; вы учитесь читать игру и владеть кортом.</p>
+                                <ul class="coach-achievements"><li>Более 12 лет в профессиональном паделе</li><li>Игрок профессионального тура более 10 лет</li><li>Лучший рейтинг World Padel Tour: топ-120</li><li>Лучший рейтинг FIP: 134-й в мире</li><li>Опыт работы в 3+ профессиональных клубах</li></ul>
+                            </details>
+                        </div>
+                    </div>
+                </div>
+                <div class="coaches-carousel-nav">
+                    <button type="button" aria-label="Предыдущие тренеры" onclick="var t=document.getElementById('coachesTrack');t.scrollBy({left:-t.clientWidth,behavior:'smooth'})">&lsaquo;</button>
+                    <button type="button" aria-label="Следующие тренеры" onclick="var t=document.getElementById('coachesTrack');t.scrollBy({left:t.clientWidth,behavior:'smooth'})">&rsaquo;</button>
+                </div>
+            </div>
+            <div style="max-width:760px;margin:48px auto 0;padding:24px;border-radius:16px;border:1px solid var(--accent-soft,rgba(255,77,0,.4));text-align:center">
+                <h3 class="coaches-intro-heading" style="margin-top:0">Вы тренер по паделю?</h3>
+                <p style="margin:0 0 16px">Мы всегда ищем профессиональных тренеров из Испании для наших лагерей на Кипре. Тренировки проходят на английском, поэтому хороший разговорный английский обязателен. Отправьте нам информацию о себе и резюме, и мы свяжемся с вами.</p>
+                <button type="button" class="btn btn-primary" onclick="openCoachForm()">Стать тренером</button>
             </div>
         </div>
     </section>
@@ -545,9 +551,9 @@
     <section class="cta-banner">
         <div class="container">
             <div class="cta-banner-content">
-                <h2 class="cta-banner-title">Готовы тренироваться с лучшими?</h2>
-                <p class="cta-banner-text">Забронируйте место — количество мест ограничено</p>
-                <a href="#program-cards" class="btn btn-primary btn-lg">Забронировать</a>
+                <h2 class="cta-banner-title">Хотите на следующий лагерь?</h2>
+                <p class="cta-banner-text">Конец февраля &ndash; начало марта 2027 в Лимассоле. Оставьте контакт, и мы сообщим вам первыми, когда объявим даты.</p>
+                <a href="#notify" class="btn btn-primary btn-lg" onclick="openLeadForm('', ''); return false;">Узнать первым</a>
             </div>
         </div>
     </section>
@@ -558,42 +564,35 @@
             <div class="venue-header">
                 <h2 class="section-title">МЕСТО ПРОВЕДЕНИЯ</h2>
             </div>
-            <div class="venue-photos">
-                <img src="../assets/images/venue/court-red.webp" alt="Крытый корт MyQPadel с красными стенами" width="1400" height="933" loading="lazy" decoding="async">
-                <img src="../assets/images/venue/court-play.webp" alt="Игрок на корте MyQPadel" width="1400" height="933" loading="lazy" decoding="async">
-                <img src="../assets/images/venue/court-wide.webp" alt="Общий вид крытого корта MyQPadel" width="1400" height="933" loading="lazy" decoding="async">
-                <img class="venue-photo-wide" src="../assets/images/venue/club-aerial.webp" alt="Клуб MyQPadel с высоты" width="1400" height="787" loading="lazy" decoding="async">
-            </div>
             <div class="venue-simple">
                 <div class="venue-simple-content">
-                    <h3>MyQPadel</h3>
-                    <p class="venue-address">Лимассол, Кипр</p>
-                    <p class="venue-highlight">☀️ Полностью крытые корты — тренируйтесь с комфортом в любую погоду.</p>
+                    <h3>Качественные корты, выбранные под сезон</h3>
+                    <p class="venue-address">Лимассол, Кипр &middot; площадку следующего лагеря объявим позже</p>
+                    <p class="venue-highlight">Каждую площадку мы выбираем по качеству кортов и условиям для тренировок. В зависимости от сезона предпочитаем крытые корты, чтобы тренироваться с комфортом в любую погоду.</p>
                     <div class="venue-features-grid">
                         <div class="venue-feature-item">
-                            <strong>Крытые корты</strong>
-                            <span>Защита от солнца и дождя круглый год</span>
+                            <strong>Качественные корты</strong>
+                            <span>Ухоженные корты в проверенных клубах</span>
                         </div>
                         <div class="venue-feature-item">
-                            <strong>Доступ 24/7</strong>
-                            <span>Автоматизированная система входа</span>
+                            <strong>Крытые, когда это важно</strong>
+                            <span>Крытые корты в дождливые и жаркие месяцы</span>
                         </div>
                         <div class="venue-feature-item">
-                            <strong>Центр восстановления</strong>
-                            <span>Сауна, криотерапия и HydroJet-кровать на месте</span>
-                        </div>
-                        <div class="venue-feature-item">
-                            <strong>Про-шоп и кафе</strong>
-                            <span>Casa de Padel Boutique — экипировка и кофе</span>
-                        </div>
-                        <div class="venue-feature-item">
-                            <strong>Тренажёрный зал</strong>
-                            <span>My Q EnerGym — функциональные тренировки и кардио</span>
+                            <strong>Удобно добираться</strong>
+                            <span>Клубы в Лимассоле, недалеко от отелей и набережной</span>
                         </div>
                     </div>
-                    <a href="https://maps.app.goo.gl/HotvWfiUzGRR3DLk7" target="_blank" rel="noopener nofollow" class="btn btn-ghost">
-                        Посмотреть на Google Maps
-                    </a>
+                    <p style="margin:24px 0 8px"><strong>Где мы уже тренировались:</strong></p>
+                    <ul class="coaches-intro-list" style="margin:0 0 24px">
+                        <li><strong>MyQPadel</strong>, Лимассол &mdash; ноябрь 2026: полностью крытые корты, центр восстановления, спортзал и кафе</li>
+                        <li><strong>The Padel K</strong>, Лимассол &mdash; апрель 2026: шесть панорамных кортов с профессиональным освещением</li>
+                    </ul>
+                    <div style="margin-top:8px;padding:18px 20px;border-radius:14px;border:1px solid var(--accent-soft,rgba(255,77,0,.4))">
+                        <p style="margin:0 0 6px"><strong>Вы владелец падел-клуба?</strong></p>
+                        <p style="margin:0 0 14px">Мы открыты к сотрудничеству с клубами на Кипре и за его пределами. Если хотите провести The Padel Camp у себя в клубе, давайте обсудим.</p>
+                        <a href="https://wa.me/35797497756?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%AF%20%D0%BF%D1%80%D0%B5%D0%B4%D1%81%D1%82%D0%B0%D0%B2%D0%BB%D1%8F%D1%8E%20%D0%BF%D0%B0%D0%B4%D0%B5%D0%BB-%D0%BA%D0%BB%D1%83%D0%B1%20%D0%B8%20%D1%85%D0%BE%D1%87%D1%83%20%D0%BE%D0%B1%D1%81%D1%83%D0%B4%D0%B8%D1%82%D1%8C%20%D0%BF%D1%80%D0%BE%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5%20The%20Padel%20Camp.%20%D0%9A%D0%BB%D1%83%D0%B1%3A%20" target="_blank" rel="noopener nofollow" class="btn btn-ghost">Мы открыты к сотрудничеству</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -618,17 +617,17 @@
                     <span class="service-price"><span class="price-mini-currency">&euro;</span>120</span>
                     <button class="btn btn-primary btn-sm service-btn" onclick="openServiceBookingForm('Индивидуальный урок (2-на-1)', 120)">Записаться 2-на-1</button>
                 </div>
-                <div class="service-card" onclick="openServiceBookingForm('Игра с тренером (1 час)', 120)">
+                <div class="service-card" onclick="openServiceBookingForm('Игра с тренером (3 игрока + тренер, 1 час)', 120)">
                     <h3>Игра с тренером</h3>
-                    <p>Час настоящей игры для 3-4 игроков под руководством испанского тренера. Тренер останавливает игру в ключевые моменты и поправляет позицию, выбор удара и решения, пока розыгрыш ещё свеж в памяти - так натренированное наконец переходит в вашу игру, а не повторяются одни и те же привычки в каждом дружеском матче.</p>
+                    <p>Настоящий матч, где профессиональный тренер играет четвёртым. Три игрока меняются в течение часа, так что каждый успевает поиграть и в паре с тренером, и против него. Между розыгрышами тренер даёт чёткие практические советы по позиции, выбору удара и тактике, пока ситуация ещё свежа, и всё это сразу переносится в вашу собственную игру.</p>
                     <span class="service-price"><span class="price-mini-currency">&euro;</span>120</span>
-                    <button class="btn btn-primary btn-sm service-btn" onclick="openServiceBookingForm('Игра с тренером (1 час)', 120)">Записаться на игру</button>
+                    <button class="btn btn-primary btn-sm service-btn" onclick="openServiceBookingForm('Игра с тренером (3 игрока + тренер, 1 час)', 120)">Записаться на игру</button>
                 </div>
-                <div class="service-card">
-                    <h3>Медиапакет</h3>
-                    <p>15-20 профессиональных фото плюс динамичный видеоролик (1.5-2 мин) моментов вашего лагеря.</p>
-                    <span class="service-price"><span class="price-mini-currency">&euro;</span>130</span>
-                    <a id="mediaPackageStripeLink" href="https://buy.stripe.com/9B65kF8d9bRpbOFclScEw0a" target="_blank" rel="noopener" class="btn btn-primary btn-sm service-btn" data-purchase-value="130" data-purchase-item="media_package">Оплатить &euro;130</a>
+                <div class="service-card" onclick="openServiceBookingForm('Матч 2+2 (каждый игрок в паре с тренером, 1 час)', 150)">
+                    <h3>Матч 2+2</h3>
+                    <p>Два игрока, два тренера, час настоящей игры. Вы играете в паре с профессиональным тренером, который весь матч ведёт вас как персональный тренер: где встать, какой удар выбрать и как построить каждый розыгрыш. Любимый формат наших игроков.</p>
+                    <span class="service-price"><span class="price-mini-currency">&euro;</span>150</span>
+                    <button class="btn btn-primary btn-sm service-btn" onclick="openServiceBookingForm('Матч 2+2 (каждый игрок в паре с тренером, 1 час)', 150)">Записаться на матч 2+2</button>
                 </div>
             </div>
         </div>
@@ -686,7 +685,7 @@
             <button class="massage-modal-close" type="button" onclick="closeLeadModal()" aria-label="Закрыть">&times;</button>
             <h2 class="massage-modal-title" id="leadModalTitle">Узнать первым</h2>
             <p class="massage-booking-subtitle" id="leadCampInfo"></p>
-            <p class="massage-booking-subtitle">Сообщайте мне о новых лагерях, событиях и специальных предложениях.</p>
+            <p class="massage-booking-subtitle">Следующий лагерь: конец февраля &ndash; начало марта 2027. Расскажите, что вам удобно, и мы сообщим первыми, когда объявим даты.</p>
 
             <form id="leadForm" class="massage-booking-form">
                 <input type="text" name="hp_field_a3x" class="hp-field" aria-hidden="true" tabindex="-1" autocomplete="off">
@@ -707,6 +706,52 @@
                     <input type="email" id="leadEmail" name="leadEmail" class="form-input" autocomplete="email" placeholder="your@email.com">
                 </div>
 
+                <style>
+                    .lead-choices{display:flex;flex-wrap:wrap;gap:8px}
+                    .lead-choices label{display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border:1px solid var(--accent-soft,#ccc);border-radius:999px;font-size:14px;cursor:pointer}
+                    .lead-choices input{margin:0}
+                    .lead-hint{font-size:12px;opacity:.75;margin:4px 0 0}
+                </style>
+                <div class="form-group">
+                    <span class="form-label">Какой формат вам интересен? *</span>
+                    <div class="lead-choices">
+                        <label><input type="radio" name="leadFormat" value="5-day camp" required> 5-дневный (пн&ndash;пт)</label>
+                        <label><input type="radio" name="leadFormat" value="Weekend camp"> Выходные (сб&ndash;вс)</label>
+                        <label><input type="radio" name="leadFormat" value="Both"> Оба</label>
+                    </div>
+                </div>
+
+                <div class="form-group" id="leadTimeGroup" style="display:none">
+                    <span class="form-label">5-дневный: утро или вечер?</span>
+                    <div class="lead-choices">
+                        <label><input type="radio" name="leadTime" value="Morning"> Утро</label>
+                        <label><input type="radio" name="leadTime" value="Evening"> Вечер</label>
+                        <label><input type="radio" name="leadTime" value="Either"> Без разницы</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <span class="form-label">Какие недели вам подходят?</span>
+                    <div class="lead-choices">
+                        <label><input type="checkbox" name="leadWeeks" value="15-21 Feb"> 15&ndash;21 фев</label>
+                        <label><input type="checkbox" name="leadWeeks" value="22-28 Feb"> 22&ndash;28 фев</label>
+                        <label><input type="checkbox" name="leadWeeks" value="1-7 Mar"> 1&ndash;7 мар</label>
+                        <label><input type="checkbox" name="leadWeeks" value="8-14 Mar"> 8&ndash;14 мар</label>
+                    </div>
+                    <p class="lead-hint">Отметьте все подходящие (2027).</p>
+                </div>
+
+                <div class="form-group">
+                    <span class="form-label">Где вам удобнее тренироваться?</span>
+                    <div class="lead-choices">
+                        <label><input type="checkbox" name="leadCity" value="Limassol"> Лимассол</label>
+                        <label><input type="checkbox" name="leadCity" value="Paphos"> Пафос</label>
+                        <label><input type="checkbox" name="leadCity" value="Larnaca"> Ларнака</label>
+                        <label><input type="checkbox" name="leadCity" value="Nicosia"> Никосия</label>
+                    </div>
+                    <p class="lead-hint">Мы планируем Лимассол, но открыты и к другим городам.</p>
+                </div>
+
                 <div class="form-group">
                     <label class="consent-option">
                         <input type="checkbox" name="leadConsent" required>
@@ -717,6 +762,77 @@
                 <button type="submit" class="btn btn-primary btn-block btn-submit">
                     Сообщите мне
                 </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Coach Application Modal -->
+    <div class="massage-booking-modal" id="coachModal">
+        <div class="massage-booking-modal-content" role="dialog" aria-modal="true" aria-labelledby="coachModalTitle">
+            <button class="massage-modal-close" type="button" onclick="closeCoachModal()" aria-label="Закрыть">&times;</button>
+            <h2 class="massage-modal-title" id="coachModalTitle">Стать тренером</h2>
+            <p class="massage-booking-subtitle">Расскажите о себе и прикрепите резюме. Его также можно прислать на <a href="mailto:thepadelcampcy@gmail.com">thepadelcampcy@gmail.com</a>.</p>
+
+            <form id="coachForm" class="massage-booking-form">
+                <input type="text" name="hp_field_a3x" class="hp-field" aria-hidden="true" tabindex="-1" autocomplete="off">
+
+                <div class="form-group">
+                    <label class="form-label" for="coachName">Имя и фамилия *</label>
+                    <input type="text" id="coachName" name="coachName" class="form-input" required autocomplete="name" placeholder="Ваше имя">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="coachEmail">Email *</label>
+                    <input type="email" id="coachEmail" name="coachEmail" class="form-input" required autocomplete="email" placeholder="your@email.com">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="coachPhone">WhatsApp / телефон</label>
+                    <input type="tel" id="coachPhone" name="coachPhone" class="form-input" autocomplete="tel" placeholder="+34 600 123 456">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="coachCity">Город / страна</label>
+                    <input type="text" id="coachCity" name="coachCity" class="form-input" placeholder="Мадрид, Испания">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="coachEnglish">Уровень английского *</label>
+                    <select id="coachEnglish" name="coachEnglish" class="form-input" required>
+                        <option value="">Выберите уровень</option>
+                        <option value="Native / fluent">Родной / свободный</option>
+                        <option value="Advanced (C1)">Продвинутый (C1)</option>
+                        <option value="Upper-intermediate (B2)">Выше среднего (B2)</option>
+                        <option value="Intermediate (B1)">Средний (B1)</option>
+                        <option value="Basic (A1-A2)">Базовый (A1&ndash;A2)</option>
+                    </select>
+                    <p class="lead-hint">Тренировки проходят на английском, поэтому хороший разговорный английский обязателен.</p>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="coachExperience">Опыт и результаты *</label>
+                    <textarea id="coachExperience" name="coachExperience" class="form-input" rows="4" required placeholder="Тренерский опыт, сертификаты, рейтинги, языки"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="coachCv">Резюме (PDF или изображение)</label>
+                    <input type="file" id="coachCv" name="coachCv" class="form-input" accept=".pdf,application/pdf,image/jpeg,image/png,image/webp">
+                    <p class="lead-hint" id="coachCvHint">PDF, JPG или PNG, до 5 МБ.</p>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="coachInstagram">Instagram</label>
+                    <input type="text" id="coachInstagram" name="coachInstagram" class="form-input" placeholder="@yourprofile">
+                </div>
+
+                <div class="form-group">
+                    <label class="consent-option">
+                        <input type="checkbox" name="coachConsent" required>
+                        <span>Я согласен(на) на обработку моих персональных данных в соответствии с <a href="privacy-policy.html" target="_blank">Политикой конфиденциальности</a> *</span>
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block btn-submit">Отправить заявку</button>
             </form>
         </div>
     </div>
@@ -744,7 +860,6 @@
                         <li>Авиабилеты / Транспорт</li>
                         <li>Туристическая страховка</li>
                         <li>Индивидуальные уроки (опционально)</li>
-                        <li>Медиа пакет (опционально)</li>
                     </ul>
                 </div>
             </div>
@@ -756,54 +871,8 @@
         <div class="container">
             <div class="services-header">
                 <h2 class="section-title">ГДЕ ОСТАНОВИТЬСЯ</h2>
-                <p class="stay-intro">Отели рядом с клубом, которые предложили условия для наших гостей. Проживание оплачивается напрямую отелю. Напишите нам даты, мы запросим предложение и подтвердим его по email. Предложения действуют при наличии мест, поэтому бронируйте заранее: гарантировать номера мы не можем.</p>
+                <p class="stay-intro">Приезжаете из другой страны? Как только площадка будет выбрана, мы порекомендуем отели рядом и, где возможно, запросим специальные условия для наших игроков. Проживание бронируется и оплачивается напрямую в отеле. Напишите нам, и мы поможем спланировать поездку.</p>
             </div>
-            <ul class="stay-list">
-                <li class="stay-row">
-                    <div class="stay-info">
-                        <h3>Parklane, a Luxury Collection Resort &amp; Spa</h3>
-                        <p class="stay-desc">Курорт на берегу моря с прямым выходом на пляж. Открытые бассейны, спа Kalloni, теннисные корты, детский клуб и несколько ресторанов. Номера, сюиты и виллы.</p>
-                        <p class="stay-deal">Отель предложил условия для наших гостей. Запрос отелю передаём мы.</p>
-                    </div>
-                    <div class="stay-facts">
-                        <span class="stay-stars" role="img" aria-label="5 звёзд">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-                        <span class="stay-dist">3,2 км &middot; 4 мин на машине до клуба</span>
-                    </div>
-                </li>
-                <li class="stay-row">
-                    <div class="stay-info">
-                        <h3>St Raphael Resort</h3>
-                        <p class="stay-desc">Курорт со своей мариной в Пиргосе. Обновлённые номера и сюиты, есть семейные номера с отдельной спальней. Спа Serenity, рестораны и бары, часть из них работает сезонно.</p>
-                        <p class="stay-deal">Специальные условия для наших гостей. Бесплатная отмена за 7 дней до заезда.</p>
-                    </div>
-                    <div class="stay-facts">
-                        <span class="stay-stars" role="img" aria-label="5 звёзд">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-                        <span class="stay-dist">3,6 км &middot; 5 мин на машине до клуба</span>
-                    </div>
-                </li>
-                <li class="stay-row">
-                    <div class="stay-info">
-                        <h3>Mediterranean Beach Hotel</h3>
-                        <p class="stay-desc">Отель на песчаном пляже с «Голубым флагом» на юго-западе залива Лимасола. Номера с видом на море и на сушу, семейные номера, открытый и крытый бассейны. Спа и несколько ресторанов.</p>
-                        <p class="stay-deal">Специальные условия для наших гостей.</p>
-                    </div>
-                    <div class="stay-facts">
-                        <span class="stay-stars" role="img" aria-label="4 звёзд">&#9733;&#9733;&#9733;&#9733;</span>
-                        <span class="stay-dist">8,9 км &middot; 8 мин на машине до клуба</span>
-                    </div>
-                </li>
-                <li class="stay-row">
-                    <div class="stay-info">
-                        <h3>Harmony Bay Hotel</h3>
-                        <p class="stay-desc">Трёхзвёздочный отель в Гермасойе, номера и сюиты с видом на море. Спортзал и бесплатная парковка.</p>
-                        <p class="stay-deal">Завтрак включён. Удобнее с машиной.</p>
-                    </div>
-                    <div class="stay-facts">
-                        <span class="stay-stars" role="img" aria-label="3 звезды">&#9733;&#9733;&#9733;</span>
-                        <span class="stay-dist">13,9 км &middot; 14 мин на машине до клуба</span>
-                    </div>
-                </li>
-            </ul>
             <div class="stay-cta">
                 <a href="https://wa.me/35797497756?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BF%D0%BE%D0%BB%D1%83%D1%87%D0%B8%D1%82%D1%8C%20%D0%BF%D1%80%D0%B5%D0%B4%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BF%D0%BE%20%D0%BE%D1%82%D0%B5%D0%BB%D1%8E%20%D0%B4%D0%BB%D1%8F%20%D0%BB%D0%B0%D0%B3%D0%B5%D1%80%D1%8F.%0A%D0%9E%D1%82%D0%B5%D0%BB%D1%8C%3A%20%0A%D0%94%D0%B0%D1%82%D1%8B%3A%20" target="_blank" rel="noopener nofollow" class="btn btn-primary">Написать нам</a>
             </div>
@@ -973,6 +1042,15 @@
             <div class="faq-list">
                 <div class="faq-item">
                     <button class="faq-question" aria-expanded="false">
+                        <span>Когда следующий лагерь?</span>
+                        <span class="faq-icon"></span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Следующий лагерь планируем на конец февраля &ndash; начало марта 2027 года в Лимассоле. Точные даты, площадку, тренеров и цены объявим в ближайшее время. <a href="#notify" onclick="openLeadForm('', ''); return false;">Оставьте контакт</a>, и мы сообщим вам первыми.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
                         <span>Какой уровень нужен?</span>
                         <span class="faq-icon"></span>
                     </button>
@@ -1013,7 +1091,7 @@
                         <span class="faq-icon"></span>
                     </button>
                     <div class="faq-answer">
-                        <p>Не входит в стоимость лагеря и оплачивается напрямую отелю. Несколько отелей рядом с клубом предложили условия для наших гостей. Напишите нам даты, и мы запросим предложение. Предложения действуют при наличии мест, поэтому бронируйте заранее.</p>
+                        <p>Не входит в стоимость лагеря и оплачивается напрямую отелю. Как только площадка будет выбрана, мы порекомендуем отели рядом и, где возможно, запросим специальные условия для наших игроков.</p>
                     </div>
                 </div>
             </div>
@@ -1037,8 +1115,8 @@
                     <p class="partner-tagline">Одевает наших тренеров и игроков в стильную и удобную экипировку.</p>
                 </div>
                 <div class="partner-logo-card">
-                    <a href="https://righttrackphysio.com.cy/pages/padel-camp-november-2026.html" target="_blank" rel="noopener"><img src="../assets/images/partners/right-track.png" alt="Right Track Physiotherapy" width="500" height="500" class="partner-logo-img" loading="lazy" decoding="async"></a>
-                    <p class="partner-tagline">Спортивная физиотерапия прямо на кемпе.</p>
+                    <a href="https://righttrackphysio.com.cy" target="_blank" rel="noopener"><img src="../assets/images/partners/right-track.png" alt="Right Track Physiotherapy" width="500" height="500" class="partner-logo-img" loading="lazy" decoding="async"></a>
+                    <p class="partner-tagline">Партнёр наших лагерей по спортивной физиотерапии.</p>
                 </div>
                 <div class="partner-logo-card">
                     <a href="https://supplements.cy" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;height:120px;margin-bottom:16px"><img src="../assets/images/partners/supplements-cy.svg" alt="Supplements.cy" width="1000" height="100" class="partner-logo-img" style="width:200px;height:auto;margin:0;border:0;border-radius:0" loading="lazy" decoding="async"></a>
@@ -1104,6 +1182,6 @@
     </a>
 
     <script src="../assets/js/pixels.js?v=33"></script>
-    <script src="../assets/js/main.js?v=33"></script>
+    <script src="../assets/js/main.js?v=34"></script>
 </body>
 </html>
