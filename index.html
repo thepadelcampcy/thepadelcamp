@@ -20,7 +20,7 @@
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://thepadelcamp.com.cy/">
-    <meta property="og:title" content="The Padel Camp Cyprus 2026 | Train with Spanish Pros">
+    <meta property="og:title" content="The Padel Camp Cyprus | Train with Spanish Pros">
     <meta property="og:description" content="Intensive padel training camp in Limassol, Cyprus with professional Spanish coaches. Small groups, all skill levels.">
     <meta property="og:image" content="https://thepadelcamp.com.cy/assets/images/og-image.jpg">
     <meta property="og:locale" content="en_US">
@@ -31,7 +31,7 @@
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://thepadelcamp.com.cy/">
-    <meta name="twitter:title" content="The Padel Camp Cyprus 2026 | Train with Spanish Pros">
+    <meta name="twitter:title" content="The Padel Camp Cyprus | Train with Spanish Pros">
     <meta name="twitter:description" content="Intensive padel training camp in Limassol, Cyprus with professional Spanish coaches.">
     <meta name="twitter:image" content="https://thepadelcamp.com.cy/assets/images/og-image.jpg">
 
@@ -70,6 +70,14 @@
       "mainEntity": [
         {
           "@type": "Question",
+          "name": "When is the next camp?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "We're planning the next camp for late February to early March 2027 in Limassol. Exact dates, venue, coaches and prices will be announced soon. Leave your contact via Get notified and we'll tell you first."
+          }
+        },
+        {
+          "@type": "Question",
           "name": "What level do I need?",
           "acceptedAnswer": {
             "@type": "Answer",
@@ -105,7 +113,7 @@
           "name": "Accommodation?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Not included in the camp price and paid directly to the hotel. Several hotels near the club have offered rates for our guests. Message us your dates and we will request the offer. Offers are subject to availability, so book early."
+            "text": "Not included in the camp price and paid directly to the hotel. Once the venue is confirmed, we'll recommend hotels nearby and, where possible, request special rates for our players."
           }
         }
       ]
@@ -142,7 +150,7 @@
                     <a href="/ru/">RU</a>
                     <a href="/el/">EL</a>
                 </div>
-                <a href="#program-cards" class="btn btn-primary header-book-btn">Book<span class="header-book-btn-full">&nbsp;Now</span></a>
+                <a href="#notify" class="btn btn-primary header-book-btn" onclick="openLeadForm('', ''); return false;">Get<span class="header-book-btn-full">&nbsp;notified</span></a>
                 <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
                     <span></span>
                     <span></span>
@@ -178,7 +186,7 @@
             <div class="hero-text">
                 <p class="hero-eyebrow">TRAIN PLAY LEARN</p>
                 <h1 class="hero-title">Train Like<br><em class="accent">A Pro</em> <span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap">&mdash; Padel Training Camp in Limassol, Cyprus</span></h1>
-                <p class="hero-dates"><span>Next camp: dates coming soon</span><span class="hero-dates-sep"> &middot; </span><span>Limassol, Cyprus</span></p>
+                <p class="hero-dates"><span>Next camp: late February &ndash; early March 2027</span><span class="hero-dates-sep"> &middot; </span><span>Limassol, Cyprus</span></p>
                 <p class="hero-subtitle">Intensive padel camp in Limassol, Cyprus with professional coaches from Spain. Our highly experienced trainers will guide you to the next level of your game under expert supervision.</p>
                 <div class="hero-cta">
                     <a href="#program-cards" class="btn btn-primary btn-lg">View Program</a>
@@ -277,7 +285,7 @@
                 </div>
                 <div class="learn-item">
                     <h3>Physical Prep</h3>
-                    <p>Proper warm-up, stretching, injury prevention. Physio on site: <a href="https://righttrackphysio.com.cy/pages/padel-camp-november-2026.html" target="_blank" rel="noopener">Right Track</a></p>
+                    <p>Proper warm-up, stretching, injury prevention. Physio partner of our camps: <a href="https://righttrackphysio.com.cy" target="_blank" rel="noopener">Right Track</a></p>
                 </div>
             </div>
         </div>
@@ -291,16 +299,18 @@
                 <p class="section-subtitle">Intensive training in Limassol designed for maximum improvement. Every participant receives a certificate of completion.</p>
             </div>
 
-            <p class="program-lead-line" style="margin:0 0 24px">Missed the camp? <a href="#services" class="program-lead-link" style="font-weight:700">Book a private session with our coaches &rarr;</a></p>
+            <p class="program-lead-line" style="margin:0 0 24px">Can&rsquo;t wait for the next camp? <a href="#services" class="program-lead-link" style="font-weight:700">Private sessions with a Spanish coach are available on request &rarr;</a></p>
 
-            <div style="text-align:center;margin:0 0 24px;padding:14px 18px;border-radius:12px;background:rgba(255,77,0,.08);border:1px solid rgba(255,77,0,.4);font-weight:700">Next camp: dates and prices coming soon. The prices below are from our last camp, so you know what to expect.</div>
+            <div style="text-align:center;margin:0 0 24px;padding:14px 18px;border-radius:12px;background:rgba(255,77,0,.08);border:1px solid rgba(255,77,0,.4);font-weight:700">Next camp: late February &ndash; early March 2027 in Limassol. Exact dates, venue, coaches and prices will be announced soon. The prices below are from our last camp, so you know what to expect.</div>
 
+            <style>@media (min-width:1001px){#program-cards{grid-template-columns:repeat(2,minmax(0,1fr));max-width:920px;margin-left:auto;margin-right:auto}}</style>
             <div class="program-cards-grid" id="program-cards" style="opacity:.88">
 
             <!-- Weekend Camp -->
             <div class="program-content program-content--ribbon" id="camp-weekend">
                 <div class="spots-ribbon">Coming soon</div>
-                <p class="program-dates" style="font-weight:700;color:#ff4d00">&#128197; Dates coming soon</p>
+                <h3 class="program-card-title" style="font-size:28px;line-height:1.1;margin:0 64px 10px 0;letter-spacing:.5px">WEEKEND CAMP</h3>
+                <p class="program-dates" style="font-weight:700;color:#ff4d00">&#128197; Late Feb &ndash; early Mar 2027</p>
                 <div class="early-bird-badge">
                     <div class="early-bird-badge-col">
                         <span class="early-bird-badge-label">Last camp price</span>
@@ -329,6 +339,7 @@
                         <p>Don't have time for a full week? The Weekend Camp gives you two focused days of professional padel training, perfect for players who want a serious training experience while keeping their weekdays free.</p>
                         <p>Each group receives <strong>6 hours of quality coaching over two days</strong>, with two 90-minute sessions per day. Training takes place in small groups with a maximum of <strong>4 players per court</strong>, giving you plenty of individual attention, technical corrections and tactical guidance from our professional coaches.</p>
 
+                        <p class="weekend-groups-note" style="margin-bottom:8px">Schedule at our last camp (exact times will be announced with the dates):</p>
                         <table class="weekend-groups-table">
                             <thead>
                                 <tr><th></th><th>Morning</th><th>Afternoon</th><th>Total</th></tr>
@@ -343,30 +354,30 @@
                         <p>The two sessions each day are designed to work together: first you develop and practice the key concepts, then return to the court later in the day to apply them in realistic game situations.</p>
                         <p>You will work on positioning, defense, transition, net play, attacking patterns, overheads and tactical decision-making, with a strong focus on how these skills translate into real matches.</p>
                         <p><strong>Perfect for:</strong> players who want an intensive weekend of professional coaching, 6 hours of quality training, and a focused boost to their game without committing to a full week.</p>
-                        <p><strong>Camp + hotel (last camp rates):</strong> 3&#9733; from &euro;429, 5&#9733; from &euro;499 per person for 2 nights in a twin room, sharing. The camp is paid to us, the hotel is paid directly to the hotel. Subject to availability. Extra night available on request.</p>
                     </div>
                 </div>
 
-                <button type="button" class="btn btn-primary btn-block schedule-cta" onclick="openLeadForm('', '')">Notify me about the next camp</button>
+                <button type="button" class="btn btn-primary btn-block schedule-cta" onclick="openLeadForm('', '')">Get notified</button>
             </div>
 
-            <!-- Evening Camp -->
-            <div class="program-content program-content--ribbon" id="camp-evening">
+            <!-- 5-Day Camp (morning or evening group). Old ad links #camp-morning / #camp-evening land here via main.js -->
+            <div class="program-content program-content--ribbon" id="camp-5day" style="scroll-margin-top:76px">
                 <div class="spots-ribbon">Coming soon</div>
-                <p class="program-dates">&#128197; Dates coming soon</p>
+                <h3 class="program-card-title" style="font-size:28px;line-height:1.1;margin:0 64px 10px 0;letter-spacing:.5px">5-DAY CAMP</h3>
+                <p class="program-dates" style="font-weight:700;color:#ff4d00">&#128197; Late Feb &ndash; early Mar 2027</p>
                 <div class="early-bird-badge">
                     <div class="early-bird-badge-col">
                         <span class="early-bird-badge-label">Last camp price</span>
-                        <span class="early-bird-badge-price">&euro;770</span>
+                        <span class="early-bird-badge-price"><span style="font-size:.55em;font-weight:600">from</span> &euro;770</span>
                     </div>
                 </div>
 
                 <ul class="price-includes">
                     <li>5 days training (Mon&ndash;Fri)</li>
-                    <li>18:00&ndash;21:00 &middot; 15 hours coaching</li>
+                    <li>3 hours a day &middot; 15 hours coaching</li>
+                    <li>Morning or evening group</li>
                     <li>Spanish professional coaches</li>
                     <li>Max 4 players per court</li>
-                    <li style="visibility:hidden" aria-hidden="true">&nbsp;</li>
                     <li style="visibility:hidden" aria-hidden="true">&nbsp;</li>
                 </ul>
 
@@ -376,100 +387,24 @@
                         <button type="button" class="btn-view-details" aria-expanded="false" data-label-view="Show more" data-label-hide="Show less">Show more</button>
                     </div>
                     <div class="program-details">
-                        <h3 class="program-details-title">EVENING CAMP &middot; 18:00&ndash;21:00</h3>
-                        <p class="program-details-subtitle">5 days &middot; Monday&ndash;Friday &middot; 15 hours of structured professional coaching</p>
+                        <h3 class="program-details-title">5-DAY CAMP &middot; 3 HOURS A DAY</h3>
+                        <p class="program-details-subtitle">5 days &middot; Monday&ndash;Friday &middot; 15 hours of structured professional coaching &middot; morning or evening group</p>
 
-                        <p>Want to train seriously without changing your daytime schedule? The Evening Camp gives you five consecutive days of focused padel training with professional coaches, while keeping your mornings and afternoons free.</p>
-                        <p>From Monday to Friday, you will train for <strong>3 hours per day</strong>, giving you a total of <strong>15 hours of quality coaching</strong> throughout the camp.</p>
-                        <p>Training takes place in small groups with a maximum of <strong>4 players per court</strong>, allowing coaches to work closely with every player and provide individual technical corrections, tactical guidance and practical feedback.</p>
-                        <p>The program combines technical development with real-game situations. You will work on positioning, defense, transition, net play, attacking patterns, overheads and tactical decision-making. Instead of simply hitting more balls, you will learn <strong>when to use each shot, why to use it and how to build the point together with your partner</strong>.</p>
-                        <p>The evening format is ideal if you work, have daytime commitments or simply prefer training later in the day. You get the full The Padel Camp experience without having to dedicate your daytime hours to the camp.</p>
-                        <p><strong>Perfect for:</strong> players who want serious padel development without changing their daytime schedule.</p>
-                        <p><strong>Camp + hotel (last camp rates):</strong> 3&#9733; from &euro;999, 5&#9733; from &euro;1,199 per person for 5 nights in a twin room, sharing. The camp is paid to us, the hotel is paid directly to the hotel. Subject to availability.</p>
+                        <p>Five consecutive days of focused padel training with professional Spanish coaches: enough continuity to understand your game, work on specific weaknesses and turn new techniques into better decisions on court.</p>
+                        <p>From Monday to Friday you train for <strong>3 hours a day</strong>, <strong>15 hours of quality coaching</strong> in total. Training takes place in small groups with a maximum of <strong>4 players per court</strong>, so the coaches work closely with every player and give individual technical corrections, tactical guidance and practical feedback.</p>
+                        <p>The program combines technical development with real-game situations. You will work on positioning, defense, transition to the net, net play, attacking patterns, overheads, partner coordination and tactical decision-making. Instead of simply hitting more balls, you learn <strong>when to use each shot, why to use it and how to build the point together with your partner</strong>.</p>
+                        <p><strong>Choose your group:</strong> train in the <strong>morning</strong> and keep your afternoons and evenings free, or in the <strong>evening</strong> if you work or have daytime commitments. Both groups follow the same program with the same coaches.</p>
+                        <p><strong>Schedule:</strong> at our last camp the morning group trained 09:00&ndash;12:00 and the evening group 18:00&ndash;21:00. Exact times depend on the venue and will be announced with the dates.</p>
+                        <p><strong>Perfect for:</strong> players who want a serious week of padel development that fits around their day.</p>
                     </div>
                 </div>
 
-                <button type="button" class="btn btn-primary btn-block schedule-cta" onclick="openLeadForm('', '')">Notify me about the next camp</button>
-            </div>
-
-            <!-- Morning Camp -->
-            <div class="program-content program-content--ribbon" id="camp-morning">
-                <div class="spots-ribbon">Coming soon</div>
-                <p class="program-dates">&#128197; Dates coming soon</p>
-                <div class="early-bird-badge">
-                    <div class="early-bird-badge-col">
-                        <span class="early-bird-badge-label">Last camp price</span>
-                        <span class="early-bird-badge-price">&euro;770</span>
-                    </div>
-                </div>
-
-                <ul class="price-includes">
-                    <li>5 days training (Mon&ndash;Fri)</li>
-                    <li>09:00&ndash;12:00 &middot; 15 hours coaching</li>
-                    <li>Spanish professional coaches</li>
-                    <li>Max 4 players per court</li>
-                    <li style="visibility:hidden" aria-hidden="true">&nbsp;</li>
-                    <li style="visibility:hidden" aria-hidden="true">&nbsp;</li>
-                </ul>
-
-                <div class="program-details-block">
-                    <div class="program-meta">
-                        <span class="program-hours">5 DAYS &middot; 15 HOURS</span>
-                        <button type="button" class="btn-view-details" aria-expanded="false" data-label-view="Show more" data-label-hide="Show less">Show more</button>
-                    </div>
-                    <div class="program-details">
-                        <h3 class="program-details-title">MORNING CAMP &middot; 09:00&ndash;12:00</h3>
-                        <p class="program-details-subtitle">5 days &middot; Monday&ndash;Friday &middot; 15 hours of structured professional coaching</p>
-
-                        <p>Start your day with focused padel training and use five consecutive mornings to make a real difference to your game.</p>
-                        <p>The Morning Camp is designed for players who want a structured and intensive training experience without taking up their entire day. You will train in a small group with professional coaches, with a maximum of <strong>4 players per court</strong>, allowing the coaches to give you individual attention, technical corrections and tactical guidance throughout the sessions.</p>
-                        <p>Across the week, training combines technical development with real-game situations. You will work on your defensive game, transition to the net, attacking patterns, overheads, positioning, partner coordination and tactical decision-making.</p>
-                        <p>The key difference is that you don't simply repeat shots. You learn <strong>when to use them, why to use them and how to build a point around them</strong>.</p>
-                        <p>With <strong>15 hours of quality coaching over five days</strong>, the Morning Camp gives you enough continuity to understand your game, work on specific weaknesses and turn new techniques into better decisions on court.</p>
-                        <p><strong>Perfect for:</strong> players who want maximum training focus while keeping their afternoons and evenings free.</p>
-                    </div>
-                </div>
-
-                <button type="button" class="btn btn-primary btn-block schedule-cta" onclick="openLeadForm('', '')">Notify me about the next camp</button>
+                <button type="button" class="btn btn-primary btn-block schedule-cta" onclick="openLeadForm('', '')">Get notified</button>
             </div>
 
             </div>
 
-            <div class="weekend-hotel">
-                <div class="weekend-hotel-label">Evening Camp + hotel (last camp rates)</div>
-                <div class="early-bird-badge">
-                    <div class="early-bird-badge-col">
-                        <span class="early-bird-badge-label">With 3&#9733; hotel</span>
-                        <span class="early-bird-badge-price">from &euro;999</span>
-                    </div>
-                    <div class="early-bird-badge-divider"></div>
-                    <div class="early-bird-badge-col">
-                        <span class="early-bird-badge-label">With 5&#9733; hotel</span>
-                        <span class="early-bird-badge-price">from &euro;1,199</span>
-                    </div>
-                </div>
-                <p>Per person, 5 nights, twin room sharing. Hotel paid directly to the hotel. Other dates on request.</p>
-                <a href="https://wa.me/35797497756?text=Hi!%20Evening%20Camp%20%2B%20hotel.%20Hotel%3A%203%E2%98%85%2F5%E2%98%85.%20Dates%3A%20" target="_blank" rel="noopener nofollow" class="weekend-hotel-link">Message us on WhatsApp</a>
-            </div>
-
-            <div class="weekend-hotel">
-                <div class="weekend-hotel-label">Weekend Camp + hotel (last camp rates)</div>
-                <div class="early-bird-badge">
-                    <div class="early-bird-badge-col">
-                        <span class="early-bird-badge-label">With 3&#9733; hotel</span>
-                        <span class="early-bird-badge-price">from &euro;429</span>
-                    </div>
-                    <div class="early-bird-badge-divider"></div>
-                    <div class="early-bird-badge-col">
-                        <span class="early-bird-badge-label">With 5&#9733; hotel</span>
-                        <span class="early-bird-badge-price">from &euro;499</span>
-                    </div>
-                </div>
-                <p>Per person, 2 nights, twin room sharing. Hotel paid directly to the hotel. Other dates on request.</p>
-                <a href="https://wa.me/35797497756?text=Hi!%20Weekend%20Camp%20%2B%20hotel.%20Hotel%3A%203%E2%98%85%2F5%E2%98%85.%20Dates%3A%20" target="_blank" rel="noopener nofollow" class="weekend-hotel-link">Message us on WhatsApp</a>
-            </div>
-
-            <p class="program-lead-line">Next camp dates are coming soon. <button type="button" class="program-lead-link" onclick="openLeadForm('', '')">Keep me informed about future camps and events</button></p>
+            <p class="program-lead-line">Next camp: late February &ndash; early March 2027. <button type="button" class="program-lead-link" onclick="openLeadForm('', '')">Tell me first when dates are announced</button></p>
         </div>
     </section>
 
@@ -478,7 +413,7 @@
         <div class="container">
             <div class="coaches-header">
                 <h2 class="section-title">OUR COACHES</h2>
-                <p class="coaches-subtitle">Learn from experienced padel professionals</p>
+                <p class="coaches-subtitle">Professional Spanish coaches who have worked at our camps</p>
             </div>
             <div class="coaches-intro">
                 <p>At The Padel Camp, we believe that great coaching is about more than just hitting more balls. It's about understanding your game, improving your decisions and building confidence on court.</p>
@@ -497,17 +432,30 @@
                 <p class="coaches-intro-tagline">Professional coaching. Small groups. Individual attention.</p>
             </div>
             <div class="coaches-lead">
-                <h3 class="coaches-intro-heading">Train with players who compete at the top</h3>
-                <p>Our coaches don’t just teach padel — they play it at professional level. Both are established players in the Madrid region, one of the most competitive padel scenes in the world, and bring years of experience coaching at academies and camps across Europe, Asia and beyond.</p>
+                <h3 class="coaches-intro-heading">Coaches who have trained our players</h3>
+                <p>We always work with professional coaches from Spain. Here are the coaches from our previous camps: players who compete at a professional level and bring years of experience at academies and camps across Europe and beyond. The coaching team for the next camp will be announced together with the dates.</p>
             </div>
-            <div class="coaches-grid coaches-grid--two">
+            <style>
+                .coaches-carousel{position:relative;margin:48px auto 0;max-width:1100px}
+                .coaches-carousel .coaches-track{display:flex;gap:24px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:4px 4px 16px;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
+                .coaches-carousel .coach-card{flex:0 0 calc((100% - 48px)/3);scroll-snap-align:start;min-width:0}
+                .coaches-carousel .coach-card:hover{transform:none}
+                .coaches-carousel-nav{display:flex;justify-content:center;gap:12px;margin-top:12px}
+                .coaches-carousel-nav button{width:44px;height:44px;border-radius:50%;border:1px solid var(--accent-soft,#ccc);background:transparent;color:inherit;font-size:22px;line-height:1;cursor:pointer}
+                .coach-achievements{margin:10px 0 0;padding-left:18px;font-size:14px;line-height:1.5}
+                .coach-achievements li{margin-bottom:4px}
+                @media (max-width:1000px){.coaches-carousel .coach-card{flex-basis:calc((100% - 24px)/2)}}
+                @media (max-width:640px){.coaches-carousel .coach-card{flex-basis:85%}}
+            </style>
+            <div class="coaches-carousel">
+                <div class="coaches-track" id="coachesTrack">
                     <div class="coach-card">
                         <div class="coach-image coach-image--swap">
                             <img src="assets/images/coaches/Adrian.jpeg" alt="Adrián Cabello - Pro Coach" width="720" height="960" loading="lazy" decoding="async">
                             <img class="coach-image-alt" src="assets/images/coaches/Adrian-2.jpeg" alt="" aria-hidden="true" width="720" height="960" loading="lazy" decoding="async">
                         </div>
                         <div class="coach-info">
-                            <span class="coach-flag">🇪🇸 Spain &middot; Pro Coach</span>
+                            <span class="coach-flag">🇪🇸 Spain &middot; November 2026 camp</span>
                             <h3 class="coach-name">Adrián Cabello</h3>
                             <p class="coach-bio">Competes in the Madrid Men’s Open, currently in the top 40 (career best: 28th). Certified by the Spanish Padel Federation, with coaching experience in five countries.</p>
                             <details class="coach-more">
@@ -525,7 +473,7 @@
                             <img class="coach-image-alt" src="assets/images/coaches/Daniel-2.jpeg" alt="" aria-hidden="true" width="720" height="960" loading="lazy" decoding="async">
                         </div>
                         <div class="coach-info">
-                            <span class="coach-flag">🇪🇸 Spain &middot; Pro Coach</span>
+                            <span class="coach-flag">🇪🇸 Spain &middot; November 2026 camp</span>
                             <h3 class="coach-name">Daniel Jaramillo</h3>
                             <p class="coach-bio">Has competed on the A1 Padel circuit; reached the top 30 of the Madrid Men’s Open ranking in 2025. Coaching since 2015, with camp experience from Madrid to Florence and Bali.</p>
                             <details class="coach-more">
@@ -537,6 +485,64 @@
                             </details>
                         </div>
                     </div>
+
+                    <div class="coach-card">
+                        <div class="coach-image">
+                            <img src="assets/images/coaches/Barbara.jpeg" alt="Barbara Sala - Coach" width="720" height="960" loading="lazy" decoding="async">
+                        </div>
+                        <div class="coach-info">
+                            <span class="coach-flag">🇪🇸 Spain &middot; April 2026 camp</span>
+                            <h3 class="coach-name">Barbara Sala</h3>
+                            <p class="coach-bio">Best FIP ranking: 297th in the world. Plays for the Canary Islands Padel Federation first-category team and won two Challenger tournaments in 2025.</p>
+                            <details class="coach-more">
+                                <summary>Read more</summary>
+                                <p class="coach-bio">Barbara brings energy, precision and a winning mentality. A fierce competitor on the national and international stage, she combines technical excellence with smart, aggressive play &mdash; and knows exactly what it takes to win, and how to teach others to do the same.</p>
+                                <ul class="coach-achievements"><li>Best FIP ranking: 297th in the world</li><li>Ranked 4th in the Canary Islands regional ranking</li><li>Canary Islands Padel Federation first-category team &mdash; No. 1 in the islands three years running (2023&ndash;2025)</li><li>Finalist, Spanish Team Championship (Primera Categor&iacute;a) 2024 and 2025</li><li>Winner of 2 Challenger tournaments in 2025</li><li>Semifinalist, FIP Rise Tenerife 2022</li></ul>
+                            </details>
+                        </div>
+                    </div>
+
+                    <div class="coach-card">
+                        <div class="coach-image">
+                            <img src="assets/images/coaches/Pedro.jpeg" alt="Pedro Sousa Martinez - Coach" width="720" height="960" loading="lazy" decoding="async">
+                        </div>
+                        <div class="coach-info">
+                            <span class="coach-flag">🇪🇸 Spain &middot; April 2026 camp</span>
+                            <h3 class="coach-name">Pedro Sousa Martinez</h3>
+                            <p class="coach-bio">FIP and A1 Padel circuit player and Galician Champion 2023. Trained at the Manu Mart&iacute;n Professional Academy alongside Arturo Coello.</p>
+                            <details class="coach-more">
+                                <summary>Read more</summary>
+                                <p class="coach-bio">A young, dynamic coach bringing fresh energy and up-to-date knowledge from the elite of world padel. Pedro trained alongside stars like Arturo Coello at the Manu Mart&iacute;n Professional Academy, so he knows the fastest route to improvement from his own experience.</p>
+                                <ul class="coach-achievements"><li>FIP circuit player (best ranking: 426)</li><li>Best A1 Padel ranking: 173</li><li>Galician Champion 2023 (#1 in the region)</li><li>Trained with &Aacute;lvarez Clementi, Pratto and Choya</li><li>5+ years coaching across Europe (Denmark, the Netherlands, Germany)</li></ul>
+                            </details>
+                        </div>
+                    </div>
+
+                    <div class="coach-card">
+                        <div class="coach-image">
+                            <img src="assets/images/coaches/David.jpeg" alt="David Antolin - Coach" width="720" height="960" loading="lazy" decoding="async">
+                        </div>
+                        <div class="coach-info">
+                            <span class="coach-flag">🇪🇸 Spain &middot; April 2026 camp</span>
+                            <h3 class="coach-name">David Antolin</h3>
+                            <p class="coach-bio">Former professional circuit player with 12+ years in padel. Best World Padel Tour ranking: top 120; best FIP ranking: #134 in the world.</p>
+                            <details class="coach-more">
+                                <summary>Read more</summary>
+                                <p class="coach-bio">An elite coach with over 12 years of experience competing in and organising padel camps across Europe. His philosophy is built on modern, attacking padel rooted in Spanish technique and tactical intelligence. With David, you don&rsquo;t just learn to hit the ball &mdash; you learn to read the game and dominate the court.</p>
+                                <ul class="coach-achievements"><li>12+ years in professional padel</li><li>Professional circuit player for 10+ years</li><li>Best World Padel Tour ranking: top 120</li><li>Best FIP ranking: #134 in the world</li><li>Coaching experience at 3+ professional clubs</li></ul>
+                            </details>
+                        </div>
+                    </div>
+                </div>
+                <div class="coaches-carousel-nav">
+                    <button type="button" aria-label="Previous coaches" onclick="var t=document.getElementById('coachesTrack');t.scrollBy({left:-t.clientWidth,behavior:'smooth'})">&lsaquo;</button>
+                    <button type="button" aria-label="Next coaches" onclick="var t=document.getElementById('coachesTrack');t.scrollBy({left:t.clientWidth,behavior:'smooth'})">&rsaquo;</button>
+                </div>
+            </div>
+            <div style="max-width:760px;margin:48px auto 0;padding:24px;border-radius:16px;border:1px solid var(--accent-soft,rgba(255,77,0,.4));text-align:center">
+                <h3 class="coaches-intro-heading" style="margin-top:0">Are you a padel coach?</h3>
+                <p style="margin:0 0 16px">We&rsquo;re always looking for professional coaches from Spain to join our camps in Cyprus. Our sessions are run in English, so good spoken English is a must. Send us your details and CV, and we&rsquo;ll get in touch.</p>
+                <button type="button" class="btn btn-primary" onclick="openCoachForm()">Apply as a coach</button>
             </div>
         </div>
     </section>
@@ -545,9 +551,9 @@
     <section class="cta-banner">
         <div class="container">
             <div class="cta-banner-content">
-                <h2 class="cta-banner-title">Ready to train with the best?</h2>
-                <p class="cta-banner-text">Secure your spot. Limited places available</p>
-                <a href="#program-cards" class="btn btn-primary btn-lg">Book Now</a>
+                <h2 class="cta-banner-title">Want to join the next camp?</h2>
+                <p class="cta-banner-text">Late February &ndash; early March 2027 in Limassol. Leave your contact and we&rsquo;ll tell you first when the dates are announced.</p>
+                <a href="#notify" class="btn btn-primary btn-lg" onclick="openLeadForm('', ''); return false;">Get notified</a>
             </div>
         </div>
     </section>
@@ -558,42 +564,35 @@
             <div class="venue-header">
                 <h2 class="section-title">THE VENUE</h2>
             </div>
-            <div class="venue-photos">
-                <img src="assets/images/venue/court-red.webp" alt="MyQPadel covered court with red walls" width="1400" height="933" loading="lazy" decoding="async">
-                <img src="assets/images/venue/court-play.webp" alt="Player on a MyQPadel court" width="1400" height="933" loading="lazy" decoding="async">
-                <img src="assets/images/venue/court-wide.webp" alt="Wide view of a covered MyQPadel court" width="1400" height="933" loading="lazy" decoding="async">
-                <img class="venue-photo-wide" src="assets/images/venue/club-aerial.webp" alt="MyQPadel club from above" width="1400" height="787" loading="lazy" decoding="async">
-            </div>
             <div class="venue-simple">
                 <div class="venue-simple-content">
-                    <h3>MyQPadel</h3>
-                    <p class="venue-address">Limassol, Cyprus</p>
-                    <p class="venue-highlight">☀️ Fully covered courts, so you can train in comfort whatever the weather.</p>
+                    <h3>Quality courts, chosen for the season</h3>
+                    <p class="venue-address">Limassol, Cyprus &middot; venue for the next camp to be announced</p>
+                    <p class="venue-highlight">We choose every venue for the quality of its courts and training conditions. Depending on the season, we prefer covered courts, so training goes ahead in comfort whatever the weather.</p>
                     <div class="venue-features-grid">
                         <div class="venue-feature-item">
-                            <strong>Fully Covered Courts</strong>
-                            <span>Protected from sun and rain year-round</span>
+                            <strong>Quality Courts</strong>
+                            <span>Well-kept courts at established clubs</span>
                         </div>
                         <div class="venue-feature-item">
-                            <strong>24/7 Access</strong>
-                            <span>Automated entry system</span>
+                            <strong>Covered When It Matters</strong>
+                            <span>Indoor or covered courts in the rainy and hot months</span>
                         </div>
                         <div class="venue-feature-item">
-                            <strong>Recovery Center</strong>
-                            <span>Sauna, cryotherapy &amp; HydroJet bed on-site</span>
-                        </div>
-                        <div class="venue-feature-item">
-                            <strong>Pro Shop &amp; Café</strong>
-                            <span>Casa de Padel Boutique: gear plus coffee</span>
-                        </div>
-                        <div class="venue-feature-item">
-                            <strong>Fitness Gym On-Site</strong>
-                            <span>My Q EnerGym: functional training &amp; cardio</span>
+                            <strong>Easy to Reach</strong>
+                            <span>Clubs in Limassol, close to hotels and the seafront</span>
                         </div>
                     </div>
-                    <a href="https://maps.app.goo.gl/HotvWfiUzGRR3DLk7" target="_blank" rel="noopener nofollow" class="btn btn-ghost">
-                        View on Google Maps
-                    </a>
+                    <p style="margin:24px 0 8px"><strong>Where we&rsquo;ve trained:</strong></p>
+                    <ul class="coaches-intro-list" style="margin:0 0 24px">
+                        <li><strong>MyQPadel</strong>, Limassol &mdash; November 2026: fully covered courts, recovery centre, gym and caf&eacute;</li>
+                        <li><strong>The Padel K</strong>, Limassol &mdash; April 2026: six panoramic courts with professional lighting</li>
+                    </ul>
+                    <div style="margin-top:8px;padding:18px 20px;border-radius:14px;border:1px solid var(--accent-soft,rgba(255,77,0,.4))">
+                        <p style="margin:0 0 6px"><strong>Own a padel club?</strong></p>
+                        <p style="margin:0 0 14px">We&rsquo;re open to collaboration with clubs in Cyprus and beyond. If you&rsquo;d like to host The Padel Camp at your club, let&rsquo;s talk.</p>
+                        <a href="https://wa.me/35797497756?text=Hi!%20I%20represent%20a%20padel%20club%20and%20would%20like%20to%20talk%20about%20hosting%20The%20Padel%20Camp.%20Club%3A%20" target="_blank" rel="noopener nofollow" class="btn btn-ghost">We&rsquo;re open to collaboration</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -618,17 +617,17 @@
                     <span class="service-price"><span class="price-mini-currency">&euro;</span>120</span>
                     <button class="btn btn-primary btn-sm service-btn" onclick="openServiceBookingForm('Private Lesson (2-on-1)', 120)">Book 2-on-1</button>
                 </div>
-                <div class="service-card" onclick="openServiceBookingForm('Match Play with a Coach (1 hour)', 120)">
+                <div class="service-card" onclick="openServiceBookingForm('Match Play with a Coach (3 players + coach, 1 hour)', 120)">
                     <h3>Match Play with a Coach</h3>
-                    <p>One hour of real match play for 3-4 players, guided by a Spanish coach. The coach stops play at the key moments and corrects your positioning, shot selection and decisions while the point is still fresh - so what you train finally carries into your games, instead of the same habits repeating in every friendly match.</p>
+                    <p>Play a real match with a professional coach as your fourth player. Three players rotate throughout the hour, so each of you spends time partnering the coach and playing against them. Between points, the coach gives you clear, practical advice on positioning, shot choice and tactics while the situation is still fresh, so the lessons carry straight into your own games.</p>
                     <span class="service-price"><span class="price-mini-currency">&euro;</span>120</span>
-                    <button class="btn btn-primary btn-sm service-btn" onclick="openServiceBookingForm('Match Play with a Coach (1 hour)', 120)">Book Match Play</button>
+                    <button class="btn btn-primary btn-sm service-btn" onclick="openServiceBookingForm('Match Play with a Coach (3 players + coach, 1 hour)', 120)">Book Match Play</button>
                 </div>
-                <div class="service-card">
-                    <h3>Media Package</h3>
-                    <p>15-20 professional photos plus a dynamic reel (1.5-2 min) of your camp moments.</p>
-                    <span class="service-price"><span class="price-mini-currency">&euro;</span>130</span>
-                    <a id="mediaPackageStripeLink" href="https://buy.stripe.com/9B65kF8d9bRpbOFclScEw0a" target="_blank" rel="noopener" class="btn btn-primary btn-sm service-btn" data-purchase-value="130" data-purchase-item="media_package">Pay &euro;130</a>
+                <div class="service-card" onclick="openServiceBookingForm('Match Play 2+2 (each player paired with a coach, 1 hour)', 150)">
+                    <h3>Match Play 2+2</h3>
+                    <p>Two players, two coaches, one hour of real match play. You team up with a professional coach who plays alongside you and provides continuous, personalised coaching throughout the match: where to position yourself, which shot to choose and how to construct each point. A favourite with our players.</p>
+                    <span class="service-price"><span class="price-mini-currency">&euro;</span>150</span>
+                    <button class="btn btn-primary btn-sm service-btn" onclick="openServiceBookingForm('Match Play 2+2 (each player paired with a coach, 1 hour)', 150)">Book Match Play 2+2</button>
                 </div>
             </div>
         </div>
@@ -686,7 +685,7 @@
             <button class="massage-modal-close" type="button" onclick="closeLeadModal()" aria-label="Close">&times;</button>
             <h2 class="massage-modal-title" id="leadModalTitle">Be First to Know</h2>
             <p class="massage-booking-subtitle" id="leadCampInfo"></p>
-            <p class="massage-booking-subtitle">Keep me informed about upcoming camps, events and special offers.</p>
+            <p class="massage-booking-subtitle">Next camp: late February &ndash; early March 2027. Tell us what suits you and we&rsquo;ll let you know first when the dates are announced.</p>
 
             <form id="leadForm" class="massage-booking-form">
                 <input type="text" name="hp_field_a3x" class="hp-field" aria-hidden="true" tabindex="-1" autocomplete="off">
@@ -707,6 +706,52 @@
                     <input type="email" id="leadEmail" name="leadEmail" class="form-input" autocomplete="email" placeholder="your@email.com">
                 </div>
 
+                <style>
+                    .lead-choices{display:flex;flex-wrap:wrap;gap:8px}
+                    .lead-choices label{display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border:1px solid var(--accent-soft,#ccc);border-radius:999px;font-size:14px;cursor:pointer}
+                    .lead-choices input{margin:0}
+                    .lead-hint{font-size:12px;opacity:.75;margin:4px 0 0}
+                </style>
+                <div class="form-group">
+                    <span class="form-label">Which format interests you? *</span>
+                    <div class="lead-choices">
+                        <label><input type="radio" name="leadFormat" value="5-day camp" required> 5-day camp (Mon&ndash;Fri)</label>
+                        <label><input type="radio" name="leadFormat" value="Weekend camp"> Weekend camp (Sat&ndash;Sun)</label>
+                        <label><input type="radio" name="leadFormat" value="Both"> Both</label>
+                    </div>
+                </div>
+
+                <div class="form-group" id="leadTimeGroup" style="display:none">
+                    <span class="form-label">5-day camp: morning or evening?</span>
+                    <div class="lead-choices">
+                        <label><input type="radio" name="leadTime" value="Morning"> Morning</label>
+                        <label><input type="radio" name="leadTime" value="Evening"> Evening</label>
+                        <label><input type="radio" name="leadTime" value="Either"> Either</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <span class="form-label">Which weeks suit you?</span>
+                    <div class="lead-choices">
+                        <label><input type="checkbox" name="leadWeeks" value="15-21 Feb"> 15&ndash;21 Feb</label>
+                        <label><input type="checkbox" name="leadWeeks" value="22-28 Feb"> 22&ndash;28 Feb</label>
+                        <label><input type="checkbox" name="leadWeeks" value="1-7 Mar"> 1&ndash;7 Mar</label>
+                        <label><input type="checkbox" name="leadWeeks" value="8-14 Mar"> 8&ndash;14 Mar</label>
+                    </div>
+                    <p class="lead-hint">Pick all that work for you (2027).</p>
+                </div>
+
+                <div class="form-group">
+                    <span class="form-label">Where would you like to train?</span>
+                    <div class="lead-choices">
+                        <label><input type="checkbox" name="leadCity" value="Limassol"> Limassol</label>
+                        <label><input type="checkbox" name="leadCity" value="Paphos"> Paphos</label>
+                        <label><input type="checkbox" name="leadCity" value="Larnaca"> Larnaca</label>
+                        <label><input type="checkbox" name="leadCity" value="Nicosia"> Nicosia</label>
+                    </div>
+                    <p class="lead-hint">We&rsquo;re planning Limassol, but we&rsquo;re open to other cities.</p>
+                </div>
+
                 <div class="form-group">
                     <label class="consent-option">
                         <input type="checkbox" name="leadConsent" required>
@@ -717,6 +762,77 @@
                 <button type="submit" class="btn btn-primary btn-block btn-submit">
                     Notify me
                 </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Coach Application Modal -->
+    <div class="massage-booking-modal" id="coachModal">
+        <div class="massage-booking-modal-content" role="dialog" aria-modal="true" aria-labelledby="coachModalTitle">
+            <button class="massage-modal-close" type="button" onclick="closeCoachModal()" aria-label="Close">&times;</button>
+            <h2 class="massage-modal-title" id="coachModalTitle">Coach with Us</h2>
+            <p class="massage-booking-subtitle">Tell us about yourself and attach your CV. You can also email it to <a href="mailto:thepadelcampcy@gmail.com">thepadelcampcy@gmail.com</a>.</p>
+
+            <form id="coachForm" class="massage-booking-form">
+                <input type="text" name="hp_field_a3x" class="hp-field" aria-hidden="true" tabindex="-1" autocomplete="off">
+
+                <div class="form-group">
+                    <label class="form-label" for="coachName">Full name *</label>
+                    <input type="text" id="coachName" name="coachName" class="form-input" required autocomplete="name" placeholder="Your name">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="coachEmail">Email *</label>
+                    <input type="email" id="coachEmail" name="coachEmail" class="form-input" required autocomplete="email" placeholder="your@email.com">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="coachPhone">WhatsApp / phone</label>
+                    <input type="tel" id="coachPhone" name="coachPhone" class="form-input" autocomplete="tel" placeholder="+34 600 123 456">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="coachCity">City / country</label>
+                    <input type="text" id="coachCity" name="coachCity" class="form-input" placeholder="Madrid, Spain">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="coachEnglish">English level *</label>
+                    <select id="coachEnglish" name="coachEnglish" class="form-input" required>
+                        <option value="">Choose your level</option>
+                        <option value="Native / fluent">Native / fluent</option>
+                        <option value="Advanced (C1)">Advanced (C1)</option>
+                        <option value="Upper-intermediate (B2)">Upper-intermediate (B2)</option>
+                        <option value="Intermediate (B1)">Intermediate (B1)</option>
+                        <option value="Basic (A1-A2)">Basic (A1&ndash;A2)</option>
+                    </select>
+                    <p class="lead-hint">Our sessions are run in English, so good spoken English is essential.</p>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="coachExperience">Experience and results *</label>
+                    <textarea id="coachExperience" name="coachExperience" class="form-input" rows="4" required placeholder="Coaching experience, certifications, rankings, languages"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="coachCv">CV (PDF or image)</label>
+                    <input type="file" id="coachCv" name="coachCv" class="form-input" accept=".pdf,application/pdf,image/jpeg,image/png,image/webp">
+                    <p class="lead-hint" id="coachCvHint">PDF, JPG or PNG, up to 5 MB.</p>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="coachInstagram">Instagram</label>
+                    <input type="text" id="coachInstagram" name="coachInstagram" class="form-input" placeholder="@yourprofile">
+                </div>
+
+                <div class="form-group">
+                    <label class="consent-option">
+                        <input type="checkbox" name="coachConsent" required>
+                        <span>I agree to the processing of my personal data in accordance with the <a href="privacy-policy.html" target="_blank">Privacy Policy</a> *</span>
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block btn-submit">Send application</button>
             </form>
         </div>
     </div>
@@ -744,7 +860,6 @@
                         <li>Flights / Transportation</li>
                         <li>Travel insurance</li>
                         <li>Private lessons (optional add-on)</li>
-                        <li>Media package (optional add-on)</li>
                     </ul>
                 </div>
             </div>
@@ -756,56 +871,10 @@
         <div class="container">
             <div class="services-header">
                 <h2 class="section-title">WHERE TO STAY</h2>
-                <p class="stay-intro">Hotels near the club that offered rates for our guests. Accommodation is paid directly to the hotel. Message us your dates and we will request the offer and confirm it by email. Offers are subject to availability, so book early: we cannot guarantee rooms.</p>
+                <p class="stay-intro">Coming from abroad? Once the venue is confirmed, we&rsquo;ll recommend hotels nearby and, where possible, request special rates for our players. Accommodation is booked and paid directly with the hotel. Message us and we&rsquo;ll help you plan your stay.</p>
             </div>
-            <ul class="stay-list">
-                <li class="stay-row">
-                    <div class="stay-info">
-                        <h3>Parklane, a Luxury Collection Resort &amp; Spa</h3>
-                        <p class="stay-desc">Beachfront resort with direct beach access. Outdoor pools, Kalloni Spa, tennis courts, a kids&rsquo; club and several restaurants. Rooms, suites and villas.</p>
-                        <p class="stay-deal">The hotel offered rates for our guests. We forward your request to the hotel.</p>
-                    </div>
-                    <div class="stay-facts">
-                        <span class="stay-stars" role="img" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-                        <span class="stay-dist">3.2 km &middot; 4 min by car to the club</span>
-                    </div>
-                </li>
-                <li class="stay-row">
-                    <div class="stay-info">
-                        <h3>St Raphael Resort</h3>
-                        <p class="stay-desc">Resort with its own marina in Pyrgos. Renovated rooms and suites, including family rooms with a separate bedroom. Serenity Spa, plus restaurants and bars, some of them seasonal.</p>
-                        <p class="stay-deal">Special rate for our guests. Free cancellation up to 7 days before arrival.</p>
-                    </div>
-                    <div class="stay-facts">
-                        <span class="stay-stars" role="img" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-                        <span class="stay-dist">3.6 km &middot; 5 min by car to the club</span>
-                    </div>
-                </li>
-                <li class="stay-row">
-                    <div class="stay-info">
-                        <h3>Mediterranean Beach Hotel</h3>
-                        <p class="stay-desc">Hotel on a sandy Blue Flag beach on the south-west bay of Limassol. Sea-view and inland rooms, family rooms, outdoor and indoor pools. A spa and several restaurants.</p>
-                        <p class="stay-deal">Special rate for our guests.</p>
-                    </div>
-                    <div class="stay-facts">
-                        <span class="stay-stars" role="img" aria-label="4 stars">&#9733;&#9733;&#9733;&#9733;</span>
-                        <span class="stay-dist">8.9 km &middot; 8 min by car to the club</span>
-                    </div>
-                </li>
-                <li class="stay-row">
-                    <div class="stay-info">
-                        <h3>Harmony Bay Hotel</h3>
-                        <p class="stay-desc">Three-star hotel in Germasogeia with sea-view rooms and suites. Gym and free parking.</p>
-                        <p class="stay-deal">Breakfast included. Best with a car.</p>
-                    </div>
-                    <div class="stay-facts">
-                        <span class="stay-stars" role="img" aria-label="3 stars">&#9733;&#9733;&#9733;</span>
-                        <span class="stay-dist">13.9 km &middot; 14 min by car to the club</span>
-                    </div>
-                </li>
-            </ul>
             <div class="stay-cta">
-                <a href="https://wa.me/35797497756?text=Hi!%20I%20would%20like%20a%20hotel%20offer%20for%20the%20camp.%20Hotel%3A%20%0ADates%3A%20" target="_blank" rel="noopener nofollow" class="btn btn-primary">Message us</a>
+                <a href="https://wa.me/35797497756?text=Hi!%20I%27m%20interested%20in%20the%20next%20camp%20and%20would%20like%20help%20with%20accommodation." target="_blank" rel="noopener nofollow" class="btn btn-primary">Message us</a>
             </div>
         </div>
     </section>
@@ -1001,6 +1070,15 @@
             <div class="faq-list">
                 <div class="faq-item">
                     <button class="faq-question" aria-expanded="false">
+                        <span>When is the next camp?</span>
+                        <span class="faq-icon"></span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>We&rsquo;re planning the next camp for late February &ndash; early March 2027 in Limassol. Exact dates, venue, coaches and prices will be announced soon. <a href="#notify" onclick="openLeadForm('', ''); return false;">Get notified</a> and we&rsquo;ll tell you first.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
                         <span>What level do I need?</span>
                         <span class="faq-icon"></span>
                     </button>
@@ -1041,7 +1119,7 @@
                         <span class="faq-icon"></span>
                     </button>
                     <div class="faq-answer">
-                        <p>Not included in the camp price and paid directly to the hotel. Several hotels near the club have offered rates for our guests. Message us your dates and we will request the offer. Offers are subject to availability, so book early.</p>
+                        <p>Not included in the camp price and paid directly to the hotel. Once the venue is confirmed, we&rsquo;ll recommend hotels nearby and, where possible, request special rates for our players.</p>
                     </div>
                 </div>
             </div>
@@ -1065,8 +1143,8 @@
                     <p class="partner-tagline">Suiting up our coaches and players in style and performance.</p>
                 </div>
                 <div class="partner-logo-card">
-                    <a href="https://righttrackphysio.com.cy/pages/padel-camp-november-2026.html" target="_blank" rel="noopener"><img src="assets/images/partners/right-track.png" alt="Right Track Physiotherapy" width="500" height="500" class="partner-logo-img" loading="lazy" decoding="async"></a>
-                    <p class="partner-tagline">Sports physiotherapy on site at the camp.</p>
+                    <a href="https://righttrackphysio.com.cy" target="_blank" rel="noopener"><img src="assets/images/partners/right-track.png" alt="Right Track Physiotherapy" width="500" height="500" class="partner-logo-img" loading="lazy" decoding="async"></a>
+                    <p class="partner-tagline">Sports physiotherapy partner of our camps.</p>
                 </div>
                 <div class="partner-logo-card">
                     <a href="https://supplements.cy" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;height:120px;margin-bottom:16px"><img src="assets/images/partners/supplements-cy.svg" alt="Supplements.cy" width="1000" height="100" class="partner-logo-img" style="width:200px;height:auto;margin:0;border:0;border-radius:0" loading="lazy" decoding="async"></a>
@@ -1189,6 +1267,6 @@
     </script>
 
     <script src="assets/js/pixels.js?v=33"></script>
-    <script src="assets/js/main.js?v=32"></script>
+    <script src="assets/js/main.js?v=33"></script>
 </body>
 </html>

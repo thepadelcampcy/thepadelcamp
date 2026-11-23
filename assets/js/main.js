@@ -295,12 +295,14 @@ document.addEventListener('DOMContentLoaded', function() {
     else openLeadForm('', '');
 });
 
-// Ad links /#camp-morning|evening|weekend: on a phone the card is taller than
+// Ad links /#camp-morning|evening|weekend|5day: on a phone the card is taller than
 // the screen, so the browser's own jump hides its Book button. If the whole
 // card fits, put it just under the header; otherwise scroll until Book is
 // visible at the bottom of the screen.
 window.addEventListener('load', function() {
-    const card = location.hash.match(/^#camp-(morning|evening|weekend)$/) && document.querySelector(location.hash);
+    // Morning and Evening are now one card (#camp-5day); old ad links still land on it.
+    const m = location.hash.match(/^#camp-(morning|evening|weekend|5day)$/);
+    const card = m && (document.getElementById('camp-' + m[1]) || ((m[1] === 'morning' || m[1] === 'evening') && document.getElementById('camp-5day')));
     const cta = card && card.querySelector('.schedule-cta');
     if (!cta) return;
     // Header height is still animating at load; the CSS scroll-margin
@@ -548,6 +550,7 @@ document.addEventListener('keydown', function(e) {
         closeVenueModal();
         closeServiceBookingModal();
         closeLeadModal();
+        if (typeof closeCoachModal === 'function') closeCoachModal();
     }
     if (e.key === 'ArrowRight') {
         changeVenueSlide(1);
@@ -757,6 +760,119 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 
+// Coach application ("Apply as a coach" in the coaches section). Sent to the forms
+// Apps Script as a service row (Service Bookings sheet + Telegram). The address goes
+// only into Notes, not `email`, so the script doesn't mail a booking confirmation.
+let coachModalTemplate = null;
+
+function openCoachForm() {
+    const modal = document.getElementById('coachModal');
+    if (!modal) return;
+    const content = modal.querySelector('.massage-booking-modal-content');
+    if (coachModalTemplate === null) coachModalTemplate = content.innerHTML;
+    else content.innerHTML = coachModalTemplate;
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    focusDialog(modal);
+}
+
+function closeCoachModal() {
+    const modal = document.getElementById('coachModal');
+    if (modal && modal.classList.contains('active')) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+        restoreDialogFocus();
+    }
+}
+
+document.addEventListener('click', function(e) {
+    if (e.target === document.getElementById('coachModal')) closeCoachModal();
+});
+
+// CV file (PDF/image, up to 5 MB) is sent as base64 in `cvFile`; the forms
+// Apps Script saves it to the Drive folder "Coach CVs" and puts the link in Notes.
+const COACH_CV_MAX_BYTES = 5 * 1024 * 1024;
+
+function readFileAsBase64(file) {
+    return new Promise(function(resolve, reject) {
+        const r = new FileReader();
+        r.onload = function() { resolve(String(r.result).split(',')[1] || ''); };
+        r.onerror = reject;
+        r.readAsDataURL(file);
+    });
+}
+
+document.addEventListener('submit', async function(e) {
+    if (e.target.id !== 'coachForm') return;
+    e.preventDefault();
+    const form = e.target;
+    if (isBotSubmission(form)) return;
+    const modalContent = form.closest('.massage-booking-modal-content');
+    const f = new FormData(form);
+    const cv = f.get('coachCv');
+    const hasCv = cv && cv.size > 0;
+    if (hasCv && cv.size > COACH_CV_MAX_BYTES) {
+        const hint = document.getElementById('coachCvHint');
+        if (hint) { hint.textContent = 'This file is over 5 MB. Please attach a smaller file or email it to thepadelcampcy@gmail.com.'; hint.style.color = '#c0392b'; hint.style.opacity = '1'; }
+        return;
+    }
+    const btn = form.querySelector('button[type=submit]');
+    if (btn) btn.disabled = true;
+
+    const notes = ['Coach application'];
+    notes.push('Email: ' + (f.get('coachEmail') || '').trim());
+    if (f.get('coachCity')) notes.push('City/country: ' + f.get('coachCity'));
+    notes.push('English: ' + (f.get('coachEnglish') || '-'));
+    notes.push('Experience: ' + (f.get('coachExperience') || '').trim());
+    if (f.get('coachInstagram')) notes.push('Instagram: ' + String(f.get('coachInstagram')).trim());
+    if (hasCv) notes.push('CV file: ' + cv.name);
+
+    const payload = {
+        type: 'service',
+        service: 'COACH APPLICATION',
+        price: '0',
+        name: f.get('coachName'),
+        phone: f.get('coachPhone') || '',
+        notes: notes.join('\n'),
+        lang: document.documentElement.lang || 'en'
+    };
+    try {
+        if (hasCv) payload.cvFile = { name: cv.name, type: cv.type || 'application/octet-stream', data: await readFileAsBase64(cv) };
+    } catch (err) {
+        console.log('CV read error:', err);
+    }
+
+    sendToGoogleSheets(payload).catch(err => {
+        console.log('Send error:', err);
+        showSendFailed(modalContent);
+    });
+
+    const T = {
+        en: { heading: 'Thank you!', text: 'We have received your application and will get back to you by email.', close: 'Close' },
+        ru: { heading: 'Спасибо!', text: 'Мы получили вашу заявку и ответим вам по email.', close: 'Закрыть' },
+        el: { heading: 'Ευχαριστούμε!', text: 'Λάβαμε την αίτησή σας και θα σας απαντήσουμε με email.', close: 'Κλείσιμο' }
+    }[getPageLang()];
+    modalContent.innerHTML = `
+        <button class="massage-modal-close" onclick="closeCoachModal()">&times;</button>
+        <div class="payment-success">
+            <div class="payment-success-icon">✓</div>
+            <h2>${T.heading}</h2>
+            <p class="payment-success-subtitle">${T.text}</p>
+            <button onclick="closeCoachModal()" class="btn btn-primary btn-block">${T.close}</button>
+        </div>
+    `;
+});
+
+// Notify form: the morning/evening question only applies to the 5-day camp.
+document.addEventListener('change', function(e) {
+    if (e.target.name !== 'leadFormat') return;
+    const group = document.getElementById('leadTimeGroup');
+    if (!group) return;
+    const weekendOnly = e.target.value === 'Weekend camp';
+    group.style.display = weekendOnly ? 'none' : '';
+    if (weekendOnly) group.querySelectorAll('input').forEach(i => { i.checked = false; });
+});
+
 // Lead form submission. Delegated, because openLeadForm() re-creates the
 // form from its template after a previous submit.
 document.addEventListener('submit', function(e) {
@@ -770,6 +886,16 @@ document.addEventListener('submit', function(e) {
     const camp = formData.get('leadCamp');
     const email = (formData.get('leadEmail') || '').trim();
     const notes = ['Lead: signed up via Notify me (wants updates on camps and events)'];
+    // Next-camp survey (format / time / weeks / city). Goes into Notes as one line
+    // per question, so the forms Apps Script needs no change; pages without these
+    // fields (not yet ported) simply send nothing extra.
+    const format = formData.get('leadFormat');
+    const time = formData.get('leadTime');
+    if (format) notes.push('Format: ' + format + (time && format !== 'Weekend camp' ? ' (' + time + ')' : ''));
+    const weeks = formData.getAll('leadWeeks');
+    if (weeks.length) notes.push('Weeks: ' + weeks.join(', '));
+    const cities = formData.getAll('leadCity');
+    if (cities.length) notes.push('City: ' + cities.join(', '));
     if (email) notes.push('Email: ' + email);
 
     // Email goes in notes and in `leadEmail`, not in `email`: the service handler mails a
