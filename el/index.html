@@ -539,11 +539,6 @@
                     <button type="button" aria-label="Επόμενοι προπονητές" onclick="var t=document.getElementById('coachesTrack');t.scrollBy({left:t.clientWidth,behavior:'smooth'})">&rsaquo;</button>
                 </div>
             </div>
-            <div style="max-width:760px;margin:48px auto 0;padding:24px;border-radius:16px;border:1px solid var(--accent-soft,rgba(255,77,0,.4));text-align:center">
-                <h3 class="coaches-intro-heading" style="margin-top:0">Είσαι προπονητής πάντελ;</h3>
-                <p style="margin:0 0 16px">Αναζητούμε πάντα επαγγελματίες προπονητές από την Ισπανία για τα camps μας στην Κύπρο. Οι προπονήσεις γίνονται στα αγγλικά, οπότε τα καλά προφορικά αγγλικά είναι απαραίτητα. Στείλε μας τα στοιχεία σου και το βιογραφικό σου και θα επικοινωνήσουμε μαζί σου.</p>
-                <button type="button" class="btn btn-primary" onclick="openCoachForm()">Γίνε προπονητής μας</button>
-            </div>
         </div>
     </section>
 
@@ -762,77 +757,6 @@
                 <button type="submit" class="btn btn-primary btn-block btn-submit">
                     Ενημερώστε με
                 </button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Coach Application Modal -->
-    <div class="massage-booking-modal" id="coachModal">
-        <div class="massage-booking-modal-content" role="dialog" aria-modal="true" aria-labelledby="coachModalTitle">
-            <button class="massage-modal-close" type="button" onclick="closeCoachModal()" aria-label="Κλείσιμο">&times;</button>
-            <h2 class="massage-modal-title" id="coachModalTitle">Γίνε προπονητής μας</h2>
-            <p class="massage-booking-subtitle">Πες μας για σένα και επισύναψε το βιογραφικό σου. Μπορείς επίσης να το στείλεις στο <a href="mailto:thepadelcampcy@gmail.com">thepadelcampcy@gmail.com</a>.</p>
-
-            <form id="coachForm" class="massage-booking-form">
-                <input type="text" name="hp_field_a3x" class="hp-field" aria-hidden="true" tabindex="-1" autocomplete="off">
-
-                <div class="form-group">
-                    <label class="form-label" for="coachName">Ονοματεπώνυμο *</label>
-                    <input type="text" id="coachName" name="coachName" class="form-input" required autocomplete="name" placeholder="Το όνομά σου">
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="coachEmail">Email *</label>
-                    <input type="email" id="coachEmail" name="coachEmail" class="form-input" required autocomplete="email" placeholder="your@email.com">
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="coachPhone">WhatsApp / τηλέφωνο</label>
-                    <input type="tel" id="coachPhone" name="coachPhone" class="form-input" autocomplete="tel" placeholder="+34 600 123 456">
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="coachCity">Πόλη / χώρα</label>
-                    <input type="text" id="coachCity" name="coachCity" class="form-input" placeholder="Madrid, Spain">
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="coachEnglish">Επίπεδο αγγλικών *</label>
-                    <select id="coachEnglish" name="coachEnglish" class="form-input" required>
-                        <option value="">Διάλεξε επίπεδο</option>
-                        <option value="Native / fluent">Native / fluent</option>
-                        <option value="Advanced (C1)">Advanced (C1)</option>
-                        <option value="Upper-intermediate (B2)">Upper-intermediate (B2)</option>
-                        <option value="Intermediate (B1)">Intermediate (B1)</option>
-                        <option value="Basic (A1-A2)">Basic (A1&ndash;A2)</option>
-                    </select>
-                    <p class="lead-hint">Οι προπονήσεις γίνονται στα αγγλικά, οπότε τα καλά προφορικά αγγλικά είναι απαραίτητα.</p>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="coachExperience">Εμπειρία και διακρίσεις *</label>
-                    <textarea id="coachExperience" name="coachExperience" class="form-input" rows="4" required placeholder="Προπονητική εμπειρία, πιστοποιήσεις, κατατάξεις, γλώσσες"></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="coachCv">Βιογραφικό (PDF ή εικόνα)</label>
-                    <input type="file" id="coachCv" name="coachCv" class="form-input" accept=".pdf,application/pdf,image/jpeg,image/png,image/webp">
-                    <p class="lead-hint" id="coachCvHint">PDF, JPG ή PNG, έως 5 MB.</p>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="coachInstagram">Instagram</label>
-                    <input type="text" id="coachInstagram" name="coachInstagram" class="form-input" placeholder="@yourprofile">
-                </div>
-
-                <div class="form-group">
-                    <label class="consent-option">
-                        <input type="checkbox" name="coachConsent" required>
-                        <span>Συμφωνώ με την επεξεργασία των προσωπικών μου δεδομένων σύμφωνα με την <a href="/privacy-policy.html" target="_blank">Πολιτική Απορρήτου</a> *</span>
-                    </label>
-                </div>
-
-                <button type="submit" class="btn btn-primary btn-block btn-submit">Αποστολή αίτησης</button>
             </form>
         </div>
     </div>
