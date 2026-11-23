@@ -539,11 +539,6 @@
                     <button type="button" aria-label="Следующие тренеры" onclick="var t=document.getElementById('coachesTrack');t.scrollBy({left:t.clientWidth,behavior:'smooth'})">&rsaquo;</button>
                 </div>
             </div>
-            <div style="max-width:760px;margin:48px auto 0;padding:24px;border-radius:16px;border:1px solid var(--accent-soft,rgba(255,77,0,.4));text-align:center">
-                <h3 class="coaches-intro-heading" style="margin-top:0">Вы тренер по паделю?</h3>
-                <p style="margin:0 0 16px">Мы всегда ищем профессиональных тренеров из Испании для наших лагерей на Кипре. Тренировки проходят на английском, поэтому хороший разговорный английский обязателен. Отправьте нам информацию о себе и резюме, и мы свяжемся с вами.</p>
-                <button type="button" class="btn btn-primary" onclick="openCoachForm()">Стать тренером</button>
-            </div>
         </div>
     </section>
 
@@ -762,77 +757,6 @@
                 <button type="submit" class="btn btn-primary btn-block btn-submit">
                     Сообщите мне
                 </button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Coach Application Modal -->
-    <div class="massage-booking-modal" id="coachModal">
-        <div class="massage-booking-modal-content" role="dialog" aria-modal="true" aria-labelledby="coachModalTitle">
-            <button class="massage-modal-close" type="button" onclick="closeCoachModal()" aria-label="Закрыть">&times;</button>
-            <h2 class="massage-modal-title" id="coachModalTitle">Стать тренером</h2>
-            <p class="massage-booking-subtitle">Расскажите о себе и прикрепите резюме. Его также можно прислать на <a href="mailto:thepadelcampcy@gmail.com">thepadelcampcy@gmail.com</a>.</p>
-
-            <form id="coachForm" class="massage-booking-form">
-                <input type="text" name="hp_field_a3x" class="hp-field" aria-hidden="true" tabindex="-1" autocomplete="off">
-
-                <div class="form-group">
-                    <label class="form-label" for="coachName">Имя и фамилия *</label>
-                    <input type="text" id="coachName" name="coachName" class="form-input" required autocomplete="name" placeholder="Ваше имя">
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="coachEmail">Email *</label>
-                    <input type="email" id="coachEmail" name="coachEmail" class="form-input" required autocomplete="email" placeholder="your@email.com">
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="coachPhone">WhatsApp / телефон</label>
-                    <input type="tel" id="coachPhone" name="coachPhone" class="form-input" autocomplete="tel" placeholder="+34 600 123 456">
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="coachCity">Город / страна</label>
-                    <input type="text" id="coachCity" name="coachCity" class="form-input" placeholder="Мадрид, Испания">
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="coachEnglish">Уровень английского *</label>
-                    <select id="coachEnglish" name="coachEnglish" class="form-input" required>
-                        <option value="">Выберите уровень</option>
-                        <option value="Native / fluent">Родной / свободный</option>
-                        <option value="Advanced (C1)">Продвинутый (C1)</option>
-                        <option value="Upper-intermediate (B2)">Выше среднего (B2)</option>
-                        <option value="Intermediate (B1)">Средний (B1)</option>
-                        <option value="Basic (A1-A2)">Базовый (A1&ndash;A2)</option>
-                    </select>
-                    <p class="lead-hint">Тренировки проходят на английском, поэтому хороший разговорный английский обязателен.</p>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="coachExperience">Опыт и результаты *</label>
-                    <textarea id="coachExperience" name="coachExperience" class="form-input" rows="4" required placeholder="Тренерский опыт, сертификаты, рейтинги, языки"></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="coachCv">Резюме (PDF или изображение)</label>
-                    <input type="file" id="coachCv" name="coachCv" class="form-input" accept=".pdf,application/pdf,image/jpeg,image/png,image/webp">
-                    <p class="lead-hint" id="coachCvHint">PDF, JPG или PNG, до 5 МБ.</p>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="coachInstagram">Instagram</label>
-                    <input type="text" id="coachInstagram" name="coachInstagram" class="form-input" placeholder="@yourprofile">
-                </div>
-
-                <div class="form-group">
-                    <label class="consent-option">
-                        <input type="checkbox" name="coachConsent" required>
-                        <span>Я согласен(на) на обработку моих персональных данных в соответствии с <a href="privacy-policy.html" target="_blank">Политикой конфиденциальности</a> *</span>
-                    </label>
-                </div>
-
-                <button type="submit" class="btn btn-primary btn-block btn-submit">Отправить заявку</button>
             </form>
         </div>
     </div>
