@@ -113,10 +113,9 @@ function handleServiceBooking(data, notify) {
   const survey = splitLeadSurvey(data.notes);
 
   const message = `
-🎓 <b>NEW SERVICE BOOKING!</b>
+${isLead ? '🔔 <b>NEW LEAD: next camp</b>' : '🎓 <b>NEW SERVICE BOOKING!</b>'}
 
-📦 <b>Service:</b> ${esc(val(data.service))}
-💰 <b>Price:</b> €${esc(val(data.price))}
+📦 <b>Service:</b> ${esc(val(data.service))}${Number(data.price) > 0 ? '\n💰 <b>Price:</b> €' + esc(val(data.price)) : ''}
 ${survey.block ? '\n' + survey.block + '\n' : ''}
 👤 <b>Name:</b> ${esc(val(data.name))}
 📱 <b>Phone:</b> ${esc(val(data.phone))}
