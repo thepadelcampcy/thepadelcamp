@@ -108,19 +108,23 @@ function handleServiceBooking(data, notify) {
   ]);
   const row = sheet.getLastRow();
 
+  // Ответы анкеты «Get notified» (Format / Weeks / City) — отдельным блоком под услугой,
+  // а из Notes убираем, чтобы не дублировать.
+  const survey = splitLeadSurvey(data.notes);
+
   const message = `
 🎓 <b>NEW SERVICE BOOKING!</b>
 
 📦 <b>Service:</b> ${esc(val(data.service))}
 💰 <b>Price:</b> €${esc(val(data.price))}
-
+${survey.block ? '\n' + survey.block + '\n' : ''}
 👤 <b>Name:</b> ${esc(val(data.name))}
 📱 <b>Phone:</b> ${esc(val(data.phone))}
 ✉️ <b>Email:</b> ${esc(val(data.email))}
 
 📣 <b>Ad:</b> ${esc(adLine(data))}
 
-${data.notes ? '📝 <b>Notes:</b>\n' + esc(data.notes) : ''}
+${survey.rest ? '📝 <b>Notes:</b>\n' + esc(survey.rest) : ''}
 
 ⏰ ${formatDate(new Date())}
   `.trim();
@@ -631,4 +635,22 @@ function authorizeDriveForCoachCvs() {
   const folders = DriveApp.getFoldersByName(COACH_CV_FOLDER);
   const folder = folders.hasNext() ? folders.next() : DriveApp.createFolder(COACH_CV_FOLDER);
   Logger.log('Coach CVs folder: ' + folder.getUrl());
+}
+
+
+// Разбирает строки анкеты «Get notified» из Notes (их пишет сайт: "Format: ...",
+// "Weeks: ...", "City: ...") в отдельный блок для Telegram. Остальное остаётся в rest.
+function splitLeadSurvey(notes) {
+  const labels = { 'Format': '🏷 <b>Format:</b> ', 'Weeks': '📅 <b>Weeks:</b> ', 'City': '📍 <b>City:</b> ' };
+  const found = {};
+  const rest = [];
+  String(notes || '').split('\n').forEach(function(line) {
+    const m = line.match(/^(Format|Weeks|City): (.*)$/);
+    if (m) found[m[1]] = m[2]; else rest.push(line);
+  });
+  const block = ['Format', 'Weeks', 'City']
+    .filter(function(k) { return found[k]; })
+    .map(function(k) { return labels[k] + esc(found[k]); })
+    .join('\n');
+  return { block: block, rest: rest.join('\n').trim() };
 }
